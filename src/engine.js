@@ -1,6 +1,7 @@
 import { assessAICTE, ruleRegister } from "./regulatory.js";
 import { lookupIFSC } from "./financial.js";
 import { assessPolicy } from "./policy.js";
+import { evaluatePolicy, findingSeverity } from "./policy-runtime.js";
 export const fields = [
   "reference",
   "amountPaise",
@@ -9,9 +10,16 @@ export const fields = [
   "issued",
   "matures",
 ];
+export const evidenceFields = [
+  ...fields,
+  "institutionName",
+  "depositor",
+  "branch",
+  "currency",
+];
 export function comparable(field, value) {
   return typeof value === "string"
-    ? field === "bank"
+    ? ["bank", "institutionName", "depositor", "branch"].includes(field)
       ? value.normalize("NFKC").replace(/\s+/g, " ").trim().toLowerCase()
       : field === "ifsc"
         ? value.trim().toUpperCase()
@@ -64,6 +72,9 @@ export function evaluate({
   proofs = [],
   ifscReference,
   asOf = new Date().toISOString().slice(0, 10),
+  policies = [],
+  policyScope = "aicte",
+  verifiedSourceHashes = [],
 }) {
   const findings = [];
   const add = (code, status, message, sources) =>
@@ -117,8 +128,15 @@ export function evaluate({
       "Reference also appears in other accessible cases",
       duplicates.map((id) => ({ type: "case", id })),
     );
-  for (const k of fields) {
+  for (const k of evidenceFields) {
     const v = extraction[k]?.value;
+    if (instrument[k] === undefined)
+      add(
+        "missing_declaration_" + k,
+        "unresolved",
+        "Institution declaration lacks " + k,
+        [{ type: "declaration", field: k }],
+      );
     if (
       extraction[k]?.engineConfidence !== null &&
       extraction[k]?.engineConfidence !== undefined &&
@@ -146,6 +164,7 @@ export function evaluate({
       );
     if (
       ["mock_confirmed", "sandbox_evidence"].includes(external.status) &&
+      instrument[k] !== undefined &&
       external.freshness?.status !== "STALE" &&
       external.values?.[k] !== undefined &&
       comparable(k, external.values[k]) !== comparable(k, instrument[k])
@@ -218,6 +237,7 @@ export function evaluate({
     });
   }
   for (const finding of findings) {
+    finding.severity = findingSeverity(finding.code, finding.status);
     finding.reason = finding.message;
     finding.evaluationVersion = 1;
     finding.evaluationStatus = "human_review_required";
@@ -283,6 +303,10 @@ export function evaluate({
           : "Compare referenced evidence and record a reasoned correction or reviewer observation";
   }
   return {
+    operationalPolicy: evaluatePolicy(
+      { ...instrument, ...regulatoryContext, proofs },
+      { policies, scope: policyScope, asOf, verifiedSourceHashes },
+    ),
     referenceLookup,
     regulatory,
     policyAssessment: assessPolicy(

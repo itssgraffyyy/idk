@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
 import { createCanvas } from "@napi-rs/canvas";
+import { glyphIFSC } from "./glyph-ocr.js";
 const log = console.log;
 console.log = (...args) => process.stderr.write(args.join(" ") + "\n");
 let doc, worker, task;
@@ -74,11 +75,18 @@ try {
         });
         await worker.setParameters({ tessedit_pageseg_mode: "6" });
       }
+      const raster = canvas.toBuffer("image/png");
       const { data } = await worker.recognize(
-        canvas.toBuffer("image/png"),
+        raster,
         {},
         { text: true, blocks: true },
       );
+      let ifscAttempt = null;
+      try {
+        ifscAttempt = await glyphIFSC(raster, data.blocks);
+      } catch {
+        ifscAttempt = { status: "unavailable" };
+      }
       pages.push({
         page: n,
         method: "raster-pdf-ocr",
@@ -86,6 +94,7 @@ try {
         blocks: data.blocks,
         confidence: data.confidence,
         renderScale: 2,
+        fieldAttempts: { ifsc: ifscAttempt },
       });
     }
     page.cleanup();

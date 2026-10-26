@@ -250,6 +250,29 @@ export class SetuSandboxProvider {
         throw Error("Only INR term deposits supported");
       const values = {},
         limitations = [];
+      if (s.branch !== undefined) {
+        if (
+          typeof s.branch !== "string" ||
+          !s.branch.trim() ||
+          s.branch.length > 150
+        )
+          throw Error("Invalid branch");
+        values.branch = s.branch;
+      }
+      if (s.currency) values.currency = s.currency;
+      const holders = account.profile?.holders?.holder;
+      if (
+        Array.isArray(holders) &&
+        holders.length === 1 &&
+        typeof holders[0].name === "string" &&
+        holders[0].name.trim() &&
+        holders[0].name.length <= 150
+      )
+        values.depositor = holders[0].name.trim();
+      else
+        limitations.push(
+          "Holder identity absent or ambiguous; not inferred from account reference",
+        );
       if (s.principalAmount !== undefined && s.currency === "INR")
         values.amountPaise = paise(String(s.principalAmount));
       else limitations.push("Currency absent: principal amount not compared");
@@ -298,6 +321,9 @@ export class SetuSandboxProvider {
         sourceFields: Object.keys(s),
         rawSummary: s,
         sourceMap: {
+          branch: "summary.branch",
+          currency: "summary.currency",
+          depositor: "profile.holders.holder[0].name (single holder only)",
           amountPaise: "summary.principalAmount",
           ifsc: "summary.ifsc",
           issued: "summary.openingDate",

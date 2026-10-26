@@ -6,8 +6,62 @@ const aliases = {
   ifsc: String.raw`ifsc|ifsc\s*code`,
   issued: String.raw`issued|issue\s*date|deposit\s*date`,
   matures: String.raw`matures|maturity\s*date`,
+  institutionName: String.raw`institution(?:\s*name)?|college\s*name`,
+  depositor: String.raw`depositor(?:\s*name)?|holder(?:\s*name)?`,
+  branch: String.raw`branch(?:\s*name)?`,
+  currency: String.raw`currency`,
 };
-export function extract(text, { blocks } = {}) {
+export function extract(
+  text,
+  {
+    blocks,
+    pages,
+    fieldAttempts,
+    documentVersionId,
+    processedAt,
+    pageNumber = 1,
+    items,
+  } = {},
+) {
+  if (pages?.length) {
+    const combined = {};
+    for (const page of pages) {
+      const values = extract(page.text, {
+        blocks: page.blocks,
+        fieldAttempts: page.fieldAttempts,
+        items: page.items,
+        pageNumber: page.page,
+        documentVersionId,
+        processedAt,
+      });
+      for (const [key, field] of Object.entries(values)) {
+        if (!combined[key]) combined[key] = field;
+        else {
+          const old = combined[key];
+          const observations = old.observations || [
+            { value: old.value, page: old.page, bbox: old.bbox },
+          ];
+          observations.push({
+            value: field.value,
+            page: field.page,
+            bbox: field.bbox,
+          });
+          combined[key] = {
+            ...old,
+            observations,
+            ...(old.value !== field.value
+              ? {
+                  value: undefined,
+                  status: "REQUIRES_REVIEW",
+                  reasons: ["Conflicting field values across PDF pages"],
+                }
+              : {}),
+          };
+        }
+      }
+    }
+    return combined;
+  }
   const result = {};
   for (const [key, label] of Object.entries(aliases)) {
     const match = text.match(
@@ -17,6 +71,10 @@ export function extract(text, { blocks } = {}) {
     const raw = match[2].trim();
     let value = raw,
       normalizations = [];
+    if (key === "currency") {
+      value = raw.toUpperCase();
+      if (!["INR", "USD", "EUR", "GBP"].includes(value)) continue;
+    }
     if (key === "amountPaise") {
       if (match[1].toLowerCase() === "amountpaise") {
         if (!/^\d+$/.test(raw)) continue;
@@ -109,5 +167,54 @@ export function extract(text, { blocks } = {}) {
   });
   if (ifsc.status !== "MISSING")
     result.ifsc = { ...result.ifsc, ...ifsc, value: ifsc.value };
+  const attempt = fieldAttempts?.ifsc;
+  if (
+    attempt?.reliable &&
+    attempt.value &&
+    ifsc.candidates?.length === 1 &&
+    (!result.ifsc?.value || result.ifsc.value !== attempt.value)
+  ) {
+    const reviewed = analyzeIFSC("IFSC: " + attempt.value, {
+      bank: result.bank?.value,
+    });
+    result.ifsc = {
+      ...result.ifsc,
+      ...reviewed,
+      rawValue: result.ifsc?.rawValue,
+      value: attempt.value,
+      status: "REQUIRES_REVIEW",
+      reasons: [
+        ...(reviewed.reasons || []),
+        "Secondary visual OCR differs from primary OCR; reviewer confirmation required",
+      ],
+      method: attempt.method,
+      bbox: attempt.bbox,
+      correctionProposal: {
+        from: ifsc.rawValue,
+        to: attempt.value,
+        evidence: attempt,
+      },
+      primaryCandidates: ifsc.candidates,
+    };
+  }
+  for (const [key, field] of Object.entries(result)) {
+    field.documentVersionId = documentVersionId ?? null;
+    field.page = pageNumber;
+    field.processedAt = processedAt ?? null;
+    if (items) {
+      const item = items.find(
+        (i) =>
+          i.text?.trim() &&
+          (i.text.includes(field.line?.trim()) || field.line?.includes(i.text)),
+      );
+      if (item) {
+        const [, , , , x, y] = item.transform;
+        field.bbox = { x0: x, y0: y, x1: x + item.width, y1: y + item.height };
+        field.coordinateSystem = "pdf-points-bottom-left";
+      }
+    }
+    if (!field.coordinateSystem)
+      field.coordinateSystem = field.bbox ? "raster-pixels-top-left" : null;
+  }
   return result;
 }

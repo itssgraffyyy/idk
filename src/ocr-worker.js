@@ -3,6 +3,7 @@ import eng from "@tesseract.js-data/eng";
 import { readFileSync } from "node:fs";
 import { rotatePNG } from "./images.js";
 import { extract } from "./engine.js";
+import { glyphIFSC } from "./glyph-ocr.js";
 const worker = await createWorker("eng", 1, {
   langPath: eng.langPath,
   gzip: true,
@@ -33,11 +34,21 @@ try {
       if (score(data) >= 5) break;
     }
   }
+  let ifscAttempt = null;
+  try {
+    ifscAttempt = await glyphIFSC(bytes, data.blocks);
+  } catch {
+    ifscAttempt = {
+      status: "unavailable",
+      method: "visual-glyph-templates-v1",
+    };
+  }
   process.stdout.write(
     JSON.stringify({
       text: data.text,
       confidence: data.confidence,
       blocks: data.blocks,
+      fieldAttempts: { ifsc: ifscAttempt },
       rotation,
       engine: "tesseract.js-7-local-eng",
     }),

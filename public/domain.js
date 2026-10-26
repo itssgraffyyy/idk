@@ -225,6 +225,35 @@ window.mountDomainCase = function ({
     host.append(card);
     return;
   }
+  const operational = c.history.filter((e) => e.kind === "evaluation").at(-1)
+    ?.payload.operationalPolicy;
+  if (operational) {
+    const p = document.createElement("p");
+    p.textContent =
+      "Selected policy: " +
+      (operational.classification || "UNVERIFIED") +
+      " · " +
+      (operational.version || "none") +
+      " · " +
+      operational.outcome +
+      ". Administrative approval: not granted.";
+    card.append(p);
+  }
+  if (["officer", "supervisor"].includes(user.role)) {
+    const replay = document.createElement("form");
+    replay.innerHTML =
+      '<label>Historical evaluation date<input name="asOf" type="date" required></label><button>Replay policy evaluation</button>';
+    replay.onsubmit = (e) => {
+      e.preventDefault();
+      run(async () => {
+        await api("/cases/" + c.id + "/policy-evaluate", "POST", {
+          asOf: replay.elements.asOf.value,
+        });
+        await detail(c.id);
+      });
+    };
+    card.append(replay);
+  }
   const actions = window.institutionRole(user)
     ? ["submit", "resubmit"]
     : ["start_review", "request_information", "resume_review", "record_review"];

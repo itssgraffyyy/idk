@@ -18,6 +18,10 @@ for (const c of d.cases) {
     }),
     actual = new Set(result.findings.map((f) => f.code));
   // v1 fixture identifiers are fictional even where syntax is valid.
+  for (const field of ["institutionName", "depositor", "branch", "currency"]) {
+    expected.add("missing_" + field);
+    expected.add("missing_declaration_" + field);
+  }
   // Explicit uncertainty is now a required outcome, not a mismatch failure.
   if (c.groundTruth.extracted.ifsc !== undefined)
     expected.add("ifsc_extraction_review");

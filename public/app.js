@@ -161,7 +161,13 @@ async function detail(id) {
     report = last("evaluation"),
     x = last("extraction"),
     ext = last("external"),
-    doc = last("document");
+    doc = h
+      .filter(
+        (e) =>
+          e.kind === "document" &&
+          (!e.payload.documentKind || e.payload.documentKind === "fdr"),
+      )
+      .at(-1);
   views("detail");
   $("#detail").innerHTML =
     '<button id="back">← Case registry</button><div class="title-row"><div><p class="eyebrow">CASE / ' +
@@ -269,7 +275,7 @@ async function detail(id) {
       ? '<div class="card"><h2>Correct declaration</h2><form id="correction">' +
         fieldInputs(c.instrument) +
         '<label>Reason<textarea name="reason" required maxlength="2000"></textarea></label><button>Save new revision</button></form></div>'
-      : '<div class="card"><h2>Development evidence</h2><p class="muted">Fictional provider. This cannot authenticate a bank deposit.</p><label for="scenario">Development evidence scenario</label><select id="scenario"><option value="unavailable">External source unavailable</option><option value="mock_confirmed">Mock values match</option><option value="mock_conflict">Mock amount conflict</option></select><button id="external">Retrieve mock evidence</button></div>') +
+      : '<div class="card"><h2>Development evidence</h2><p class="muted">Fictional provider. This cannot authenticate a bank deposit.</p><label for="scenario">Development evidence scenario</label><select id="scenario"><option value="unavailable">External source unavailable</option><option value="mock_confirmed">Mock values match</option><option value="mock_conflict">Mock amount conflict</option><option value="mock_missing">Mock missing instrument</option><option value="mock_holder_conflict">Mock holder conflict</option><option value="mock_stale">Mock stale record</option><option value="mock_malformed">Mock malformed record</option><option value="mock_partial">Mock partial response</option><option value="mock_consent_denied">Mock consent denied</option></select><button id="external">Retrieve mock evidence</button></div>') +
     '<div class="card"><h2>Review conversation</h2>' +
     h
       .filter((e) =>

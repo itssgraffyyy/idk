@@ -1,0 +1,24 @@
+{
+  "version": "visual-glyph-templates-v1",
+  "method": "Rendered known alphabet glyphs, no case declarations or directory used",
+  "alphabet": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+  "families": [
+    "Consolas",
+    "Arial",
+    "Georgia",
+    "Verdana",
+    "Tahoma",
+    "Times New Roman"
+  ],
+  "grid": [
+    24,
+    32
+  ],
+  "thresholds": {
+    "minimumIntersectionOverUnion": 0.65,
+    "minimumDistinctCharacterMargin": 0.025
+  },
+  "sha256": "b30b9c8f16aac37b11661ee904ffef3ff3c9c4cdba905d0cfde91dbd65feb2d1",
+  "training": "Fixed fonts and characters; inspected only v1 development case001 before freezing; no held-out tuning",
+  "platform": "win32"
+}

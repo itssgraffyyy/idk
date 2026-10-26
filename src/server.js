@@ -7,7 +7,11 @@ import {
   requestLimiter,
 } from "./security.js";
 import { IFSCProvider } from "./ifsc.js";
-import { DevelopmentDepositProvider, lookupIFSC } from "./financial.js";
+import {
+  DevelopmentDepositProvider,
+  lookupIFSC,
+  mockScenarios,
+} from "./financial.js";
 import { registry as policyRegistry } from "./policy.js";
 import http from "node:http";
 import { readFileSync, writeFileSync, mkdirSync, unlinkSync } from "node:fs";
@@ -19,6 +23,7 @@ import { fileURLToPath } from "node:url";
 import { openStore, password, hash } from "./store.js";
 import { validate, evaluate, extract } from "./engine.js";
 import { administration, attachCase, addInstrument } from "./administration.js";
+import { validatePolicies } from "./policy-runtime.js";
 import {
   roles,
   isInstitution,
@@ -55,7 +60,11 @@ export function createApp({
   ocrRunner = exec,
   depositProvider = new DevelopmentDepositProvider(),
   ifscProvider = new IFSCProvider(),
+  policies = [],
+  policyScope = "aicte",
+  verifiedSourceHashes = [],
 } = {}) {
+  policies = validatePolicies(policies);
   mkdirSync(dir, { recursive: true });
   const releaseLock = acquireLock(dir);
   let db;
@@ -96,7 +105,7 @@ export function createApp({
       .prepare("SELECT * FROM evidence WHERE case_id=? ORDER BY rowid")
       .all(id)
       .map((e) => ({ ...e, payload: JSON.parse(e.payload) }));
-  function reevaluate(u, c) {
+  function reevaluate(u, c, asOf) {
     const h = history(c.id),
       last = (k) => h.filter((e) => e.kind === k).at(-1),
       d = (() => {
@@ -119,6 +128,10 @@ export function createApp({
           ) === i,
       );
     const r = evaluate({
+      policies,
+      policyScope,
+      verifiedSourceHashes,
+      ...(asOf ? { asOf } : {}),
       instrument: JSON.parse(c.instrument),
       obligation: JSON.parse(c.obligation),
       extraction: x?.payload.documentId === d?.id ? x?.payload.fields : {},
@@ -149,7 +162,9 @@ export function createApp({
       regulatoryContext: context?.id,
       proofReviews: h.filter((e) => e.kind === "proof_review").map((e) => e.id),
     };
-    r.version = h.filter((e) => e.kind === "evaluation").length + 1;
+    r.version =
+      h.filter((e) => ["evaluation", "evaluation_replay"].includes(e.kind))
+        .length + 1;
     for (const finding of r.findings) {
       finding.evaluationVersion = r.version;
       finding.sources = finding.sources.map((s) => ({
@@ -189,7 +204,12 @@ export function createApp({
     }
     r.supersedes = last("evaluation")?.id ?? null;
     r.caseRevision = c.revision;
-    return evidence(u, c.id, "evaluation", r);
+    if (asOf) {
+      r.replays = r.supersedes;
+      r.supersedes = null;
+      r.isHistoricalReplay = true;
+    }
+    return evidence(u, c.id, asOf ? "evaluation_replay" : "evaluation", r);
   }
   function refresh(u, c, previousRef = null) {
     let target;
@@ -416,7 +436,11 @@ export function createApp({
         return;
       }
       if (path === "/api/policies" && req.method === "GET") {
-        json(res, 200, { legacy: policyRegistry, ...ruleRegister });
+        json(res, 200, {
+          legacy: policyRegistry,
+          ...ruleRegister,
+          operationalVersions: policies,
+        });
         return;
       }
       if (path === "/api/institution" && req.method === "GET") {
@@ -611,6 +635,22 @@ export function createApp({
         officer = () => {
           if (!isReviewer(u)) fail(403, "Officer role required");
         };
+      if (action === "policy-evaluate") {
+        officer();
+        if (
+          typeof body.asOf !== "string" ||
+          !/^\d{4}-\d{2}-\d{2}$/.test(body.asOf) ||
+          !Number.isFinite(Date.parse(body.asOf)) ||
+          new Date(body.asOf).toISOString().slice(0, 10) !== body.asOf
+        )
+          fail(400, "Valid historical evaluation date required");
+        let eid;
+        tx(() => {
+          eid = reevaluate(u.id, c, body.asOf);
+        });
+        json(res, 201, { evaluationId: eid });
+        return;
+      }
       if (action === "instruments") {
         institution();
         let result;
@@ -1021,7 +1061,13 @@ export function createApp({
         c = db.prepare("SELECT * FROM cases WHERE id=?").get(id);
         const p = {
           documentId: d.id,
-          fields: extract(text, { blocks: raw?.blocks }),
+          fields: extract(text, {
+            blocks: raw?.blocks,
+            pages: raw?.pages,
+            fieldAttempts: raw?.fieldAttempts,
+            documentVersionId: d.id,
+            processedAt: new Date().toISOString(),
+          }),
           raw,
           method,
           status,
@@ -1078,6 +1124,11 @@ export function createApp({
                   "ifsc",
                   "issued",
                   "matures",
+                  "institutionName",
+                  "depositor",
+                  "branch",
+                  "currency",
+                  "type",
                 ].includes(k),
             )
           )
@@ -1089,6 +1140,10 @@ export function createApp({
         const fields = { ...previous.payload.fields };
         for (const k of Object.keys(body.values))
           fields[k] = {
+            ...fields[k],
+            status: "HUMAN_CORRECTED",
+            engineConfidence: null,
+            reasons: [],
             value: values[k],
             confidence: null,
             method: "human-correction",
@@ -1149,11 +1204,7 @@ export function createApp({
       }
       if (action === "external") {
         officer();
-        if (
-          !["unavailable", "mock_confirmed", "mock_conflict"].includes(
-            body.scenario,
-          )
-        )
+        if (!mockScenarios.includes(body.scenario))
           fail(400, "Unknown scenario");
         const inst = JSON.parse(c.instrument),
           p = await depositProvider.retrieve(inst, body.scenario);

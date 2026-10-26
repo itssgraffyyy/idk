@@ -5,9 +5,20 @@ import { createHash } from "node:crypto";
 import { extract } from "../src/extraction.js";
 import { extract as baselineExtract } from "../docs/evaluation/final-gap-baseline/extraction-v2.js";
 const exec = promisify(execFile),
-  fields = ["reference", "amountPaise", "bank", "ifsc", "issued", "matures"],
+  fields = [
+    "reference",
+    "amountPaise",
+    "bank",
+    "ifsc",
+    "issued",
+    "matures",
+    "institutionName",
+    "depositor",
+    "branch",
+    "currency",
+  ],
   datasets = [];
-for (const version of ["v1", "v2"]) {
+for (const version of ["v1", "v2", "v3"]) {
   const data = JSON.parse(readFileSync("datasets/" + version + "/cases.json")),
     rows = [];
   for (const c of data.cases) {
@@ -23,7 +34,10 @@ for (const version of ["v1", "v2"]) {
         { timeout: 60000, maxBuffer: 4194304, windowsHide: true },
       );
       const raw = JSON.parse(stdout),
-        result = extract(raw.text, { blocks: raw.blocks }),
+        result = extract(raw.text, {
+          blocks: raw.blocks,
+          fieldAttempts: raw.fieldAttempts,
+        }),
         before = baselineExtract(raw.text, { blocks: raw.blocks });
       rows.push({
         id: c.id,

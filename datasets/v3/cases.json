@@ -1,0 +1,270 @@
+{
+  "version": "synthetic-v3-ten-field-heldout",
+  "freezePolicy": "All J/K/L layouts held out; glyph template asset and thresholds frozen before recognition; no post-evaluation tuning",
+  "cases": [
+    {
+      "id": "ocr-v3-01",
+      "split": "held-out",
+      "layout": "J",
+      "font": "Consolas",
+      "scenario": "clean",
+      "sha256": "754db35c83571983ffd900121df24a2470d80972650a05105cccb15971737dc6",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V3-001",
+          "amountPaise": 350000000,
+          "bank": "HDFC Bank",
+          "ifsc": "HDFC0001234",
+          "issued": "2026-02-01",
+          "matures": "2036-02-01",
+          "institutionName": "Synthetic Institution 1",
+          "depositor": "Synthetic Education Trust 1",
+          "branch": "PARK STREET",
+          "currency": "INR"
+        }
+      }
+    },
+    {
+      "id": "ocr-v3-02",
+      "split": "held-out",
+      "layout": "K",
+      "font": "Calibri",
+      "scenario": "clean",
+      "sha256": "abb7ed50006c33faae256bd216fa143b509184ed4bf403ddfdc642d670edb7ec",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V3-002",
+          "amountPaise": 350000100,
+          "bank": "ICICI Bank",
+          "ifsc": "ICIC0001234",
+          "issued": "2026-02-01",
+          "matures": "2036-02-01",
+          "institutionName": "Synthetic Institution 2",
+          "depositor": "Synthetic Education Trust 2",
+          "branch": "JUHU TARA ROAD",
+          "currency": "INR"
+        }
+      }
+    },
+    {
+      "id": "ocr-v3-03",
+      "split": "held-out",
+      "layout": "L",
+      "font": "Georgia",
+      "scenario": "clean",
+      "sha256": "27795bacb6e137a4cee282e64a446739e6d0dc6d74a9b199c5ae6c72a7ec6e9c",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V3-003",
+          "amountPaise": 350000200,
+          "bank": "Kotak Mahindra Bank",
+          "ifsc": "KKBK0000958",
+          "issued": "2026-02-01",
+          "matures": "2036-02-01",
+          "institutionName": "Synthetic Institution 3",
+          "depositor": "Synthetic Education Trust 3",
+          "branch": "MUMBAI-NPT",
+          "currency": "INR"
+        }
+      }
+    },
+    {
+      "id": "ocr-v3-04",
+      "split": "held-out",
+      "layout": "J",
+      "font": "Consolas",
+      "scenario": "clean",
+      "sha256": "10626cee85b23a93549b03ce0e0199eb7cae7677a2df6c84e2eb2c94cc88606c",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V3-004",
+          "amountPaise": 350000300,
+          "bank": "HDFC Bank",
+          "ifsc": "HDFC0001234",
+          "issued": "2026-02-01",
+          "matures": "2036-02-01",
+          "institutionName": "Synthetic Institution 4",
+          "depositor": "Synthetic Education Trust 4",
+          "branch": "PARK STREET",
+          "currency": "INR"
+        }
+      }
+    },
+    {
+      "id": "ocr-v3-05",
+      "split": "held-out",
+      "layout": "K",
+      "font": "Calibri",
+      "scenario": "clean",
+      "sha256": "2f22cbb9f5ff121eaf070008e0965f2a57b456d160d1457f3ce42d81f3c5d979",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V3-005",
+          "amountPaise": 350000400,
+          "bank": "ICICI Bank",
+          "ifsc": "ICIC0001234",
+          "issued": "2026-02-01",
+          "matures": "2036-02-01",
+          "institutionName": "Synthetic Institution 5",
+          "depositor": "Synthetic Education Trust 5",
+          "branch": "JUHU TARA ROAD",
+          "currency": "INR"
+        }
+      }
+    },
+    {
+      "id": "ocr-v3-06",
+      "split": "held-out",
+      "layout": "L",
+      "font": "Georgia",
+      "scenario": "clean",
+      "sha256": "45b61a47abff0fa999b1ef50bb734cbe59ee8b4d03ccdf0d862edbf7e9e3edc8",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V3-006",
+          "amountPaise": 350000500,
+          "bank": "Kotak Mahindra Bank",
+          "ifsc": "KKBK0000958",
+          "issued": "2026-02-01",
+          "matures": "2036-02-01",
+          "institutionName": "Synthetic Institution 6",
+          "depositor": "Synthetic Education Trust 6",
+          "branch": "MUMBAI-NPT",
+          "currency": "INR"
+        }
+      }
+    },
+    {
+      "id": "ocr-v3-07",
+      "split": "held-out",
+      "layout": "J",
+      "font": "Consolas",
+      "scenario": "clean",
+      "sha256": "df1ed6821ae15631b0b1ea14247eeec7f09c88d82642685a7f7d3c402a1a99c3",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V3-007",
+          "amountPaise": 350000600,
+          "bank": "HDFC Bank",
+          "ifsc": "HDFC0001234",
+          "issued": "2026-02-01",
+          "matures": "2036-02-01",
+          "institutionName": "Synthetic Institution 7",
+          "depositor": "Synthetic Education Trust 7",
+          "branch": "PARK STREET",
+          "currency": "INR"
+        }
+      }
+    },
+    {
+      "id": "ocr-v3-08",
+      "split": "held-out",
+      "layout": "K",
+      "font": "Calibri",
+      "scenario": "clean",
+      "sha256": "bfdd1651eb57fdd731f1ede4a418d870a6eb6036fad37ae8ee8acdd433ce9534",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V3-008",
+          "amountPaise": 350000700,
+          "bank": "ICICI Bank",
+          "ifsc": "ICIC0001234",
+          "issued": "2026-02-01",
+          "matures": "2036-02-01",
+          "institutionName": "Synthetic Institution 8",
+          "depositor": "Synthetic Education Trust 8",
+          "branch": "JUHU TARA ROAD",
+          "currency": "INR"
+        }
+      }
+    },
+    {
+      "id": "ocr-v3-09",
+      "split": "held-out",
+      "layout": "L",
+      "font": "Georgia",
+      "scenario": "clean",
+      "sha256": "b40db03271d3df0cc9363c64192ca0071de1e08f4e87623679ca81fd5ce32ea2",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V3-009",
+          "amountPaise": 350000800,
+          "bank": "Kotak Mahindra Bank",
+          "ifsc": "KKBK0000958",
+          "issued": "2026-02-01",
+          "matures": "2036-02-01",
+          "institutionName": "Synthetic Institution 9",
+          "depositor": "Synthetic Education Trust 9",
+          "branch": "MUMBAI-NPT",
+          "currency": "INR"
+        }
+      }
+    },
+    {
+      "id": "ocr-v3-10",
+      "split": "held-out",
+      "layout": "J",
+      "font": "Consolas",
+      "scenario": "speckle",
+      "sha256": "290caa0526cdfade86f369c4deabe82fd820b56ed0847b1925f697e0bbf99b2b",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V3-010",
+          "amountPaise": 350000900,
+          "bank": "HDFC Bank",
+          "ifsc": "HDFC0001234",
+          "issued": "2026-02-01",
+          "matures": "2036-02-01",
+          "institutionName": "Synthetic Institution 10",
+          "depositor": "Synthetic Education Trust 10",
+          "branch": "PARK STREET",
+          "currency": "INR"
+        }
+      }
+    },
+    {
+      "id": "ocr-v3-11",
+      "split": "held-out",
+      "layout": "K",
+      "font": "Calibri",
+      "scenario": "low-contrast",
+      "sha256": "04a304465b694eef7b7c31cda38cf04de85b630ed21ac59c785e16cf4b0f996c",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V3-011",
+          "amountPaise": 350001000,
+          "bank": "ICICI Bank",
+          "ifsc": "ICIC0001234",
+          "issued": "2026-02-01",
+          "matures": "2036-02-01",
+          "institutionName": "Synthetic Institution 11",
+          "depositor": "Synthetic Education Trust 11",
+          "branch": "JUHU TARA ROAD",
+          "currency": "INR"
+        }
+      }
+    },
+    {
+      "id": "ocr-v3-12",
+      "split": "held-out",
+      "layout": "L",
+      "font": "Georgia",
+      "scenario": "rotated",
+      "sha256": "3234654762403c1aebdd7f677144878c958578af046676292447cf081113e3ad",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V3-012",
+          "amountPaise": 350001100,
+          "bank": "Kotak Mahindra Bank",
+          "ifsc": "KKBK0000958",
+          "issued": "2026-02-01",
+          "matures": "2036-02-01",
+          "institutionName": "Synthetic Institution 12",
+          "depositor": "Synthetic Education Trust 12",
+          "branch": "MUMBAI-NPT",
+          "currency": "INR"
+        }
+      }
+    }
+  ]
+}

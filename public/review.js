@@ -5,7 +5,13 @@ window.mountReviewWorkspace = function ({ c, user, api, run, detail, escape }) {
     ctx = last("regulatory_context"),
     report = last("evaluation"),
     host = document.querySelector("#detail .columns > div:last-child");
-  const latestDocument = last("document"),
+  const latestDocument = h
+      .filter(
+        (e) =>
+          e.kind === "document" &&
+          (!e.payload.documentKind || e.payload.documentKind === "fdr"),
+      )
+      .at(-1),
     latestExtraction = last("extraction");
   const ifsc =
     latestExtraction?.payload.documentId === latestDocument?.id
