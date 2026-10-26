@@ -1,0 +1,19 @@
+# Product coverage and integration
+
+27 October 2026. Phase 3–4 work is in progress; statuses are implementation-specific, not a declaration of complete product acceptance.
+
+| Feature | User/problem/workflow | Reused data and permissions | Failure behavior and evidence | Status |
+|---|---|---|---|---|
+| Evidence-to-resolution | Institution/reviewer understands what changed and what remains outstanding, inside the case | Current and immutable prior evaluations, source fields/IDs; existing tenant/assignment/authority checks | Full recomputation fallback; previous results retained; `tests/operations.test.js` | Core implemented; advanced viewer/journey acceptance pending |
+| Guided saved submission | Institution avoids repeated entry and lost draft/source progress | Institution/profile/obligation records, private versioned draft files, extracted proposals and explicit owner confirmations | Invalid/readiness failures keep draft data; source changes require reconfirmation; `tests/submissions.test.js`, browser submission journey | Implemented; full frozen-source validation pending |
+| Structured clarifications | Reviewer asks a precise editable question; institution corrects only disputed fields | Active findings, source documents, immutable communication history; institution/responding reviewer permissions | Stale revisions, invalid attachments and unrelated correction fields rejected; operation tests | Core implemented |
+| Notifications and work queues | Institution/reviewer sees its pending action without invented urgency | Database stages/findings, explicit deadlines and declared maturities, current access predicates | No cross-tenant/cursor leakage; deduplicated messages; no external email integration | Core implemented; configurable lifecycle reminders pending |
+| Financial continuity | Institution/reviewer tracks renewal/replacement evidence without assuming release | Independent obligations/instruments/relationships and evidence | Unknown/unsupported pooling must stay inconclusive | Planned 3B |
+| Clearance dependencies | Authorized departments coordinate prerequisite reviews and explain blockers | Versioned procedure/configuration, grants and evidence | Pending/rejected/withdrawn/stale approvals block sensitive actions | Planned 3C |
+| Regulatory decision intelligence | Reviewer can explain rules/evidence/uncertainty within findings | Existing pinned register, operational policies and frozen replay | Unverified official sources remain unverified; no synthetic authority | Existing foundation; 3D extension pending |
+| Evidence graph | Reviewer explores authorized relationships/conflicts in the case | Relational identities, versions and findings | Relationship signal is not a fraud determination | Planned 4B |
+| What-if simulator | Institution/reviewer tests proposed changes without mutating real records | Frozen case facts, continuity/policy/procedure inputs | Explicit hypothetical/provisional outcomes; no real submissions/approvals | Planned 4B |
+| Audit/infrastructure hardening | Auditor/operator verifies integrity and recovers service | Existing append-only audit, storage, jobs and migrations | Chain/checkpoint trust assumptions and external execution limits disclosed | Planned 4C extension |
+| Accessible workspace/analytics | Each role sees useful actions and measured workload, not decorative charts | Actual authorized database aggregates and minimal task telemetry | Clear empty/error states; no invented statistics or productivity claims | Existing UI retained; 4D refinement pending |
+
+No duplicate portal or separate graph service is introduced. Each new capability belongs to submission, case review, lifecycle or administrative decision workflows. Every completed milestone must add authorization, persistence, failure and browser evidence before its status is promoted.

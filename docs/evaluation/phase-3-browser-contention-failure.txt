@@ -1,0 +1,46 @@
+
+Running 8 tests using 1 worker
+
+(node:15820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\browser\administration.spec.js:2:1 › institution administrator edits profile, programme/history, independent obligation and account through backend UI (4.6s)
+  ok 2 tests\browser\journeys.spec.js:2:1 › ambiguous IFSC is visible and requires a reasoned manual correction (4.1s)
+  ok 3 tests\browser\journeys.spec.js:83:1 › institution submits evidence; officer compares, requests clarification; institution responds (31.3s)
+  ok 4 tests\browser\journeys.spec.js:276:1 › responsive login and rejected credentials (3.4s)
+  x  5 tests\browser\pdf.spec.js:3:1 › private PDF is rendered as protected page image in institution workspace (13.6s)
+(node:17956) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:17956) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 6 tests\browser\provider.spec.js:2:1 › local financial provider scenarios are genuine API results and clearly MOCK in officer workspace (32.8s)
+  ok 7 tests\browser\roles.spec.js:2:1 › supervisor performs guarded review transition and auditor can only inspect the same authority case (6.0s)
+  ok 8 tests\browser\submission.spec.js:2:1 › guided upload-first draft survives reload, prefills only chosen proposals and receives persisted acknowledgement (10.6s)
+
+
+  1) tests\browser\pdf.spec.js:3:1 › private PDF is rendered as protected page image in institution workspace 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 400
+
+      41 |       })
+      42 |     ).status(),
+    > 43 |   ).toBe(201);
+         |     ^
+      44 |   await page.goto("/");
+      45 |   await page.getByRole("button", { name: "Open →" }).last().click();
+      46 |   const response = page.waitForResponse((r) =>
+        at G:\idk_lol\tests\browser\pdf.spec.js:43:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\pdf-private-PDF-is-rendere-5332a-ge-in-institution-workspace\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\pdf-private-PDF-is-rendere-5332a-ge-in-institution-workspace\error-context.md
+
+  1 failed
+    tests\browser\pdf.spec.js:3:1 › private PDF is rendered as protected page image in institution workspace 
+  7 passed (3.0m)

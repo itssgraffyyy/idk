@@ -18,6 +18,14 @@ import { LocalPrivateStorage } from "./storage.js";
 import { OCRPool } from "./ocr-pool.js";
 import { validateEnvelope } from "./contracts.js";
 import { replayPolicySnapshot } from "./policy-replay.js";
+import { recordResolution } from "./resolution.js";
+import { notifyCase } from "./operations.js";
+import {
+  operationsGlobal,
+  operationsCase,
+  recordConversation,
+} from "./operations-api.js";
+import { submissions } from "./submissions.js";
 import { readFileSync, writeFileSync, mkdirSync, unlinkSync } from "node:fs";
 import { resolve, join } from "node:path";
 import { randomBytes, randomUUID } from "node:crypto";
@@ -97,7 +105,9 @@ export function createApp({
     storage = storage || new LocalPrivateStorage(dir);
     storage.recover?.(
       db
-        .prepare("SELECT storage_key FROM document_versions")
+        .prepare(
+          "SELECT storage_key FROM document_versions UNION SELECT storage_key FROM draft_documents",
+        )
         .all()
         .map((r) => r.storage_key),
     );
@@ -144,6 +154,9 @@ export function createApp({
   }
   db.prepare(
     "UPDATE jobs SET status='interrupted',error='Service restarted during processing' WHERE status='processing'",
+  ).run();
+  db.prepare(
+    "UPDATE draft_documents SET status='interrupted' WHERE status='processing'",
   ).run();
   const history = (id) => currentEvidence(db, id);
   function reevaluate(u, c, asOf) {
@@ -230,12 +243,32 @@ export function createApp({
     }
     r.supersedes = last("evaluation")?.id ?? null;
     r.caseRevision = c.revision;
+    r.inputRevision = db
+      .prepare("SELECT input_revision FROM case_operations WHERE case_id=?")
+      .get(c.id).input_revision;
     if (asOf) {
       r.replays = r.supersedes;
       r.supersedes = null;
       r.isHistoricalReplay = true;
     }
-    return evidence(u, c.id, asOf ? "evaluation_replay" : "evaluation", r);
+    const eid = evidence(u, c.id, asOf ? "evaluation_replay" : "evaluation", r);
+    if (!asOf) {
+      const delta = recordResolution(db, c.id, eid, last("evaluation"), r);
+      if (
+        last("evaluation") &&
+        (delta.changes.resolved.length ||
+          delta.changes.introduced.length ||
+          delta.changedFacts.length)
+      )
+        notifyCase(
+          db,
+          c,
+          "evaluation:" + eid,
+          "evidence_change",
+          delta.recommendedAction,
+        );
+    }
+    return eid;
   }
   function refresh(u, c, previousRef = null) {
     let target;
@@ -308,9 +341,15 @@ export function createApp({
           path = url.pathname;
         if (
           req.method === "GET" &&
-          ["/", "/app.js", "/review.js", "/domain.js", "/style.css"].includes(
-            path,
-          )
+          [
+            "/",
+            "/app.js",
+            "/review.js",
+            "/domain.js",
+            "/operations.js",
+            "/submission.js",
+            "/style.css",
+          ].includes(path)
         ) {
           const f = path === "/" ? "index.html" : path.slice(1);
           res.setHeader(
@@ -480,6 +519,84 @@ export function createApp({
               if (!live || live.status !== "active" || live.role !== u.role)
                 fail(403, "Authorization changed");
             },
+          })
+        )
+          return;
+        if (
+          await submissions({
+            db,
+            u,
+            path,
+            method: req.method,
+            body,
+            storage,
+            tx,
+            evidence,
+            audit,
+            refresh,
+            json,
+            res,
+            revalidate: () => {
+              const live = db
+                .prepare(
+                  "SELECT u.role,u.status FROM users u JOIN sessions s ON s.user_id=u.id WHERE u.id=? AND s.token=? AND s.expires>?",
+                )
+                .get(u.id, hash(token), Date.now());
+              if (!live || live.status !== "active" || live.role !== u.role)
+                fail(403, "Authorization changed");
+            },
+            recognize: async (doc) => {
+              if (doc.mime === "text/plain")
+                return {
+                  text: storage.read(doc.id).toString("utf8"),
+                  blocks: [],
+                  engine: "text-import",
+                };
+              if (doc.mime === "application/pdf")
+                return JSON.parse(
+                  (
+                    await exec(
+                      process.execPath,
+                      [
+                        "--max-old-space-size=384",
+                        join(root, "src", "pdf-worker.js"),
+                        storage.path(doc.id),
+                        "process",
+                      ],
+                      { timeout: 60000, maxBuffer: 4194304, windowsHide: true },
+                    )
+                  ).stdout,
+                );
+              if (ocr) {
+                const r = await ocrRunner(
+                  ocr,
+                  [storage.path(doc.id), "stdout", "--psm", "6"],
+                  { timeout: 60000, maxBuffer: 4194304, windowsHide: true },
+                );
+                return {
+                  text: r.stdout,
+                  blocks: [],
+                  engine: "native-tesseract",
+                };
+              }
+              return ocrPool.run(storage.path(doc.id));
+            },
+          })
+        )
+          return;
+        if (
+          operationsGlobal({
+            db,
+            u,
+            path,
+            url,
+            body,
+            method: req.method,
+            tx,
+            audit,
+            json,
+            res,
+            cursorKey,
           })
         )
           return;
@@ -661,6 +778,23 @@ export function createApp({
           audit(u.id, "access_denied", id);
           fail(404, "Case not found");
         }
+        if (
+          operationsCase({
+            db,
+            u,
+            c,
+            action,
+            method: req.method,
+            body,
+            tx,
+            audit,
+            evidence,
+            refresh,
+            json,
+            res,
+          })
+        )
+          return;
         if (action === "domain-records" && req.method === "GET") {
           const kind = url.searchParams.get("kind");
           if (!["instruments", "documents"].includes(kind))
@@ -1154,7 +1288,12 @@ export function createApp({
                   ],
                   { timeout: 10000, maxBuffer: 1000, windowsHide: true },
                 );
-              } catch {
+              } catch (error) {
+                if (error.killed || error.code === "ETIMEDOUT")
+                  fail(
+                    503,
+                    "Document validation timed out; retry when processing capacity is available",
+                  );
                 fail(400, "Invalid or oversized document content");
               } finally {
                 activeValidators--;
@@ -1375,7 +1514,8 @@ export function createApp({
         }
 
         if (action === "extraction-corrections") {
-          institution();
+          if (!isInstitution(u) && !isReviewer(u))
+            fail(403, "Evidence reviewer permission required");
           const previous = history(id)
               .filter((e) => e.kind === "extraction")
               .at(-1),
@@ -1538,10 +1678,15 @@ export function createApp({
           )
             fail(400, "Valid requestId required");
           tx(() => {
-            evidence(u.id, id, action, {
+            const conversation = evidence(u.id, id, action, {
               text: body.text,
               requestId: body.requestId ?? null,
+              findingCode: body.findingCode ?? null,
+              fields: body.fields ?? [],
+              documents: body.documents ?? [],
+              deadline: body.deadline ?? null,
             });
+            recordConversation(db, u, c, action, body, conversation);
             refresh(u.id, c);
           });
           json(res, 201, { ok: true });

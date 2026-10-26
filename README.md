@@ -1,6 +1,8 @@
 > Updated quality audit: [final gap audit](docs/phase-1-2-final-gap-audit.md). The initial implementation report is historical. Real IFSC references and source-pinned AICTE reference calculations are now available; Setu is contract-tested only.
 
 # FDR Sentinel
+
+Phase 3–4 implementation is in progress. The first validated checkpoint adds guided saved submissions, structured resolution/clarification workflows, notifications and queues. See [implementation progress](docs/implementation-progress.md) for the resumable checkpoint, actual tests and remaining milestones; [Phase 3 report](docs/phase-3-implementation-report.md) distinguishes completed work from planned capabilities.
 A local evidence and review application for fictional security deposits. This is a functional development baseline, not a completed production compliance system. AICTE policy decisions remain unconfirmed; banking evidence is explicitly simulated or sandbox-classified. IFSC uses a real versioned public dataset and public-service fallback.
 
 ## Run (Windows PowerShell)

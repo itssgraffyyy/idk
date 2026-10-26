@@ -454,7 +454,12 @@ async function detail(id) {
       });
     };
   }
-  if (window.institutionRole(user) && x && x.payload.documentId === doc?.id) {
+  if (
+    (window.institutionRole(user) ||
+      ["officer", "supervisor"].includes(user.role)) &&
+    x &&
+    x.payload.documentId === doc?.id
+  ) {
     const panel = document.createElement("div");
     panel.className = "card";
     panel.innerHTML =
@@ -502,6 +507,7 @@ async function detail(id) {
     });
   };
   window.mountReviewWorkspace({ c, user, api, run, detail, escape });
+  await window.mountOperationsCase({ c, user, api, run, detail, escape });
   window.mountDomainCase({
     c,
     user,
@@ -518,6 +524,8 @@ async function enter() {
   $("#logout").hidden = false;
   await registry();
   window.mountDomainNavigation({ user, api, run, views, registry, escape });
+  window.mountOperationsNavigation({ user, api, run, views, detail, escape });
+  window.mountSubmissionNavigation({ user, api, run, views, detail, escape });
 }
 $("#login-form").onsubmit = (e) => {
   e.preventDefault();

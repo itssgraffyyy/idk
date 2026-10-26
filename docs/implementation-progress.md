@@ -1,0 +1,31 @@
+# Implementation progress
+
+27 October 2026. Phase 3–4 request: attachment `69ff1b83-3280-4059-8381-4a3677001bd4`. Starting commit `70869f3`. Existing Node/browser/SQLite stack, migrations, document bytes and evaluation identities are preserved. No remote push authorized.
+
+## Dependency-aware execution plan
+
+| Milestone | Existing components reused | Extension/new implementation | Required acceptance |
+|---|---|---|---|
+| Baseline | Phase 1–2 evidence/providers/policy/domain/security, 84 tests and seven journeys | Reproduce current acceptance before domain changes | verify/build/types and browser suite |
+| 3A Resolution/submission | immutable evaluations, corrections, private OCR, role boundaries | additive workflow dimensions; evaluation deltas/dependencies; draft/readiness/acknowledgement; targeted clarifications, notifications and queues; integrated UI | state/role/race/tenant tests, frozen-history preservation, draft/clarification/readiness browsers |
+| 3B Continuity | independent instruments/obligations and replacement links | evidence-aware interval coverage, lifecycle proposals/events, deduplicated reminders | integer money, no double count/unsupported pooling, gaps/uncertainty/dates/replacement/concurrency and browser tests |
+| 3C Clearances/decisions | supervisor/officer assignment and policy trust | configured departmental grants, dependency DAG, versioned requests/responses; evidence-bound maker/checker proposals | parallel/rejected/withdrawn/reassigned/stale clearances, self-checker denial, historical reconstruction, department/browser isolation |
+| 3D Regulatory support | source-pinned unverified register, operational policy/replay | evidence-linked plain explanations and administrative gating | authoritative/synthetic/provisional/unsupported distinctions and frozen context tests |
+| 4A OCR/financial | genuine Tesseract/visual OCR, source manifests, Setu contracts | categorized errors, evaluated preprocessing/region recognition; freeze new development/validation/holdout partitions before evaluation | original V1/V2/V3 plus new untouched layouts, per-field/coverage/incorrect accepted/review/runtime/resource metrics |
+| 4B Relationships/simulation | normalized relational identities, evidence sources | authorized graph/relationship queries; deterministic read-only what-if engine | cross-tenant privacy, duplicate/conflict/cycle/large-set and no-mutation/reproducibility tests; browser actions |
+| 4C Security/infrastructure | append-only audits, sessions, private storage/workers, Compose | canonical audit chain/verifier/checkpoints, identity hardening, scanning boundary, recovery/backup validation and CI/performance improvements | tamper/deletion/reorder, authorization/idempotency/worker/storage/deployment negative tests; distinguish local from external evidence |
+| 4D Product/analytics | existing connected portals and filters | coherent role queues, focused workspace/viewer, accessible controls/help, database-derived metrics and minimal task telemetry | keyboard/focus/responsive/error journeys; metric authorization/definitions and measured task methodology |
+| 4E Acceptance | all earlier fixtures/contracts | A–M integrated scenarios, representative load, clean install/restart, updated traceability/reports | all automated/browser/build/type/security/migration/concurrency checks and reproducible benchmarks; local commits |
+
+Schema changes will be additive, checksum-versioned migrations after 11. Existing endpoints and initial domain states remain compatible; new operational workflow dimensions do not reinterpret historical records. Evidence/input revisions must invalidate later approvals. Official policies and banking confirmation remain external and unverified. SQLite remains a single-owner local deployment until measured distributed requirements justify migration.
+
+## Current checkpoint
+
+- Baseline reproduced: 84 automated tests, build/types and seven browser journeys passed; `evaluation/phase-3-4-baseline.json`.
+- 3A checkpoint 1 implemented and validated: migrations 12/13; operational dimensions and guarded transitions; immutable resolution/dependency deltas; structured clarification/targeted correction APIs/UI; deduplicated notifications/transparent queues; owner-scoped upload-first drafts with actual extraction, append-only attempts, version-bound explicit confirmations and idempotent submission.
+- Principal files: `src/operations*.js`, `src/resolution.js`, `src/submission*.js`, `src/document-intake.js`, `src/registration.js`, server/contracts integration, `public/operations.js`, `public/submission.js`, operation/submission API and browser tests. No original document bytes or historical evaluations rewritten.
+- Validation: 91 automated tests passed, zero failures (83.66s); build validated 45 files; strict client contracts passed; eight browser journeys passed (42.5s). Raw outputs: `evaluation/phase-3-4-tests.txt`, `evaluation/phase-3-4-browser.txt`. Initial failed resource-contention/source-confirmation runs are retained separately and explained in the implementation report. Test-file concurrency is bounded to two; assertions and resource limits remain intact.
+- Commit: checkpoint commit follows this progress update; inspect Git history for its hash. Full Phase 3A is not yet marked complete.
+- Exact next action: 3A checkpoint 2 — protected evidence viewer with page/zoom/version selection and real coordinate highlights, original/corrected field comparison, targeted clarification/review browser coverage. Then complete remaining 3A acceptance before 3B continuity.
+- Outstanding: 3B–3D and Phase 4A–4E as listed in the execution plan, including final A–M acceptance and new untouched OCR evaluation. Do not restart baseline implementation on resume.
+- External limitations: Setu credentials and issuer/AICTE confirmation unavailable; Docker/remote CI execution not established. These do not block deterministic local implementation.

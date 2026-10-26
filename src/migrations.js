@@ -1,7 +1,11 @@
 import { createHash } from "node:crypto";
 import { join } from "node:path";
 import { foundationMigration } from "./foundation-migration.js";
+import { operationsMigration } from "./operations-migration.js";
+import {submissionMigration} from './submission-migration.js';
 export const upgrades = [
+  operationsMigration,
+  submissionMigration,
   {
     version: 11,
     sql: `DROP TRIGGER cases_domain_update;

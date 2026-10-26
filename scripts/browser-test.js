@@ -66,7 +66,10 @@ try {
     child.once("exit", ok);
   });
   process.exitCode = code ?? 1;
-  writeFileSync("docs/evaluation/current-browser.txt", output);
+  writeFileSync(
+    process.env.BROWSER_REPORT_PATH || "docs/evaluation/current-browser.txt",
+    output,
+  );
 } finally {
   await app.close();
   rmSync(dir, { recursive: true, force: true });

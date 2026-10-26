@@ -47,3 +47,44 @@ export interface PrivateStorage {
   recover?(keys: string[]): number;
 }
 export function validateEnvelope(body: unknown): Record<string, unknown>;
+export type OperationalStage =
+  | "draft"
+  | "submitted"
+  | "intake_validation"
+  | "ready_for_review"
+  | "under_review"
+  | "awaiting_response"
+  | "response_received"
+  | "reevaluation_required"
+  | "pending_clearance"
+  | "ready_for_decision"
+  | "decision_recorded"
+  | "closed";
+export interface OperationalAction {
+  action:
+    | "submit"
+    | "intake"
+    | "ready"
+    | "review"
+    | "clarify"
+    | "response"
+    | "reevaluate"
+    | "clearance";
+  revision: number;
+  inputRevision: number;
+  reason: string;
+}
+export interface SubmissionDraft {
+  id: string;
+  revision: number;
+  case_id: string | null;
+  payload: {
+    name?: string;
+    instrument?: Partial<Instrument>;
+    obligation?: { amountPaise: number };
+    obligationId?: string;
+    confirmedFields?: string[];
+    confirmedDocumentId?: string | null;
+    step?: number;
+  };
+}
