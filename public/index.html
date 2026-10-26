@@ -6,6 +6,7 @@
     <title>FDR Sentinel | Evidence workspace</title>
     <link rel="stylesheet" href="/style.css" />
     <script src="/review.js" defer></script>
+    <script src="/domain.js" defer></script>
     <script src="/app.js" defer></script>
   </head>
   <body>
@@ -81,6 +82,7 @@
         <div id="registry" class="card"></div>
       </section>
       <section id="detail" hidden></section>
+      <section id="management" hidden></section>
       <dialog id="register">
         <form id="register-form">
           <div class="title-row">
@@ -101,6 +103,16 @@
               required
           /></label>
           <div id="instrument-fields"></div>
+          <label
+            >Existing obligation<select
+              name="obligationId"
+              id="existing-obligation"
+            >
+              <option value="">
+                Register a new obligation with this submission
+              </option>
+            </select></label
+          >
           <button class="primary">Create case</button>
         </form>
       </dialog>

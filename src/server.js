@@ -18,6 +18,7 @@ import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 import { openStore, password, hash } from "./store.js";
 import { validate, evaluate, extract } from "./engine.js";
+import { administration, attachCase, addInstrument } from "./administration.js";
 import {
   roles,
   isInstitution,
@@ -234,7 +235,9 @@ export function createApp({
         path = url.pathname;
       if (
         req.method === "GET" &&
-        ["/", "/app.js", "/review.js", "/style.css"].includes(path)
+        ["/", "/app.js", "/review.js", "/domain.js", "/style.css"].includes(
+          path,
+        )
       ) {
         const f = path === "/" ? "index.html" : path.slice(1);
         res.setHeader(
@@ -378,6 +381,31 @@ export function createApp({
         });
         return;
       }
+      if (
+        await administration({
+          db,
+          u,
+          path,
+          body,
+          method: req.method,
+          tx,
+          audit,
+          evidence,
+          refresh,
+          json,
+          res,
+          revalidate: () => {
+            const live = db
+              .prepare(
+                "SELECT u.role,u.status FROM users u JOIN sessions s ON s.user_id=u.id WHERE u.id=? AND s.token=? AND s.expires>?",
+              )
+              .get(u.id, hash(token), Date.now());
+            if (!live || live.status !== "active" || live.role !== u.role)
+              fail(403, "Authorization changed");
+          },
+        })
+      )
+        return;
       if (path === "/api/logout" && req.method === "POST") {
         db.prepare("DELETE FROM sessions WHERE token=?").run(hash(token));
         res.setHeader(
@@ -393,13 +421,22 @@ export function createApp({
       }
       if (path === "/api/institution" && req.method === "GET") {
         if (!isInstitution(u)) fail(403, "Institution role required");
-        json(
-          res,
-          200,
-          db
+        json(res, 200, {
+          ...(db
             .prepare("SELECT * FROM institutions WHERE tenant=?")
-            .get(u.tenant) ?? { tenant: u.tenant, name: null },
-        );
+            .get(u.tenant) ?? { tenant: u.tenant, name: null }),
+          ...JSON.parse(
+            db
+              .prepare("SELECT data FROM institution_profiles WHERE tenant=?")
+              .get(u.tenant)?.data || "{}",
+          ),
+          revision:
+            db
+              .prepare(
+                "SELECT revision FROM institution_profiles WHERE tenant=?",
+              )
+              .get(u.tenant)?.revision || 0,
+        });
         return;
       }
       if (path === "/api/ifsc" && req.method === "GET") {
@@ -481,7 +518,20 @@ export function createApp({
             JSON.stringify({ amountPaise: body.obligation.amountPaise }),
             JSON.stringify(inst),
           );
-          evidence(u.id, id, "declaration", inst);
+          attachCase(
+            db,
+            db.prepare("SELECT * FROM cases WHERE id=?").get(id),
+            body,
+          );
+          evidence(
+            u.id,
+            id,
+            "declaration",
+            JSON.parse(
+              db.prepare("SELECT instrument FROM cases WHERE id=?").get(id)
+                .instrument,
+            ),
+          );
           audit(u.id, "case_created", id);
           if (requestKey)
             db.prepare("INSERT INTO idempotency VALUES(?,?,?,?)").run(
@@ -561,6 +611,45 @@ export function createApp({
         officer = () => {
           if (!isReviewer(u)) fail(403, "Officer role required");
         };
+      if (action === "instruments") {
+        institution();
+        let result;
+        tx(() => {
+          result = addInstrument(db, u, c, body);
+          evidence(u.id, id, "instrument_registered", result);
+          refresh(u.id, c);
+        });
+        json(res, 201, result);
+        return;
+      }
+      if (action === "instrument-primary") {
+        institution();
+        if (body.revision !== c.revision) fail(409, "Stale case revision");
+        const record = db
+          .prepare(
+            "SELECT i.* FROM instruments i JOIN case_instruments x ON x.instrument_id=i.id WHERE x.case_id=? AND i.id=?",
+          )
+          .get(id, body.instrumentId);
+        if (!record) fail(404, "Linked instrument not found");
+        if (!body.reason?.trim()) fail(400, "Reason required");
+        tx(() => {
+          db.prepare(
+            "UPDATE case_domains SET instrument_id=?,revision=revision+1 WHERE case_id=?",
+          ).run(record.id, id);
+          db.prepare(
+            "UPDATE cases SET instrument=?,revision=revision+1 WHERE id=?",
+          ).run(record.data, id);
+          evidence(u.id, id, "instrument_primary", {
+            before: JSON.parse(c.instrument),
+            after: JSON.parse(record.data),
+            instrumentId: record.id,
+            reason: body.reason,
+          });
+          refresh(u.id, db.prepare("SELECT * FROM cases WHERE id=?").get(id));
+        });
+        json(res, 200, { ok: true });
+        return;
+      }
 
       if (["lifecycle", "assignment", "instrument-links"].includes(action)) {
         let result;
@@ -1026,7 +1115,7 @@ export function createApp({
         institution();
         let inst;
         try {
-          inst = validate(body.instrument);
+          inst = validate({ ...JSON.parse(c.instrument), ...body.instrument });
         } catch (e) {
           fail(400, e.message);
         }

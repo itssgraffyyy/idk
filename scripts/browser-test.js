@@ -7,6 +7,27 @@ const dir = mkdtempSync(join(tmpdir(), "sentinel-browser-")),
   app = createApp({ dir });
 seed(app.db, [
   {
+    id: "admin",
+    email: "admin@test.local",
+    password: "test-admin-password",
+    role: "institution_admin",
+    tenant: "fictional",
+  },
+  {
+    id: "supervisor",
+    email: "supervisor@test.local",
+    password: "test-supervisor-password",
+    role: "supervisor",
+    tenant: "authority",
+  },
+  {
+    id: "auditor",
+    email: "auditor@test.local",
+    password: "test-auditor-password",
+    role: "audit_reviewer",
+    tenant: "authority",
+  },
+  {
     id: "a",
     email: "institution@test.local",
     password: "test-institution-password",

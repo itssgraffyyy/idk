@@ -120,7 +120,7 @@ window.mountReviewWorkspace = function ({ c, user, api, run, detail, escape }) {
       "pwd_only",
     ],
   };
-  if (user.role === "institution") {
+  if (window.institutionRole(user)) {
     card.innerHTML +=
       '<form id="policy-context">' +
       Object.entries(choices)
@@ -269,7 +269,7 @@ window.mountReviewWorkspace = function ({ c, user, api, run, detail, escape }) {
     '<h2>Setu AA sandbox</h2><p class="source">Requires a configured Setu product and customer consent. Sandbox data never independently confirms a bank deposit.</p>';
   const consent = last("sandbox_consent"),
     session = last("sandbox_session");
-  if (user.role === "institution") {
+  if (window.institutionRole(user)) {
     sandbox.innerHTML +=
       '<form id="aa-consent"><label>Sandbox customer VUA<input name="vua" required placeholder="Mobile number or AA handle"></label><label>Data from<input name="from" type="date" required></label><label>Data to<input name="to" type="date" required></label><button>Create sandbox consent</button></form>' +
       (consent

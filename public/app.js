@@ -81,22 +81,47 @@ function fieldInputs(inst = {}) {
           " required></label>",
       )
       .join("") +
+    ["type", "currency", "branch", "institutionName", "depositor"]
+      .map(
+        (k) =>
+          "<label>" +
+          escape(
+            {
+              type: "Instrument type",
+              currency: "Currency",
+              branch: "Branch",
+              institutionName: "Institution name on instrument",
+              depositor: "Depositor",
+            }[k],
+          ) +
+          '<input name="' +
+          k +
+          '" maxlength="150" value="' +
+          escape(inst[k] || "") +
+          '"></label>',
+      )
+      .join("") +
     "</div>"
   );
 }
 function instrument(form) {
   const v = Object.fromEntries(new FormData(form));
   return Object.fromEntries(
-    fields.map((k) => [k, k === "amountPaise" ? Number(v[k]) : v[k]]),
+    [
+      ...fields,
+      ...["type", "currency", "branch", "institutionName", "depositor"].filter(
+        (k) => v[k],
+      ),
+    ].map((k) => [k, k === "amountPaise" ? Number(v[k]) : v[k]]),
   );
 }
 function views(name) {
-  for (const id of ["login", "workspace", "detail"])
+  for (const id of ["login", "workspace", "detail", "management"])
     $("#" + id).hidden = id !== name;
 }
 async function registry() {
   views("workspace");
-  $("#new-case").hidden = user.role !== "institution";
+  $("#new-case").hidden = !window.institutionRole(user);
   const cases = await api("/cases");
   $("#count").textContent = cases.length;
   $("#total").textContent = money(
@@ -236,11 +261,11 @@ async function detail(id) {
           "</p>",
       )
       .join("") +
-    (user.role === "institution"
+    (window.institutionRole(user)
       ? '<form id="upload"><label>Add a version · PDF, PNG, JPEG, TXT<input type="file" name="file" accept=".pdf,.png,.jpg,.jpeg,.txt" required></label><button>Upload privately</button></form><div class="toolbar"><button id="process">Process latest document</button></div><p class="source">PDFs use embedded text or raster OCR within a five-page budget. Images require Tesseract. Processing failures are recorded.</p>'
       : "") +
     "</div>" +
-    (user.role === "institution"
+    (window.institutionRole(user)
       ? '<div class="card"><h2>Correct declaration</h2><form id="correction">' +
         fieldInputs(c.instrument) +
         '<label>Reason<textarea name="reason" required maxlength="2000"></textarea></label><button>Save new revision</button></form></div>'
@@ -260,7 +285,7 @@ async function detail(id) {
       )
       .join("") +
     '<form id="review">' +
-    (user.role === "institution"
+    (window.institutionRole(user)
       ? '<label>Reply to clarification<select name="requestId">' +
         h
           .filter((e) => e.kind === "clarifications")
@@ -363,7 +388,7 @@ async function detail(id) {
       });
     };
   }
-  if (user.role === "institution" && x && x.payload.documentId === doc?.id) {
+  if (window.institutionRole(user) && x && x.payload.documentId === doc?.id) {
     const panel = document.createElement("div");
     panel.className = "card";
     panel.innerHTML =
@@ -403,7 +428,7 @@ async function detail(id) {
         "/cases/" +
           id +
           "/" +
-          (user.role === "institution" ? "responses" : b.action),
+          (window.institutionRole(user) ? "responses" : b.action),
         "POST",
         b,
       );
@@ -411,11 +436,22 @@ async function detail(id) {
     });
   };
   window.mountReviewWorkspace({ c, user, api, run, detail, escape });
+  window.mountDomainCase({
+    c,
+    user,
+    api,
+    run,
+    detail,
+    escape,
+    fieldInputs,
+    readInstrument: instrument,
+  });
 }
 async function enter() {
   $("#identity").textContent = user.email + " · " + user.role;
   $("#logout").hidden = false;
   await registry();
+  window.mountDomainNavigation({ user, api, run, views, registry, escape });
 }
 $("#login-form").onsubmit = (e) => {
   e.preventDefault();
@@ -441,7 +477,29 @@ $("#cases-nav").onclick = () => {
   if (user) run(registry);
 };
 $("#instrument-fields").innerHTML = fieldInputs();
-$("#new-case").onclick = () => $("#register").showModal();
+$("#new-case").onclick = () =>
+  run(async () => {
+    const rows = await api("/obligations");
+    $("#existing-obligation").innerHTML =
+      '<option value="">Register a new obligation with this submission</option>' +
+      rows
+        .map(
+          (o) =>
+            '<option value="' +
+            escape(o.id) +
+            '">' +
+            escape(o.programme || o.id) +
+            " · " +
+            o.amount_paise +
+            " paise</option>",
+        )
+        .join("");
+    $("#existing-obligation").onchange = (e) => {
+      const o = rows.find((o) => o.id === e.target.value);
+      if (o) $("#register-form").elements.obligation.value = o.amount_paise;
+    };
+    $("#register").showModal();
+  });
 $("#close-register").onclick = () => $("#register").close();
 $("#register-form").onsubmit = (e) => {
   e.preventDefault();
@@ -451,6 +509,7 @@ $("#register-form").onsubmit = (e) => {
     const c = await api("/cases", "POST", {
       name: v.name,
       obligation: { amountPaise: Number(v.obligation) },
+      ...(v.obligationId ? { obligationId: v.obligationId } : {}),
       instrument: instrument(f),
     });
     submissionKey = crypto.randomUUID();

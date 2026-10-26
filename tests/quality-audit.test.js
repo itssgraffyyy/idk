@@ -111,7 +111,7 @@ test("single-instance lease, migration checksums and data survive reopen", async
       ).body.id;
     assert.equal(
       h.app.db.prepare("SELECT count(*) n FROM schema_migrations").get().n,
-      3,
+      4,
     );
     assert.throws(() =>
       h.app.db

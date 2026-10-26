@@ -33,7 +33,24 @@ export function validate(x) {
       new Date(x[k]).toISOString().slice(0, 10) !== x[k]
     )
       throw Error("Invalid date");
-  return Object.fromEntries(fields.map((k) => [k, x[k]]));
+  const result = Object.fromEntries(fields.map((k) => [k, x[k]]));
+  for (const k of [
+    "type",
+    "currency",
+    "branch",
+    "institutionName",
+    "depositor",
+  ])
+    if (x[k] !== undefined) {
+      if (typeof x[k] !== "string" || !x[k].trim() || x[k].length > 150)
+        throw Error("Invalid " + k);
+      result[k] = x[k].trim();
+    }
+  if (result.type && !["FDR", "TERM_DEPOSIT"].includes(result.type))
+    throw Error("Unsupported instrument type");
+  if (result.currency && result.currency !== "INR")
+    throw Error("Only INR instruments supported");
+  return result;
 }
 export { extract } from "./extraction.js";
 export function evaluate({

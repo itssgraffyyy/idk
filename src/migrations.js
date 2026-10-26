@@ -2,6 +2,16 @@ import { createHash } from "node:crypto";
 import { join } from "node:path";
 import { foundationMigration } from "./foundation-migration.js";
 export const upgrades = [
+  {
+    version: 8,
+    sql: `CREATE TABLE institution_profiles(tenant TEXT PRIMARY KEY REFERENCES institutions(tenant),data TEXT NOT NULL CHECK(json_valid(data)),revision INTEGER NOT NULL CHECK(revision>0));
+CREATE TRIGGER domain_link_insert BEFORE INSERT ON case_domains WHEN NOT EXISTS(SELECT 1 FROM cases c JOIN obligations o ON o.id=NEW.obligation_id AND o.tenant=c.tenant JOIN instruments i ON i.id=NEW.instrument_id AND i.tenant=c.tenant AND i.obligation_id=o.id WHERE c.id=NEW.case_id) BEGIN SELECT RAISE(ABORT,'domain relationship mismatch'); END;
+CREATE TRIGGER domain_link_update BEFORE UPDATE ON case_domains WHEN NOT EXISTS(SELECT 1 FROM cases c JOIN obligations o ON o.id=NEW.obligation_id AND o.tenant=c.tenant JOIN instruments i ON i.id=NEW.instrument_id AND i.tenant=c.tenant AND i.obligation_id=o.id WHERE c.id=NEW.case_id) BEGIN SELECT RAISE(ABORT,'domain relationship mismatch'); END;
+CREATE TRIGGER versions_case_guard BEFORE INSERT ON document_versions WHEN NOT EXISTS(SELECT 1 FROM documents d JOIN evidence e ON e.id=NEW.id AND e.case_id=d.case_id AND e.kind='document' WHERE d.id=NEW.document_id) BEGIN SELECT RAISE(ABORT,'document case mismatch'); END;
+CREATE TRIGGER obligation_money_insert BEFORE INSERT ON obligations WHEN typeof(NEW.amount_paise)!='integer' BEGIN SELECT RAISE(ABORT,'integer paise required'); END;
+CREATE TRIGGER obligation_money_update BEFORE UPDATE ON obligations WHEN typeof(NEW.amount_paise)!='integer' BEGIN SELECT RAISE(ABORT,'integer paise required'); END;
+`,
+  },
   foundationMigration,
   {
     version: 6,
