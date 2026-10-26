@@ -2,6 +2,7 @@ import { test, expect } from "@playwright/test";
 test("institution submits evidence; officer compares, requests clarification; institution responds", async ({
   page,
 }) => {
+  test.setTimeout(120000);
   const errors = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/");
@@ -71,9 +72,7 @@ test("institution submits evidence; officer compares, requests clarification; in
     page.locator("#detail table tbody tr").first().locator("td").nth(2),
   ).toHaveText("SYN-BROWSER-001");
   await page.getByRole("button", { name: "Check IFSC" }).click();
-  await expect(page.locator("#ifsc-result")).toContainText(
-    "fictional_reference_match",
-  );
+  await expect(page.locator("#ifsc-result")).toContainText("not_found");
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({
     path: "docs/evaluation/institution-workspace.png",
@@ -155,6 +154,42 @@ test("institution submits evidence; officer compares, requests clarification; in
   await expect(page.locator("#detail .title-row").first()).toContainText(
     "Revision 2",
   );
+  const applicability = page.locator("#policy-context");
+  const facts = {
+    academicYear: "2026-27",
+    programme: "engineering",
+    level: "ug",
+    entity: "technical",
+    ownership: "private",
+    application: "new_institution",
+    property: "owned",
+    concession: "none",
+  };
+  for (const [k, v] of Object.entries(facts))
+    await applicability.locator('[name="' + k + '"]').selectOption(v);
+  await applicability.locator("[name=applicationDate]").fill("2026-01-01");
+  await applicability
+    .getByRole("button", { name: "Save applicability claims" })
+    .click();
+  await expect(
+    page.getByRole("heading", { name: "Regulatory reference findings" }),
+  ).toBeVisible();
+  await expect(page.locator("#detail")).toContainText(
+    "APH-2026-27-reviewed-copy-v2",
+  );
+  await page.getByRole("button", { name: "Sign out" }).click();
+  await page.getByLabel("Email", { exact: true }).fill("officer@test.local");
+  await page
+    .getByLabel("Password", { exact: true })
+    .fill("test-officer-password");
+  await page.getByRole("button", { name: "Sign in securely" }).click();
+  await page.getByRole("button", { name: "Open →" }).last().click();
+  const proof = page.locator("#policy-proof");
+  await proof
+    .locator("[name=reason]")
+    .fill("Applicability checked against uploaded synthetic source");
+  await proof.getByRole("button", { name: "Record evidence review" }).click();
+  await expect(page.locator("#detail")).toContainText("proof_review");
   expect(errors).toEqual([]);
 });
 test("responsive login and rejected credentials", async ({ page }) => {

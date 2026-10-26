@@ -5,3 +5,9 @@ test-results/
 .env
 
 .npm-cache/
+
+resources/research/
+resources/ifsc/*.tar.gz
+
+build/
+resources/regulatory/review/

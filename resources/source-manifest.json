@@ -1,0 +1,34 @@
+[
+  {
+    "path": "resources/ifsc/by-bank-v2.0.62.tar.gz",
+    "url": "https://github.com/razorpay/ifsc/releases/download/v2.0.62/by-bank.tar.gz",
+    "sha256": "90c10afab97341ce5c6def9266720d169b3b8cea87db5acab570be71e0cee679",
+    "bytes": 11634543,
+    "retrievedAt": "2026-10-26T15:39:55.722Z",
+    "authority": "public-domain-reference"
+  },
+  {
+    "path": "resources/regulatory/aph-2024-27.pdf",
+    "url": "https://www.pvpitsangli.edu.in/wp-content/uploads/AICTE-APPROVAL-PROCESS-HANDBOOK-2024-25-2025-26-2026-27.pdf",
+    "sha256": "153d54816f2cf11489218e239113544e8d49b73680009688baa7dc4880636051",
+    "bytes": 4155819,
+    "retrievedAt": "2026-10-26T15:39:57.480Z",
+    "authority": "AICTE-authored-document-mirror; issuer-host-under-maintenance"
+  },
+  {
+    "path": "resources/regulatory/addendum-2025-26.pdf",
+    "url": "https://edu-ecosys.com/AICTE-APH-26-27.pdf",
+    "sha256": "64bbb2638b131018a07e49b6ce3f99f7059b70cffadd04260651c05a5de9eda3",
+    "bytes": 6257526,
+    "retrievedAt": "2026-10-26T15:39:58.326Z",
+    "authority": "AICTE-authored-document-mirror; issuer-host-under-maintenance"
+  },
+  {
+    "path": "resources/regulatory/addendum-2026-27.pdf",
+    "url": "https://avantiscdnprodstorage.blob.core.windows.net/legalupdatedocs/52940/AICTE-issued-the-Corrigendum-regarding-the-Approval-Process-2026-27-February202026.pdf",
+    "sha256": "8a73ec306d0e19c23404c215772cfe1f4c43abaeed2f2f0636075e516a234459",
+    "bytes": 1141397,
+    "retrievedAt": "2026-10-26T15:39:50.067Z",
+    "authority": "AICTE-authored-document-mirror; issuer-host-under-maintenance"
+  }
+]

@@ -1,6 +1,7 @@
 const $ = (s) => document.querySelector(s),
   fields = ["reference", "amountPaise", "bank", "ifsc", "issued", "matures"];
 let user, current;
+let submissionKey = crypto.randomUUID();
 const escape = (s) =>
   String(s ?? "—").replace(
     /[&<>"']/g,
@@ -26,6 +27,9 @@ async function api(path, method = "GET", body) {
     method,
     headers: {
       "Content-Type": "application/json",
+      ...(path === "/cases" && method === "POST"
+        ? { "Idempotency-Key": submissionKey }
+        : {}),
       ...(user ? { "X-CSRF-Token": user.csrf } : {}),
     },
     ...(body ? { body: JSON.stringify(body) } : {}),
@@ -163,7 +167,7 @@ async function detail(id) {
       .join("") +
     "<tr><td>Obligation</td><td>" +
     money(c.obligation.amountPaise) +
-    '</td><td colspan="2">Registered fact; regulatory minimum unconfirmed</td></tr></tbody></table></div><p id="ifsc-result" class="source"></p></div><div class="card"><div class="title-row"><h2>Case intelligence</h2><button id="evaluate">Re-evaluate</button></div><p class="source">Policy: unverified-1 · ' +
+    '</td><td colspan="2">Registered fact; regulatory minimum unconfirmed</td></tr></tbody></table></div><p id="ifsc-result" class="source"></p></div><div class="card"><div class="title-row"><h2>Case intelligence</h2><button id="evaluate">Re-evaluate</button></div><p class="source">Policy: source review required · ' +
     (report
       ? "Evaluation " + report.payload.version
       : "Awaiting first evidence") +
@@ -306,7 +310,7 @@ async function detail(id) {
   $("#ifsc-check").onclick = () =>
     run(async () => {
       $("#ifsc-result").textContent = JSON.stringify(
-        await api("/ifsc?code=" + encodeURIComponent(c.instrument.ifsc)),
+        await api("/cases/" + id + "/ifsc", "POST", {}),
       );
     });
   if ($("#upload")) {
@@ -393,6 +397,7 @@ async function detail(id) {
       await detail(id);
     });
   };
+  window.mountReviewWorkspace({ c, user, api, run, detail, escape });
 }
 async function enter() {
   $("#identity").textContent = user.email + " · " + user.role;
@@ -446,3 +451,7 @@ api("/me")
     await enter();
   })
   .catch(() => views("login"));
+
+document
+  .querySelector("#register-form")
+  .addEventListener("input", () => (submissionKey = crypto.randomUUID()));

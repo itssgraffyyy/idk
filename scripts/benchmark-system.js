@@ -84,7 +84,7 @@ try {
     },
   };
   writeFileSync(
-    "docs/evaluation/system-results.json",
+    "docs/evaluation/system-audit-results.json",
     JSON.stringify(report, null, 2),
   );
   console.log(JSON.stringify(report, null, 2));

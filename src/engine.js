@@ -1,3 +1,4 @@
+import { assessAICTE } from "./regulatory.js";
 import { lookupIFSC } from "./financial.js";
 import { assessPolicy } from "./policy.js";
 export const fields = [
@@ -34,20 +35,7 @@ export function validate(x) {
       throw Error("Invalid date");
   return Object.fromEntries(fields.map((k) => [k, x[k]]));
 }
-export function extract(text) {
-  const result = {};
-  for (const k of fields) {
-    const m = text.match(new RegExp("^" + k + "\\s*[:=]\\s*(.+)$", "mi"));
-    if (m)
-      result[k] = {
-        value: k === "amountPaise" ? Number(m[1].trim()) : m[1].trim(),
-        confidence: null,
-        method: "label-parser",
-        line: m[0],
-      };
-  }
-  return result;
-}
+export { extract } from "./extraction.js";
 export function evaluate({
   instrument,
   obligation,
@@ -55,13 +43,16 @@ export function evaluate({
   external = { status: "unavailable" },
   documentId,
   duplicates = [],
+  regulatoryContext = {},
+  proofs = [],
+  ifscReference,
   asOf = new Date().toISOString().slice(0, 10),
 }) {
   const findings = [];
   const add = (code, status, message, sources) =>
     findings.push({ code, status, message, sources });
-  const referenceLookup = lookupIFSC(instrument.ifsc);
-  if (referenceLookup.status === "unavailable")
+  const referenceLookup = ifscReference || lookupIFSC(instrument.ifsc);
+  if (referenceLookup.status !== "reference_match")
     add(
       "ifsc_unavailable",
       "unresolved",
@@ -75,7 +66,7 @@ export function evaluate({
     add(
       "ifsc_bank_mismatch",
       "review",
-      "Declared bank differs from fictional IFSC reference",
+      "Declared bank differs from versioned IFSC reference",
       [
         { type: "ifsc-reference", source: referenceLookup.source },
         { type: "declaration", field: "bank" },
@@ -90,6 +81,17 @@ export function evaluate({
     );
   for (const k of fields) {
     const v = extraction[k]?.value;
+    if (
+      extraction[k]?.engineConfidence !== null &&
+      extraction[k]?.engineConfidence !== undefined &&
+      extraction[k].engineConfidence < 70
+    )
+      add(
+        "low_confidence_" + k,
+        "unresolved",
+        "OCR value has low uncalibrated engine confidence; inspect the source",
+        [{ type: "document", id: documentId, field: k }],
+      );
     if (v === undefined)
       add("missing_" + k, "unresolved", "No extracted " + k, [
         { type: "document", id: documentId, field: k },
@@ -105,16 +107,20 @@ export function evaluate({
         ],
       );
     if (
-      external.status === "mock_confirmed" &&
+      ["mock_confirmed", "sandbox_evidence"].includes(external.status) &&
       external.values?.[k] !== undefined &&
       comparable(k, external.values[k]) !== comparable(k, instrument[k])
     )
       add(
         "external_" + k,
         "review",
-        "Fictional provider contradicts declaration",
+        "Provider evidence contradicts declaration (classification retained in source)",
         [
-          { type: "mock-provider", field: k },
+          {
+            type: external.provider || "mock-provider",
+            classification: external.status,
+            field: k,
+          },
           { type: "declaration", field: k },
         ],
       );
@@ -154,14 +160,28 @@ export function evaluate({
     "No verified AICTE policy supplied. Regulatory compliance requires authorized policy review.",
     [{ type: "policy", version: "unverified-1" }],
   );
+  const regulatory = assessAICTE(instrument, regulatoryContext, proofs, asOf);
+  for (const check of regulatory.checks)
+    findings.push({
+      code: "regulatory_" + check.id,
+      status: check.status === "review" ? "review" : "unresolved",
+      message: check.explanation,
+      sources: [
+        { type: "policy", version: regulatory.version, ...check.source },
+      ],
+      details: check,
+    });
   return {
     referenceLookup,
+    regulatory,
     policyAssessment: assessPolicy(
       { amountPaise: instrument.amountPaise },
       { asOf },
     ),
     version: 1,
-    policyVersion: "unverified-1",
+    policyVersion: regulatoryContext.academicYear
+      ? regulatory.version
+      : "unverified-1",
     asOf,
     outcome: "human_review_required",
     findings,

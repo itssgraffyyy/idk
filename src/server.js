@@ -1,15 +1,18 @@
+import { SetuSandboxProvider } from "./setu.js";
+import { assessAICTE, ruleRegister, validateContext } from "./regulatory.js";
+import {
+  verifyPassword,
+  acquireLock,
+  permittedHost,
+  requestLimiter,
+} from "./security.js";
+import { IFSCProvider } from "./ifsc.js";
 import { DevelopmentDepositProvider, lookupIFSC } from "./financial.js";
 import { registry as policyRegistry } from "./policy.js";
 import http from "node:http";
-import { validateImage } from "./images.js";
 import { readFileSync, writeFileSync, mkdirSync, unlinkSync } from "node:fs";
 import { resolve, join } from "node:path";
-import {
-  randomBytes,
-  randomUUID,
-  timingSafeEqual,
-  scryptSync,
-} from "node:crypto";
+import { randomBytes, randomUUID } from "node:crypto";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
@@ -37,10 +40,23 @@ export function seed(db, users) {
 export function createApp({
   dir = resolve(process.env.DATA_DIR || "data"),
   ocr = process.env.TESSERACT_PATH || null,
+  ocrRunner = exec,
+  depositProvider = new DevelopmentDepositProvider(),
+  ifscProvider = new IFSCProvider(),
 } = {}) {
-  const db = openStore(dir);
+  mkdirSync(dir, { recursive: true });
+  const releaseLock = acquireLock(dir);
+  let db;
+  try {
+    db = openStore(dir);
+  } catch (e) {
+    releaseLock();
+    throw e;
+  }
   mkdirSync(join(dir, "private"), { recursive: true });
-  const rates = new Map();
+  const rates = new Map(),
+    limitRequest = requestLimiter();
+  let activeValidators = 0;
   const audit = (u, a, id, p = {}) =>
     db
       .prepare(
@@ -74,12 +90,31 @@ export function createApp({
       d = last("document"),
       x = last("extraction"),
       b = last("external");
+    const context = last("regulatory_context"),
+      reviews = h
+        .filter(
+          (e) =>
+            e.kind === "proof_review" && e.payload.contextId === context?.id,
+        )
+        .map((e) => e.payload),
+      proofs = reviews.filter(
+        (p, i) =>
+          reviews.findLastIndex(
+            (x) => x.documentId === p.documentId && x.type === p.type,
+          ) === i,
+      );
     const r = evaluate({
       instrument: JSON.parse(c.instrument),
       obligation: JSON.parse(c.obligation),
       extraction: x?.payload.documentId === d?.id ? x?.payload.fields : {},
       external: b?.payload,
       documentId: d?.id,
+      regulatoryContext: context?.payload.context,
+      proofs,
+      ifscReference:
+        last("ifsc_reference")?.payload.code === JSON.parse(c.instrument).ifsc
+          ? last("ifsc_reference").payload
+          : undefined,
       duplicates: db
         .prepare("SELECT id,instrument FROM cases WHERE tenant=? AND id!=?")
         .all(c.tenant, c.id)
@@ -96,6 +131,8 @@ export function createApp({
       extraction: x?.id,
       external: b?.id,
       obligationCase: c.id,
+      regulatoryContext: context?.id,
+      proofReviews: h.filter((e) => e.kind === "proof_review").map((e) => e.id),
     };
     r.version = h.filter((e) => e.kind === "evaluation").length + 1;
     r.supersedes = last("evaluation")?.id ?? null;
@@ -139,11 +176,14 @@ export function createApp({
     }))
       res.setHeader(k, v);
     try {
+      if (!permittedHost(req.headers.host)) fail(400, "Host rejected");
+      if (!limitRequest(req.socket.remoteAddress))
+        fail(429, "Request rate exceeded");
       const url = new URL(req.url, "http://localhost"),
         path = url.pathname;
       if (
         req.method === "GET" &&
-        ["/", "/app.js", "/style.css"].includes(path)
+        ["/", "/app.js", "/review.js", "/style.css"].includes(path)
       ) {
         const f = path === "/" ? "index.html" : path.slice(1);
         res.setHeader(
@@ -164,7 +204,8 @@ export function createApp({
           chunks = [];
         for await (const chunk of req) {
           n += chunk.length;
-          if (n > 7 * 1024 * 1024) fail(413, "Request too large");
+          if (n > (path.endsWith("/documents") ? 7 * 1024 * 1024 : 65536))
+            fail(413, "Request too large");
           chunks.push(chunk);
         }
         try {
@@ -198,16 +239,9 @@ export function createApp({
         )
           fail(400, "Invalid credentials");
         const u = db
-            .prepare("SELECT * FROM users WHERE email=?")
-            .get(body.email),
-          [salt, digest] = (u?.password || password("dummy")).split(":");
-        if (
-          !timingSafeEqual(
-            Buffer.from(digest, "hex"),
-            scryptSync(body.password, salt, 64),
-          ) ||
-          !u
-        ) {
+          .prepare("SELECT * FROM users WHERE email=?")
+          .get(body.email);
+        if (!(await verifyPassword(body.password, u?.password))) {
           audit("anonymous", "login_failed");
           fail(401, "Invalid credentials");
         }
@@ -240,7 +274,23 @@ export function createApp({
               )
               .get(hash(token), Date.now())
           : null;
-      if (!u) fail(401, "Authentication required");
+      if (!u || !["institution", "officer"].includes(u.role))
+        fail(401, "Authentication required");
+      const reauthorize = () => {
+        const live = db
+          .prepare(
+            "SELECT u.role,u.tenant,c.assigned,c.tenant case_tenant FROM users u JOIN cases c ON c.id=? JOIN sessions s ON s.user_id=u.id WHERE u.id=? AND s.token=? AND s.expires>?",
+          )
+          .get(id, u.id, hash(token), Date.now());
+        if (
+          !live ||
+          live.role !== u.role ||
+          (u.role === "institution"
+            ? live.tenant !== live.case_tenant
+            : live.assigned !== u.id)
+        )
+          fail(403, "Authorization changed during processing");
+      };
       if (req.method !== "GET" && req.headers["x-csrf-token"] !== u.csrf)
         fail(403, "CSRF required");
       if (path === "/api/me" && req.method === "GET") {
@@ -262,7 +312,7 @@ export function createApp({
         return;
       }
       if (path === "/api/policies" && req.method === "GET") {
-        json(res, 200, policyRegistry);
+        json(res, 200, { legacy: policyRegistry, ...ruleRegister });
         return;
       }
       if (path === "/api/institution" && req.method === "GET") {
@@ -278,7 +328,7 @@ export function createApp({
       }
       if (path === "/api/ifsc" && req.method === "GET") {
         const code = url.searchParams.get("code");
-        json(res, 200, lookupIFSC(code));
+        json(res, 200, await ifscProvider.lookup(code));
         return;
       }
       if (path === "/api/cases" && req.method === "GET") {
@@ -322,6 +372,22 @@ export function createApp({
           )
           .get();
         if (!officer) fail(503, "No officer configured");
+        const requestKey = req.headers["idempotency-key"];
+        let payloadHash;
+        if (requestKey) {
+          if (!/^[A-Za-z0-9-]{8,100}$/.test(requestKey))
+            fail(400, "Invalid idempotency key");
+          payloadHash = hash(JSON.stringify(body));
+          const previous = db
+            .prepare("SELECT * FROM idempotency WHERE actor=? AND key=?")
+            .get(u.id, requestKey);
+          if (previous) {
+            if (previous.payload_hash !== payloadHash)
+              fail(409, "Idempotency key reused with different payload");
+            json(res, 200, JSON.parse(previous.response));
+            return;
+          }
+        }
         const id = randomUUID();
         tx(() => {
           db.prepare("INSERT OR IGNORE INTO institutions VALUES(?,?,?)").run(
@@ -339,6 +405,13 @@ export function createApp({
           );
           evidence(u.id, id, "declaration", inst);
           audit(u.id, "case_created", id);
+          if (requestKey)
+            db.prepare("INSERT INTO idempotency VALUES(?,?,?,?)").run(
+              u.id,
+              requestKey,
+              payloadHash,
+              JSON.stringify({ id }),
+            );
           refresh(u.id, db.prepare("SELECT * FROM cases WHERE id=?").get(id));
         });
         json(res, 201, { id });
@@ -407,6 +480,162 @@ export function createApp({
         officer = () => {
           if (u.role !== "officer") fail(403, "Officer role required");
         };
+
+      if (action === "regulatory-context") {
+        institution();
+        let context;
+        try {
+          context = validateContext(body.context);
+        } catch (e) {
+          fail(400, e.message);
+        }
+        if (body.revision !== c.revision) fail(409, "Stale case revision");
+        tx(() => {
+          db.prepare("UPDATE cases SET revision=revision+1 WHERE id=?").run(id);
+          evidence(u.id, id, "regulatory_context", {
+            context,
+            claimedBy: u.id,
+          });
+          c = db.prepare("SELECT * FROM cases WHERE id=?").get(id);
+          refresh(u.id, c);
+        });
+        json(res, 201, { ok: true });
+        return;
+      }
+      if (action === "proof-reviews") {
+        officer();
+        const allowed = [
+          "applicability",
+          "government_status",
+          "prior_regulator",
+          "ugc_recognition",
+          "prior_release_noc",
+          "special_category",
+          "payment_affidavit3",
+        ];
+        const ctx = history(id)
+          .filter((e) => e.kind === "regulatory_context")
+          .at(-1);
+        if (
+          !ctx ||
+          body.contextId !== ctx.id ||
+          !allowed.includes(body.type) ||
+          !["accepted", "rejected"].includes(body.decision) ||
+          typeof body.reason !== "string" ||
+          !body.reason.trim() ||
+          body.reason.length > 2000 ||
+          !history(id).some(
+            (e) => e.id === body.documentId && e.kind === "document",
+          )
+        )
+          fail(
+            400,
+            "Current context, source document, decision, type and reason required",
+          );
+        tx(() => {
+          evidence(u.id, id, "proof_review", {
+            contextId: ctx.id,
+            documentId: body.documentId,
+            type: body.type,
+            decision: body.decision,
+            reason: body.reason,
+            reviewedBy: u.id,
+          });
+          refresh(u.id, c);
+        });
+        json(res, 201, { ok: true });
+        return;
+      }
+      if (action === "ifsc") {
+        const ref = await ifscProvider.lookup(JSON.parse(c.instrument).ifsc);
+        reauthorize();
+        if (
+          db.prepare("SELECT revision FROM cases WHERE id=?").get(id)
+            .revision !== c.revision
+        )
+          fail(409, "Declaration changed; retry lookup");
+        tx(() => {
+          evidence(u.id, id, "ifsc_reference", ref);
+          refresh(u.id, c);
+        });
+        json(res, 200, ref);
+        return;
+      }
+      if (action === "sandbox-consent") {
+        institution();
+        const provider = new SetuSandboxProvider();
+        if (!provider.configured) {
+          json(res, 503, {
+            error: "Setu sandbox is not configured",
+            status: "unavailable",
+          });
+          return;
+        }
+        let r;
+        try {
+          r = await provider.createConsent(body);
+        } catch {
+          fail(502, "Sandbox consent request failed or invalid");
+        }
+        reauthorize();
+        tx(() => {
+          evidence(u.id, id, "sandbox_consent", {
+            ...r,
+            dataRange: body.dataRange,
+          });
+          refresh(u.id, db.prepare("SELECT * FROM cases WHERE id=?").get(id));
+        });
+        json(res, 201, r);
+        return;
+      }
+      if (action === "sandbox-session") {
+        institution();
+        const consent = history(id).find(
+          (e) =>
+            e.kind === "sandbox_consent" && e.payload.id === body.consentId,
+        );
+        if (!consent) fail(404, "Consent is not bound to this case");
+        let r;
+        try {
+          r = await new SetuSandboxProvider().createSession(
+            body.consentId,
+            body.dataRange,
+          );
+        } catch {
+          fail(502, "Sandbox session unavailable or consent invalid");
+        }
+        reauthorize();
+        tx(() => {
+          evidence(u.id, id, "sandbox_session", r);
+          refresh(u.id, db.prepare("SELECT * FROM cases WHERE id=?").get(id));
+        });
+        json(res, 201, r);
+        return;
+      }
+      if (action === "sandbox-evidence") {
+        officer();
+        const session = history(id).find(
+          (e) =>
+            e.kind === "sandbox_session" &&
+            e.payload.id === body.sessionId &&
+            e.payload.consentId === body.consentId,
+        );
+        if (!session) fail(404, "Session is not bound to this case");
+        const r = await new SetuSandboxProvider().retrieve(body);
+        reauthorize();
+        if (
+          db.prepare("SELECT revision FROM cases WHERE id=?").get(id)
+            .revision !== c.revision
+        )
+          fail(409, "Declaration changed; retry provider retrieval");
+        tx(() => {
+          evidence(u.id, id, "external", r);
+          refresh(u.id, c);
+        });
+        json(res, 200, r);
+        return;
+      }
+
       if (action === "documents") {
         institution();
         if (
@@ -430,13 +659,6 @@ export function createApp({
             !b.includes(0) &&
             !b.toString("utf8").includes("\uFFFD");
         if (!mime && !text) fail(400, "Only PNG, JPEG or UTF-8 text accepted");
-        if (mime) {
-          try {
-            validateImage(b, mime);
-          } catch {
-            fail(400, "Invalid or oversized image content");
-          }
-        }
         const eid = randomUUID(),
           p = { sha256: hash(b), mime: mime || "text/plain", bytes: b.length };
         writeFileSync(join(dir, "private", eid), b, {
@@ -444,6 +666,29 @@ export function createApp({
           mode: 0o600,
         });
         try {
+          if (mime) {
+            if (activeValidators >= 2)
+              fail(429, "Image validation capacity reached; retry");
+            activeValidators++;
+            try {
+              await exec(
+                process.execPath,
+                [
+                  "--max-old-space-size=128",
+                  join(root, "src", "image-validator.js"),
+                  join(dir, "private", eid),
+                  mime,
+                ],
+                { timeout: 10000, maxBuffer: 1000, windowsHide: true },
+              );
+            } catch {
+              fail(400, "Invalid or oversized image content");
+            } finally {
+              activeValidators--;
+            }
+            reauthorize();
+            c = db.prepare("SELECT * FROM cases WHERE id=?").get(id);
+          }
           tx(() => {
             db.prepare("INSERT INTO evidence VALUES(?,?,?,?,?,?)").run(
               eid,
@@ -485,6 +730,9 @@ export function createApp({
             .get(d.id)
         )
           fail(409, "Document already processing");
+        const extractionHead = history(id)
+          .filter((e) => e.kind === "extraction")
+          .at(-1)?.id;
         const jid = randomUUID();
         db.prepare("INSERT INTO jobs VALUES(?,?,?,?,?,?)").run(
           jid,
@@ -506,7 +754,7 @@ export function createApp({
             text = readFileSync(join(dir, "private", d.id), "utf8");
           else {
             method = ocr ? "tesseract-native" : "tesseract-wasm";
-            const r = await exec(
+            const r = await ocrRunner(
               ocr || process.execPath,
               ocr
                 ? [join(dir, "private", d.id), "stdout", "--psm", "6"]
@@ -516,8 +764,10 @@ export function createApp({
                   ],
               { timeout: 60000, maxBuffer: 4194304, windowsHide: true },
             );
-            if (ocr) text = r.stdout;
-            else {
+            if (ocr) {
+              text = r.stdout;
+              raw = { text, blocks: [], engine: "native-tesseract" };
+            } else {
               raw = JSON.parse(r.stdout);
               text = raw.text;
             }
@@ -534,10 +784,38 @@ export function createApp({
           db.prepare("UPDATE jobs SET status='superseded' WHERE id=?").run(jid);
           fail(409, "Document changed; retry");
         }
+        try {
+          reauthorize();
+        } catch (e) {
+          db.prepare(
+            "UPDATE jobs SET status='failed',error='Authorization changed' WHERE id=?",
+          ).run(jid);
+          throw e;
+        }
+        const newerExtraction = history(id)
+          .filter((e) => e.kind === "extraction")
+          .at(-1)?.id;
+        if (newerExtraction !== extractionHead) {
+          tx(() => {
+            db.prepare("UPDATE jobs SET status='superseded' WHERE id=?").run(
+              jid,
+            );
+            evidence(u.id, id, "processing_superseded", {
+              documentId: d.id,
+              jobId: jid,
+              raw,
+              reason: "Extraction corrected while OCR was running",
+            });
+          });
+          fail(
+            409,
+            "Extraction changed during processing; result preserved as superseded",
+          );
+        }
         c = db.prepare("SELECT * FROM cases WHERE id=?").get(id);
         const p = {
           documentId: d.id,
-          fields: extract(text),
+          fields: extract(text, { blocks: raw?.blocks }),
           raw,
           method,
           status,
@@ -671,10 +949,13 @@ export function createApp({
         )
           fail(400, "Unknown scenario");
         const inst = JSON.parse(c.instrument),
-          p = await new DevelopmentDepositProvider().retrieve(
-            inst,
-            body.scenario,
-          );
+          p = await depositProvider.retrieve(inst, body.scenario);
+        reauthorize();
+        if (
+          db.prepare("SELECT revision FROM cases WHERE id=?").get(id)
+            .revision !== c.revision
+        )
+          fail(409, "Declaration changed during provider request; retry");
         tx(() => {
           evidence(u.id, id, "external", p);
           refresh(u.id, c);
@@ -698,9 +979,12 @@ export function createApp({
           )
         )
           fail(400, "Valid requestId required");
-        evidence(u.id, id, action, {
-          text: body.text,
-          requestId: body.requestId ?? null,
+        tx(() => {
+          evidence(u.id, id, action, {
+            text: body.text,
+            requestId: body.requestId ?? null,
+          });
+          refresh(u.id, c);
         });
         json(res, 201, { ok: true });
         return;
@@ -718,13 +1002,18 @@ export function createApp({
       else res.end();
     }
   });
+  server.requestTimeout = 70000;
+  server.headersTimeout = 10000;
   return {
     server,
     db,
     close: () =>
       new Promise((done) =>
         server.close(() => {
-          db.close();
+          try {
+            db.close();
+          } catch {}
+          releaseLock();
           done();
         }),
       ),

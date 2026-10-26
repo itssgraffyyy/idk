@@ -406,7 +406,7 @@ test("complete HTTP journeys and security boundaries", async (t) => {
       );
     });
     await t.test(
-      "IFSC is explicitly fictional; logout revokes session",
+      "IFSC reference never authenticates deposit; logout revokes session",
       async () => {
         assert.equal(
           (await call("/ifsc?code=SYNB0000001", "GET", undefined, a)).body

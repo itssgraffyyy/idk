@@ -1,3 +1,4 @@
+import { migrate } from "./migrations.js";
 import { DatabaseSync } from "node:sqlite";
 import { mkdirSync } from "node:fs";
 import { randomBytes, scryptSync, createHash } from "node:crypto";
@@ -23,6 +24,13 @@ export function openStore(dir) {
  CREATE TRIGGER IF NOT EXISTS evidence_no_delete BEFORE DELETE ON evidence BEGIN SELECT RAISE(ABORT,'immutable evidence'); END;
  CREATE TRIGGER IF NOT EXISTS audit_immutable BEFORE UPDATE ON audit BEGIN SELECT RAISE(ABORT,'immutable audit'); END;
  CREATE TRIGGER IF NOT EXISTS audit_no_delete BEFORE DELETE ON audit BEGIN SELECT RAISE(ABORT,'immutable audit'); END;`);
+  db.exec("PRAGMA busy_timeout=3000");
+  try {
+    migrate(db, dir);
+  } catch (e) {
+    db.close();
+    throw e;
+  }
   return db;
 }
 export const hash = (b) => createHash("sha256").update(b).digest("hex");

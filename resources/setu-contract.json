@@ -1,0 +1,88 @@
+{
+  "version": "setu-aa-v2-source-review-2026-10-26",
+  "upstreamCommit": "eac1753b580062e76939592e1b6c8cec0d8687b7",
+  "source": "https://github.com/SetuHQ/docs/blob/eac1753b580062e76939592e1b6c8cec0d8687b7/api-references/data/account-aggregator.json",
+  "auth": {
+    "url": "https://orgservice-prod.setu.co/v1/users/login",
+    "method": "POST",
+    "headers": [
+      "client: bridge"
+    ],
+    "body": [
+      "clientID",
+      "grant_type: client_credentials",
+      "secret"
+    ]
+  },
+  "sandboxBase": "https://fiu-sandbox.setu.co/v2",
+  "headers": [
+    "Authorization: Bearer <token>",
+    "x-product-instance-id"
+  ],
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/consents",
+      "required": [
+        "vua",
+        "dataRange"
+      ],
+      "used": [
+        "consentDuration",
+        "fiTypes: TERM_DEPOSIT",
+        "consentTypes: PROFILE,SUMMARY",
+        "fetchType: ONETIME"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/consents/{request_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/sessions",
+      "required": [
+        "consentId",
+        "dataRange",
+        "format"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/sessions/{session_id}"
+    }
+  ],
+  "responseBinding": [
+    "consent.id",
+    "consent.status",
+    "consent.detail.fiTypes",
+    "consent.detail.consentExpiry",
+    "session.id",
+    "session.consentId",
+    "session.format",
+    "fips[].accounts[].linkRefNumber",
+    "fips[].accounts[].FIstatus",
+    "fips[].accounts[].data.account"
+  ],
+  "termDeposit": {
+    "type": "term_deposit",
+    "schemaVersions": [
+      "1.2",
+      "2.0.0"
+    ],
+    "source": "https://specifications.rebit.org.in/api_schema/account_aggregator/documentation/term_deposit_v2.0.0.html",
+    "fields": [
+      "principalAmount",
+      "ifsc",
+      "openingDate",
+      "maturityDate",
+      "currency"
+    ],
+    "limitations": [
+      "No FDR receipt identifier supplied by these fields",
+      "No bank name inferred from FIP",
+      "Currency absent in legacy schema: do not infer INR amount"
+    ]
+  },
+  "connectionStatus": "contract_tested_only; no credentials supplied"
+}

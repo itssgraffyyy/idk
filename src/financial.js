@@ -23,13 +23,4 @@ export class DevelopmentDepositProvider {
     };
   }
 }
-export function lookupIFSC(code) {
-  return {
-    code,
-    status:
-      code === "SYNB0000001" ? "fictional_reference_match" : "unavailable",
-    bank: code === "SYNB0000001" ? "Synthetic Bank" : null,
-    source: "fictional-local-reference-v1",
-    realBankValidation: false,
-  };
-}
+export { lookupIFSC } from "./ifsc.js";

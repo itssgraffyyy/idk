@@ -1,0 +1,20 @@
+{
+  "version": "razorpay-ifsc-v2.0.62",
+  "releaseDate": "2026-09-01",
+  "upstream": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+  "license": "Public domain dataset; upstream code MIT",
+  "upstreamArchiveSHA256": "90c10afab97341ce5c6def9266720d169b3b8cea87db5acab570be71e0cee679",
+  "sha256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+  "records": 183214,
+  "fields": [
+    "IFSC",
+    "BANK",
+    "BRANCH",
+    "STATE",
+    "CITY",
+    "ADDRESS",
+    "NEFT",
+    "RTGS"
+  ],
+  "retrievedAt": "2026-10-26T15:39:55.722Z"
+}

@@ -1,28 +1,18 @@
 import { spawnSync } from "node:child_process";
-import { writeFileSync } from "node:fs";
-const result = spawnSync(
-  process.execPath,
-  [
-    "--test",
-    "tests/app.test.js",
-    "tests/policy.test.js",
-    "tests/normalization.test.js",
-    "tests/resilience.test.js",
-  ],
-  { encoding: "utf8", windowsHide: true },
-);
-writeFileSync(
-  "docs/evaluation/test-output.txt",
-  result.stdout + (result.stderr || ""),
-);
-process.stdout.write(result.stdout);
-if (result.stderr) process.stderr.write(result.stderr);
-if (result.status !== 0) process.exit(result.status || 1);
-for (const f of ["src/server.js", "public/app.js"]) {
-  const r = spawnSync(process.execPath, ["--check", f], {
-    stdio: "inherit",
+import { writeFileSync, readdirSync } from "node:fs";
+const files = readdirSync("tests")
+    .filter((p) => p.endsWith(".test.js"))
+    .map((p) => "tests/" + p),
+  r = spawnSync(process.execPath, ["--test", ...files], {
+    encoding: "utf8",
     windowsHide: true,
   });
-  if (r.status !== 0) process.exit(r.status || 1);
-}
-console.log("Backend tests and application syntax checks passed");
+const output = r.stdout + (r.stderr || "");
+writeFileSync("docs/evaluation/phase-1-2-tests.txt", output);
+process.stdout.write(output);
+if (r.status !== 0) process.exit(r.status || 1);
+const build = spawnSync(process.execPath, ["scripts/build-check.js"], {
+  stdio: "inherit",
+  windowsHide: true,
+});
+process.exitCode = build.status || 0;
