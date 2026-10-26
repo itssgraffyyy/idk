@@ -1,0 +1,15 @@
+services:
+  sentinel:
+    build: .
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - sentinel-data:/app/data
+    environment:
+      LOG_REQUESTS: "true"
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+volumes:
+  sentinel-data:

@@ -1,0 +1,10 @@
+node_modules
+.git
+data
+.env
+.npm-cache
+resources/research
+resources/regulatory/review
+resources/ifsc/*.tar.gz
+build
+test-results

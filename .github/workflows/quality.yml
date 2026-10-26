@@ -12,8 +12,10 @@ jobs:
           node-version: "22.14.0"
           cache: npm
       - run: npm ci
+      - run: npm run typecheck
       - run: npm run verify
       - run: npm run benchmark
+      - run: npm run validate:clean
       - run: npm run test:e2e
       - uses: actions/upload-artifact@v4
         if: always()
@@ -22,4 +24,6 @@ jobs:
           path: |
             docs/evaluation/phase-1-2-tests.txt
             docs/evaluation/reconciliation-audit-results.json
+            docs/evaluation/current-browser.txt
+            docs/evaluation/clean-start.json
             test-results/
