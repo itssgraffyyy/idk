@@ -1,0 +1,29 @@
+{
+  "name": "fdr-sentinel",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test tests/*.test.js",
+    "dataset": "node scripts/dataset.js",
+    "benchmark": "node scripts/benchmark.js",
+    "test:e2e": "node scripts/browser-test.js",
+    "benchmark:ocr": "node scripts/benchmark-ocr.js",
+    "benchmark:system": "node scripts/benchmark-system.js",
+    "setup": "node scripts/setup.js"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "prettier": "^3.9.10"
+  },
+  "dependencies": {
+    "@tesseract.js-data/eng": "^1.0.0",
+    "jpeg-js": "^0.4.4",
+    "pngjs": "^7.0.0",
+    "tesseract.js": "^7.0.0"
+  }
+}
