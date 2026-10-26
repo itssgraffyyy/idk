@@ -27,6 +27,8 @@ import {
 } from "./operations-api.js";
 import { submissions } from "./submissions.js";
 import { viewerRoute } from "./viewer.js";
+import { continuityRoute } from "./continuity-api.js";
+import { runReminderBatch } from "./reminders.js";
 import { readFileSync, writeFileSync, mkdirSync, unlinkSync } from "node:fs";
 import { resolve, join } from "node:path";
 import { randomBytes, randomUUID } from "node:crypto";
@@ -811,6 +813,22 @@ export function createApp({
             json,
             res,
             audit,
+          })
+        )
+          return;
+        if (
+          continuityRoute({
+            db,
+            c,
+            u,
+            action,
+            method: req.method,
+            url,
+            json,
+            res,
+            audit,
+            body,
+            tx,
           })
         )
           return;
@@ -1749,12 +1767,24 @@ export function createApp({
   });
   server.requestTimeout = 70000;
   server.headersTimeout = 10000;
+  let reminderPosition = 0;
+  const reminderTimer = setInterval(() => {
+    try {
+      reminderPosition = tx(() =>
+        runReminderBatch(db, { after: reminderPosition }),
+      ).next;
+    } catch {
+      logSink({ category: "reminder_scheduler", outcome: "FAILURE" });
+    }
+  }, 60000);
+  reminderTimer.unref();
   return {
     server,
     db,
     close: () =>
       new Promise((done) =>
         server.close(async () => {
+          clearInterval(reminderTimer);
           ocrPool.close();
           await Promise.allSettled([...pendingJobs]);
           try {

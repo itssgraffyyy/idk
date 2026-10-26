@@ -1,0 +1,60 @@
+(node:15908) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 11 tests using 1 worker
+
+(node:12900) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:12900) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:12900) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  ok  1 tests\browser\administration.spec.js:2:1 › institution administrator edits profile, programme/history, independent obligation and account through backend UI (7.1s)
+  ok  2 tests\browser\continuity.spec.js:2:1 › institution proposes a documented replacement and officer records an internal relationship without bank release (8.1s)
+  ok  3 tests\browser\journeys.spec.js:2:1 › ambiguous IFSC is visible and requires a reasoned manual correction (5.8s)
+  x   4 tests\browser\journeys.spec.js:83:1 › institution submits evidence; officer compares, requests clarification; institution responds (16.3s)
+(node:9184) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9184) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9184) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  ok  5 tests\browser\journeys.spec.js:276:1 › responsive login and rejected credentials (7.2s)
+  ok  6 tests\browser\pdf.spec.js:3:1 › private PDF is rendered as protected page image in institution workspace (38.2s)
+  ok  7 tests\browser\provider.spec.js:2:1 › local financial provider scenarios are genuine API results and clearly MOCK in officer workspace (7.2s)
+  ok  8 tests\browser\resolution.spec.js:2:1 › reviewer targets a finding; institution corrects only disputed amount and reviewer closes the response (7.3s)
+  ok  9 tests\browser\roles.spec.js:2:1 › supervisor performs guarded review transition and auditor can only inspect the same authority case (6.0s)
+  ok 10 tests\browser\submission.spec.js:2:1 › guided upload-first draft survives reload, prefills only chosen proposals and receives persisted acknowledgement (6.7s)
+  ok 11 tests\browser\viewer.spec.js:3:1 › reviewer compares original/corrected fields across protected PDF versions with measured highlights and zoom (9.9s)
+
+
+  1) tests\browser\journeys.spec.js:83:1 › institution submits evidence; officer compares, requests clarification; institution responds 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('#detail p').filter({ hasText: 'Please confirm the declared amount.' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" locator('#detail p').filter({ hasText: 'Please confirm the declared amount.' }) with timeout 5000ms
+      - waiting for locator('#detail p').filter({ hasText: 'Please confirm the declared amount.' })
+
+
+      180 |       .locator("#detail p")
+      181 |       .filter({ hasText: "Please confirm the declared amount." }),
+    > 182 |   ).toBeVisible();
+          |     ^
+      183 |   await page.evaluate(() => window.scrollTo(0, 0));
+      184 |   await page.screenshot({
+      185 |     path: "docs/evaluation/officer-workspace.png",
+        at G:\idk_lol\tests\browser\journeys.spec.js:182:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\journeys-institution-submi-248b3-cation-institution-responds\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\journeys-institution-submi-248b3-cation-institution-responds\error-context.md
+
+  1 failed
+    tests\browser\journeys.spec.js:83:1 › institution submits evidence; officer compares, requests clarification; institution responds 
+  10 passed (2.3m)

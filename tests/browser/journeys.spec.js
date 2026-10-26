@@ -171,6 +171,8 @@ test("institution submits evidence; officer compares, requests clarification; in
   await expect(
     page.locator(".finding").filter({ hasText: "external_amountPaise" }),
   ).toBeVisible();
+  // Inert forms are intentionally unavailable until all workspace data is mounted.
+  await expect(page.locator("main")).toHaveAttribute("aria-busy", "false");
   await page
     .getByLabel("Message", { exact: true })
     .fill("Please confirm the declared amount.");

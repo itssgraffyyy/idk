@@ -2,8 +2,10 @@ import { createHash } from "node:crypto";
 import { join } from "node:path";
 import { foundationMigration } from "./foundation-migration.js";
 import { operationsMigration } from "./operations-migration.js";
-import {submissionMigration} from './submission-migration.js';
+import { submissionMigration } from "./submission-migration.js";
+import { continuityMigration } from "./continuity-migration.js";
 export const upgrades = [
+  continuityMigration,
   operationsMigration,
   submissionMigration,
   {

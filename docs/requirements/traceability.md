@@ -47,3 +47,17 @@ Status vocabulary: implemented/tested; partial; missing; external access; future
 | Actual later-phase requirements                                                     | Advanced escalation/multi-bureau clearance/release, maker-checker, chained independent audit, MFA infrastructure                                    | Future Phase 3/4 as stated in original prompt; not started                                                                                                                              |
 
 See [final gap audit](../phase-1-2-final-gap-audit.md), [security audit](../security/security-audit.md), [completion report](../phase-1-2-completion-report.md).
+
+## Phase 3–4 extension checkpoints, 27 October 2026
+
+The preceding original-prompt table is a historical snapshot. Current implementation status is recorded in [implementation progress](../implementation-progress.md); the older statement that no later-phase work has started is superseded by these checkpoints. No Phase 3/4 completion declaration is made.
+
+| Requirement | Implementation | Proof and remaining scope |
+|---|---|---|
+| 3A resolution, drafts, targeted clarification | `operations`, `resolution`, `submissions`, private intake and connected public UI; migrations 12/13 | State/tenant/concurrency/source-binding tests; guided-submission and targeted-resolution browser journeys passed |
+| 3A protected viewer | `viewer`, `viewer-geometry`, `evidence-viewer`; actual PDF viewport/rotated coordinates | Original/corrected version browser, cross-tenant/hash checks and rendered-glyph overlap test; checkpoint `359f957`, 95 automated tests and ten journeys passed |
+| 3B declared continuity and replacements | `continuity`, `continuity-api`, migration 14; existing operations workspace | Conservative duplicate/conflict/no-pooling/date tests; immutable events, document requirement, race/cycle/revision/role checks; populated migration preserves history; full 105-test suite passed |
+| 3B configurable reminders | `reminders`, per-user/case preferences and bounded scheduler | Explicit civil dates, dedupe, authorization revocation and response suppression pass; broader categories and unified lifecycle timeline remain |
+| 3C departmental clearances and maker-checker | Not implemented | Required before final administrative decision/release workflow acceptance |
+| 3D regulatory decision support | Existing pinned register/runtime/replay retained | Further explanations, immutable configuration context and conditional replay fix remain; real issuer confirmation unavailable |
+| 4A–4E | Existing Phase 1/2 OCR/security/deployment foundations retained | New held-out OCR, relationships/simulation, audit chain/identity/infrastructure hardening, analytics/accessibility and final integrated acceptance remain |

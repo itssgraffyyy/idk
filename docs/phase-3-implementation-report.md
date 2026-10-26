@@ -24,7 +24,7 @@ Checkpoint 2 passed 95 automated tests, zero failures (196.29s), build/type chec
 
 Browser tests now isolate their actual server/database per journey; rapid role logins in separate journeys previously hit the unchanged shared-server login throttle. Source version controls are disabled while loading so a premature change cannot be silently lost. Parse-only PDF validation skips unused system-font loading: a single controlled fixture comparison measured 1550.54 ms versus 334.30 ms with identical validation result; this is not a throughput guarantee. Rendering/OCR do not disable system fonts. Validation still enforces the same file/page/pixel/time bounds. Full verification now runs one independent server/test file at a time while retaining concurrent-request tests within each fixture.
 
-Phase 3B–3D are not yet implemented. Final administrative outcome transitions depend on the later clearance/maker-checker milestone. See [progress](implementation-progress.md) for the exact next checkpoint.
+Phase 3B has a validated partial continuity/proposal/reminder checkpoint; see phase-3-continuity-report.md. Phase 3C–3D are not yet implemented. Final administrative outcome transitions depend on the later clearance/maker-checker milestone. See [progress](implementation-progress.md) for the exact next checkpoint.
 
 ## Validation issues retained
 
