@@ -54,6 +54,7 @@ test("supervisor performs guarded review transition and auditor can only inspect
     .click();
   await expect(page.locator("#detail")).toContainText("under_review");
   await page.getByLabel("Historical evaluation date").fill("2026-01-01");
+  await page.getByLabel("Replay facts").selectOption({ index: 1 });
   const replay = page.waitForResponse(
     (r) =>
       r.url().endsWith("/policy-evaluate") && r.request().method() === "POST",

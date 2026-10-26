@@ -6,6 +6,14 @@ export function validateEnvelope(body) {
   };
   if (!body || typeof body !== "object" || Array.isArray(body)) bad();
   for (const k of [
+    "id",
+    "kind",
+    "title",
+    "classification",
+    "mime",
+    "name",
+    "extractionId",
+    "evaluationId",
     "reason",
     "action",
     "documentId",
@@ -21,6 +29,8 @@ export function validateEnvelope(body) {
       (typeof body[k] !== "string" || body[k].length > 2000)
     )
       bad();
+  if (body.background !== undefined && typeof body.background !== "boolean")
+    bad();
   if (
     body.revision !== undefined &&
     (!Number.isSafeInteger(body.revision) || body.revision < 0)

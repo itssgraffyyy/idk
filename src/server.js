@@ -17,6 +17,7 @@ import http from "node:http";
 import { LocalPrivateStorage } from "./storage.js";
 import { OCRPool } from "./ocr-pool.js";
 import { validateEnvelope } from "./contracts.js";
+import { replayPolicySnapshot } from "./policy-replay.js";
 import { readFileSync, writeFileSync, mkdirSync, unlinkSync } from "node:fs";
 import { resolve, join } from "node:path";
 import { randomBytes, randomUUID } from "node:crypto";
@@ -846,7 +847,18 @@ export function createApp({
             fail(400, "Valid historical evaluation date required");
           let eid;
           tx(() => {
-            eid = reevaluate(u.id, c, body.asOf);
+            eid = body.evaluationId
+              ? evidence(
+                  u.id,
+                  id,
+                  "evaluation_replay",
+                  replayPolicySnapshot(db, id, body.evaluationId, body.asOf, {
+                    policies,
+                    scope: policyScope,
+                    verifiedSourceHashes,
+                  }),
+                )
+              : reevaluate(u.id, c, body.asOf);
           });
           json(res, 201, { evaluationId: eid });
           return;
@@ -1269,6 +1281,19 @@ export function createApp({
             } catch {
               status = "failed";
               error = "OCR unavailable, timed out or rejected document";
+            }
+            try {
+              if (hash(storage.read(d.id)) !== d.payload.sha256)
+                fail(409, "Document integrity changed during processing");
+            } catch (e) {
+              db.prepare(
+                "UPDATE jobs SET status='failed',error='Document integrity changed or unavailable' WHERE id=?",
+              ).run(jid);
+              audit(u.id, "processing_failed", id, {
+                jobId: jid,
+                documentVersionId: d.id,
+              });
+              throw e;
             }
             if (latestFDR(db, id)?.id !== d.id) {
               db.prepare("UPDATE jobs SET status='superseded' WHERE id=?").run(

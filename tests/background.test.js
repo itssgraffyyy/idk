@@ -1,7 +1,62 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
 import { harness } from "./support/harness.js";
+test("bytes changed during OCR fail the durable job and cannot become accepted extraction", async () => {
+  let release;
+  const gate = new Promise((r) => (release = r)),
+    h = await harness({
+      ocrRunner: async () => {
+        await gate;
+        return {
+          stdout: JSON.stringify({
+            text: "Reference: MUST-NOT-ACCEPT",
+            blocks: [],
+          }),
+        };
+      },
+    });
+  try {
+    const a = await h.login("a"),
+      id = await h.create(a),
+      path = "/cases/" + id,
+      doc = await h.call(
+        path + "/documents",
+        {
+          mime: "image/png",
+          base64: readFileSync("datasets/v3/documents/ocr-v3-01.png").toString(
+            "base64",
+          ),
+        },
+        a,
+      );
+    assert.equal(doc.status, 201);
+    const pending = await h.call(path + "/process", { background: true }, a);
+    assert.equal(pending.status, 202);
+    writeFileSync(join(h.dir, "private", doc.body.id), "tampered");
+    release();
+    let job;
+    for (let n = 0; n < 100; n++) {
+      job = (await h.call(path + "/jobs/" + pending.body.jobId, undefined, a))
+        .body;
+      if (job.status !== "processing") break;
+      await new Promise((r) => setTimeout(r, 20));
+    }
+    assert.equal(job.status, "failed");
+    assert.equal(
+      h.app.db
+        .prepare(
+          "SELECT count(*) n FROM evidence WHERE case_id=? AND kind='extraction'",
+        )
+        .get(id).n,
+      0,
+    );
+  } finally {
+    release();
+    await h.close();
+  }
+});
 test("background OCR exposes tenant-protected durable job polling and persists extraction", async () => {
   let release;
   const gate = new Promise((r) => (release = r));

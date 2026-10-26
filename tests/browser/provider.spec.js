@@ -41,6 +41,8 @@ test("local financial provider scenarios are genuine API results and clearly MOC
   await page.getByRole("button", { name: "Sign in securely" }).click();
   await page.getByRole("button", { name: "Open →" }).last().click();
   for (const [scenario, code] of [
+    ["unavailable", "bank_confirmation"],
+    ["mock_conflict", "external_amountPaise"],
     ["mock_holder_conflict", "external_depositor"],
     ["mock_stale", "external_stale"],
     ["mock_partial", "external_partial"],

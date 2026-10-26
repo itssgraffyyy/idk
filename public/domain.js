@@ -309,12 +309,27 @@ window.mountDomainCase = function ({
   if (["officer", "supervisor"].includes(user.role)) {
     const replay = document.createElement("form");
     replay.innerHTML =
-      '<label>Historical evaluation date<input name="asOf" type="date" required></label><button>Replay policy evaluation</button>';
+      '<label>Historical evaluation date<input name="asOf" type="date" required></label><label>Replay facts<select name="evaluationId"><option value="">Current facts at selected policy date</option>' +
+      c.history
+        .filter((e) => e.kind === "evaluation")
+        .map(
+          (e) =>
+            '<option value="' +
+            escape(e.id) +
+            '">Frozen evaluation ' +
+            escape(e.payload.version) +
+            "</option>",
+        )
+        .join("") +
+      "</select></label><button>Replay policy evaluation</button>";
     replay.onsubmit = (e) => {
       e.preventDefault();
       run(async () => {
         await api("/cases/" + c.id + "/policy-evaluate", "POST", {
           asOf: replay.elements.asOf.value,
+          ...(replay.elements.evaluationId.value
+            ? { evaluationId: replay.elements.evaluationId.value }
+            : {}),
         });
         await detail(c.id);
       });

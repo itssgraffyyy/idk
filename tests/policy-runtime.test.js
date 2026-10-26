@@ -50,6 +50,23 @@ test("trusted declarative versions select deterministically and map all outcomes
     rules: [{ id: "minimum", type: "minimum_amount", amountPaise: 20000000 }],
   };
   assert.equal(
+    run({ amountPaise: 12500000 }, [policy, { ...next, active: false }])
+      .version,
+    policy.version,
+  );
+  assert.equal(
+    run({ amountPaise: 12500000 }, [policy, next]).version,
+    next.version,
+  );
+  assert.equal(
+    run({ amountPaise: 12500000 }, [policy], "2025-01-01").outcome,
+    "COMPLIANT",
+  );
+  assert.equal(
+    run({ amountPaise: 12500000 }, [policy], "2027-12-31").outcome,
+    "COMPLIANT",
+  );
+  assert.equal(
     run({ amountPaise: 15000000 }, [policy, next]).version,
     next.version,
   );
@@ -152,6 +169,43 @@ test("historical replay is persisted independently and cannot activate policy fr
       record.payload.findings.every((f) =>
         ["LOW", "MEDIUM", "HIGH", "CRITICAL"].includes(f.severity),
       ),
+    );
+    assert.equal(
+      (
+        await h.call(
+          path + "/corrections",
+          {
+            instrument: { ...instrument, amountPaise: 100 },
+            revision: 1,
+            reason: "Test frozen replay after correction",
+          },
+          a,
+        )
+      ).status,
+      200,
+    );
+    const currentId = (
+      await h.call(path, undefined, a)
+    ).body.currentEvidence.find((e) => e.kind === "evaluation").id;
+    const frozen = await h.call(
+      path + "/policy-evaluate",
+      { asOf: "2025-07-01", evaluationId: before.id },
+      o,
+    );
+    assert.equal(frozen.status, 201);
+    const frozenRecord = JSON.parse(
+      h.app.db
+        .prepare("SELECT payload FROM evidence WHERE id=?")
+        .get(frozen.body.evaluationId).payload,
+    );
+    assert.equal(frozenRecord.replayMode, "FROZEN_FACTS_POLICY_ONLY");
+    assert.equal(frozenRecord.sources.instrument.amountPaise, 12500000);
+    assert.equal(frozenRecord.operationalPolicy.outcome, "COMPLIANT");
+    assert.equal(
+      (await h.call(path, undefined, a)).body.currentEvidence.find(
+        (e) => e.kind === "evaluation",
+      ).id,
+      currentId,
     );
   } finally {
     await h.close();
