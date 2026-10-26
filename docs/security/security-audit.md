@@ -1,3 +1,8 @@
+# Current security validation — 27 October 2026
+
+The current control evidence is in [implementation results](../phase-1-2-implementation-results.md) and the complete [test log](../evaluation/phase-1-2-tests.txt). Five roles, authority/tenant/object boundaries, account revocation, signed bounded pagination, instrument-specific evidence, correlated categorized audit outcomes, credential redaction, private exclusive storage/quarantine, protected PDF page rendering and bounded reusable OCR recovery are implemented and tested. Uploaded PDF active content is not embedded in the browser. Historical replay cannot replace the current assessment or grant administrative approval.
+
+The report below predates this work. Its statements that only two roles or unpaginated histories are supported are historical and superseded. Production deployment, OS sandboxing, independent audit checkpoints and real issuer/bank acceptance remain outside the verified local acceptance boundary. A passing regression suite is not comprehensive penetration testing.
 # Security and reliability audit — final gap pass
 
 26 October 2026. Scope: current local Node/SQLite prototype, HTTP APIs, private files, OCR/PDF workers, provider boundaries, database/evidence history and two portal flows. This is a code/test review, not a penetration-test or ASVS certification.

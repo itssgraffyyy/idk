@@ -1,5 +1,11 @@
 # Phase 1 + 2 final gap audit
 
+## Implementation closure — 27 October 2026
+
+The table below is the earlier baseline, not the current implementation status. Current C1–C3/H1–H10 implementation, concrete medium-scope closure, file/test mapping, migrations and remaining external dependencies are recorded in [implementation results](phase-1-2-implementation-results.md). DOMAIN-F1 and FIELD-F1 are implemented; OPS-F1's pagination, structured logs, storage interface, typed boundary and deployment configuration are implemented, with explicit single-owner/performance and unexecuted Docker/remote-CI limits. M1–M9 labels are not defined in this checked-in audit, so their exact original attribution is not invented. No regulatory or live banking authority has been fabricated.
+
+## Historical baseline and findings
+
 26 October 2026. Baseline commit2846d76. Existing source, v1 fixtures, database paths and Git history preserved; no rebuild/reset/push.
 
 ## Audit correction and reproduced baseline

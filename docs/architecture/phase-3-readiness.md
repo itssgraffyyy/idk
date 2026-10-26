@@ -1,20 +1,16 @@
 # Phase 3 readiness
 
-26 October 2026. Phase 3/4 implementation has not begun.
+27 October 2026. No Phase 3/4 workflow implementation has begun.
 
-The current two-portal prototype has usable UUID evidence contracts, immutable source/correction history, integer paise, revision checks, provider trust classification and source-pinned reference rules. These are useful migration/extension boundaries. They do **not** establish readiness for full clearance/release orchestration.
+The earlier internal foundation blockers are implemented: five server-enforced roles; independent obligation/instrument/logical-document/version identities; guarded initial lifecycle; predecessor/successor links; institution/programme/approval administration; rich instrument metadata; instrument-bound evidence; immutable evaluations/corrections; versioned operational policy selection and historical replay; tenant-safe bounded queries; correlated audit outcomes; private storage contracts; durable OCR jobs/model reuse; typed request/client boundaries and connected portals.
 
-## Preconditions
+Acceptance evidence and remaining limits: [implementation results](../phase-1-2-implementation-results.md). Populated migration, concurrency, tenant/object/session isolation, private uploads, worker/provider failures and browser journeys pass. A fresh native installation/provisioning/restart probe preserves hashes and evaluations. Docker configuration and CI exist, but container launch and remote CI have not been executed on this host.
 
-1. Finish original Phase 1 role/permission and institution/domain requirements. Institution administrator, supervisor and audit reviewer are original Phase 1 gaps, not new Phase 3 scope.
-2. Separate institutions, obligations and instruments operationally; add instrument type/currency/branch, predecessor/successor links and explicit initial case status transitions. Existing case UUID/evidence contracts should remain stable. This is a substantive domain change; current JSON snapshots alone cannot promise no structural work.
-3. Add bounded/paginated histories and list queries, then measure realistic concurrency. The current SQLite owner lock intentionally supports one service; synchronous database operations and whole-history loading limit scale.
-4. Use PostgreSQL and leased workers for distributed operation. Preserve tenant IDs, actor IDs, case/evidence UUIDs, hashes, timestamps and supersession links; test export/restoration and dual-backend authorization contracts before cutover.
-5. Complete issuer regulation verification and applicable interpretation, representative document accuracy and authorized bank integration acceptance before financial automation.
-6. Establish deployment TLS, secure provisioning/recovery, managed private-storage access/encryption, independent backups/restore drills and audit checkpoints. Node PDF/image/OCR children are bounded processes, not OS sandboxes.
+The application is ready for scoped Phase 3 design and reviewed local development against these contracts. It is not approved for production financial/regulatory automation or distributed Phase 3 rollout. Keep the following separate from missing prototype functionality:
 
-Next.js/FastAPI migration is not performed. The original master explicitly required that stack; the current repair instruction preserves the existing implementation. See stack-decision.md for concrete staged migration reasons. Framework choice alone does not fix the domain/security gaps.
+- External: authorized Setu sandbox product/credentials/consent acceptance; official AICTE issuer sources, amendments and interpretation confirmation. No live bank or official policy confirmation is claimed.
+- Recognition: synthetic held-out IFSC coverage remains incomplete; secondary visual corrections require review. Confidence is not calibrated and real-bank-document accuracy is unmeasured.
+- Deployment/scale: one owner process per SQLite directory, synchronous transactions, tenant-scoped aggregate scans, two bounded OCR processes. Distributed operation requires a database/leased-worker design and shared private storage. Choose migration for measured scale or deployment needs, not framework appearance.
+- Production operations: TLS/Host configuration, private volume ACLs/encryption, independent consistent backup/restore drills, document-process OS isolation and appropriate security review. Database triggers do not resist a database administrator.
 
-## Assessment
-
-Ready for continued local prototype development and reviewed demonstrations with synthetic data. **Not architecturally ready for full Phase 3 rollout without the domain and operational work above; not production-ready.** No clearance authority, automatic release, escalation system or banking confirmation is implied.
+The latest instruction explicitly preserves the existing Node/browser/SQLite implementation. Next.js/FastAPI conversion is not required to implement the new domain contracts. Preserve tenant/actor/case/evidence UUIDs, hashes, timestamps and supersession links in any future migration. Advanced clearance, release, escalation and maker-checker flows remain unstarted future work.

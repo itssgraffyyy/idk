@@ -1,0 +1,21 @@
+{
+  "command": "node scripts/validate-clean-start.js",
+  "cleanNpmCi": true,
+  "provisioningIdempotent": true,
+  "ready": true,
+  "login": true,
+  "registration": true,
+  "documentHashPreserved": true,
+  "processing": true,
+  "restartPersistence": true,
+  "evaluationsPreserved": 3,
+  "migrations": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ]
+}

@@ -1,3 +1,10 @@
+# Current requirement traceability — 27 October 2026
+
+The current requirement-to-code-to-test matrix is [implementation results](../phase-1-2-implementation-results.md). C1–C3 and H1–H10 are implemented and acceptance-tested within their stated local/prototype boundaries. The concrete medium requirements now include storage contracts, PDF page viewing, reusable OCR workers/background polling, connected management controls, strict typed client contracts, modularization, Compose/native clean deployment and duplicate-byte warnings. Their exact M1–M9 numbering is absent from the checked-in source audit; no original mapping is asserted.
+
+Migrations 7–11 preserve original IDs, hashes and evaluations and add the independent role/domain/lifecycle relationships. The official policy register remains unverified and Setu live acceptance remains an external dependency. Existing frameworks were preserved by instruction. Automated assessments do not grant final administrative approval.
+
+The table below is the historical before-completion matrix. Its missing/partial statuses are retained for comparison and superseded by the linked current implementation matrix.
 # Phase 1 + 2 requirement traceability — final gap pass
 
 26 October 2026. Original master attachment SHA-256: E5B1265534D399E83CF576F2E093D703E4584640DFD11EEF7E48051D68CA3605.

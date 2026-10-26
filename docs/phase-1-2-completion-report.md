@@ -1,4 +1,8 @@
-# Phase 1 + 2 final gap-closure report
+# Phase 1 + 2 completion report — 27 October 2026
+
+The current implementation and acceptance report is [implementation results](phase-1-2-implementation-results.md). It supersedes the historical baseline report below: five roles, independent domain identities/lifecycle, administration, ten-field intelligence, policy replay, bounded queries, correlated audits, private storage/preview and reusable OCR processing are now implemented. Full automated validation passed 84 tests plus build and typed contracts; browser and raw benchmark evidence are linked in that report. External banking/issuer acceptance is still unavailable, and no production or Phase 3 workflow completion is claimed.
+
+## Historical report retained for comparison
 
 26 October 2026. Repair baseline: commit2846d76. The existing application, original raster fixtures, private-data paths and Git history were preserved. No remote push or Phase 3/4 workflow implementation was performed.
 

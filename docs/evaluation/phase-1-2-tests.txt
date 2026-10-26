@@ -1,333 +1,453 @@
 TAP version 13
-# (node:9892) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (node:3100) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: profile and programme/approval history updates are tenant scoped, revisioned and persisted
+ok 1 - profile and programme/approval history updates are tenant scoped, revisioned and persisted
+  ---
+  duration_ms: 6917.2769
+  ...
+# Subtest: independent obligations support multiple linked instruments, guarded amendments and relationships
+ok 2 - independent obligations support multiple linked instruments, guarded amendments and relationships
+  ---
+  duration_ms: 9064.6283
+  ...
+# Subtest: account administrators cannot cross tenant or elevate outside their role family; status revokes sessions
+ok 3 - account administrators cannot cross tenant or elevate outside their role family; status revokes sessions
+  ---
+  duration_ms: 22190.2492
+  ...
+# (node:17332) ExperimentalWarning: SQLite is an experimental feature and might change at any time
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: financial validation rejects unsafe money, malformed dates and IFSC
-ok 1 - financial validation rejects unsafe money, malformed dates and IFSC
+ok 4 - financial validation rejects unsafe money, malformed dates and IFSC
   ---
-  duration_ms: 5.7658
+  duration_ms: 4.1983
   ...
 # Subtest: engine explains discrepancies and never asserts regulatory compliance
-ok 2 - engine explains discrepancies and never asserts regulatory compliance
+ok 5 - engine explains discrepancies and never asserts regulatory compliance
   ---
-  duration_ms: 1135.4288
+  duration_ms: 683.0804
   ...
 # Subtest: complete HTTP journeys and security boundaries
     # Subtest: anonymous and failed logins rejected
     ok 1 - anonymous and failed logins rejected
       ---
-      duration_ms: 235.0859
+      duration_ms: 256.9697
       ...
     # Subtest: CSRF and origin enforcement
     ok 2 - CSRF and origin enforcement
       ---
-      duration_ms: 6.7458
+      duration_ms: 464.0994
       ...
     # Subtest: register obligation and FDR using backend
     ok 3 - register obligation and FDR using backend
       ---
-      duration_ms: 196.4085
+      duration_ms: 122.9744
       ...
     # Subtest: tenant and assigned-officer isolation
     ok 4 - tenant and assigned-officer isolation
       ---
-      duration_ms: 410.9157
+      duration_ms: 594.3767
       ...
     # Subtest: validate uploads, retain hash and protect downloads
     ok 5 - validate uploads, retain hash and protect downloads
       ---
-      duration_ms: 448.428
+      duration_ms: 873.2922
       ...
     # Subtest: actual text extraction, provenance, evaluation history
     ok 6 - actual text extraction, provenance, evaluation history
       ---
-      duration_ms: 1046.2949
+      duration_ms: 229.7016
       ...
     # Subtest: mock conflict and unavailable evidence classified
     ok 7 - mock conflict and unavailable evidence classified
       ---
-      duration_ms: 699.8797
+      duration_ms: 447.8551
       ...
     # Subtest: corrections append history, reject stale revision
     ok 8 - corrections append history, reject stale revision
       ---
-      duration_ms: 187.0201
+      duration_ms: 273.0248
       ...
     # Subtest: officer clarification, institutional response and observation
     ok 9 - officer clarification, institutional response and observation
       ---
-      duration_ms: 637.1192
+      duration_ms: 642.3375
       ...
     # Subtest: new document invalidates prior extraction; OCR failure preserved
     ok 10 - new document invalidates prior extraction; OCR failure preserved
       ---
-      duration_ms: 1356.1904
+      duration_ms: 1666.6023
       ...
     # Subtest: database guards evidence and audit immutability
     ok 11 - database guards evidence and audit immutability
       ---
-      duration_ms: 0.7601
+      duration_ms: 1.7994
       ...
     # Subtest: tampered documents fail integrity check
     ok 12 - tampered documents fail integrity check
       ---
-      duration_ms: 5.1947
+      duration_ms: 159.6492
       ...
     # Subtest: IFSC reference never authenticates deposit; logout revokes session
     ok 13 - IFSC reference never authenticates deposit; logout revokes session
       ---
-      duration_ms: 166.2655
+      duration_ms: 629.9983
       ...
     1..13
-ok 3 - complete HTTP journeys and security boundaries
+ok 6 - complete HTTP journeys and security boundaries
   ---
-  duration_ms: 16044.4065
+  duration_ms: 12007.7073
+  ...
+# (node:16736) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: bytes changed during OCR fail the durable job and cannot become accepted extraction
+ok 7 - bytes changed during OCR fail the durable job and cannot become accepted extraction
+  ---
+  duration_ms: 8476.6042
+  ...
+# Subtest: background OCR exposes tenant-protected durable job polling and persists extraction
+ok 8 - background OCR exposes tenant-protected durable job polling and persists extraction
+  ---
+  duration_ms: 8136.1466
+  ...
+# Subtest: account and obligation pagination never returns credentials and rejects cross-role cursors
+ok 9 - account and obligation pagination never returns credentials and rejects cross-role cursors
+  ---
+  duration_ms: 22966.647
   ...
 # Subtest: provider response streaming is size bounded and invalid JSON is rejected
-ok 4 - provider response streaming is size bounded and invalid JSON is rejected
+ok 10 - provider response streaming is size bounded and invalid JSON is rejected
   ---
-  duration_ms: 44.0463
+  duration_ms: 46.6468
   ...
 # Subtest: sandbox token exchange follows pinned host/contract and never treats authentication as bank confirmation
-ok 5 - sandbox token exchange follows pinned host/contract and never treats authentication as bank confirmation
+ok 11 - sandbox token exchange follows pinned host/contract and never treats authentication as bank confirmation
   ---
-  duration_ms: 4.517
+  duration_ms: 2.9831
   ...
 # Subtest: request and host guards reject rebinding targets and sustained excess
-ok 6 - request and host guards reject rebinding targets and sustained excess
+ok 12 - request and host guards reject rebinding targets and sustained excess
   ---
-  duration_ms: 0.856
+  duration_ms: 0.7091
   ...
 # Subtest: Setu matching/amount-conflict/partial records retain explicit trust and missing instrument identity
-ok 7 - Setu matching/amount-conflict/partial records retain explicit trust and missing instrument identity
+ok 13 - Setu matching/amount-conflict/partial records retain explicit trust and missing instrument identity
   ---
-  duration_ms: 1158.3065
+  duration_ms: 753.5354
   ...
 # Subtest: denied/expired, missing/different/duplicate/conflicting/invalid accounts and sessions fail safely
-ok 8 - denied/expired, missing/different/duplicate/conflicting/invalid accounts and sessions fail safely
+ok 14 - denied/expired, missing/different/duplicate/conflicting/invalid accounts and sessions fail safely
   ---
-  duration_ms: 11.1724
+  duration_ms: 11.7289
   ...
 # Subtest: stale provider ranges are not refreshed by retrieval and cannot drive current mismatch findings
-ok 9 - stale provider ranges are not refreshed by retrieval and cannot drive current mismatch findings
+ok 15 - stale provider ranges are not refreshed by retrieval and cannot drive current mismatch findings
   ---
-  duration_ms: 1.1635
+  duration_ms: 1.0753
   ...
 # Subtest: deterministic development records remain MOCK and different instrument identifiers produce conflicts
-ok 10 - deterministic development records remain MOCK and different instrument identifiers produce conflicts
+ok 16 - deterministic development records remain MOCK and different instrument identifiers produce conflicts
   ---
-  duration_ms: 2.1666
+  duration_ms: 1.5044
   ...
 # Subtest: regulatory metadata, unsupported history, government overlap, no blanket NOC and maturity do not authorize release
-ok 11 - regulatory metadata, unsupported history, government overlap, no blanket NOC and maturity do not authorize release
+ok 17 - regulatory metadata, unsupported history, government overlap, no blanket NOC and maturity do not authorize release
   ---
-  duration_ms: 0.9669
+  duration_ms: 0.6034
   ...
 # Subtest: active findings are unique per code even when regulatory calculation has several steps
-ok 12 - active findings are unique per code even when regulatory calculation has several steps
+ok 18 - active findings are unique per code even when regulatory calculation has several steps
   ---
-  duration_ms: 0.8021
+  duration_ms: 0.4375
+  ...
+# (node:13848) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: five-role permissions, authority isolation, assignment and guarded lifecycle concurrency
+ok 19 - five-role permissions, authority isolation, assignment and guarded lifecycle concurrency
+  ---
+  duration_ms: 13005.0253
+  ...
+# Subtest: logical proof versions do not replace FDR extraction and version bytes remain immutable
+ok 20 - logical proof versions do not replace FDR extraction and version bytes remain immutable
+  ---
+  duration_ms: 17628.8229
+  ...
+# Subtest: populated v6 migration preserves users, FK bindings, original document hashes and historical evaluations
+ok 21 - populated v6 migration preserves users, FK bindings, original document hashes and historical evaluations
+  ---
+  duration_ms: 16699.5351
   ...
 # Subtest: IFSC candidates separate normalization, syntax, reference, confidence and provenance
-ok 13 - IFSC candidates separate normalization, syntax, reference, confidence and provenance
+ok 22 - IFSC candidates separate normalization, syntax, reference, confidence and provenance
   ---
-  duration_ms: 1064.1554
+  duration_ms: 678.2033
   ...
 # Subtest: confusion suggestions never replace raw identifier, including structurally valid suffix ambiguity
-ok 14 - confusion suggestions never replace raw identifier, including structurally valid suffix ambiguity
+ok 23 - confusion suggestions never replace raw identifier, including structurally valid suffix ambiguity
   ---
-  duration_ms: 0.8331
+  duration_ms: 0.643
   ...
 # Subtest: multiple, conflicting, low-confidence, bank-mismatched and outdated references require review
-ok 15 - multiple, conflicting, low-confidence, bank-mismatched and outdated references require review
+ok 24 - multiple, conflicting, low-confidence, bank-mismatched and outdated references require review
   ---
-  duration_ms: 6.0428
+  duration_ms: 2.4891
   ...
 # Subtest: offline fallback preserves reference version and never authenticates the deposit
-ok 16 - offline fallback preserves reference version and never authenticates the deposit
+ok 25 - offline fallback preserves reference version and never authenticates the deposit
   ---
-  duration_ms: 1.0332
+  duration_ms: 0.7934
   ...
 # Subtest: candidate processing is bounded and never selects from a truncated candidate set
-ok 17 - candidate processing is bounded and never selects from a truncated candidate set
+ok 26 - candidate processing is bounded and never selects from a truncated candidate set
   ---
-  duration_ms: 1.395
+  duration_ms: 0.9832
+  ...
+# (node:9748) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: replacement selection cannot inherit another instrument document, extraction or financial evidence
+ok 27 - replacement selection cannot inherit another instrument document, extraction or financial evidence
+  ---
+  duration_ms: 9601.8017
+  ...
+# (node:1328) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: ten-field extraction preserves exact page identity and coordinates and withholds cross-page conflicts
+ok 28 - ten-field extraction preserves exact page identity and coordinates and withholds cross-page conflicts
+  ---
+  duration_ms: 705.528
+  ...
+# Subtest: secondary OCR proposal retains primary recognition and never bypasses review
+ok 29 - secondary OCR proposal retains primary recognition and never bypasses review
+  ---
+  duration_ms: 2.3975
+  ...
+# Subtest: actual local mock provider scenarios flow through API, evaluations and preserved trust
+ok 30 - actual local mock provider scenarios flow through API, evaluations and preserved trust
+  ---
+  duration_ms: 6649.495
   ...
 # Subtest: safe normalization handles bank whitespace and IFSC case without guessing identifier characters
-ok 18 - safe normalization handles bank whitespace and IFSC case without guessing identifier characters
+ok 31 - safe normalization handles bank whitespace and IFSC case without guessing identifier characters
   ---
-  duration_ms: 1.8299
+  duration_ms: 1.1773
+  ...
+# Subtest: bounded OCR workers recover after timeout, malformed results and worker death
+ok 32 - bounded OCR workers recover after timeout, malformed results and worker death
+  ---
+  duration_ms: 549.5233
+  ...
+# (node:18348) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: trusted declarative versions select deterministically and map all outcomes without administrative approval
+ok 33 - trusted declarative versions select deterministically and map all outcomes without administrative approval
+  ---
+  duration_ms: 39.149
+  ...
+# Subtest: historical replay is persisted independently and cannot activate policy from client data
+ok 34 - historical replay is persisted independently and cannot activate policy from client data
+  ---
+  duration_ms: 8141.3212
   ...
 # Subtest: effective dates and scope prevent unsupported policy selection
-ok 19 - effective dates and scope prevent unsupported policy selection
+ok 35 - effective dates and scope prevent unsupported policy selection
   ---
-  duration_ms: 1.9008
+  duration_ms: 4.4969
   ...
 # Subtest: unverified rules and unsupported operators fail closed
-ok 20 - unverified rules and unsupported operators fail closed
+ok 36 - unverified rules and unsupported operators fail closed
   ---
-  duration_ms: 0.4838
+  duration_ms: 0.7955
   ...
 # Subtest: synthetic minimum and evidence-backed exemption retain explanation
-ok 21 - synthetic minimum and evidence-backed exemption retain explanation
+ok 37 - synthetic minimum and evidence-backed exemption retain explanation
   ---
-  duration_ms: 0.4575
+  duration_ms: 0.5514
   ...
 # Subtest: pinned real IFSC directory has expected coverage and branch provenance
-ok 22 - pinned real IFSC directory has expected coverage and branch provenance
+ok 38 - pinned real IFSC directory has expected coverage and branch provenance
   ---
-  duration_ms: 1186.2765
+  duration_ms: 784.6055
   ...
 # Subtest: real IFSC service transport contract validates response and falls back offline
-ok 23 - real IFSC service transport contract validates response and falls back offline
+ok 39 - real IFSC service transport contract validates response and falls back offline
   ---
-  duration_ms: 34.9628
+  duration_ms: 25.2945
   ...
 # Subtest: sandbox data normalizes actual term-deposit schema without inventing FDR reference or bank name
-ok 24 - sandbox data normalizes actual term-deposit schema without inventing FDR reference or bank name
+ok 40 - sandbox data normalizes actual term-deposit schema without inventing FDR reference or bank name
   ---
-  duration_ms: 2.8042
+  duration_ms: 2.1408
   ...
 # Subtest: unconfigured, expired/revoked consent, unavailable sessions and mismatched evidence never confirm a deposit
-ok 25 - unconfigured, expired/revoked consent, unavailable sessions and mismatched evidence never confirm a deposit
+ok 41 - unconfigured, expired/revoked consent, unavailable sessions and mismatched evidence never confirm a deposit
   ---
-  duration_ms: 5.905
+  duration_ms: 4.1568
   ...
 # Subtest: partial and legacy schema evidence preserves missing currency instead of guessing
-ok 26 - partial and legacy schema evidence preserves missing currency instead of guessing
+ok 42 - partial and legacy schema evidence preserves missing currency instead of guessing
   ---
-  duration_ms: 1.2162
+  duration_ms: 0.9397
   ...
 # Subtest: sandbox transport failures, invalid money and unsupported FI schema fail safely
-ok 27 - sandbox transport failures, invalid money and unsupported FI schema fail safely
+ok 43 - sandbox transport failures, invalid money and unsupported FI schema fail safely
   ---
-  duration_ms: 1.6921
+  duration_ms: 1.3881
   ...
 # Subtest: consent/session creation uses pinned official request field names and checks ranges
-ok 28 - consent/session creation uses pinned official request field names and checks ranges
-  ---
-  duration_ms: 2.6264
-  ...
-# (node:18892) ExperimentalWarning: SQLite is an experimental feature and might change at any time
-# (Use `node --trace-warnings ...` to show where the warning was created)
-# Subtest: IFSC and INR/date parsing retain raw evidence and refuse unsafe ambiguity
-ok 29 - IFSC and INR/date parsing retain raw evidence and refuse unsafe ambiguity
-  ---
-  duration_ms: 827.6972
-  ...
-# Subtest: single-instance lease, migration checksums and data survive reopen
-ok 30 - single-instance lease, migration checksums and data survive reopen
-  ---
-  duration_ms: 8852.3353
-  ...
-# Subtest: idempotency, concurrent edits, host/session boundaries and policy claims are backend enforced
-ok 31 - idempotency, concurrent edits, host/session boundaries and policy claims are backend enforced
-  ---
-  duration_ms: 8159.3992
-  ...
-# Subtest: in-flight OCR cannot supersede manual correction and session revocation cancels evidence writes
-ok 32 - in-flight OCR cannot supersede manual correction and session revocation cancels evidence writes
-  ---
-  duration_ms: 11586.7698
-  ...
-# Subtest: provider delay cannot evaluate a stale declaration; database failure returns safe API error
-ok 33 - provider delay cannot evaluate a stale declaration; database failure returns safe API error
-  ---
-  duration_ms: 6767.6783
-  ...
-# Subtest: repeated corrections retain exact finding provenance, reject unauthorized writes and preserve prior evaluations
-ok 34 - repeated corrections retain exact finding provenance, reject unauthorized writes and preserve prior evaluations
-  ---
-  duration_ms: 10078.6695
-  ...
-# Subtest: disabled accounts cannot login or use existing sessions
-ok 35 - disabled accounts cannot login or use existing sessions
-  ---
-  duration_ms: 10915.7967
-  ...
-# Subtest: private bounded PDF upload, embedded text, scanned OCR, history and unsafe PDFs
-ok 36 - private bounded PDF upload, embedded text, scanned OCR, history and unsafe PDFs
-  ---
-  duration_ms: 19389.8134
-  ...
-# Subtest: every registered rule has clause, applicability, source hash, pinned document and tested behavior
-ok 37 - every registered rule has clause, applicability, source hash, pinned document and tested behavior
-  ---
-  duration_ms: 227.8782
-  ...
-# Subtest: all supported programme table cells use exact integer paise
-ok 38 - all supported programme table cells use exact integer paise
+ok 44 - consent/session creation uses pinned official request field names and checks ranges
   ---
   duration_ms: 2.3899
   ...
-# Subtest: academic-year lease amendments and concessions are selected without unsafe interaction assumptions
-ok 39 - academic-year lease amendments and concessions are selected without unsafe interaction assumptions
+# (node:17232) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: IFSC and INR/date parsing retain raw evidence and refuse unsafe ambiguity
+ok 45 - IFSC and INR/date parsing retain raw evidence and refuse unsafe ambiguity
   ---
-  duration_ms: 0.4569
+  duration_ms: 818.1781
+  ...
+# Subtest: single-instance lease, migration checksums and data survive reopen
+ok 46 - single-instance lease, migration checksums and data survive reopen
+  ---
+  duration_ms: 6360.694
+  ...
+# Subtest: idempotency, concurrent edits, host/session boundaries and policy claims are backend enforced
+ok 47 - idempotency, concurrent edits, host/session boundaries and policy claims are backend enforced
+  ---
+  duration_ms: 22799.9929
+  ...
+# Subtest: in-flight OCR cannot supersede manual correction and session revocation cancels evidence writes
+ok 48 - in-flight OCR cannot supersede manual correction and session revocation cancels evidence writes
+  ---
+  duration_ms: 7509.9878
+  ...
+# Subtest: provider delay cannot evaluate a stale declaration; database failure returns safe API error
+ok 49 - provider delay cannot evaluate a stale declaration; database failure returns safe API error
+  ---
+  duration_ms: 3247.1083
+  ...
+# Subtest: repeated corrections retain exact finding provenance, reject unauthorized writes and preserve prior evaluations
+ok 50 - repeated corrections retain exact finding provenance, reject unauthorized writes and preserve prior evaluations
+  ---
+  duration_ms: 4632.7122
+  ...
+# Subtest: disabled accounts cannot login or use existing sessions
+ok 51 - disabled accounts cannot login or use existing sessions
+  ---
+  duration_ms: 3607.6967
+  ...
+# Subtest: private bounded PDF upload, embedded text, scanned OCR, history and unsafe PDFs
+ok 52 - private bounded PDF upload, embedded text, scanned OCR, history and unsafe PDFs
+  ---
+  duration_ms: 22702.3664
+  ...
+# Subtest: every registered rule has clause, applicability, source hash, pinned document and tested behavior
+ok 53 - every registered rule has clause, applicability, source hash, pinned document and tested behavior
+  ---
+  duration_ms: 139.5175
+  ...
+# Subtest: all supported programme table cells use exact integer paise
+ok 54 - all supported programme table cells use exact integer paise
+  ---
+  duration_ms: 2.7205
+  ...
+# Subtest: academic-year lease amendments and concessions are selected without unsafe interaction assumptions
+ok 55 - academic-year lease amendments and concessions are selected without unsafe interaction assumptions
+  ---
+  duration_ms: 0.5033
   ...
 # Subtest: conditional government, regulator, NOC and amended university exemptions require referenced proof
-ok 40 - conditional government, regulator, NOC and amended university exemptions require referenced proof
+ok 56 - conditional government, regulator, NOC and amended university exemptions require referenced proof
   ---
-  duration_ms: 1.9619
+  duration_ms: 2.3718
   ...
 # Subtest: holding clock uses Council deposit date, administrative proof interval is checked and release never automatic
-ok 41 - holding clock uses Council deposit date, administrative proof interval is checked and release never automatic
+ok 57 - holding clock uses Council deposit date, administrative proof interval is checked and release never automatic
   ---
-  duration_ms: 0.6773
+  duration_ms: 0.6358
   ...
 # Subtest: unsupported years, missing facts and invalid dates stay reviewable
-ok 42 - unsupported years, missing facts and invalid dates stay reviewable
+ok 58 - unsupported years, missing facts and invalid dates stay reviewable
   ---
-  duration_ms: 1.2489
+  duration_ms: 1.0109
   ...
-# (node:9244) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (node:15192) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: signed pagination is tenant/filter bound and stable while new records arrive
+ok 59 - signed pagination is tenant/filter bound and stable while new records arrive
+  ---
+  duration_ms: 15581.1824
+  ...
+# Subtest: audit correlation, outcome and structured logs exclude secrets and survive concurrent requests
+ok 60 - audit correlation, outcome and structured logs exclude secrets and survive concurrent requests
+  ---
+  duration_ms: 18711.088
+  ...
+# (node:15532) ExperimentalWarning: SQLite is an experimental feature and might change at any time
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: migration reproducibility, OCR API, corrections, uploads and session resilience
     # Subtest: institution record persisted
     ok 1 - institution record persisted
       ---
-      duration_ms: 5.843
+      duration_ms: 15.9785
       ...
     # Subtest: truncated images and pixel bombs rejected
     ok 2 - truncated images and pixel bombs rejected
       ---
-      duration_ms: 299.2639
+      duration_ms: 2432.7272
       ...
     # Subtest: oversized upload and malformed JSON rejected
     ok 3 - oversized upload and malformed JSON rejected
       ---
-      duration_ms: 65.7797
+      duration_ms: 499.4
       ...
     # Subtest: real image OCR via API retains provenance and a durable job
     ok 4 - real image OCR via API retains provenance and a durable job
       ---
-      duration_ms: 3624.6937
+      duration_ms: 6240.2985
       ...
     # Subtest: manual extraction correction preserves raw result and rejects stale writes
     ok 5 - manual extraction correction preserves raw result and rejects stale writes
       ---
-      duration_ms: 338.6182
+      duration_ms: 1338.7042
       ...
     # Subtest: duplicate references re-evaluate all affected accessible cases
     ok 6 - duplicate references re-evaluate all affected accessible cases
       ---
-      duration_ms: 460.1748
+      duration_ms: 1733.8312
       ...
     # Subtest: expired session rejected and database checks reject invalid money
     ok 7 - expired session rejected and database checks reject invalid money
       ---
-      duration_ms: 148.084
+      duration_ms: 1928.555
       ...
     1..7
-ok 43 - migration reproducibility, OCR API, corrections, uploads and session resilience
+ok 61 - migration reproducibility, OCR API, corrections, uploads and session resilience
   ---
-  duration_ms: 15946.5042
+  duration_ms: 27918.8563
   ...
-1..43
-# tests 63
+# Subtest: private storage preserves committed bytes, rejects overwrite and quarantines interrupted writes
+ok 62 - private storage preserves committed bytes, rejects overwrite and quarantines interrupted writes
+  ---
+  duration_ms: 1053.7807
+  ...
+# Subtest: request contracts reject malformed scalar bodies and untrusted policy activation
+ok 63 - request contracts reject malformed scalar bodies and untrusted policy activation
+  ---
+  duration_ms: 2.0859
+  ...
+# {"ocrPool":{"coldMs":2993.8865,"warmMs":2215.4898999999996,"pid":18888,"modelReused":true}}
+# Subtest: warm OCR process retains model and produces identical repeated recognition
+ok 64 - warm OCR process retains model and produces identical repeated recognition
+  ---
+  duration_ms: 5212.9043
+  ...
+1..64
+# tests 84
 # suites 0
-# pass 63
+# pass 84
 # fail 0
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 77389.1617
+# duration_ms 81851.0086

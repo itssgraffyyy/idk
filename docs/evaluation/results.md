@@ -1,3 +1,6 @@
+# Current acceptance results — 27 October 2026
+
+See [implementation results](../phase-1-2-implementation-results.md) for current before/after metrics, field coverage, 84-test acceptance, browser validation, migrations, clean startup and deployment limits. Raw current artifacts are phase-1-2-tests.txt, current-browser.txt, clean-start.json, system-audit-results.json, reconciliation-audit-results.json and final-gap/ocr-results.json. Historical measurements below are retained for comparison, not the current completion claim.
 # Final-gap validation results
 
 26 October 2026. Node22.14.0, Windows, local loopback, synthetic evidence. Original baseline2846d76. These results supersede earlier aggregate-only reporting.
