@@ -1,0 +1,44 @@
+(node:12716) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:9208) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9208) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9208) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  x  1 tests\browser\continuity.spec.js:2:1 › institution proposes a documented replacement and officer records an internal relationship without bank release (48.1s)
+
+
+  1) tests\browser\continuity.spec.js:2:1 › institution proposes a documented replacement and officer records an internal relationship without bank release 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#document-preview pre')
+    Expected substring: "Synthetic replacement documentary evidence"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" locator('#document-preview pre') with timeout 5000ms
+      - waiting for locator('#document-preview pre')
+
+
+      138 |     .getByRole("button", { name: "Open instrument source" })
+      139 |     .click();
+    > 140 |   await expect(page.locator("#document-preview pre")).toContainText(
+          |                                                       ^
+      141 |     "Synthetic replacement documentary evidence",
+      142 |   );
+      143 | });
+        at G:\idk_lol\tests\browser\continuity.spec.js:140:55
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\continuity-institution-pro-aafd4-onship-without-bank-release\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\continuity-institution-pro-aafd4-onship-without-bank-release\error-context.md
+
+  1 failed
+    tests\browser\continuity.spec.js:2:1 › institution proposes a documented replacement and officer records an internal relationship without bank release 

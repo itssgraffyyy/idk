@@ -61,3 +61,5 @@ The preceding original-prompt table is a historical snapshot. Current implementa
 | 3C departmental clearances and maker-checker | Not implemented | Required before final administrative decision/release workflow acceptance |
 | 3D regulatory decision support | Existing pinned register/runtime/replay retained | Further explanations, immutable configuration context and conditional replay fix remain; real issuer confirmation unavailable |
 | 4A–4E | Existing Phase 1/2 OCR/security/deployment foundations retained | New held-out OCR, relationships/simulation, audit chain/identity/infrastructure hardening, analytics/accessibility and final integrated acceptance remain |
+
+Lifecycle follow-up: src/lifecycle.js and the existing case UI add source-version/hash/method amount observations and a signed scoped recorded-event timeline; successor-only viewing is verified. Full acceptance: 107 tests, build/types and eleven journeys pass. See the continuity report for limits and raw outputs.

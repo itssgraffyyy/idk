@@ -29,6 +29,7 @@ import { submissions } from "./submissions.js";
 import { viewerRoute } from "./viewer.js";
 import { continuityRoute } from "./continuity-api.js";
 import { runReminderBatch } from "./reminders.js";
+import { lifecycleRoute } from "./lifecycle.js";
 import { readFileSync, writeFileSync, mkdirSync, unlinkSync } from "node:fs";
 import { resolve, join } from "node:path";
 import { randomBytes, randomUUID } from "node:crypto";
@@ -829,6 +830,20 @@ export function createApp({
             audit,
             body,
             tx,
+          })
+        )
+          return;
+        if (
+          lifecycleRoute({
+            db,
+            c,
+            u,
+            action,
+            method: req.method,
+            url,
+            key: cursorKey,
+            json,
+            res,
           })
         )
           return;

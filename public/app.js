@@ -282,8 +282,9 @@ async function detail(id) {
       .join("") +
     '</div></div><div><div class="card"><h2>Source documents</h2>' +
     (doc
-      ? '<button id="preview-document">Preview latest source</button><div id="document-preview"></div>'
+      ? '<button id="preview-document">Preview latest source</button>'
       : "") +
+    '<div id="document-preview"></div>' +
     h
       .filter((e) => e.kind === "document")
       .map(

@@ -1,0 +1,23 @@
+(node:16988) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 11 tests using 1 worker
+
+(node:13148) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:13148) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:13148) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  ok  1 tests\browser\administration.spec.js:2:1 › institution administrator edits profile, programme/history, independent obligation and account through backend UI (12.7s)
+  ok  2 tests\browser\continuity.spec.js:2:1 › institution proposes a documented replacement and officer records an internal relationship without bank release (12.2s)
+  ok  3 tests\browser\journeys.spec.js:2:1 › ambiguous IFSC is visible and requires a reasoned manual correction (11.6s)
+  ok  4 tests\browser\journeys.spec.js:83:1 › institution submits evidence; officer compares, requests clarification; institution responds (15.3s)
+  ok  5 tests\browser\journeys.spec.js:278:1 › responsive login and rejected credentials (9.4s)
+  ok  6 tests\browser\pdf.spec.js:3:1 › private PDF is rendered as protected page image in institution workspace (8.3s)
+  ok  7 tests\browser\provider.spec.js:2:1 › local financial provider scenarios are genuine API results and clearly MOCK in officer workspace (13.9s)
+  ok  8 tests\browser\resolution.spec.js:2:1 › reviewer targets a finding; institution corrects only disputed amount and reviewer closes the response (11.2s)
+  ok  9 tests\browser\roles.spec.js:2:1 › supervisor performs guarded review transition and auditor can only inspect the same authority case (8.4s)
+  ok 10 tests\browser\submission.spec.js:2:1 › guided upload-first draft survives reload, prefills only chosen proposals and receives persisted acknowledgement (9.4s)
+  ok 11 tests\browser\viewer.spec.js:3:1 › reviewer compares original/corrected fields across protected PDF versions with measured highlights and zoom (11.0s)
+
+  11 passed (2.2m)

@@ -2,6 +2,7 @@ import { test, expect } from "./fixtures.js";
 test("institution proposes a documented replacement and officer records an internal relationship without bank release", async ({
   page,
 }) => {
+  test.setTimeout(120000);
   const login = async (role) => {
     const r = await page.request.post("/api/login", {
       data: {
@@ -124,4 +125,20 @@ test("institution proposes a documented replacement and officer records an inter
   expect(
     final.domain.instruments.every((i) => i.verification === "UNCONFIRMED"),
   ).toBe(true);
+  await expect(page.locator("main")).toHaveAttribute("aria-busy", "false");
+  await panel
+    .locator("summary")
+    .filter({ hasText: "Lifecycle timeline and evidence support" })
+    .click();
+  const timeline = panel.getByLabel("Lifecycle evidence and recorded timeline");
+  await expect(timeline).toContainText("continuity_registered");
+  await expect(timeline).toContainText("Bank release: NOT CONFIRMED");
+  await expect(timeline).toContainText("DOCUMENT_AMOUNT_REQUIRES_REVIEW");
+  await expect(page.locator("main")).toHaveAttribute("aria-busy", "false");
+  await timeline
+    .getByRole("button", { name: "Open instrument source" })
+    .click();
+  await expect(page.locator("#document-preview pre")).toContainText(
+    "Synthetic replacement documentary evidence",
+  );
 });

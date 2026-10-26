@@ -1,0 +1,38 @@
+(node:14648) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:3832) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3832) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3832) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  x  1 tests\browser\continuity.spec.js:2:1 › institution proposes a documented replacement and officer records an internal relationship without bank release (35.8s)
+
+
+  1) tests\browser\continuity.spec.js:2:1 › institution proposes a documented replacement and officer records an internal relationship without bank release 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Open →' }).last()
+        - locator resolved to <button data-case="da547ff5-5cbe-4414-afe6-da7a3d5142b1">Open →</button>
+      - attempting click action
+        - waiting for element to be visible, enabled and stable
+
+
+      64 |   ).toBe(201);
+      65 |   await page.goto("/");
+    > 66 |   await page.getByRole("button", { name: "Open →" }).last().click();
+         |                                                             ^
+      67 |   let panel = page.getByRole("region", { name: "Case review workflow" });
+      68 |   await panel
+      69 |     .locator("summary")
+        at G:\idk_lol\tests\browser\continuity.spec.js:66:61
+
+    Error Context: test-results\continuity-institution-pro-aafd4-onship-without-bank-release\error-context.md
+
+  1 failed
+    tests\browser\continuity.spec.js:2:1 › institution proposes a documented replacement and officer records an internal relationship without bank release 

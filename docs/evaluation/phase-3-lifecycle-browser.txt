@@ -1,0 +1,13 @@
+(node:13888) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:8740) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8740) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8740) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  ok 1 tests\browser\continuity.spec.js:2:1 › institution proposes a documented replacement and officer records an internal relationship without bank release (1.0m)
+
+  1 passed (1.1m)

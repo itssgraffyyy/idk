@@ -37,6 +37,131 @@ window.mountOperationsCase = async function ({
       .join("") +
     "</ul></details>";
   host.prepend(card);
+  const lifecycle = document.createElement("details");
+  lifecycle.setAttribute(
+    "aria-label",
+    "Lifecycle evidence and recorded timeline",
+  );
+  lifecycle.innerHTML =
+    '<summary>Lifecycle timeline and evidence support</summary><div class="lifecycle-content" aria-live="polite"></div>';
+  card.append(lifecycle);
+  let lifecycleLoaded = false;
+  lifecycle.ontoggle = () => {
+    if (!lifecycle.open || lifecycleLoaded) return;
+    run(async () => {
+      const [facts, timeline] = await Promise.all([
+        api("/cases/" + c.id + "/lifecycle"),
+        api("/cases/" + c.id + "/lifecycle/timeline"),
+      ]);
+      const content = lifecycle.querySelector(".lifecycle-content");
+      content.innerHTML =
+        "<p>" +
+        escape(facts.note) +
+        "</p><p>Bank release: NOT CONFIRMED. Legal coverage: " +
+        escape(facts.legalCoverage) +
+        "</p>" +
+        facts.instruments
+          .map(
+            (i) =>
+              "<section><h3>" +
+              escape(i.data.reference) +
+              "</h3><p>" +
+              escape(
+                "Issued " +
+                  i.data.issued +
+                  "; declared maturity " +
+                  i.data.matures +
+                  "; " +
+                  i.declaredDateState,
+              ) +
+              "</p><p>" +
+              escape(
+                i.amountObservation +
+                  "; declared paise " +
+                  i.data.amountPaise +
+                  "; bank " +
+                  i.bankVerification,
+              ) +
+              "</p><p>" +
+              escape(i.limitation) +
+              "</p>" +
+              (i.documentVersionId
+                ? '<button type="button" data-source="' +
+                  escape(i.documentVersionId) +
+                  '">Open instrument source</button><p class="source">SHA-256 ' +
+                  escape(i.documentSHA256) +
+                  "</p>"
+                : "<p>Supporting document missing</p>") +
+              "</section>",
+          )
+          .join("") +
+        '<h3>Recorded application events</h3><ol class="lifecycle-events"></ol><button type="button" class="lifecycle-more">Load earlier lifecycle events</button>';
+      for (const button of content.querySelectorAll("[data-source]"))
+        button.onclick = () =>
+          run(() =>
+            window.openEvidenceViewer({
+              c,
+              api,
+              run,
+              escape,
+              versionId: button.dataset.source,
+              field: "amountPaise",
+            }),
+          );
+      const list = content.querySelector(".lifecycle-events"),
+        more = content.querySelector(".lifecycle-more");
+      const append = (page, earlier = false) => {
+        list.insertAdjacentHTML(
+          earlier ? "afterbegin" : "beforeend",
+          page.items
+            .map(
+              (v) =>
+                "<li>" +
+                escape(
+                  v.created +
+                    " " +
+                    v.actor +
+                    ": " +
+                    v.action +
+                    " (" +
+                    v.outcome +
+                    ")",
+                ) +
+                (v.evidence
+                  ? '<span class="source"> Evidence ' +
+                    escape(v.evidence.id) +
+                    " · " +
+                    escape(v.evidence.kind) +
+                    "</span>"
+                  : "") +
+                (v.proposalId
+                  ? '<span class="source"> Proposal ' +
+                    escape(v.proposalId) +
+                    "</span>"
+                  : "") +
+                "</li>",
+            )
+            .join(""),
+        );
+        more.hidden = !page.nextCursor;
+        return page.nextCursor;
+      };
+      let cursor = append(timeline);
+      more.onclick = () =>
+        run(async () => {
+          cursor = append(
+            await api(
+              "/cases/" +
+                c.id +
+                "/lifecycle/timeline?cursor=" +
+                encodeURIComponent(cursor),
+            ),
+            true,
+          );
+        });
+      lifecycleLoaded = true;
+    });
+  };
   const institution = window.institutionRole(user),
     reviewer = ["officer", "supervisor"].includes(user.role);
   const continuity = document.createElement("details");
