@@ -5,6 +5,61 @@ window.mountReviewWorkspace = function ({ c, user, api, run, detail, escape }) {
     ctx = last("regulatory_context"),
     report = last("evaluation"),
     host = document.querySelector("#detail .columns > div:last-child");
+  const latestDocument = last("document"),
+    latestExtraction = last("extraction");
+  const ifsc =
+    latestExtraction?.payload.documentId === latestDocument?.id
+      ? latestExtraction?.payload.fields.ifsc
+      : null;
+  if (ifsc?.status) {
+    const review = document.createElement("div");
+    review.className = "card";
+    review.innerHTML =
+      "<h2>IFSC extraction review</h2><p><b>" +
+      escape(ifsc.status) +
+      '</b></p><p class="source">Raw OCR: ' +
+      escape(ifsc.rawValue) +
+      "</p><p>" +
+      escape((ifsc.reasons || []).join("; ")) +
+      '</p><p class="source">Directory lookup identifies a branch; it does not authenticate the deposit. Suggestions are not applied automatically.</p>' +
+      (ifsc.candidates || [])
+        .map(
+          (candidate) =>
+            "<details><summary>" +
+            escape(candidate.normalized) +
+            " · " +
+            escape(candidate.reference?.status || "invalid syntax") +
+            "</summary><pre>" +
+            escape(JSON.stringify(candidate, null, 2)) +
+            "</pre></details>",
+        )
+        .join("");
+    host.append(review);
+  }
+  const financial = last("external")?.payload;
+  if (financial) {
+    const state = document.createElement("div");
+    state.className = "card";
+    state.innerHTML =
+      "<h2>Financial evidence status</h2><p>" +
+      escape(
+        financial.classification || financial.environment || financial.status,
+      ) +
+      " · " +
+      escape(financial.provider) +
+      '</p><p>Production bank confirmation: UNCONFIRMED</p><p class="source">' +
+      escape(
+        financial.freshness?.status ||
+          "Financial snapshot freshness unconfirmed",
+      ) +
+      " · " +
+      escape(
+        financial.instrumentIdentity ||
+          "Mock evidence cannot establish an FDR exists",
+      ) +
+      "</p>";
+    host.append(state);
+  }
   const card = document.createElement("div");
   card.className = "card";
   card.innerHTML =

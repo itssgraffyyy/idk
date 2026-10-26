@@ -2,6 +2,12 @@ import { createHash } from "node:crypto";
 import { join } from "node:path";
 export const upgrades = [
   {
+    version: 6,
+    sql: `ALTER TABLE users ADD COLUMN status TEXT NOT NULL DEFAULT 'active' CHECK(status IN ('active','disabled'));
+CREATE INDEX IF NOT EXISTS users_status ON users(status);
+CREATE TRIGGER users_disable_sessions AFTER UPDATE OF status ON users WHEN NEW.status='disabled' BEGIN DELETE FROM sessions WHERE user_id=NEW.id; END;`,
+  },
+  {
     version: 5,
     sql: `
 CREATE INDEX IF NOT EXISTS evidence_case ON evidence(case_id);
@@ -26,7 +32,7 @@ export function migrate(db, dir) {
   db.exec(
     "CREATE TABLE IF NOT EXISTS schema_migrations(version INTEGER PRIMARY KEY,sha256 TEXT NOT NULL,applied_at TEXT NOT NULL)",
   );
-  for (const m of upgrades) {
+  for (const m of [...upgrades].sort((a, b) => a.version - b.version)) {
     const digest = createHash("sha256").update(m.sql).digest("hex"),
       existing = db
         .prepare("SELECT sha256 FROM schema_migrations WHERE version=?")

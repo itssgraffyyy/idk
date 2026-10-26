@@ -29,13 +29,9 @@ const json = (r, s, v) => {
 };
 export function seed(db, users) {
   for (const u of users)
-    db.prepare("INSERT OR IGNORE INTO users VALUES(?,?,?,?,?)").run(
-      u.id,
-      u.email,
-      password(u.password),
-      u.role,
-      u.tenant,
-    );
+    db.prepare(
+      "INSERT OR IGNORE INTO users(id,email,password,role,tenant) VALUES(?,?,?,?,?)",
+    ).run(u.id, u.email, password(u.password), u.role, u.tenant);
 }
 export function createApp({
   dir = resolve(process.env.DATA_DIR || "data"),
@@ -135,6 +131,43 @@ export function createApp({
       proofReviews: h.filter((e) => e.kind === "proof_review").map((e) => e.id),
     };
     r.version = h.filter((e) => e.kind === "evaluation").length + 1;
+    for (const finding of r.findings) {
+      finding.evaluationVersion = r.version;
+      finding.sources = finding.sources.map((s) => ({
+        ...s,
+        evidenceId:
+          s.type === "declaration"
+            ? r.sourceReferences.declaration
+            : s.type === "document"
+              ? (s.id ?? d?.id)
+              : s.type === "policy"
+                ? context?.id
+                : s.type === "ifsc-reference"
+                  ? last("ifsc_reference")?.payload.code ===
+                    JSON.parse(c.instrument).ifsc
+                    ? last("ifsc_reference")?.id
+                    : undefined
+                  : s.classification ||
+                      s.type === "provider" ||
+                      s.type === "mock-provider"
+                    ? b?.id
+                    : null,
+        extractionId:
+          s.type === "document" && x?.payload.documentId === d?.id
+            ? x?.id
+            : undefined,
+        proofReviewIds:
+          s.type === "policy"
+            ? h
+                .filter(
+                  (e) =>
+                    e.kind === "proof_review" &&
+                    e.payload.contextId === context?.id,
+                )
+                .map((e) => e.id)
+            : undefined,
+      }));
+    }
     r.supersedes = last("evaluation")?.id ?? null;
     r.caseRevision = c.revision;
     return evidence(u, c.id, "evaluation", r);
@@ -198,6 +231,19 @@ export function createApp({
         return;
       }
       if (!path.startsWith("/api/")) fail(404, "Not found");
+      if (req.method === "GET" && path === "/api/health") {
+        json(res, 200, { status: "alive" });
+        return;
+      }
+      if (req.method === "GET" && path === "/api/ready") {
+        try {
+          db.prepare("SELECT 1").get();
+          json(res, 200, { status: "ready" });
+        } catch {
+          json(res, 503, { status: "unavailable" });
+        }
+        return;
+      }
       let body = {};
       if (req.method !== "GET") {
         let n = 0,
@@ -241,7 +287,10 @@ export function createApp({
         const u = db
           .prepare("SELECT * FROM users WHERE email=?")
           .get(body.email);
-        if (!(await verifyPassword(body.password, u?.password))) {
+        if (
+          !(await verifyPassword(body.password, u?.password)) ||
+          u?.status !== "active"
+        ) {
           audit("anonymous", "login_failed");
           fail(401, "Invalid credentials");
         }
@@ -274,16 +323,21 @@ export function createApp({
               )
               .get(hash(token), Date.now())
           : null;
-      if (!u || !["institution", "officer"].includes(u.role))
+      if (
+        !u ||
+        u.status !== "active" ||
+        !["institution", "officer"].includes(u.role)
+      )
         fail(401, "Authentication required");
       const reauthorize = () => {
         const live = db
           .prepare(
-            "SELECT u.role,u.tenant,c.assigned,c.tenant case_tenant FROM users u JOIN cases c ON c.id=? JOIN sessions s ON s.user_id=u.id WHERE u.id=? AND s.token=? AND s.expires>?",
+            "SELECT u.role,u.status,u.tenant,c.assigned,c.tenant case_tenant FROM users u JOIN cases c ON c.id=? JOIN sessions s ON s.user_id=u.id WHERE u.id=? AND s.token=? AND s.expires>?",
           )
           .get(id, u.id, hash(token), Date.now());
         if (
           !live ||
+          live.status !== "active" ||
           live.role !== u.role ||
           (u.role === "institution"
             ? live.tenant !== live.case_tenant
@@ -460,13 +514,18 @@ export function createApp({
         res.setHeader("Content-Type", e.payload.mime);
         res.setHeader(
           "Content-Disposition",
-          (url.searchParams.get("preview") === "1" ? "inline" : "attachment") +
+          (url.searchParams.get("preview") === "1" &&
+          e.payload.mime !== "application/pdf"
+            ? "inline"
+            : "attachment") +
             '; filename="evidence.' +
             (e.payload.mime === "image/png"
               ? "png"
               : e.payload.mime === "image/jpeg"
                 ? "jpg"
-                : "txt") +
+                : e.payload.mime === "application/pdf"
+                  ? "pdf"
+                  : "txt") +
             '"',
         );
         audit(u.id, "document_read", id, { evidenceId: e.id });
@@ -653,12 +712,15 @@ export function createApp({
             ? "image/png"
             : b[0] === 255 && b[1] === 216 && b[2] === 255
               ? "image/jpeg"
-              : null,
+              : b.subarray(0, 5).toString() === "%PDF-"
+                ? "application/pdf"
+                : null,
           text =
             body.mime === "text/plain" &&
             !b.includes(0) &&
             !b.toString("utf8").includes("\uFFFD");
-        if (!mime && !text) fail(400, "Only PNG, JPEG or UTF-8 text accepted");
+        if (!mime && !text)
+          fail(400, "Only PDF, PNG, JPEG or UTF-8 text accepted");
         const eid = randomUUID(),
           p = { sha256: hash(b), mime: mime || "text/plain", bytes: b.length };
         writeFileSync(join(dir, "private", eid), b, {
@@ -674,15 +736,21 @@ export function createApp({
               await exec(
                 process.execPath,
                 [
-                  "--max-old-space-size=128",
-                  join(root, "src", "image-validator.js"),
+                  "--max-old-space-size=256",
+                  join(
+                    root,
+                    "src",
+                    mime === "application/pdf"
+                      ? "pdf-worker.js"
+                      : "image-validator.js",
+                  ),
                   join(dir, "private", eid),
-                  mime,
+                  mime === "application/pdf" ? "validate" : mime,
                 ],
                 { timeout: 10000, maxBuffer: 1000, windowsHide: true },
               );
             } catch {
-              fail(400, "Invalid or oversized image content");
+              fail(400, "Invalid or oversized document content");
             } finally {
               activeValidators--;
             }
@@ -752,7 +820,21 @@ export function createApp({
         try {
           if (d.payload.mime === "text/plain")
             text = readFileSync(join(dir, "private", d.id), "utf8");
-          else {
+          else if (d.payload.mime === "application/pdf") {
+            method = "pdf-text-or-ocr";
+            const r = await exec(
+              process.execPath,
+              [
+                "--max-old-space-size=384",
+                join(root, "src", "pdf-worker.js"),
+                join(dir, "private", d.id),
+                "process",
+              ],
+              { timeout: 60000, maxBuffer: 4194304, windowsHide: true },
+            );
+            raw = JSON.parse(r.stdout);
+            text = raw.text;
+          } else {
             method = ocr ? "tesseract-native" : "tesseract-wasm";
             const r = await ocrRunner(
               ocr || process.execPath,
@@ -1026,7 +1108,7 @@ if (
   const app = createApp();
   if (!app.db.prepare("SELECT count(*) n FROM users").get().n) {
     console.error("Run node scripts/setup.js first");
-    app.db.close();
+    await app.close();
     process.exitCode = 1;
   } else
     app.server.listen(Number(process.env.PORT || 3000), "127.0.0.1", () =>

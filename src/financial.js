@@ -8,6 +8,9 @@ export class DevelopmentDepositProvider {
       fiType: "TERM_DEPOSIT",
       retrievedAt: new Date().toISOString(),
       realBankEvidence: false,
+      classification: "MOCK",
+      productionBankConfirmation: "UNCONFIRMED",
+      independentDepositConfirmation: false,
       consent: { status: "not_connected", handle: null },
       verificationAuthority: "none",
       values:

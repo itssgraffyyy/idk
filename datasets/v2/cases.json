@@ -1,0 +1,310 @@
+{
+  "version": "synthetic-v2-ifsc-diversity",
+  "purpose": "Fictional deposits with real public branch identifiers; no bank authenticity evidence",
+  "freezePolicy": "G/H held out from parser tuning; generated before evaluation; v1 retained unchanged",
+  "cases": [
+    {
+      "id": "ocr-v2-01",
+      "split": "development",
+      "layout": "D",
+      "scenario": "normal",
+      "font": "Arial",
+      "sha256": "3c601dddaa5d427d32e7afbce61f2d22b76037d3ffb03e113bc47b6d8cdef8b9",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V2-001",
+          "amountPaise": 12500000,
+          "bank": "HDFC Bank",
+          "ifsc": "HDFC0001234",
+          "issued": "2026-01-15",
+          "matures": "2031-01-15"
+        },
+        "reviewRequired": false
+      }
+    },
+    {
+      "id": "ocr-v2-02",
+      "split": "development",
+      "layout": "E",
+      "scenario": "punctuation",
+      "font": "Georgia",
+      "sha256": "3df78c8681e47fba6e82fca5d2ab12036d09607a4f44a56c8375cfaa226f8631",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V2-002",
+          "amountPaise": 12500100,
+          "bank": "ICICI Bank",
+          "ifsc": "ICIC0001234",
+          "issued": "2026-01-15",
+          "matures": "2031-01-15"
+        },
+        "reviewRequired": false
+      }
+    },
+    {
+      "id": "ocr-v2-03",
+      "split": "development",
+      "layout": "F",
+      "scenario": "split-line",
+      "font": "Consolas",
+      "sha256": "ffce2c741d8721964227b2519f6f214aef5353a95c573d84ccd5cc90f8365f93",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V2-003",
+          "amountPaise": 12500200,
+          "bank": "Kotak Mahindra Bank",
+          "ifsc": "KKBK0000958",
+          "issued": "2026-01-15",
+          "matures": "2031-01-15"
+        },
+        "reviewRequired": false
+      }
+    },
+    {
+      "id": "ocr-v2-04",
+      "split": "development",
+      "layout": "D",
+      "scenario": "normal",
+      "font": "Arial",
+      "sha256": "f7583b6a1b5f06bd78ab236c43c080f3b37d8e46af0bf95dcd13a2dbe76db78c",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V2-004",
+          "amountPaise": 12500300,
+          "bank": "Axis Bank",
+          "ifsc": "UTIB0001234",
+          "issued": "2026-01-15",
+          "matures": "2031-01-15"
+        },
+        "reviewRequired": false
+      }
+    },
+    {
+      "id": "ocr-v2-05",
+      "split": "development",
+      "layout": "E",
+      "scenario": "normal",
+      "font": "Georgia",
+      "sha256": "a54cfe7b9cbd7b6788cb006df38484928089287f9f41cdb74971bbfb418226ec",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V2-005",
+          "amountPaise": 12500400,
+          "bank": "Bank of Baroda",
+          "ifsc": "BARB0VJANDH",
+          "issued": "2026-01-15",
+          "matures": "2031-01-15"
+        },
+        "reviewRequired": false
+      }
+    },
+    {
+      "id": "ocr-v2-06",
+      "split": "development",
+      "layout": "F",
+      "scenario": "punctuation",
+      "font": "Consolas",
+      "sha256": "b36d1c98481a0bf6b8b34d49d4ed2017d6a8fb4b33fd8a1313bc5bd0e2ebd05e",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V2-006",
+          "amountPaise": 12500500,
+          "bank": "Canara Bank",
+          "ifsc": "CNRB0001234",
+          "issued": "2026-01-15",
+          "matures": "2031-01-15"
+        },
+        "reviewRequired": false
+      }
+    },
+    {
+      "id": "ocr-v2-07",
+      "split": "development",
+      "layout": "D",
+      "scenario": "split-line",
+      "font": "Arial",
+      "sha256": "567bfdeaeac41050f02d9b8ffd2f957853b80225dfedd7ea3ea7ea56bff70803",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V2-007",
+          "amountPaise": 12500600,
+          "bank": "Punjab National Bank",
+          "ifsc": "PUNB0123400",
+          "issued": "2026-01-15",
+          "matures": "2031-01-15"
+        },
+        "reviewRequired": false
+      }
+    },
+    {
+      "id": "ocr-v2-08",
+      "split": "development",
+      "layout": "E",
+      "scenario": "normal",
+      "font": "Georgia",
+      "sha256": "2ce6213d52aa4fdd3b0756b5c6095a620610b2b96a32163e2f4e11b30251b442",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V2-008",
+          "amountPaise": 12500700,
+          "bank": "HDFC Bank",
+          "ifsc": "HDFC0001234",
+          "issued": "2026-01-15",
+          "matures": "2031-01-15"
+        },
+        "reviewRequired": false
+      }
+    },
+    {
+      "id": "ocr-v2-09",
+      "split": "development",
+      "layout": "F",
+      "scenario": "normal",
+      "font": "Consolas",
+      "sha256": "0502bf49cd72556c9f1a9c984902a0939c68c39997db98b5190595426755eb9f",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V2-009",
+          "amountPaise": 12500800,
+          "bank": "ICICI Bank",
+          "ifsc": "ICIC0001234",
+          "issued": "2026-01-15",
+          "matures": "2031-01-15"
+        },
+        "reviewRequired": false
+      }
+    },
+    {
+      "id": "ocr-v2-10",
+      "split": "development",
+      "layout": "D",
+      "scenario": "punctuation",
+      "font": "Arial",
+      "sha256": "ef9bb87544223bac3ec587dc7babfbb79840db45efdd1052f974598f9962a311",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V2-010",
+          "amountPaise": 12500900,
+          "bank": "Kotak Mahindra Bank",
+          "ifsc": "KKBK0000958",
+          "issued": "2026-01-15",
+          "matures": "2031-01-15"
+        },
+        "reviewRequired": false
+      }
+    },
+    {
+      "id": "ocr-v2-11",
+      "split": "development",
+      "layout": "E",
+      "scenario": "unknown",
+      "font": "Georgia",
+      "sha256": "4e250593444b035a29ff4b5a97470bb9df33fc270590df001ced8d6fa835403f",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V2-011",
+          "amountPaise": 12501000,
+          "bank": "Axis Bank",
+          "ifsc": "ZZZZ0123456",
+          "issued": "2026-01-15",
+          "matures": "2031-01-15"
+        },
+        "reviewRequired": true
+      }
+    },
+    {
+      "id": "ocr-v2-12",
+      "split": "development",
+      "layout": "F",
+      "scenario": "ambiguous",
+      "font": "Consolas",
+      "sha256": "af7f7f739b2bda3dac05fc826cc86a7459edd19e06717499ec211790d720d5bb",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V2-012",
+          "amountPaise": 12501100,
+          "bank": "Bank of Baroda",
+          "issued": "2026-01-15",
+          "matures": "2031-01-15"
+        },
+        "reviewRequired": true
+      }
+    },
+    {
+      "id": "ocr-v2-13",
+      "split": "held-out",
+      "layout": "G",
+      "scenario": "normal",
+      "font": "Times New Roman",
+      "sha256": "d3f05d69c3e171c0a7d82e8c6ef56b48c1b6873eba91331fa9610fa19e94916a",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V2-013",
+          "amountPaise": 12501200,
+          "bank": "Canara Bank",
+          "ifsc": "CNRB0001234",
+          "issued": "2026-01-15",
+          "matures": "2031-01-15"
+        },
+        "reviewRequired": false
+      }
+    },
+    {
+      "id": "ocr-v2-14",
+      "split": "held-out",
+      "layout": "H",
+      "scenario": "punctuation",
+      "font": "Verdana",
+      "sha256": "8dd992e7015b44076c86e27f7b839f339a0f2f3f57116578a379a120f0bda105",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V2-014",
+          "amountPaise": 12501300,
+          "bank": "Punjab National Bank",
+          "ifsc": "PUNB0123400",
+          "issued": "2026-01-15",
+          "matures": "2031-01-15"
+        },
+        "reviewRequired": false
+      }
+    },
+    {
+      "id": "ocr-v2-15",
+      "split": "held-out",
+      "layout": "G",
+      "scenario": "split-line",
+      "font": "Times New Roman",
+      "sha256": "159a11cc20a85f4602aa0be74f66848b1294a7688ded6b1ba34d179cea2a29ad",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V2-015",
+          "amountPaise": 12501400,
+          "bank": "HDFC Bank",
+          "ifsc": "HDFC0001234",
+          "issued": "2026-01-15",
+          "matures": "2031-01-15"
+        },
+        "reviewRequired": false
+      }
+    },
+    {
+      "id": "ocr-v2-16",
+      "split": "held-out",
+      "layout": "H",
+      "scenario": "normal-low-contrast",
+      "font": "Verdana",
+      "sha256": "b8cc29b27ba2eeeee116501ead0e6146517a2836e0766034e20e27b622a40302",
+      "groundTruth": {
+        "extracted": {
+          "reference": "TEST-V2-016",
+          "amountPaise": 12501500,
+          "bank": "ICICI Bank",
+          "ifsc": "ICIC0001234",
+          "issued": "2026-01-15",
+          "matures": "2031-01-15"
+        },
+        "reviewRequired": true
+      }
+    }
+  ]
+}

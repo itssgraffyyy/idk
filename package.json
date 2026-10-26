@@ -15,21 +15,22 @@
     "build": "node scripts/build-check.js",
     "benchmark:ocr:audit": "node scripts/benchmark-ocr-audit.js",
     "verify": "node scripts/verify.js",
-    "benchmark:reconciliation:audit": "node scripts/benchmark-reconciliation-audit.js"
+    "benchmark:reconciliation:audit": "node scripts/benchmark-reconciliation-audit.js",
+    "benchmark:ocr:final": "node scripts/benchmark-final-ocr.js"
   },
   "engines": {
     "node": ">=22.13"
   },
   "devDependencies": {
-    "@napi-rs/canvas": "^1.0.13",
     "@playwright/test": "^1.64.1",
-    "pdfjs-dist": "^6.4.299",
     "prettier": "^3.9.10"
   },
   "dependencies": {
     "@tesseract.js-data/eng": "^1.0.0",
     "jpeg-js": "^0.4.4",
     "pngjs": "^7.0.0",
-    "tesseract.js": "^7.0.0"
+    "tesseract.js": "^7.0.0",
+    "pdfjs-dist": "^6.4.299",
+    "@napi-rs/canvas": "^1.0.13"
   }
 }

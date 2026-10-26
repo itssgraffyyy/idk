@@ -1,0 +1,38 @@
+%PDF-1.7
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 650 425] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 266 >>
+stream
+BT /F1 16 Tf 35 380 Td (SYNTHETIC TEST - NOT A BANK DOCUMENT) Tj
+0 -42 Td (reference: PDF-TEST) Tj
+0 -42 Td (amountPaise: 10000000) Tj
+0 -42 Td (bank: HDFC Bank) Tj
+0 -42 Td (ifsc: HDFC0001234) Tj
+0 -42 Td (issued: 2026-01-01) Tj
+0 -42 Td (matures: 2030-01-01) Tj ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000000558 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+628
+%%EOF

@@ -1,0 +1,7 @@
+SYNTHETIC TEST - NO REAL DEPOSIT
+FDR reference : TEST-V2-002
+amountPaise : 12500100
+Bank name : ICICI Bank
+IFSC Code = (ICIC-0001234)
+Issue date : 2026-01-15
+Maturity date : 2031-01-15

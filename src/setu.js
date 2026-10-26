@@ -31,6 +31,8 @@ export class SetuSandboxProvider {
     clientId = process.env.SETU_CLIENT_ID,
     clientSecret = process.env.SETU_CLIENT_SECRET,
     timeoutMs = 10000,
+    now = () => Date.now(),
+    maxDataAgeMs = 86400000,
   } = {}) {
     this.fetcher = fetcher;
     this.token = accessToken;
@@ -38,6 +40,8 @@ export class SetuSandboxProvider {
     this.timeoutMs = timeoutMs;
     this.clientId = clientId;
     this.clientSecret = clientSecret;
+    this.now = now;
+    this.maxDataAgeMs = maxDataAgeMs;
   }
   get configured() {
     return !!(
@@ -89,7 +93,7 @@ export class SetuSandboxProvider {
       !input.dataRange ||
       !Number.isFinite(Date.parse(input.dataRange.from)) ||
       !Number.isFinite(Date.parse(input.dataRange.to)) ||
-      input.dataRange.from >= input.dataRange.to
+      Date.parse(input.dataRange.from) >= Date.parse(input.dataRange.to)
     )
       throw Error("Invalid data range");
     const r = await this.request("/consents", "POST", {
@@ -125,17 +129,19 @@ export class SetuSandboxProvider {
       c.status !== "ACTIVE" ||
       !c.detail?.fiTypes?.includes("TERM_DEPOSIT") ||
       !Number.isFinite(Date.parse(c.detail.consentExpiry)) ||
-      Date.parse(c.detail.consentExpiry) <= Date.now()
+      Date.parse(c.detail.consentExpiry) <= this.now()
     )
       throw Error("Active unexpired TERM_DEPOSIT consent required");
     if (
       !dataRange ||
       !c.detail.dataRange ||
+      !Number.isFinite(Date.parse(c.detail.dataRange.from)) ||
+      !Number.isFinite(Date.parse(c.detail.dataRange.to)) ||
       Date.parse(dataRange.from) < Date.parse(c.detail.dataRange.from) ||
       Date.parse(dataRange.to) > Date.parse(c.detail.dataRange.to) ||
       !Number.isFinite(Date.parse(dataRange.from)) ||
       !Number.isFinite(Date.parse(dataRange.to)) ||
-      dataRange.from >= dataRange.to
+      Date.parse(dataRange.from) >= Date.parse(dataRange.to)
     )
       throw Error("Data range outside consent");
     const r = await this.request("/sessions", "POST", {
@@ -175,7 +181,7 @@ export class SetuSandboxProvider {
         consent.status !== "ACTIVE" ||
         !consent.detail?.fiTypes?.includes("TERM_DEPOSIT") ||
         !Number.isFinite(Date.parse(consent.detail.consentExpiry)) ||
-        Date.parse(consent.detail.consentExpiry) <= Date.now()
+        Date.parse(consent.detail.consentExpiry) <= this.now()
       )
         return {
           ...base,
@@ -197,6 +203,20 @@ export class SetuSandboxProvider {
           reason: "session_" + String(r.status).toLowerCase(),
           values: null,
         };
+      const range = r.dataRange,
+        permitted = consent.detail.dataRange;
+      if (
+        !range ||
+        !permitted ||
+        ![range.from, range.to, permitted.from, permitted.to].every(
+          (v) => typeof v === "string" && Number.isFinite(Date.parse(v)),
+        ) ||
+        Date.parse(range.from) >= Date.parse(range.to) ||
+        Date.parse(range.from) < Date.parse(permitted.from) ||
+        Date.parse(range.to) > Date.parse(permitted.to) ||
+        Date.parse(range.to) > this.now() + 300000
+      )
+        throw Error("Invalid or out-of-consent data range");
       const accounts = (r.fips || [])
         .flatMap((f) =>
           (f.accounts || []).map((a) => ({ ...a, fipID: f.fipID })),
@@ -211,6 +231,12 @@ export class SetuSandboxProvider {
         throw Error("Delivered account not uniquely matched");
       const selected = accounts[0],
         account = selected.data?.account;
+      if (
+        typeof selected.fipID !== "string" ||
+        !selected.fipID.trim() ||
+        selected.fipID.length > 150
+      )
+        throw Error("Missing FIP identity");
       if (
         !account ||
         !["term_deposit", "term-deposit"].includes(account.type) ||
@@ -250,6 +276,22 @@ export class SetuSandboxProvider {
         fipID: selected.fipID,
         linkRefNumber,
         partial: r.status === "PARTIAL",
+        classification: "SANDBOX",
+        productionBankConfirmation: "UNCONFIRMED",
+        instrumentIdentity:
+          "UNCONFIRMED: linked account is not an FDR reference",
+        dataRange: range,
+        freshness: {
+          status:
+            this.now() - Date.parse(range.to) > this.maxDataAgeMs
+              ? "STALE"
+              : "RANGE_RECENT_SNAPSHOT_UNCONFIRMED",
+          rangeEnd: range.to,
+          snapshotTimestamp: null,
+          maxDataAgeMs: this.maxDataAgeMs,
+          policy:
+            "Local review window; session retrieval time is not the financial snapshot time",
+        },
         payloadSHA256: createHash("sha256")
           .update(JSON.stringify(r))
           .digest("hex"),

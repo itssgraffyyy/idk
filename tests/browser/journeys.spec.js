@@ -1,4 +1,85 @@
 import { test, expect } from "@playwright/test";
+test("ambiguous IFSC is visible and requires a reasoned manual correction", async ({
+  page,
+}) => {
+  test.setTimeout(60000);
+  const login = await page.request.post("/api/login", {
+    data: {
+      email: "institution@test.local",
+      password: "test-institution-password",
+    },
+  });
+  expect(login.status()).toBe(200);
+  const headers = { "x-csrf-token": (await login.json()).csrf };
+  const instrument = {
+    reference: "AMBIGUITY-UI",
+    amountPaise: 10000000,
+    bank: "HDFC Bank",
+    ifsc: "HDFC0001234",
+    issued: "2026-01-01",
+    matures: "2030-01-01",
+  };
+  const created = await page.request.post("/api/cases", {
+    headers,
+    data: {
+      name: "IFSC review regression",
+      instrument,
+      obligation: { amountPaise: 10000000 },
+    },
+  });
+  expect(created.status()).toBe(201);
+  const id = (await created.json()).id;
+  const text = Object.entries(instrument)
+    .map(([k, v]) => k + ": " + (k === "ifsc" ? "HDFC0001234; ICIC0001234" : v))
+    .join("\n");
+  const upload = await page.request.post("/api/cases/" + id + "/documents", {
+    headers,
+    data: {
+      name: "synthetic.txt",
+      mime: "text/plain",
+      base64: Buffer.from(text).toString("base64"),
+    },
+  });
+  expect(upload.status()).toBe(201);
+  expect(
+    (
+      await page.request.post("/api/cases/" + id + "/process", {
+        headers,
+        data: {},
+      })
+    ).status(),
+  ).toBe(200);
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open →" }).last().click();
+  const card = page.locator(".card").filter({
+    has: page.getByRole("heading", { name: "IFSC extraction review" }),
+  });
+  await expect(card).toContainText("REQUIRES_REVIEW");
+  await expect(card).toContainText("Multiple or conflicting IFSC candidates");
+  await expect(card).toContainText("Suggestions are not applied automatically");
+  const form = page.locator("#extracted-correction");
+  await expect(form.locator("[name=ifsc]")).toHaveValue("");
+  await form.locator("[name=ifsc]").fill("HDFC0001234");
+  await form
+    .locator("[name=reason]")
+    .fill(
+      "Compared synthetic source; explicitly selected the first fixture identifier",
+    );
+  await form
+    .getByRole("button", { name: "Save extraction correction" })
+    .click();
+  await expect(
+    page.locator(".finding").filter({ hasText: "missing_ifsc" }),
+  ).toHaveCount(0);
+  await expect(page.locator("#detail")).toContainText("Preserved history");
+  const state = await page.request.get("/api/cases/" + id);
+  const history = (await state.json()).history;
+  expect(history.filter((e) => e.kind === "extraction")).toHaveLength(2);
+  expect(
+    history.filter((e) => e.kind === "extraction")[0].payload.fields.ifsc
+      .candidates,
+  ).toHaveLength(2);
+});
 test("institution submits evidence; officer compares, requests clarification; institution responds", async ({
   page,
 }) => {

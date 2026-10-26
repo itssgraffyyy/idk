@@ -1,0 +1,7 @@
+SYNTHETIC TEST - NO REAL DEPOSIT
+FDR reference : TEST-V2-004
+amountPaise : 12500300
+Bank name : Axis Bank
+IFSC : UTIB0001234
+Issue date : 2026-01-15
+Maturity date : 2031-01-15

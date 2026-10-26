@@ -42,7 +42,7 @@ let busy = false;
 async function run(fn) {
   if (busy) return;
   busy = true;
-  notice();
+  notice("Working…");
   $("main").inert = true;
   $("aside").inert = true;
   $("main").setAttribute("aria-busy", "true");
@@ -55,6 +55,7 @@ async function run(fn) {
     $("main").inert = false;
     $("aside").inert = false;
     $("main").setAttribute("aria-busy", "false");
+    if ($("#notice").textContent === "Working…") notice();
   }
 }
 function fieldInputs(inst = {}) {
@@ -146,7 +147,14 @@ async function detail(id) {
     escape(c.instrument.reference) +
     " · Revision " +
     c.revision +
-    '</p></div><span class="badge">Human review required</span></div><div class="columns"><div><div class="card"><div class="title-row"><h2>Evidence comparison</h2><button id="ifsc-check">Check IFSC</button></div><div class="wide"><table><thead><tr><th>Field</th><th>Declared</th><th>Document</th><th>Provider · mock</th></tr></thead><tbody>' +
+    '</p></div><span class="badge">Human review required</span></div><div class="columns"><div><div class="card"><div class="title-row"><h2>Evidence comparison</h2><button id="ifsc-check">Check IFSC</button></div><div class="wide"><table><thead><tr><th>Field</th><th>Declared</th><th>Document</th><th>Provider · ' +
+    escape(
+      ext?.payload.classification ||
+        ext?.payload.environment ||
+        ext?.payload.status ||
+        "unavailable",
+    ) +
+    "</th></tr></thead><tbody>" +
     fields
       .map(
         (k) =>
@@ -184,6 +192,8 @@ async function detail(id) {
               escape(f.code) +
               "</b><p>" +
               escape(f.message) +
+              '</p><p class="source">Reviewer action: ' +
+              escape(f.suggestedAction || "Review referenced evidence") +
               '</p><div class="source">' +
               escape(JSON.stringify(f.sources)) +
               "</div></div>",
@@ -227,14 +237,14 @@ async function detail(id) {
       )
       .join("") +
     (user.role === "institution"
-      ? '<form id="upload"><label>Add a version · PNG, JPEG, TXT<input type="file" name="file" accept=".png,.jpg,.jpeg,.txt" required></label><button>Upload privately</button></form><div class="toolbar"><button id="process">Process latest document</button></div><p class="source">Text files use text import. Images require Tesseract. Processing failures are recorded.</p>'
+      ? '<form id="upload"><label>Add a version · PDF, PNG, JPEG, TXT<input type="file" name="file" accept=".pdf,.png,.jpg,.jpeg,.txt" required></label><button>Upload privately</button></form><div class="toolbar"><button id="process">Process latest document</button></div><p class="source">PDFs use embedded text or raster OCR within a five-page budget. Images require Tesseract. Processing failures are recorded.</p>'
       : "") +
     "</div>" +
     (user.role === "institution"
       ? '<div class="card"><h2>Correct declaration</h2><form id="correction">' +
         fieldInputs(c.instrument) +
         '<label>Reason<textarea name="reason" required maxlength="2000"></textarea></label><button>Save new revision</button></form></div>'
-      : '<div class="card"><h2>Development evidence</h2><p class="muted">Fictional provider. This cannot authenticate a bank deposit.</p><select id="scenario"><option value="unavailable">External source unavailable</option><option value="mock_confirmed">Mock values match</option><option value="mock_conflict">Mock amount conflict</option></select><button id="external">Retrieve mock evidence</button></div>') +
+      : '<div class="card"><h2>Development evidence</h2><p class="muted">Fictional provider. This cannot authenticate a bank deposit.</p><label for="scenario">Development evidence scenario</label><select id="scenario"><option value="unavailable">External source unavailable</option><option value="mock_confirmed">Mock values match</option><option value="mock_conflict">Mock amount conflict</option></select><button id="external">Retrieve mock evidence</button></div>') +
     '<div class="card"><h2>Review conversation</h2>' +
     h
       .filter((e) =>
@@ -285,9 +295,12 @@ async function detail(id) {
     $("#preview-document").onclick = () =>
       run(async () => {
         const target = $("#document-preview");
-        if (doc.payload.mime.startsWith("image/"))
+        if (doc.payload.mime === "application/pdf") {
+          target.textContent =
+            "PDFs are downloaded privately for local viewing. Embedded active content is not rendered in this workspace.";
+        } else if (doc.payload.mime.startsWith("image/"))
           target.innerHTML =
-            '<img class="document-image" alt="Uploaded synthetic source document" src="/api/cases/' +
+            '<img class="document-image" alt="Uploaded source document" src="/api/cases/' +
             id +
             "/documents/" +
             doc.id +
@@ -440,6 +453,7 @@ $("#register-form").onsubmit = (e) => {
       obligation: { amountPaise: Number(v.obligation) },
       instrument: instrument(f),
     });
+    submissionKey = crypto.randomUUID();
     $("#register").close();
     f.reset();
     await detail(c.id);

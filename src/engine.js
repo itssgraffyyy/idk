@@ -1,4 +1,4 @@
-import { assessAICTE } from "./regulatory.js";
+import { assessAICTE, ruleRegister } from "./regulatory.js";
 import { lookupIFSC } from "./financial.js";
 import { assessPolicy } from "./policy.js";
 export const fields = [
@@ -52,6 +52,27 @@ export function evaluate({
   const add = (code, status, message, sources) =>
     findings.push({ code, status, message, sources });
   const referenceLookup = ifscReference || lookupIFSC(instrument.ifsc);
+  if (external.freshness?.status === "STALE")
+    add(
+      "external_stale",
+      "unresolved",
+      "Provider data range is stale under the local review window; retrieval time does not refresh the financial record",
+      [{ type: "provider", classification: external.status }],
+    );
+  if (external.partial)
+    add(
+      "external_partial",
+      "unresolved",
+      "Only part of the requested financial data was delivered",
+      [{ type: "provider", classification: external.status }],
+    );
+  if (extraction.ifsc?.status === "REQUIRES_REVIEW")
+    add(
+      "ifsc_extraction_review",
+      "unresolved",
+      extraction.ifsc.reasons.join("; "),
+      [{ type: "document", id: documentId, field: "ifsc" }],
+    );
   if (referenceLookup.status !== "reference_match")
     add(
       "ifsc_unavailable",
@@ -108,6 +129,7 @@ export function evaluate({
       );
     if (
       ["mock_confirmed", "sandbox_evidence"].includes(external.status) &&
+      external.freshness?.status !== "STALE" &&
       external.values?.[k] !== undefined &&
       comparable(k, external.values[k]) !== comparable(k, instrument[k])
     )
@@ -161,16 +183,88 @@ export function evaluate({
     [{ type: "policy", version: "unverified-1" }],
   );
   const regulatory = assessAICTE(instrument, regulatoryContext, proofs, asOf);
-  for (const check of regulatory.checks)
+  for (const id of new Set(regulatory.checks.map((c) => c.id))) {
+    const checks = regulatory.checks.filter((c) => c.id === id);
+    const check = checks.at(-1);
     findings.push({
       code: "regulatory_" + check.id,
-      status: check.status === "review" ? "review" : "unresolved",
-      message: check.explanation,
+      status: checks.some((c) => c.status === "unresolved")
+        ? "unresolved"
+        : check.status === "review"
+          ? "review"
+          : "unresolved",
+      message: checks.map((c) => c.explanation).join(" "),
       sources: [
         { type: "policy", version: regulatory.version, ...check.source },
       ],
-      details: check,
+      details: { ...check, checks },
     });
+  }
+  for (const finding of findings) {
+    finding.reason = finding.message;
+    finding.evaluationVersion = 1;
+    finding.evaluationStatus = "human_review_required";
+    finding.policyRule = finding.code.startsWith("regulatory_")
+      ? finding.code.slice(11)
+      : null;
+    finding.values = finding.sources.map((s) => ({
+      source: s.type,
+      field: s.field ?? null,
+      value:
+        s.type === "declaration"
+          ? s.field
+            ? instrument[s.field]
+            : instrument
+          : s.type === "document"
+            ? (extraction[s.field]?.value ?? null)
+            : s.type === "obligation"
+              ? obligation.amountPaise
+              : s.type === "ifsc-reference"
+                ? (referenceLookup.bank ?? null)
+                : s.field
+                  ? (external.values?.[s.field] ?? null)
+                  : null,
+      classification:
+        s.classification ??
+        (s.type === "document"
+          ? "document_extraction_not_authentication"
+          : s.type === "ifsc-reference"
+            ? "branch_reference_only"
+            : s.type),
+    }));
+    finding.missingEvidence = finding.code.startsWith("missing_")
+      ? [finding.code.slice(8)]
+      : finding.code === "bank_confirmation" || finding.code === "mock_only"
+        ? ["authorized_independent_bank_confirmation"]
+        : [];
+    if (finding.code === "policy_unverified" || finding.policyRule) {
+      finding.missingEvidence.push("issuer_verified_policy_source");
+      const rule = ruleRegister.rules.find((r) => r.id === finding.policyRule);
+      if (rule)
+        finding.missingEvidence.push(
+          ...rule.requiredEvidence.filter(
+            (type) =>
+              !proofs.some(
+                (p) =>
+                  p.type === type && p.decision === "accepted" && p.documentId,
+              ),
+          ),
+        );
+    }
+    if (finding.code === "bank_confirmation" || finding.code === "mock_only")
+      finding.missingEvidence.push(
+        ...fields
+          .filter((k) => external.values?.[k] === undefined)
+          .map((k) => "provider_" + k),
+      );
+    finding.suggestedAction =
+      finding.code.startsWith("regulatory_") ||
+      finding.code === "policy_unverified"
+        ? "Review source edition, applicability and referenced proof; no automatic release"
+        : finding.code === "bank_confirmation" || finding.code === "mock_only"
+          ? "Obtain authorized independent bank evidence"
+          : "Compare referenced evidence and record a reasoned correction or reviewer observation";
+  }
   return {
     referenceLookup,
     regulatory,

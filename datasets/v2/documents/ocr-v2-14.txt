@@ -1,0 +1,7 @@
+SYNTHETIC TEST - NO REAL DEPOSIT
+FDR reference : TEST-V2-014
+amountPaise : 12501300
+Bank name : Punjab National Bank
+IFSC Code = (PUNB-0123400)
+Issue date : 2026-01-15
+Maturity date : 2031-01-15

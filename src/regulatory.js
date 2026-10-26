@@ -9,6 +9,12 @@ const source = (name, page, clause) => {
     url: s.url,
     path: s.path,
     sha256: s.sha256,
+    documentVersion:
+      name === "aph-2024-27"
+        ? "APH 2024-2027"
+        : name === "addendum-2025-26"
+          ? "Addendum/Corrigendum 2025-26"
+          : "Addendum/Corrigendum 2026-27",
     pdfPage: page,
     clause,
     verification: "reviewed_AI CTE_publication_copy".replace("AI CTE", "AICTE"),
@@ -102,6 +108,45 @@ export const ruleRegister = {
     },
   ],
 };
+const evidenceRequirements = {
+  programme_amount: ["applicability"],
+  government_exemption: ["government_status"],
+  prior_regulator_exemption: ["prior_regulator"],
+  university_exemption: ["ugc_recognition"],
+  prior_release: ["prior_release_noc"],
+  lease_adjustment: ["applicability"],
+  special_category_concession: ["special_category"],
+  holding_period: ["Council deposit-date proof"],
+  payment_and_affidavit: ["payment_affidavit3"],
+  release_clearances: [
+    "application",
+    "Affidavit6",
+    "instrument/payment proof",
+    "current LoA/EoA",
+    "departmental clearances",
+  ],
+};
+for (const rule of ruleRegister.rules)
+  Object.assign(rule, {
+    documentVersion:
+      "APH2024-27 with separately pinned 2025-26/2026-27 amendments where listed",
+    effectiveAcademicYears:
+      rule.id === "special_category_concession"
+        ? ["2026-27"]
+        : ruleRegister.academicYears,
+    exactEffectiveDate: null,
+    effectiveDateStatus:
+      "Academic-year selection only; issuer notice dates not independently verified",
+    officialSource: rule.source.path.endsWith("aph-2024-27.pdf")
+      ? "https://www.aicte.gov.in/sites/default/files/APH%20Final.pdf"
+      : null,
+    officialAmendmentSource: null,
+    validationStatus: "UNVERIFIED_POLICY",
+    requiredEvidence: evidenceRequirements[rule.id],
+    exceptions:
+      "Apply only stated conditions and edition; missing evidence/unsupported intersections require human review",
+    testReferences: ["tests/regulatory.test.js", "tests/final-gap.test.js"],
+  });
 export function validateContext(c) {
   if (!c || typeof c !== "object" || Array.isArray(c))
     throw Error("Regulatory context object required");
@@ -237,6 +282,18 @@ export function assessAICTE(
       "unresolved",
       "Institutional applicability is claimed; officer-reviewed source evidence is required.",
     );
+  if (
+    context.entity === "government_university" &&
+    year === "2024-25" &&
+    ["new_programme", "new_level"].includes(context.application)
+  ) {
+    add(
+      "university_exemption",
+      "unresolved",
+      "2024-25 clauses 4.10(a) and 4.10(c) overlap for a government university adding a programme/level; authoritative interpretation required.",
+    );
+    return result();
+  }
   let exempt = false;
   if (
     context.entity === "government_university" ||
@@ -286,11 +343,15 @@ export function assessAICTE(
     );
   }
   if (proof("prior_release_noc")) {
-    exempt = true;
+    const supported =
+      context.entity !== "technical" || context.application === "conversion";
+    exempt = exempt || supported;
     add(
       "prior_release",
-      "reference_supported",
-      "Prior release NOC supplied and reviewed.",
+      supported ? "reference_supported" : "unresolved",
+      supported
+        ? "Prior release NOC supplied and reviewed for the referenced historical category."
+        : "NOC alone does not establish the historical conversion/category conditions; no blanket new-institution exemption.",
     );
   }
   if (["conversion", "release"].includes(context.application)) {
@@ -299,6 +360,12 @@ export function assessAICTE(
       "unresolved",
       "Historical balance/remaining period or release clearance requires a case-specific determination.",
     );
+    if (context.application === "release")
+      add(
+        "release_clearances",
+        "unresolved",
+        "Release requires application, Affidavit6, current approval, instrument/payment evidence, pending-complaint checks and departmental clearances; maturity alone is insufficient. Renewal/replacement restrictions are not independently verified for this edition.",
+      );
     return result();
   }
   const level =

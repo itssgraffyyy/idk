@@ -1,0 +1,7 @@
+SYNTHETIC TEST - NO REAL DEPOSIT
+FDR reference : TEST-V2-008
+amountPaise : 12500700
+Bank name : HDFC Bank
+IFSC : HDFC0001234
+Issue date : 2026-01-15
+Maturity date : 2031-01-15

@@ -1,3 +1,4 @@
+import { analyzeIFSC } from "./ifsc-extraction.js";
 const aliases = {
   reference: String.raw`reference|FDR\s*(?:number|no\.?|reference)|receipt\s*(?:number|no\.?)`,
   amountPaise: String.raw`amountPaise|deposit\s*amount(?:\s*\(INR\))?|principal\s*amount(?:\s*\(INR\))?`,
@@ -102,5 +103,11 @@ export function extract(text, { blocks } = {}) {
       normalizations,
     };
   }
+  const ifsc = analyzeIFSC(text, {
+    bank: result.bank?.value,
+    engineConfidence: result.ifsc?.engineConfidence ?? null,
+  });
+  if (ifsc.status !== "MISSING")
+    result.ifsc = { ...result.ifsc, ...ifsc, value: ifsc.value };
   return result;
 }

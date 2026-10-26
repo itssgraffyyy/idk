@@ -131,7 +131,15 @@ test("conditional government, regulator, NOC and amended university exemptions r
     ).requiredAmountPaise,
     0,
   );
-  assert.equal(run({}, [proof("prior_release_noc")]).requiredAmountPaise, 0);
+  assert.equal(
+    run({}, [proof("prior_release_noc")]).requiredAmountPaise,
+    350000000,
+  );
+  assert.equal(
+    run({ entity: "private_university" }, [proof("prior_release_noc")])
+      .requiredAmountPaise,
+    0,
+  );
 });
 test("holding clock uses Council deposit date, administrative proof interval is checked and release never automatic", () => {
   const r = run({

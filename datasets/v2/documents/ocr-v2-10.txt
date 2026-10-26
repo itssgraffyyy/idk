@@ -1,0 +1,7 @@
+SYNTHETIC TEST - NO REAL DEPOSIT
+FDR reference : TEST-V2-010
+amountPaise : 12500900
+Bank name : Kotak Mahindra Bank
+IFSC Code = (KKBK-0000958)
+Issue date : 2026-01-15
+Maturity date : 2031-01-15
