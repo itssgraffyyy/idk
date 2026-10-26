@@ -6,7 +6,11 @@ window.mountSubmissionNavigation = function ({
   detail,
   escape,
 }) {
-  if (!window.institutionRole(user)) return;
+  if (!window.institutionRole(user)) {
+    const prior = document.querySelector("#submission-nav");
+    if (prior) prior.hidden = true;
+    return;
+  }
   let nav = document.querySelector("#submission-nav");
   if (!nav) {
     nav = document.createElement("button");
@@ -14,6 +18,7 @@ window.mountSubmissionNavigation = function ({
     nav.className = "nav";
     document.querySelector("aside").append(nav);
   }
+  nav.hidden = false;
   nav.textContent = "Guided submission";
   nav.onclick = () =>
     run(async () => {

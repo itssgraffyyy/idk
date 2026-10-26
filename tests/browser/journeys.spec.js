@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures.js";
 test("ambiguous IFSC is visible and requires a reasoned manual correction", async ({
   page,
 }) => {

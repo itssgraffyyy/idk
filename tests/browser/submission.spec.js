@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures.js";
 test("guided upload-first draft survives reload, prefills only chosen proposals and receives persisted acknowledgement", async ({
   page,
 }) => {
@@ -41,15 +41,13 @@ test("guided upload-first draft survives reload, prefills only chosen proposals 
     "Guided Synthetic College",
   );
   await page.getByRole("button", { name: "Save and continue" }).click();
-  await page
-    .getByLabel("Draft source document")
-    .setInputFiles({
-      name: "synthetic-draft.txt",
-      mimeType: "text/plain",
-      buffer: Buffer.from(
-        "Reference: GUIDED-BROWSER\nDeposit Amount: INR 125000\nBank: HDFC Bank\nIFSC: HDFC0001234\nIssue Date: 2026-01-01\nMaturity Date: 2031-01-01",
-      ),
-    });
+  await page.getByLabel("Draft source document").setInputFiles({
+    name: "synthetic-draft.txt",
+    mimeType: "text/plain",
+    buffer: Buffer.from(
+      "Reference: GUIDED-BROWSER\nDeposit Amount: INR 125000\nBank: HDFC Bank\nIFSC: HDFC0001234\nIssue Date: 2026-01-01\nMaturity Date: 2031-01-01",
+    ),
+  });
   await page.getByRole("button", { name: "Save private source" }).click();
   await page.getByRole("button", { name: "Extract draft fields" }).click();
   await page.getByRole("button", { name: "Save and continue" }).click();

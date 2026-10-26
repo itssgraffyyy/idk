@@ -55,6 +55,11 @@ try {
         JSON.stringify({
           page: n,
           pages: doc.numPages,
+          viewport: {
+            width: Math.ceil(viewport.width),
+            height: Math.ceil(viewport.height),
+            transform: viewport.transform,
+          },
           png: canvas.toBuffer("image/png").toString("base64"),
         }),
       );

@@ -19,7 +19,7 @@ Running 8 tests using 1 worker
   ok 8 tests\browser\submission.spec.js:2:1 › guided upload-first draft survives reload, prefills only chosen proposals and receives persisted acknowledgement (10.6s)
 
 
-  1) tests\browser\pdf.spec.js:3:1 › private PDF is rendered as protected page image in institution workspace 
+  1) tests\browser\pdf.spec.js:3:1 › private PDF is rendered as protected page image in institution workspace
 
     Error: expect(received).toBe(expected) // Object.is equality
 
@@ -42,5 +42,5 @@ Running 8 tests using 1 worker
     Error Context: test-results\pdf-private-PDF-is-rendere-5332a-ge-in-institution-workspace\error-context.md
 
   1 failed
-    tests\browser\pdf.spec.js:3:1 › private PDF is rendered as protected page image in institution workspace 
+    tests\browser\pdf.spec.js:3:1 › private PDF is rendered as protected page image in institution workspace
   7 passed (3.0m)

@@ -7,6 +7,7 @@ export function buildPDF({
   active = false,
   width = 650,
   height = 425,
+  matrix = null,
 } = {}) {
   const objects = [
     "<< /Type /Catalog /Pages 2 0 R" +
@@ -28,7 +29,8 @@ export function buildPDF({
   const stream = jpeg
     ? Buffer.from("q 650 0 0 425 0 0 cm /Im0 Do Q")
     : Buffer.from(
-        "BT /F1 16 Tf 35 380 Td " +
+        "BT /F1 16 Tf " +
+          (matrix ? matrix.join(" ") + " Tm " : "35 380 Td ") +
           text
             .split("\n")
             .map(

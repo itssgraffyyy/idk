@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures.js";
 test("institution administrator edits profile, programme/history, independent obligation and account through backend UI", async ({
   page,
 }) => {

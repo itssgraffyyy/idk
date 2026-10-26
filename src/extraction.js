@@ -1,4 +1,35 @@
 import { analyzeIFSC } from "./ifsc-extraction.js";
+export function pdfItemBox(item) {
+  const t = item.transform;
+  if (
+    !Array.isArray(t) ||
+    t.length !== 6 ||
+    ![...t, item.width, item.height].every(Number.isFinite) ||
+    item.width <= 0 ||
+    item.height <= 0
+  )
+    return null;
+  const [a, b, c, d, x, y] = t,
+    advance = Math.hypot(a, b),
+    up = Math.hypot(c, d);
+  if (!advance || !up) return null;
+  const dx = (a / advance) * item.width,
+    dy = (b / advance) * item.width,
+    hx = (c / up) * item.height,
+    hy = (d / up) * item.height,
+    points = [
+      [x, y],
+      [x + dx, y + dy],
+      [x + hx, y + hy],
+      [x + dx + hx, y + dy + hy],
+    ];
+  return {
+    x0: Math.min(...points.map((p) => p[0])),
+    y0: Math.min(...points.map((p) => p[1])),
+    x1: Math.max(...points.map((p) => p[0])),
+    y1: Math.max(...points.map((p) => p[1])),
+  };
+}
 const aliases = {
   reference: String.raw`reference|FDR\s*(?:number|no\.?|reference)|receipt\s*(?:number|no\.?)`,
   amountPaise: String.raw`amountPaise|deposit\s*amount(?:\s*\(INR\))?|principal\s*amount(?:\s*\(INR\))?`,
@@ -208,9 +239,8 @@ export function extract(
           (i.text.includes(field.line?.trim()) || field.line?.includes(i.text)),
       );
       if (item) {
-        const [, , , , x, y] = item.transform;
-        field.bbox = { x0: x, y0: y, x1: x + item.width, y1: y + item.height };
-        field.coordinateSystem = "pdf-points-bottom-left";
+        field.bbox = pdfItemBox(item);
+        field.coordinateSystem = field.bbox ? "pdf-points-bottom-left" : null;
       }
     }
     if (!field.coordinateSystem)

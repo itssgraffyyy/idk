@@ -1,0 +1,21 @@
+{
+  "purpose": "Compare unnecessary font initialization during parse-only validation; no OCR or rendering changes",
+  "rows": [
+    {
+      "systemFontLoadingDisabled": false,
+      "durationMs": 1550.5382000000002,
+      "result": {
+        "valid": true,
+        "pages": 1
+      }
+    },
+    {
+      "systemFontLoadingDisabled": true,
+      "durationMs": 334.2966999999999,
+      "result": {
+        "valid": true,
+        "pages": 1
+      }
+    }
+  ]
+}

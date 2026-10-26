@@ -5,7 +5,7 @@ const files = readdirSync("tests")
     .map((p) => "tests/" + p),
   r = spawnSync(
     process.execPath,
-    ["--test", "--test-concurrency=2", ...files],
+    ["--test", "--test-concurrency=1", ...files],
     {
       encoding: "utf8",
       windowsHide: true,

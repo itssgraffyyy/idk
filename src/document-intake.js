@@ -55,7 +55,12 @@ export async function intakeDocument(storage, body) {
           storage.path(id),
           mime === "application/pdf" ? "validate" : mime,
         ],
-        { timeout: 10000, maxBuffer: 1000, windowsHide: true },
+        {
+          timeout: 10000,
+          maxBuffer: 1000,
+          windowsHide: true,
+          env: { ...process.env, DISABLE_SYSTEM_FONTS_LOAD: "1" },
+        },
       );
     return { id, sha256: hash(bytes), mime, bytes: bytes.length };
   } catch (e) {

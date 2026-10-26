@@ -1,18 +1,27 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { extract } from "../src/extraction.js";
+import { extract, pdfItemBox } from "../src/extraction.js";
+test("PDF item boxes retain text rotation basis and reject unavailable coordinates", () => {
+  assert.deepEqual(
+    pdfItemBox({
+      transform: [0, 12, -12, 0, 300, 100],
+      width: 100,
+      height: 12,
+    }),
+    { x0: 288, y0: 100, x1: 300, y1: 200 },
+  );
+  assert.equal(pdfItemBox({ transform: [], width: 100, height: 12 }), null);
+});
 import { harness, instrument } from "./support/harness.js";
 test("ten-field extraction preserves exact page identity and coordinates and withholds cross-page conflicts", () => {
   const text =
     "Institution Name: Test College\nDepositor Name: Test Trust\nBranch Name: Test Branch\nCurrency: INR\nIFSC: HDFC0001234";
-  const items = text
-    .split("\n")
-    .map((text, i) => ({
-      text,
-      transform: [12, 0, 0, 12, 30, 700 - i * 30],
-      width: 200,
-      height: 12,
-    }));
+  const items = text.split("\n").map((text, i) => ({
+    text,
+    transform: [12, 0, 0, 12, 30, 700 - i * 30],
+    width: 200,
+    height: 12,
+  }));
   const fields = extract("", {
     pages: [{ page: 2, text, items }],
     documentVersionId: "immutable-version",

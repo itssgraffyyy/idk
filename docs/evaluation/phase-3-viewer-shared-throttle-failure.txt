@@ -1,0 +1,75 @@
+
+Running 10 tests using 1 worker
+
+(node:18904) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18904) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\browser\administration.spec.js:2:1 › institution administrator edits profile, programme/history, independent obligation and account through backend UI (27.0s)
+  ok  2 tests\browser\journeys.spec.js:2:1 › ambiguous IFSC is visible and requires a reasoned manual correction (2.7s)
+  ok  3 tests\browser\journeys.spec.js:83:1 › institution submits evidence; officer compares, requests clarification; institution responds (10.5s)
+  ok  4 tests\browser\journeys.spec.js:276:1 › responsive login and rejected credentials (3.3s)
+  ok  5 tests\browser\pdf.spec.js:3:1 › private PDF is rendered as protected page image in institution workspace (3.6s)
+  ok  6 tests\browser\provider.spec.js:2:1 › local financial provider scenarios are genuine API results and clearly MOCK in officer workspace (3.2s)
+  ok  7 tests\browser\resolution.spec.js:2:1 › reviewer targets a finding; institution corrects only disputed amount and reviewer closes the response (3.8s)
+  x   8 tests\browser\roles.spec.js:2:1 › supervisor performs guarded review transition and auditor can only inspect the same authority case (2.0m)
+(node:11364) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11364) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  9 tests\browser\submission.spec.js:2:1 › guided upload-first draft survives reload, prefills only chosen proposals and receives persisted acknowledgement (17.1s)
+  x  10 tests\browser\viewer.spec.js:3:1 › reviewer compares original/corrected fields across protected PDF versions with measured highlights and zoom (2.0m)
+
+
+  1) tests\browser\roles.spec.js:2:1 › supervisor performs guarded review transition and auditor can only inspect the same authority case 
+
+    Test timeout of 120000ms exceeded.
+
+    Error: locator.click: Test timeout of 120000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Open →' }).last()
+
+
+      47 |     .fill("test-supervisor-password");
+      48 |   await page.getByRole("button", { name: "Sign in securely" }).click();
+    > 49 |   await page.getByRole("button", { name: "Open →" }).last().click();
+         |                                                             ^
+      50 |   await page.getByLabel("Lifecycle action").selectOption("start_review");
+      51 |   await page.getByLabel("Transition reason").fill("Supervisor begins review");
+      52 |   await page
+        at G:\idk_lol\tests\browser\roles.spec.js:49:61
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\roles-supervisor-performs--6ea3c-ect-the-same-authority-case\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\roles-supervisor-performs--6ea3c-ect-the-same-authority-case\error-context.md
+
+  2) tests\browser\viewer.spec.js:3:1 › reviewer compares original/corrected fields across protected PDF versions with measured highlights and zoom 
+
+    Test timeout of 120000ms exceeded.
+
+    Error: locator.selectOption: Test timeout of 120000ms exceeded.
+    Call log:
+      - waiting for getByLabel('Document version', { exact: true })
+
+
+      75 |   await page
+      76 |     .getByLabel("Document version", { exact: true })
+    > 77 |     .selectOption(first);
+         |      ^
+      78 |   await expect(page.locator("#viewer-facts")).toContainText(
+      79 |     "REVIEWER-CORRECTED",
+      80 |   );
+        at G:\idk_lol\tests\browser\viewer.spec.js:77:6
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\viewer-reviewer-compares-o-056aa-easured-highlights-and-zoom\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\viewer-reviewer-compares-o-056aa-easured-highlights-and-zoom\error-context.md
+
+  2 failed
+    tests\browser\roles.spec.js:2:1 › supervisor performs guarded review transition and auditor can only inspect the same authority case 
+    tests\browser\viewer.spec.js:3:1 › reviewer compares original/corrected fields across protected PDF versions with measured highlights and zoom 
+  8 passed (6.1m)

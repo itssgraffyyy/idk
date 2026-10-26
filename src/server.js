@@ -26,6 +26,7 @@ import {
   recordConversation,
 } from "./operations-api.js";
 import { submissions } from "./submissions.js";
+import { viewerRoute } from "./viewer.js";
 import { readFileSync, writeFileSync, mkdirSync, unlinkSync } from "node:fs";
 import { resolve, join } from "node:path";
 import { randomBytes, randomUUID } from "node:crypto";
@@ -330,7 +331,7 @@ export function createApp({
         "Referrer-Policy": "no-referrer",
         "Cache-Control": "no-store",
         "Content-Security-Policy":
-          "default-src 'self'; style-src 'self'; script-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'",
+          "default-src 'self'; img-src 'self' blob:; style-src 'self'; script-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'",
       }))
         res.setHeader(k, v);
       try {
@@ -348,6 +349,8 @@ export function createApp({
             "/domain.js",
             "/operations.js",
             "/submission.js",
+            "/evidence-viewer.js",
+            "/viewer-geometry.js",
             "/style.css",
           ].includes(path)
         ) {
@@ -795,6 +798,22 @@ export function createApp({
           })
         )
           return;
+        if (
+          viewerRoute({
+            db,
+            c,
+            u,
+            action,
+            method: req.method,
+            url,
+            key: cursorKey,
+            storage,
+            json,
+            res,
+            audit,
+          })
+        )
+          return;
         if (action === "domain-records" && req.method === "GET") {
           const kind = url.searchParams.get("kind");
           if (!["instruments", "documents"].includes(kind))
@@ -925,7 +944,12 @@ export function createApp({
                   )
                 ).stdout,
               );
-            } catch {
+            } catch (error) {
+              if (error.killed || error.code === "ETIMEDOUT")
+                fail(
+                  503,
+                  "PDF preview timed out; retry when capacity is available",
+                );
               fail(400, "PDF preview unavailable");
             } finally {
               activeValidators--;
@@ -935,6 +959,10 @@ export function createApp({
               fail(409, "Integrity failure");
             res.setHeader("Content-Type", "image/png");
             res.setHeader("X-Document-Pages", String(result.pages));
+            res.setHeader(
+              "X-Document-Viewport",
+              JSON.stringify(result.viewport),
+            );
             audit(u.id, "document_preview", id, {
               documentVersionId: e.id,
               page,
@@ -1286,7 +1314,12 @@ export function createApp({
                     storage.path(eid),
                     mime === "application/pdf" ? "validate" : mime,
                   ],
-                  { timeout: 10000, maxBuffer: 1000, windowsHide: true },
+                  {
+                    timeout: 10000,
+                    maxBuffer: 1000,
+                    windowsHide: true,
+                    env: { ...process.env, DISABLE_SYSTEM_FONTS_LOAD: "1" },
+                  },
                 );
               } catch (error) {
                 if (error.killed || error.code === "ETIMEDOUT")

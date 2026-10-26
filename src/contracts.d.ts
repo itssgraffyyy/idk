@@ -88,3 +88,14 @@ export interface SubmissionDraft {
     step?: number;
   };
 }
+export interface PDFViewport {
+  width: number;
+  height: number;
+  transform: [number, number, number, number, number, number];
+}
+export interface EvidenceCoordinates {
+  page: number;
+  documentVersionId: string | null;
+  coordinateSystem: "pdf-points-bottom-left" | "raster-pixels-top-left" | null;
+  bbox: { x0: number; y0: number; x1: number; y1: number } | null;
+}

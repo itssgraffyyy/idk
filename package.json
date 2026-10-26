@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node src/server.js",
-    "test": "node --test --test-concurrency=2 tests/*.test.js",
+    "test": "node --test --test-concurrency=1 tests/*.test.js",
     "dataset": "node scripts/dataset.js",
     "benchmark": "node scripts/benchmark-reconciliation-audit.js",
     "test:e2e": "node scripts/browser-test.js",

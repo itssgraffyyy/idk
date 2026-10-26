@@ -360,40 +360,9 @@ async function detail(id) {
     "</div></div></div>";
   if ($("#preview-document"))
     $("#preview-document").onclick = () =>
-      run(async () => {
-        const target = $("#document-preview");
-        if (doc.payload.mime === "application/pdf") {
-          target.innerHTML =
-            '<label>PDF page <input id="pdf-page" type="number" min="1" max="5" value="1"></label><button id="pdf-show">Show page</button><img class="document-image" id="pdf-image" alt="Protected PDF page preview">';
-          const show = () => {
-            const n = Number(document.querySelector("#pdf-page").value);
-            if (Number.isInteger(n) && n >= 1 && n <= 5)
-              document.querySelector("#pdf-image").src =
-                "/api/cases/" +
-                id +
-                "/documents/" +
-                doc.id +
-                "?preview=1&page=" +
-                n;
-          };
-          document.querySelector("#pdf-show").onclick = show;
-          show();
-        } else if (doc.payload.mime.startsWith("image/"))
-          target.innerHTML =
-            '<img class="document-image" alt="Uploaded source document" src="/api/cases/' +
-            id +
-            "/documents/" +
-            doc.id +
-            '?preview=1">';
-        else {
-          const r = await fetch(
-            "/api/cases/" + id + "/documents/" + doc.id + "?preview=1",
-          );
-          if (!r.ok) throw Error("Document unavailable");
-          target.innerHTML = "<pre></pre>";
-          target.querySelector("pre").textContent = await r.text();
-        }
-      });
+      run(() =>
+        window.openEvidenceViewer({ c, api, run, escape, versionId: doc.id }),
+      );
   $("#back").onclick = () => run(registry);
   $("#evaluate").onclick = () =>
     run(async () => {
@@ -506,6 +475,7 @@ async function detail(id) {
       await detail(id);
     });
   };
+  window.mountFindingSourceLinks({ c, api, run, escape });
   window.mountReviewWorkspace({ c, user, api, run, detail, escape });
   await window.mountOperationsCase({ c, user, api, run, detail, escape });
   window.mountDomainCase({
@@ -543,6 +513,14 @@ $("#logout").onclick = () =>
   run(async () => {
     await api("/logout", "POST", {});
     user = null;
+    current = null;
+    if (window.activeEvidenceBlob) {
+      URL.revokeObjectURL(window.activeEvidenceBlob);
+      window.activeEvidenceBlob = null;
+    }
+    for (const id of ["#detail", "#management", "#registry"]) {
+      $(id).replaceChildren();
+    }
     $("#logout").hidden = true;
     $("#identity").textContent = "Secure access";
     views("login");

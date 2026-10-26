@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures.js";
 test("local financial provider scenarios are genuine API results and clearly MOCK in officer workspace", async ({
   page,
 }) => {

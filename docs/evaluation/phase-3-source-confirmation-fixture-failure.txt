@@ -475,10 +475,10 @@ not ok 69 - upload-first saved draft extracts real source, requires confirmation
   error: |-
     Expected values to be strictly equal:
     + actual - expected
-    
+
     + 'CANNOT_SUBMIT'
     - 'POSSIBLE_WITH_REVIEW_WARNINGS'
-    
+
   code: 'ERR_ASSERTION'
   name: 'AssertionError'
   expected: 'POSSIBLE_WITH_REVIEW_WARNINGS'
