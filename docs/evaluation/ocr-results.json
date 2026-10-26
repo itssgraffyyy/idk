@@ -1,0 +1,900 @@
+{
+  "datasetVersion": "synthetic-v1",
+  "engine": "tesseract.js 7, locally packaged English model",
+  "node": "v22.14.0",
+  "cases": 20,
+  "fieldExactMatch": 0.85,
+  "coverage": 0.9,
+  "failureRate": 0,
+  "criticalReferenceExactMatch": 1,
+  "meanDocumentProcessingMs": 1734.6491700000001,
+  "rows": [
+    {
+      "id": "case-001",
+      "split": "development",
+      "layout": "A",
+      "scenario": "consistent",
+      "matched": 5,
+      "total": 6,
+      "documentConfidence": 89,
+      "durationMs": 1250.2144,
+      "extracted": {
+        "reference": {
+          "value": "SYN-0001",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "reference : SYN-0001"
+        },
+        "amountPaise": {
+          "value": 10000000,
+          "confidence": null,
+          "method": "label-parser",
+          "line": "amountPaise : 10000000"
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "bank : Synthetic Bank"
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "ifsc : SYNBOOQOOO1"
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "issued : 2026-01-01"
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "matures : 2030-01-01"
+        }
+      }
+    },
+    {
+      "id": "case-002",
+      "split": "development",
+      "layout": "B",
+      "scenario": "amount-mismatch",
+      "matched": 5,
+      "total": 6,
+      "documentConfidence": 89,
+      "durationMs": 1093.714,
+      "extracted": {
+        "reference": {
+          "value": "SYN-0002",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "reference : SYN-0002"
+        },
+        "amountPaise": {
+          "value": 10000000,
+          "confidence": null,
+          "method": "label-parser",
+          "line": "amountPaise : 10000000"
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "bank : Synthetic Bank"
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "ifsc : SYNBOOQOOO1"
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "issued : 2026-01-01"
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "matures : 2030-01-01"
+        }
+      }
+    },
+    {
+      "id": "case-003",
+      "split": "development",
+      "layout": "A",
+      "scenario": "missing-reference",
+      "matched": 5,
+      "total": 6,
+      "documentConfidence": 88,
+      "durationMs": 2002.9071,
+      "extracted": {
+        "amountPaise": {
+          "value": 10000200,
+          "confidence": null,
+          "method": "label-parser",
+          "line": "amountPaise : 10000200"
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "bank : Synthetic Bank"
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "ifsc : SYNBOOQOOO1"
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "issued : 2026-01-01"
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "matures : 2030-01-01"
+        }
+      }
+    },
+    {
+      "id": "case-004",
+      "split": "development",
+      "layout": "B",
+      "scenario": "duplicate-reference",
+      "matched": 5,
+      "total": 6,
+      "documentConfidence": 89,
+      "durationMs": 1022.1486999999997,
+      "extracted": {
+        "reference": {
+          "value": "SYN-0004",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "reference : SYN-0004"
+        },
+        "amountPaise": {
+          "value": 10000300,
+          "confidence": null,
+          "method": "label-parser",
+          "line": "amountPaise : 10000300"
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "bank : Synthetic Bank"
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "ifsc : SYNBOOQOOO1"
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "issued : 2026-01-01"
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "matures : 2030-01-01"
+        }
+      }
+    },
+    {
+      "id": "case-005",
+      "split": "held-out",
+      "layout": "C",
+      "scenario": "bank-mismatch",
+      "matched": 5,
+      "total": 6,
+      "documentConfidence": 91,
+      "durationMs": 1056.4434,
+      "extracted": {
+        "reference": {
+          "value": "SYN-0005",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "reference = SYN-0005"
+        },
+        "amountPaise": {
+          "value": 10000400,
+          "confidence": null,
+          "method": "label-parser",
+          "line": "amountPaise = 10000400"
+        },
+        "bank": {
+          "value": "Imaginary Other Bank",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "bank = Imaginary Other Bank"
+        },
+        "ifsc": {
+          "value": "SYNB00QOOO1",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "ifsc = SYNB00QOOO1"
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "issued = 2026-01-01"
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "matures = 2030-01-01"
+        }
+      }
+    },
+    {
+      "id": "case-006",
+      "split": "development",
+      "layout": "B",
+      "scenario": "ifsc-mismatch",
+      "matched": 5,
+      "total": 6,
+      "documentConfidence": 89,
+      "durationMs": 1128.0710000000008,
+      "extracted": {
+        "reference": {
+          "value": "SYN-0006",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "reference : SYN-0006"
+        },
+        "amountPaise": {
+          "value": 10000500,
+          "confidence": null,
+          "method": "label-parser",
+          "line": "amountPaise : 10000500"
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "bank : Synthetic Bank"
+        },
+        "ifsc": {
+          "value": "OTHROOOLOO1",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "ifsc : OTHROOOLOO1"
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "issued : 2026-01-01"
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "matures : 2030-01-01"
+        }
+      }
+    },
+    {
+      "id": "case-007",
+      "split": "development",
+      "layout": "A",
+      "scenario": "unreadable",
+      "matched": 6,
+      "total": 6,
+      "documentConfidence": 95,
+      "durationMs": 3390.2984000000006,
+      "extracted": {}
+    },
+    {
+      "id": "case-008",
+      "split": "development",
+      "layout": "B",
+      "scenario": "rotated",
+      "matched": 5,
+      "total": 6,
+      "documentConfidence": 89,
+      "durationMs": 5952.174999999999,
+      "extracted": {
+        "reference": {
+          "value": "SYN-0008",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "reference : SYN-0008"
+        },
+        "amountPaise": {
+          "value": 10000700,
+          "confidence": null,
+          "method": "label-parser",
+          "line": "amountPaise : 10000700"
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "bank : Synthetic Bank"
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "ifsc : SYNBOOQOOO1"
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "issued : 2026-01-01"
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "matures : 2030-01-01"
+        }
+      }
+    },
+    {
+      "id": "case-009",
+      "split": "development",
+      "layout": "A",
+      "scenario": "missing-dates",
+      "matched": 5,
+      "total": 6,
+      "documentConfidence": 88,
+      "durationMs": 1049.181099999998,
+      "extracted": {
+        "reference": {
+          "value": "SYN-0009",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "reference : SYN-0009"
+        },
+        "amountPaise": {
+          "value": 10000800,
+          "confidence": null,
+          "method": "label-parser",
+          "line": "amountPaise : 10000800"
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "bank : Synthetic Bank"
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "ifsc : SYNBOOQOOO1"
+        }
+      }
+    },
+    {
+      "id": "case-010",
+      "split": "held-out",
+      "layout": "C",
+      "scenario": "date-order",
+      "matched": 5,
+      "total": 6,
+      "documentConfidence": 91,
+      "durationMs": 2113.983500000002,
+      "extracted": {
+        "reference": {
+          "value": "SYN-0010",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "reference = SYN-0010"
+        },
+        "amountPaise": {
+          "value": 10000900,
+          "confidence": null,
+          "method": "label-parser",
+          "line": "amountPaise = 10000900"
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "bank = Synthetic Bank"
+        },
+        "ifsc": {
+          "value": "SYNB00QOOO1",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "ifsc = SYNB00QOOO1"
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "issued = 2026-01-01"
+        },
+        "matures": {
+          "value": "2025-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "matures = 2025-01-01"
+        }
+      }
+    },
+    {
+      "id": "case-011",
+      "split": "development",
+      "layout": "A",
+      "scenario": "unsupported-exemption",
+      "matched": 5,
+      "total": 6,
+      "documentConfidence": 89,
+      "durationMs": 1028.8426,
+      "extracted": {
+        "reference": {
+          "value": "SYN-0011",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "reference : SYN-0011"
+        },
+        "amountPaise": {
+          "value": 10001000,
+          "confidence": null,
+          "method": "label-parser",
+          "line": "amountPaise : 10001000"
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "bank : Synthetic Bank"
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "ifsc : SYNBOOQOOO1"
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "issued : 2026-01-01"
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "matures : 2030-01-01"
+        }
+      }
+    },
+    {
+      "id": "case-012",
+      "split": "development",
+      "layout": "B",
+      "scenario": "synthetic-exemption",
+      "matched": 5,
+      "total": 6,
+      "documentConfidence": 89,
+      "durationMs": 1046.829600000001,
+      "extracted": {
+        "reference": {
+          "value": "SYN-0012",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "reference : SYN-0012"
+        },
+        "amountPaise": {
+          "value": 10001100,
+          "confidence": null,
+          "method": "label-parser",
+          "line": "amountPaise : 10001100"
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "bank : Synthetic Bank"
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "ifsc : SYNBOOQOOO1"
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "issued : 2026-01-01"
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "matures : 2030-01-01"
+        }
+      }
+    },
+    {
+      "id": "case-013",
+      "split": "development",
+      "layout": "A",
+      "scenario": "external-conflict",
+      "matched": 5,
+      "total": 6,
+      "documentConfidence": 89,
+      "durationMs": 1299.2661000000007,
+      "extracted": {
+        "reference": {
+          "value": "SYN-0013",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "reference : SYN-0013"
+        },
+        "amountPaise": {
+          "value": 10001200,
+          "confidence": null,
+          "method": "label-parser",
+          "line": "amountPaise : 10001200"
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "bank : Synthetic Bank"
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "ifsc : SYNBOOQOOO1"
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "issued : 2026-01-01"
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "matures : 2030-01-01"
+        }
+      }
+    },
+    {
+      "id": "case-014",
+      "split": "development",
+      "layout": "B",
+      "scenario": "external-unavailable",
+      "matched": 5,
+      "total": 6,
+      "documentConfidence": 89,
+      "durationMs": 1943.0564000000013,
+      "extracted": {
+        "reference": {
+          "value": "SYN-0014",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "reference : SYN-0014"
+        },
+        "amountPaise": {
+          "value": 10001300,
+          "confidence": null,
+          "method": "label-parser",
+          "line": "amountPaise : 10001300"
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "bank : Synthetic Bank"
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "ifsc : SYNBOOQOOO1"
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "issued : 2026-01-01"
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "matures : 2030-01-01"
+        }
+      }
+    },
+    {
+      "id": "case-015",
+      "split": "held-out",
+      "layout": "C",
+      "scenario": "shortfall",
+      "matched": 5,
+      "total": 6,
+      "documentConfidence": 91,
+      "durationMs": 1157.1434999999983,
+      "extracted": {
+        "reference": {
+          "value": "SYN-0015",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "reference = SYN-0015"
+        },
+        "amountPaise": {
+          "value": 10001400,
+          "confidence": null,
+          "method": "label-parser",
+          "line": "amountPaise = 10001400"
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "bank = Synthetic Bank"
+        },
+        "ifsc": {
+          "value": "SYNB00QOOO1",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "ifsc = SYNB00QOOO1"
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "issued = 2026-01-01"
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "matures = 2030-01-01"
+        }
+      }
+    },
+    {
+      "id": "case-016",
+      "split": "development",
+      "layout": "B",
+      "scenario": "expired",
+      "matched": 5,
+      "total": 6,
+      "documentConfidence": 89,
+      "durationMs": 1801.2919000000002,
+      "extracted": {
+        "reference": {
+          "value": "SYN-0016",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "reference : SYN-0016"
+        },
+        "amountPaise": {
+          "value": 10001500,
+          "confidence": null,
+          "method": "label-parser",
+          "line": "amountPaise : 10001500"
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "bank : Synthetic Bank"
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "ifsc : SYNBOOQOOO1"
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "issued : 2026-01-01"
+        },
+        "matures": {
+          "value": "2026-02-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "matures : 2026-02-01"
+        }
+      }
+    },
+    {
+      "id": "case-017",
+      "split": "development",
+      "layout": "A",
+      "scenario": "missing-amount",
+      "matched": 5,
+      "total": 6,
+      "documentConfidence": 88,
+      "durationMs": 2008.1044000000002,
+      "extracted": {
+        "reference": {
+          "value": "SYN-0017",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "reference : SYN-0017"
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "bank : Synthetic Bank"
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "ifsc : SYNBOOQOOO1"
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "issued : 2026-01-01"
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "matures : 2030-01-01"
+        }
+      }
+    },
+    {
+      "id": "case-018",
+      "split": "development",
+      "layout": "B",
+      "scenario": "missing-ifsc",
+      "matched": 6,
+      "total": 6,
+      "documentConfidence": 92,
+      "durationMs": 987.7161000000015,
+      "extracted": {
+        "reference": {
+          "value": "SYN-0018",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "reference : SYN-0018"
+        },
+        "amountPaise": {
+          "value": 10001700,
+          "confidence": null,
+          "method": "label-parser",
+          "line": "amountPaise : 10001700"
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "bank : Synthetic Bank"
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "issued : 2026-01-01"
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "matures : 2030-01-01"
+        }
+      }
+    },
+    {
+      "id": "case-019",
+      "split": "development",
+      "layout": "A",
+      "scenario": "missing-bank",
+      "matched": 5,
+      "total": 6,
+      "documentConfidence": 88,
+      "durationMs": 1068.4448999999986,
+      "extracted": {
+        "reference": {
+          "value": "SYN-0019",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "reference : SYN-0019"
+        },
+        "amountPaise": {
+          "value": 10001800,
+          "confidence": null,
+          "method": "label-parser",
+          "line": "amountPaise : 10001800"
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "ifsc : SYNBOOQOOO1"
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "issued : 2026-01-01"
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "matures : 2030-01-01"
+        }
+      }
+    },
+    {
+      "id": "case-020",
+      "split": "held-out",
+      "layout": "C",
+      "scenario": "multiple-conflicts",
+      "matched": 5,
+      "total": 6,
+      "documentConfidence": 91,
+      "durationMs": 2293.1513000000014,
+      "extracted": {
+        "reference": {
+          "value": "SYN-0020",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "reference = SYN-0020"
+        },
+        "amountPaise": {
+          "value": 10,
+          "confidence": null,
+          "method": "label-parser",
+          "line": "amountPaise = 10"
+        },
+        "bank": {
+          "value": "Imaginary Other Bank",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "bank = Imaginary Other Bank"
+        },
+        "ifsc": {
+          "value": "SYNB00QOOO1",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "ifsc = SYNB00QOOO1"
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "issued = 2026-01-01"
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "confidence": null,
+          "method": "label-parser",
+          "line": "matures = 2030-01-01"
+        }
+      }
+    }
+  ]
+}

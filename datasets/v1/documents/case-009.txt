@@ -1,0 +1,6 @@
+SYNTHETIC FIXTURE — NOT A BANK DOCUMENT
+Fictional Institute 9
+reference : SYN-0009
+amountPaise : 10000800
+bank : Synthetic Bank
+ifsc : SYNB0000001

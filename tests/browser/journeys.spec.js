@@ -49,6 +49,23 @@ test("institution submits evidence; officer compares, requests clarification; in
   await expect(
     page.getByRole("link", { name: "Download version 1" }),
   ).toBeVisible();
+  await page.route(
+    "**/api/cases/*/process",
+    (route) =>
+      route.fulfill({
+        status: 503,
+        contentType: "application/json",
+        body: JSON.stringify({ error: "Temporary OCR service failure" }),
+      }),
+    { times: 1 },
+  );
+  await page.getByRole("button", { name: "Process latest document" }).click();
+  await expect(page.getByRole("status")).toContainText(
+    "Temporary OCR service failure",
+  );
+  await expect(
+    page.getByRole("button", { name: "Process latest document" }),
+  ).toBeEnabled();
   await page.getByRole("button", { name: "Process latest document" }).click();
   await expect(
     page.locator("#detail table tbody tr").first().locator("td").nth(2),
@@ -57,6 +74,7 @@ test("institution submits evidence; officer compares, requests clarification; in
   await expect(page.locator("#ifsc-result")).toContainText(
     "fictional_reference_match",
   );
+  await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({
     path: "docs/evaluation/institution-workspace.png",
     fullPage: true,
@@ -82,6 +100,7 @@ test("institution submits evidence; officer compares, requests clarification; in
       .locator("#detail p")
       .filter({ hasText: "Please confirm the declared amount." }),
   ).toBeVisible();
+  await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({
     path: "docs/evaluation/officer-workspace.png",
     fullPage: true,

@@ -330,7 +330,6 @@ async function detail(id) {
     };
     $("#process").onclick = () =>
       run(async () => {
-        $("#process").disabled = true;
         const p = await api("/cases/" + id + "/process", "POST", {});
         await detail(id);
         if (p.status === "failed") notice(p.error);

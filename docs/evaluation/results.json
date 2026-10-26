@@ -1,0 +1,33 @@
+{
+  "datasetVersion": "synthetic-v1",
+  "node": "v22.14.0",
+  "configuration": {
+    "asOf": "2026-10-26",
+    "input": "UTF-8 text fixtures; this is NOT an OCR benchmark",
+    "cases": 20,
+    "heldOut": 4
+  },
+  "textImport": {
+    "fieldExactMatch": 1,
+    "presentFieldAccuracy": 1,
+    "coverage": 0.9,
+    "fields": 120,
+    "processingMs": 3.3992000000000004
+  },
+  "reconciliation": {
+    "precision": 1,
+    "recall": 1,
+    "falsePositiveRate": 0,
+    "truePositive": 64,
+    "falsePositive": 0,
+    "falseNegative": 0,
+    "trueNegative": 436,
+    "unavailableHandled": 1
+  },
+  "unverifiedPolicyIdentifierCorrect": 1,
+  "localEngineLatencyMs": {
+    "mean": 0.16117000000000098,
+    "max": 1.7006000000000014
+  },
+  "failures": []
+}

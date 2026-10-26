@@ -1,0 +1,17 @@
+{
+  "node": "v22.14.0",
+  "platform": "win32",
+  "configuration": {
+    "dataset": "20 generated fictional records",
+    "endpoint": "GET /api/cases",
+    "samples": 100,
+    "concurrency": 1,
+    "transport": "HTTP loopback"
+  },
+  "latencyMs": {
+    "p50": 1.1543000000001484,
+    "p95": 1.8351000000002387,
+    "max": 4.441100000000006,
+    "mean": 1.2954149999999935
+  }
+}

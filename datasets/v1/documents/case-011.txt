@@ -1,0 +1,8 @@
+SYNTHETIC FIXTURE — NOT A BANK DOCUMENT
+Fictional Institute 11
+reference : SYN-0011
+amountPaise : 10001000
+bank : Synthetic Bank
+ifsc : SYNB0000001
+issued : 2026-01-01
+matures : 2030-01-01

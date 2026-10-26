@@ -1,0 +1,225 @@
+{
+  "version": "synthetic-v1",
+  "seed": "deterministic-1",
+  "cases": [
+    {
+      "id": "case-005",
+      "scenario": "bank-mismatch",
+      "split": "held-out",
+      "layout": "C",
+      "instrument": {
+        "reference": "SYN-0005",
+        "amountPaise": 10000400,
+        "bank": "Synthetic Bank",
+        "ifsc": "SYNB0000001",
+        "issued": "2026-01-01",
+        "matures": "2030-01-01"
+      },
+      "obligation": {
+        "amountPaise": 10000400
+      },
+      "external": {
+        "status": "mock_confirmed",
+        "provider": "fictional-term-deposit-v1",
+        "realBankEvidence": false,
+        "values": {
+          "reference": "SYN-0005",
+          "amountPaise": 10000400,
+          "bank": "Synthetic Bank",
+          "ifsc": "SYNB0000001",
+          "issued": "2026-01-01",
+          "matures": "2030-01-01"
+        }
+      },
+      "duplicates": [],
+      "exemption": null,
+      "text": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 5\nreference = SYN-0005\namountPaise = 10000400\nbank = Imaginary Other Bank\nifsc = SYNB0000001\nissued = 2026-01-01\nmatures = 2030-01-01",
+      "rotation": 0,
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN-0005",
+          "amountPaise": 10000400,
+          "bank": "Imaginary Other Bank",
+          "ifsc": "SYNB0000001",
+          "issued": "2026-01-01",
+          "matures": "2030-01-01"
+        },
+        "confidence": "unknown/null; no calibrated field confidence",
+        "expectedCodes": [
+          "mismatch_bank",
+          "mock_only",
+          "policy_unverified"
+        ],
+        "policyVersion": "unverified-1",
+        "evidenceStatus": "mock_confirmed",
+        "reviewOutcome": "human_review_required",
+        "regulatoryCondition": "No verified AICTE rule; exemptions must remain unconfirmed"
+      }
+    },
+    {
+      "id": "case-010",
+      "scenario": "date-order",
+      "split": "held-out",
+      "layout": "C",
+      "instrument": {
+        "reference": "SYN-0010",
+        "amountPaise": 10000900,
+        "bank": "Synthetic Bank",
+        "ifsc": "SYNB0000001",
+        "issued": "2026-01-01",
+        "matures": "2025-01-01"
+      },
+      "obligation": {
+        "amountPaise": 10000900
+      },
+      "external": {
+        "status": "mock_confirmed",
+        "provider": "fictional-term-deposit-v1",
+        "realBankEvidence": false,
+        "values": {
+          "reference": "SYN-0010",
+          "amountPaise": 10000900,
+          "bank": "Synthetic Bank",
+          "ifsc": "SYNB0000001",
+          "issued": "2026-01-01",
+          "matures": "2025-01-01"
+        }
+      },
+      "duplicates": [],
+      "exemption": null,
+      "text": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 10\nreference = SYN-0010\namountPaise = 10000900\nbank = Synthetic Bank\nifsc = SYNB0000001\nissued = 2026-01-01\nmatures = 2025-01-01",
+      "rotation": 0,
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN-0010",
+          "amountPaise": 10000900,
+          "bank": "Synthetic Bank",
+          "ifsc": "SYNB0000001",
+          "issued": "2026-01-01",
+          "matures": "2025-01-01"
+        },
+        "confidence": "unknown/null; no calibrated field confidence",
+        "expectedCodes": [
+          "date_order",
+          "expired",
+          "mock_only",
+          "policy_unverified"
+        ],
+        "policyVersion": "unverified-1",
+        "evidenceStatus": "mock_confirmed",
+        "reviewOutcome": "human_review_required",
+        "regulatoryCondition": "No verified AICTE rule; exemptions must remain unconfirmed"
+      }
+    },
+    {
+      "id": "case-015",
+      "scenario": "shortfall",
+      "split": "held-out",
+      "layout": "C",
+      "instrument": {
+        "reference": "SYN-0015",
+        "amountPaise": 10001400,
+        "bank": "Synthetic Bank",
+        "ifsc": "SYNB0000001",
+        "issued": "2026-01-01",
+        "matures": "2030-01-01"
+      },
+      "obligation": {
+        "amountPaise": 10011400
+      },
+      "external": {
+        "status": "mock_confirmed",
+        "provider": "fictional-term-deposit-v1",
+        "realBankEvidence": false,
+        "values": {
+          "reference": "SYN-0015",
+          "amountPaise": 10001400,
+          "bank": "Synthetic Bank",
+          "ifsc": "SYNB0000001",
+          "issued": "2026-01-01",
+          "matures": "2030-01-01"
+        }
+      },
+      "duplicates": [],
+      "exemption": null,
+      "text": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 15\nreference = SYN-0015\namountPaise = 10001400\nbank = Synthetic Bank\nifsc = SYNB0000001\nissued = 2026-01-01\nmatures = 2030-01-01",
+      "rotation": 0,
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN-0015",
+          "amountPaise": 10001400,
+          "bank": "Synthetic Bank",
+          "ifsc": "SYNB0000001",
+          "issued": "2026-01-01",
+          "matures": "2030-01-01"
+        },
+        "confidence": "unknown/null; no calibrated field confidence",
+        "expectedCodes": [
+          "amount_shortfall",
+          "mock_only",
+          "policy_unverified"
+        ],
+        "policyVersion": "unverified-1",
+        "evidenceStatus": "mock_confirmed",
+        "reviewOutcome": "human_review_required",
+        "regulatoryCondition": "No verified AICTE rule; exemptions must remain unconfirmed"
+      }
+    },
+    {
+      "id": "case-020",
+      "scenario": "multiple-conflicts",
+      "split": "held-out",
+      "layout": "C",
+      "instrument": {
+        "reference": "SYN-0020",
+        "amountPaise": 10001900,
+        "bank": "Synthetic Bank",
+        "ifsc": "SYNB0000001",
+        "issued": "2026-01-01",
+        "matures": "2030-01-01"
+      },
+      "obligation": {
+        "amountPaise": 10001900
+      },
+      "external": {
+        "status": "mock_confirmed",
+        "provider": "fictional-term-deposit-v1",
+        "realBankEvidence": false,
+        "values": {
+          "reference": "CONFLICT",
+          "amountPaise": 10001900,
+          "bank": "Synthetic Bank",
+          "ifsc": "SYNB0000001",
+          "issued": "2026-01-01",
+          "matures": "2030-01-01"
+        }
+      },
+      "duplicates": [],
+      "exemption": null,
+      "text": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 20\nreference = SYN-0020\namountPaise = 10\nbank = Imaginary Other Bank\nifsc = SYNB0000001\nissued = 2026-01-01\nmatures = 2030-01-01",
+      "rotation": 0,
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN-0020",
+          "amountPaise": 10,
+          "bank": "Imaginary Other Bank",
+          "ifsc": "SYNB0000001",
+          "issued": "2026-01-01",
+          "matures": "2030-01-01"
+        },
+        "confidence": "unknown/null; no calibrated field confidence",
+        "expectedCodes": [
+          "external_reference",
+          "mismatch_amountPaise",
+          "mismatch_bank",
+          "mock_only",
+          "policy_unverified"
+        ],
+        "policyVersion": "unverified-1",
+        "evidenceStatus": "mock_confirmed",
+        "reviewOutcome": "human_review_required",
+        "regulatoryCondition": "No verified AICTE rule; exemptions must remain unconfirmed"
+      }
+    }
+  ]
+}

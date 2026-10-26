@@ -1,0 +1,7 @@
+SYNTHETIC FIXTURE — NOT A BANK DOCUMENT
+Fictional Institute 18
+matures : 2030-01-01
+issued : 2026-01-01
+bank : Synthetic Bank
+amountPaise : 10001700
+reference : SYN-0018
