@@ -1,6 +1,8 @@
 import { createHash } from "node:crypto";
 import { join } from "node:path";
+import { foundationMigration } from "./foundation-migration.js";
 export const upgrades = [
+  foundationMigration,
   {
     version: 6,
     sql: `ALTER TABLE users ADD COLUMN status TEXT NOT NULL DEFAULT 'active' CHECK(status IN ('active','disabled'));
@@ -49,9 +51,12 @@ export function migrate(db, dir) {
       );
       db.prepare("VACUUM INTO ?").run(backup);
     }
+    if (m.foreignKeysOff) db.exec("PRAGMA foreign_keys=OFF");
     db.exec("BEGIN IMMEDIATE");
     try {
       db.exec(m.sql);
+      if (db.prepare("PRAGMA foreign_key_check").all().length)
+        throw Error("Migration foreign key validation failed");
       db.prepare("INSERT INTO schema_migrations VALUES(?,?,?)").run(
         m.version,
         digest,
@@ -61,6 +66,8 @@ export function migrate(db, dir) {
     } catch (e) {
       db.exec("ROLLBACK");
       throw e;
+    } finally {
+      if (m.foreignKeysOff) db.exec("PRAGMA foreign_keys=ON");
     }
   }
 }

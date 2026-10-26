@@ -18,6 +18,21 @@ import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 import { openStore, password, hash } from "./store.js";
 import { validate, evaluate, extract } from "./engine.js";
+import {
+  roles,
+  isInstitution,
+  isReviewer,
+  canReadCase,
+} from "./permissions.js";
+import {
+  domainSnapshot,
+  transition,
+  assignOfficer,
+  prepareDocument,
+  registerVersion,
+  latestFDR,
+  linkInstruments,
+} from "./domain.js";
 const exec = promisify(execFile),
   root = fileURLToPath(new URL("../", import.meta.url));
 const fail = (status, message) => {
@@ -83,7 +98,10 @@ export function createApp({
   function reevaluate(u, c) {
     const h = history(c.id),
       last = (k) => h.filter((e) => e.kind === k).at(-1),
-      d = last("document"),
+      d = (() => {
+        const e = latestFDR(db, c.id);
+        return e ? { ...e, payload: JSON.parse(e.payload) } : undefined;
+      })(),
       x = last("extraction"),
       b = last("external");
     const context = last("regulatory_context"),
@@ -323,11 +341,7 @@ export function createApp({
               )
               .get(hash(token), Date.now())
           : null;
-      if (
-        !u ||
-        u.status !== "active" ||
-        !["institution", "officer"].includes(u.role)
-      )
+      if (!u || u.status !== "active" || !roles.includes(u.role))
         fail(401, "Authentication required");
       const reauthorize = () => {
         const live = db
@@ -339,14 +353,22 @@ export function createApp({
           !live ||
           live.status !== "active" ||
           live.role !== u.role ||
-          (u.role === "institution"
-            ? live.tenant !== live.case_tenant
-            : live.assigned !== u.id)
+          !canReadCase(
+            db,
+            { ...u, ...live },
+            db.prepare("SELECT * FROM cases WHERE id=?").get(id),
+          )
         )
           fail(403, "Authorization changed during processing");
       };
       if (req.method !== "GET" && req.headers["x-csrf-token"] !== u.csrf)
         fail(403, "CSRF required");
+      if (
+        req.method !== "GET" &&
+        u.role === "audit_reviewer" &&
+        path !== "/api/logout"
+      )
+        fail(403, "Audit reviewer has read-only access");
       if (path === "/api/me" && req.method === "GET") {
         json(res, 200, {
           id: u.id,
@@ -370,7 +392,7 @@ export function createApp({
         return;
       }
       if (path === "/api/institution" && req.method === "GET") {
-        if (u.role !== "institution") fail(403, "Institution role required");
+        if (!isInstitution(u)) fail(403, "Institution role required");
         json(
           res,
           200,
@@ -393,7 +415,9 @@ export function createApp({
             .prepare(
               u.role === "officer"
                 ? "SELECT * FROM cases WHERE assigned=?"
-                : "SELECT * FROM cases WHERE tenant=?",
+                : isInstitution(u)
+                  ? "SELECT * FROM cases WHERE tenant=?"
+                  : "SELECT c.* FROM cases c JOIN users a ON a.id=c.assigned WHERE a.tenant=?",
             )
             .all(u.role === "officer" ? u.id : u.tenant)
             .map((c) => ({
@@ -405,7 +429,7 @@ export function createApp({
         return;
       }
       if (path === "/api/cases" && req.method === "POST") {
-        if (u.role !== "institution") fail(403, "Institution role required");
+        if (!isInstitution(u)) fail(403, "Institution role required");
         let inst;
         try {
           inst = validate(body.instrument);
@@ -422,7 +446,7 @@ export function createApp({
           fail(400, "Name and positive obligation required");
         const officer = db
           .prepare(
-            "SELECT id FROM users WHERE role='officer' ORDER BY id LIMIT 1",
+            "SELECT id FROM users WHERE role='officer' AND status='active' ORDER BY id LIMIT 1",
           )
           .get();
         if (!officer) fail(503, "No officer configured");
@@ -475,10 +499,7 @@ export function createApp({
       if (!m) fail(404, "Not found");
       const [, id, action] = m;
       let c = db.prepare("SELECT * FROM cases WHERE id=?").get(id);
-      if (
-        !c ||
-        (u.role === "institution" ? c.tenant !== u.tenant : c.assigned !== u.id)
-      ) {
+      if (!c || !canReadCase(db, u, c)) {
         audit(u.id, "access_denied", id);
         fail(404, "Case not found");
       }
@@ -497,6 +518,7 @@ export function createApp({
           ...c,
           instrument: JSON.parse(c.instrument),
           obligation: JSON.parse(c.obligation),
+          domain: domainSnapshot(db, id),
           history: history(id),
           audit: db
             .prepare("SELECT * FROM audit WHERE case_id=? ORDER BY id")
@@ -534,11 +556,27 @@ export function createApp({
       }
       if (req.method !== "POST") fail(405, "Method not allowed");
       const institution = () => {
-          if (u.role !== "institution") fail(403, "Institution role required");
+          if (!isInstitution(u)) fail(403, "Institution role required");
         },
         officer = () => {
-          if (u.role !== "officer") fail(403, "Officer role required");
+          if (!isReviewer(u)) fail(403, "Officer role required");
         };
+
+      if (["lifecycle", "assignment", "instrument-links"].includes(action)) {
+        let result;
+        tx(() => {
+          result =
+            action === "lifecycle"
+              ? transition(db, u, c, body)
+              : action === "assignment"
+                ? assignOfficer(db, u, c, body)
+                : linkInstruments(db, u, c, body);
+          evidence(u.id, id, action, result);
+          refresh(u.id, db.prepare("SELECT * FROM cases WHERE id=?").get(id));
+        });
+        json(res, 200, result);
+        return;
+      }
 
       if (action === "regulatory-context") {
         institution();
@@ -758,6 +796,7 @@ export function createApp({
             c = db.prepare("SELECT * FROM cases WHERE id=?").get(id);
           }
           tx(() => {
+            Object.assign(p, prepareDocument(db, c, body));
             db.prepare("INSERT INTO evidence VALUES(?,?,?,?,?,?)").run(
               eid,
               id,
@@ -766,6 +805,7 @@ export function createApp({
               new Date().toISOString(),
               u.id,
             );
+            registerVersion(db, eid, p, u);
             audit(u.id, "document_uploaded", id, { evidenceId: eid });
             refresh(u.id, c);
           });
@@ -778,9 +818,8 @@ export function createApp({
       }
       if (action === "process") {
         institution();
-        const d = history(id)
-          .filter((e) => e.kind === "document")
-          .at(-1);
+        const fd = latestFDR(db, id),
+          d = fd ? { ...fd, payload: JSON.parse(fd.payload) } : null;
         if (!d) fail(409, "Upload first");
         if (hash(readFileSync(join(dir, "private", d.id))) !== d.payload.sha256)
           fail(409, "Document integrity failure");
@@ -858,11 +897,7 @@ export function createApp({
           status = "failed";
           error = "OCR unavailable, timed out or rejected document";
         }
-        if (
-          history(id)
-            .filter((e) => e.kind === "document")
-            .at(-1)?.id !== d.id
-        ) {
+        if (latestFDR(db, id)?.id !== d.id) {
           db.prepare("UPDATE jobs SET status='superseded' WHERE id=?").run(jid);
           fail(409, "Document changed; retry");
         }
@@ -922,9 +957,10 @@ export function createApp({
         const previous = history(id)
             .filter((e) => e.kind === "extraction")
             .at(-1),
-          doc = history(id)
-            .filter((e) => e.kind === "document")
-            .at(-1);
+          doc = (() => {
+            const e = latestFDR(db, id);
+            return e ? { ...e, payload: JSON.parse(e.payload) } : null;
+          })();
         if (
           !previous ||
           previous.id !== body.extractionId ||
