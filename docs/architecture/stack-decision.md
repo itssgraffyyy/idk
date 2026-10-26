@@ -1,7 +1,7 @@
 # Stack decision after the Phase 1/2 audit
 Decision: preserve the existing Node/SQLite implementation during remediation; do not describe it as the specified Next.js + FastAPI + PostgreSQL stack.
 
-The visible initial attachment omitted requirements sections 2–17. The implementation chose available Node because the Python executable was inaccessible. That did not constitute owner approval to change the agreed stack. The current request establishes the intended stack and asks for an engineering assessment before migration.
+Correction from the final-gap audit: the original attachment contains sections 2–17 and explicitly specifies Next.js, FastAPI and PostgreSQL. The earlier omission claim was incorrect. The prior implementation selected available Node as a runtime convenience; this was not an approved waiver. The latest owner instruction explicitly preserves the current architecture during targeted repairs. Original stack requirements remain unmet and are recorded as such; no rewrite is performed.
 
 Node and Tesseract WASM are capable of the implemented workloads; language choice is not the cause of the identified authorization/evidence races. Those defects were fixed directly. PostgreSQL is justified for Phase 3: SQLite permits one service owner/writer here, synchronous queries block the event loop, and cross-department worker leases and independent transactions need stronger deployment semantics. The current JSON case model is deliberately small and does not replace a normalized multi-instrument ledger.
 

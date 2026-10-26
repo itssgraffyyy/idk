@@ -1,10 +1,10 @@
 {
   "datasetVersion": "synthetic-v1",
   "asOf": "2026-10-26",
-  "configuration": "Original v1 ground truth retained; add explicit unavailable fictional IFSC and missing regulatory applicability findings after replacing fictional directory",
+  "configuration": "Original v1 ground truth retained; add explicit unavailable fictional IFSC, candidate review for present fictional codes, and missing regulatory applicability findings. Original domain-conflict expectations unchanged.",
   "precision": 1,
   "recall": 1,
-  "tp": 104,
+  "tp": 122,
   "fp": 0,
   "fn": 0,
   "rows": [
@@ -14,9 +14,11 @@
         "mock_only",
         "policy_unverified",
         "ifsc_unavailable",
-        "regulatory_programme_amount"
+        "regulatory_programme_amount",
+        "ifsc_extraction_review"
       ],
       "actual": [
+        "ifsc_extraction_review",
         "ifsc_unavailable",
         "mock_only",
         "policy_unverified",
@@ -32,9 +34,11 @@
         "mock_only",
         "policy_unverified",
         "ifsc_unavailable",
-        "regulatory_programme_amount"
+        "regulatory_programme_amount",
+        "ifsc_extraction_review"
       ],
       "actual": [
+        "ifsc_extraction_review",
         "ifsc_unavailable",
         "mismatch_amountPaise",
         "mock_only",
@@ -51,9 +55,11 @@
         "mock_only",
         "policy_unverified",
         "ifsc_unavailable",
-        "regulatory_programme_amount"
+        "regulatory_programme_amount",
+        "ifsc_extraction_review"
       ],
       "actual": [
+        "ifsc_extraction_review",
         "ifsc_unavailable",
         "missing_reference",
         "mock_only",
@@ -70,9 +76,11 @@
         "mock_only",
         "policy_unverified",
         "ifsc_unavailable",
-        "regulatory_programme_amount"
+        "regulatory_programme_amount",
+        "ifsc_extraction_review"
       ],
       "actual": [
+        "ifsc_extraction_review",
         "ifsc_unavailable",
         "duplicate_reference",
         "mock_only",
@@ -89,9 +97,11 @@
         "mock_only",
         "policy_unverified",
         "ifsc_unavailable",
-        "regulatory_programme_amount"
+        "regulatory_programme_amount",
+        "ifsc_extraction_review"
       ],
       "actual": [
+        "ifsc_extraction_review",
         "ifsc_unavailable",
         "mismatch_bank",
         "mock_only",
@@ -108,9 +118,11 @@
         "mock_only",
         "policy_unverified",
         "ifsc_unavailable",
-        "regulatory_programme_amount"
+        "regulatory_programme_amount",
+        "ifsc_extraction_review"
       ],
       "actual": [
+        "ifsc_extraction_review",
         "ifsc_unavailable",
         "mismatch_ifsc",
         "mock_only",
@@ -155,9 +167,11 @@
         "mock_only",
         "policy_unverified",
         "ifsc_unavailable",
-        "regulatory_programme_amount"
+        "regulatory_programme_amount",
+        "ifsc_extraction_review"
       ],
       "actual": [
+        "ifsc_extraction_review",
         "ifsc_unavailable",
         "mock_only",
         "policy_unverified",
@@ -174,9 +188,11 @@
         "mock_only",
         "policy_unverified",
         "ifsc_unavailable",
-        "regulatory_programme_amount"
+        "regulatory_programme_amount",
+        "ifsc_extraction_review"
       ],
       "actual": [
+        "ifsc_extraction_review",
         "ifsc_unavailable",
         "missing_issued",
         "missing_matures",
@@ -195,9 +211,11 @@
         "mock_only",
         "policy_unverified",
         "ifsc_unavailable",
-        "regulatory_programme_amount"
+        "regulatory_programme_amount",
+        "ifsc_extraction_review"
       ],
       "actual": [
+        "ifsc_extraction_review",
         "ifsc_unavailable",
         "mock_only",
         "date_order",
@@ -214,9 +232,11 @@
         "mock_only",
         "policy_unverified",
         "ifsc_unavailable",
-        "regulatory_programme_amount"
+        "regulatory_programme_amount",
+        "ifsc_extraction_review"
       ],
       "actual": [
+        "ifsc_extraction_review",
         "ifsc_unavailable",
         "mock_only",
         "policy_unverified",
@@ -231,9 +251,11 @@
         "mock_only",
         "policy_unverified",
         "ifsc_unavailable",
-        "regulatory_programme_amount"
+        "regulatory_programme_amount",
+        "ifsc_extraction_review"
       ],
       "actual": [
+        "ifsc_extraction_review",
         "ifsc_unavailable",
         "mock_only",
         "policy_unverified",
@@ -249,9 +271,11 @@
         "mock_only",
         "policy_unverified",
         "ifsc_unavailable",
-        "regulatory_programme_amount"
+        "regulatory_programme_amount",
+        "ifsc_extraction_review"
       ],
       "actual": [
+        "ifsc_extraction_review",
         "ifsc_unavailable",
         "external_amountPaise",
         "mock_only",
@@ -267,9 +291,11 @@
         "bank_confirmation",
         "policy_unverified",
         "ifsc_unavailable",
-        "regulatory_programme_amount"
+        "regulatory_programme_amount",
+        "ifsc_extraction_review"
       ],
       "actual": [
+        "ifsc_extraction_review",
         "ifsc_unavailable",
         "bank_confirmation",
         "policy_unverified",
@@ -285,9 +311,11 @@
         "mock_only",
         "policy_unverified",
         "ifsc_unavailable",
-        "regulatory_programme_amount"
+        "regulatory_programme_amount",
+        "ifsc_extraction_review"
       ],
       "actual": [
+        "ifsc_extraction_review",
         "ifsc_unavailable",
         "mock_only",
         "amount_shortfall",
@@ -304,9 +332,11 @@
         "mock_only",
         "policy_unverified",
         "ifsc_unavailable",
-        "regulatory_programme_amount"
+        "regulatory_programme_amount",
+        "ifsc_extraction_review"
       ],
       "actual": [
+        "ifsc_extraction_review",
         "ifsc_unavailable",
         "mock_only",
         "expired",
@@ -323,9 +353,11 @@
         "mock_only",
         "policy_unverified",
         "ifsc_unavailable",
-        "regulatory_programme_amount"
+        "regulatory_programme_amount",
+        "ifsc_extraction_review"
       ],
       "actual": [
+        "ifsc_extraction_review",
         "ifsc_unavailable",
         "missing_amountPaise",
         "mock_only",
@@ -361,9 +393,11 @@
         "mock_only",
         "policy_unverified",
         "ifsc_unavailable",
-        "regulatory_programme_amount"
+        "regulatory_programme_amount",
+        "ifsc_extraction_review"
       ],
       "actual": [
+        "ifsc_extraction_review",
         "ifsc_unavailable",
         "missing_bank",
         "mock_only",
@@ -382,9 +416,11 @@
         "mock_only",
         "policy_unverified",
         "ifsc_unavailable",
-        "regulatory_programme_amount"
+        "regulatory_programme_amount",
+        "ifsc_extraction_review"
       ],
       "actual": [
+        "ifsc_extraction_review",
         "ifsc_unavailable",
         "external_reference",
         "mismatch_amountPaise",

@@ -24,3 +24,8 @@ Source copies:
 - https://edu-ecosys.com/AICTE-APH-26-27.pdf (combined handbook and 2025-26 addendum; filename is not its applicability year)
 - https://avantiscdnprodstorage.blob.core.windows.net/legalupdatedocs/52940/AICTE-issued-the-Corrigendum-regarding-the-Approval-Process-2026-27-February202026.pdf
 Full source copies and hash manifest are local for auditability. No legal-source verification is inferred from a search snippet.
+
+## Final-gap validation update
+Fresh direct issuer-source probes: root HTML200, two candidate handbook PDF paths404, alternate host timeout. See ../evaluation/final-gap/official-source-access.json. All ten rules remain UNVERIFIED_POLICY; zero issuer-confirmed rules were activated. Each machine-readable rule now includes documentVersion, source edition/hash/page/clause, effectiveAcademicYears, exactEffectiveDate=null, requiredEvidence, exceptions, validationStatus and testReferences. Official amendment URLs remain null where not confirmed; mirror URLs are retained explicitly as mirrors.
+
+Prior NOC evidence no longer establishes a blanket technical-new-institution exemption. The2024government-university/new-programme overlap requires human interpretation and returns no calculated amount. Existing university/historical exemption, negative/missing-proof, programme-cell, lease/amendment, holding and release tests remain passing. Renewal/replacement restrictions were not independently verified for2024-27; historical2020-21 text or search snippets are not projected into the current edition. Maturity never grants automatic release. Exact notice effective dates are unverified; academic-year selection is explicit and does not invent dates.

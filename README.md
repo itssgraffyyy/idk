@@ -1,4 +1,4 @@
-> Updated quality audit: [Phase 1/2 gap audit](docs/phase-1-2-gap-audit.md). The initial implementation report is historical. Real IFSC references and source-pinned AICTE reference calculations are now available; Setu is contract-tested only.
+> Updated quality audit: [final gap audit](docs/phase-1-2-final-gap-audit.md). The initial implementation report is historical. Real IFSC references and source-pinned AICTE reference calculations are now available; Setu is contract-tested only.
 
 # FDR Sentinel
 A local evidence and review application for fictional security deposits. This is a functional development baseline, not a completed production compliance system. AICTE policy decisions remain unconfirmed; banking evidence is explicitly simulated or sandbox-classified. IFSC uses a real versioned public dataset and public-service fallback.
@@ -12,7 +12,7 @@ npm start
 ```
 Save the random passwords printed by setup. Open http://127.0.0.1:3000. Setup creates institution@sentinel.local, other@sentinel.local and officer@sentinel.local. Re-running setup never resets existing credentials. Do not use real financial documents in this development environment.
 
-Institution: register obligation and instrument, upload a TXT/PNG/JPEG, process it, review findings, correct declarations/extracted fields, respond to clarification. Officer: open assigned cases, preview/download sources, retrieve fictional provider scenarios, compare findings, request clarification and record observations. Every persisted operation uses a backend API.
+Institution: register obligation and instrument, upload a PDF/TXT/PNG/JPEG, process it, review findings, correct declarations/extracted fields, respond to clarification. Officer: open assigned cases, preview/download sources, retrieve fictional provider scenarios, compare findings, request clarification and record observations. Every persisted operation uses a backend API.
 
 Money is integer paise: 10000000 means INR 100,000. Original evidence, document bytes and evaluation versions are retained. Upload a new version instead of deleting one. Every case remains subject to authorized human review.
 

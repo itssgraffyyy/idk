@@ -214,7 +214,7 @@
     }
   },
   "failureRate": 0,
-  "meanMs": 1573.9197450000004,
+  "meanMs": 2100.06636,
   "rows": [
     {
       "id": "case-001",
@@ -318,7 +318,7 @@
           "normalizations": []
         }
       },
-      "durationMs": 1091.5215,
+      "durationMs": 1130.5194,
       "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 1\n\nreference : SYN-0001\n\namountPaise : 10000000\n\nbank : Synthetic Bank\n\nifsc : SYNBOOQOOO1\n\nissued : 2026-01-01\n\nmatures : 2030-01-01\n",
       "rotation": 0,
       "documentConfidence": 89,
@@ -426,7 +426,7 @@
           "normalizations": []
         }
       },
-      "durationMs": 1112.3832000000002,
+      "durationMs": 1115.5845,
       "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 2\n\nmatures : 2030-01-01\n\nissued : 2026-01-01\n\nifsc : SYNBOOQOOO1\n\nbank : Synthetic Bank\n\namountPaise : 10000000\n\nreference : SYN-0002\n",
       "rotation": 0,
       "documentConfidence": 89,
@@ -518,7 +518,7 @@
           "normalizations": []
         }
       },
-      "durationMs": 1019.7366999999999,
+      "durationMs": 1079.6673999999998,
       "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 3\n\namountPaise : 10000200\n\nbank : Synthetic Bank\n\nifsc : SYNBOOQOOO1\n\nissued : 2026-01-01\n\nmatures : 2030-01-01\n",
       "rotation": 0,
       "documentConfidence": 88,
@@ -626,7 +626,7 @@
           "normalizations": []
         }
       },
-      "durationMs": 1063.2420000000002,
+      "durationMs": 1078.0558,
       "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 4\n\nmatures : 2030-01-01\n\nissued : 2026-01-01\n\nifsc : SYNBOOQOOO1\n\nbank : Synthetic Bank\n\namountPaise : 10000300\n\nreference : SYN-0004\n",
       "rotation": 0,
       "documentConfidence": 89,
@@ -734,7 +734,7 @@
           "normalizations": []
         }
       },
-      "durationMs": 1091.7073,
+      "durationMs": 1101.7999,
       "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 5\n\nreference = SYN-0005\n\namountPaise = 10000400\n\nbank = Imaginary Other Bank\n\nifsc = SYNB00QOOO1\n\nissued = 2026-01-01\n\nmatures = 2030-01-01\n",
       "rotation": 0,
       "documentConfidence": 91,
@@ -842,7 +842,7 @@
           "normalizations": []
         }
       },
-      "durationMs": 1052.1073999999999,
+      "durationMs": 2272.4300999999996,
       "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 6\n\nmatures : 2030-01-01\n\nissued : 2026-01-01\n\nifsc : OTHROOOLOO1\n\nbank : Synthetic Bank\n\namountPaise : 10000500\n\nreference : SYN-0006\n",
       "rotation": 0,
       "documentConfidence": 89,
@@ -853,7 +853,7 @@
       "split": "development",
       "layout": "A",
       "fields": {},
-      "durationMs": 2955.5515000000005,
+      "durationMs": 4199.413500000001,
       "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 7\n",
       "rotation": 0,
       "documentConfidence": 95,
@@ -961,7 +961,7 @@
           "normalizations": []
         }
       },
-      "durationMs": 6056.973099999999,
+      "durationMs": 8486.3161,
       "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 8\n\nmatures : 2030-01-01\n\nissued : 2026-01-01\n\nifsc : SYNBOOQOOO1\n\nbank : Synthetic Bank\n\namountPaise : 10000700\n\nreference : SYN-0008\n",
       "rotation": 270,
       "documentConfidence": 89,
@@ -1037,7 +1037,7 @@
           "normalizations": []
         }
       },
-      "durationMs": 989.4863999999998,
+      "durationMs": 1633.3172999999988,
       "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 9\n\nreference : SYN-0009\n\namountPaise : 10000800\n\nbank : Synthetic Bank\n\nifsc : SYNBOOQOOO1\n",
       "rotation": 0,
       "documentConfidence": 88,
@@ -1145,7 +1145,7 @@
           "normalizations": []
         }
       },
-      "durationMs": 1205.427200000002,
+      "durationMs": 1184.4507000000012,
       "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 10\n\nreference = SYN-0010\n\namountPaise = 10000900\n\nbank = Synthetic Bank\n\nifsc = SYNB00QOOO1\n\nissued = 2026-01-01\n\nmatures = 2025-01-01\n",
       "rotation": 0,
       "documentConfidence": 91,
@@ -1253,7 +1253,7 @@
           "normalizations": []
         }
       },
-      "durationMs": 2038.9039000000012,
+      "durationMs": 2530.569499999998,
       "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 11\n\nreference : SYN-0011\n\namountPaise : 10001000\n\nbank : Synthetic Bank\n\nifsc : SYNBOOQOOO1\n\nissued : 2026-01-01\n\nmatures : 2030-01-01\n",
       "rotation": 0,
       "documentConfidence": 89,
@@ -1361,7 +1361,7 @@
           "normalizations": []
         }
       },
-      "durationMs": 1064.979800000001,
+      "durationMs": 1303.5622000000003,
       "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 12\n\nmatures : 2030-01-01\n\nissued : 2026-01-01\n\nifsc : SYNBOOQOOO1\n\nbank : Synthetic Bank\n\namountPaise : 10001100\n\nreference : SYN-0012\n",
       "rotation": 0,
       "documentConfidence": 89,
@@ -1469,7 +1469,7 @@
           "normalizations": []
         }
       },
-      "durationMs": 1063.306099999998,
+      "durationMs": 1078.0233000000007,
       "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 13\n\nreference : SYN-0013\n\namountPaise : 10001200\n\nbank : Synthetic Bank\n\nifsc : SYNBOOQOOO1\n\nissued : 2026-01-01\n\nmatures : 2030-01-01\n",
       "rotation": 0,
       "documentConfidence": 89,
@@ -1577,7 +1577,7 @@
           "normalizations": []
         }
       },
-      "durationMs": 1374.8641000000025,
+      "durationMs": 2534.2288999999982,
       "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 14\n\nmatures : 2030-01-01\n\nissued : 2026-01-01\n\nifsc : SYNBOOQOOO1\n\nbank : Synthetic Bank\n\namountPaise : 10001300\n\nreference : SYN-0014\n",
       "rotation": 0,
       "documentConfidence": 89,
@@ -1685,7 +1685,7 @@
           "normalizations": []
         }
       },
-      "durationMs": 1858.7773000000016,
+      "durationMs": 1697.9910999999993,
       "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 15\n\nreference = SYN-0015\n\namountPaise = 10001400\n\nbank = Synthetic Bank\n\nifsc = SYNB00QOOO1\n\nissued = 2026-01-01\n\nmatures = 2030-01-01\n",
       "rotation": 0,
       "documentConfidence": 91,
@@ -1793,7 +1793,7 @@
           "normalizations": []
         }
       },
-      "durationMs": 1057.2122000000018,
+      "durationMs": 2302.2453000000023,
       "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 16\n\nmatures : 2026-02-01\n\nissued : 2026-01-01\n\nifsc : SYNBOOQOOO1\n\nbank : Synthetic Bank\n\namountPaise : 10001500\n\nreference : SYN-0016\n",
       "rotation": 0,
       "documentConfidence": 89,
@@ -1885,7 +1885,7 @@
           "normalizations": []
         }
       },
-      "durationMs": 1012.5953999999983,
+      "durationMs": 2351.6731,
       "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 17\n\nreference : SYN-0017\n\nbank : Synthetic Bank\n\nifsc : SYNBOOQOOO1\n\nissued : 2026-01-01\n\nmatures : 2030-01-01\n",
       "rotation": 0,
       "documentConfidence": 88,
@@ -1977,7 +1977,7 @@
           "normalizations": []
         }
       },
-      "durationMs": 1476.2881000000016,
+      "durationMs": 1050.9040000000023,
       "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 18\n\nmatures : 2030-01-01\n\nissued : 2026-01-01\n\nbank : Synthetic Bank\n\namountPaise : 10001700\n\nreference : SYN-0018\n",
       "rotation": 0,
       "documentConfidence": 92,
@@ -2069,7 +2069,7 @@
           "normalizations": []
         }
       },
-      "durationMs": 1773.7262999999984,
+      "durationMs": 1549.5050999999949,
       "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 19\n\nreference : SYN-0019\n\namountPaise : 10001800\n\nifsc : SYNBOOQOOO1\n\nissued : 2026-01-01\n\nmatures : 2030-01-01\n",
       "rotation": 0,
       "documentConfidence": 88,
@@ -2177,7 +2177,7 @@
           "normalizations": []
         }
       },
-      "durationMs": 1119.6054000000004,
+      "durationMs": 2321.0699999999997,
       "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 20\n\nreference = SYN-0020\n\namountPaise = 10\n\nbank = Imaginary Other Bank\n\nifsc = SYNB00QOOO1\n\nissued = 2026-01-01\n\nmatures = 2030-01-01\n",
       "rotation": 0,
       "documentConfidence": 91,

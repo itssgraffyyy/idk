@@ -29,3 +29,5 @@ All endpoints use JSON except protected downloads. Money uses integer paise. POS
 | GET | /api/policies | Active unverified policy registry |
 
 Examples of statuses: 400 invalid input/file, 401 authentication, 403 role/CSRF/origin, 404 inaccessible object, 409 stale correction/source change, 413 oversized request, 429 login/OCR capacity, 500 generic service failure. No delete API exists. API supports synthetic/private development only.
+
+Final-gap update: PDF is accepted as a private, bounded input; PDFs are always attachment downloads, including preview requests. GET /api/health is unauthenticated minimal liveness. GET /api/ready returns200 when the database can answer and503 otherwise. Disabled accounts cannot login or use sessions; migration6 revokes their existing sessions. See final-gap audit and security audit for actual limits.

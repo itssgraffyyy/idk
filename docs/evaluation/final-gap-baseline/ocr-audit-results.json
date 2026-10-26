@@ -1,0 +1,2187 @@
+{
+  "datasetVersion": "synthetic-v1",
+  "engine": "tesseract.js 7 local English; label-parser-v2",
+  "node": "v22.14.0",
+  "configuration": {
+    "heldOutLayout": "C",
+    "heldOutCases": 4,
+    "sourceDocumentsUnchanged": true,
+    "tuning": "Development case001 only; no OCR character substitutions or declaration-derived values"
+  },
+  "baselineAggregate": 0.85,
+  "all": {
+    "reference": {
+      "present": 18,
+      "correctPresent": 18,
+      "extracted": 18,
+      "absent": 2,
+      "falseExtractions": 0,
+      "exactIncludingAbsent": 20,
+      "presentFieldExactMatch": 1,
+      "coverageOfPresent": 1,
+      "slotExactMatch": 1
+    },
+    "amountPaise": {
+      "present": 18,
+      "correctPresent": 18,
+      "extracted": 18,
+      "absent": 2,
+      "falseExtractions": 0,
+      "exactIncludingAbsent": 20,
+      "presentFieldExactMatch": 1,
+      "coverageOfPresent": 1,
+      "slotExactMatch": 1
+    },
+    "bank": {
+      "present": 18,
+      "correctPresent": 18,
+      "extracted": 18,
+      "absent": 2,
+      "falseExtractions": 0,
+      "exactIncludingAbsent": 20,
+      "presentFieldExactMatch": 1,
+      "coverageOfPresent": 1,
+      "slotExactMatch": 1
+    },
+    "ifsc": {
+      "present": 18,
+      "correctPresent": 0,
+      "extracted": 18,
+      "absent": 2,
+      "falseExtractions": 0,
+      "exactIncludingAbsent": 2,
+      "presentFieldExactMatch": 0,
+      "coverageOfPresent": 1,
+      "slotExactMatch": 0.1
+    },
+    "issued": {
+      "present": 18,
+      "correctPresent": 18,
+      "extracted": 18,
+      "absent": 2,
+      "falseExtractions": 0,
+      "exactIncludingAbsent": 20,
+      "presentFieldExactMatch": 1,
+      "coverageOfPresent": 1,
+      "slotExactMatch": 1
+    },
+    "matures": {
+      "present": 18,
+      "correctPresent": 18,
+      "extracted": 18,
+      "absent": 2,
+      "falseExtractions": 0,
+      "exactIncludingAbsent": 20,
+      "presentFieldExactMatch": 1,
+      "coverageOfPresent": 1,
+      "slotExactMatch": 1
+    }
+  },
+  "development": {
+    "reference": {
+      "present": 14,
+      "correctPresent": 14,
+      "extracted": 14,
+      "absent": 2,
+      "falseExtractions": 0,
+      "exactIncludingAbsent": 16,
+      "presentFieldExactMatch": 1,
+      "coverageOfPresent": 1,
+      "slotExactMatch": 1
+    },
+    "amountPaise": {
+      "present": 14,
+      "correctPresent": 14,
+      "extracted": 14,
+      "absent": 2,
+      "falseExtractions": 0,
+      "exactIncludingAbsent": 16,
+      "presentFieldExactMatch": 1,
+      "coverageOfPresent": 1,
+      "slotExactMatch": 1
+    },
+    "bank": {
+      "present": 14,
+      "correctPresent": 14,
+      "extracted": 14,
+      "absent": 2,
+      "falseExtractions": 0,
+      "exactIncludingAbsent": 16,
+      "presentFieldExactMatch": 1,
+      "coverageOfPresent": 1,
+      "slotExactMatch": 1
+    },
+    "ifsc": {
+      "present": 14,
+      "correctPresent": 0,
+      "extracted": 14,
+      "absent": 2,
+      "falseExtractions": 0,
+      "exactIncludingAbsent": 2,
+      "presentFieldExactMatch": 0,
+      "coverageOfPresent": 1,
+      "slotExactMatch": 0.125
+    },
+    "issued": {
+      "present": 14,
+      "correctPresent": 14,
+      "extracted": 14,
+      "absent": 2,
+      "falseExtractions": 0,
+      "exactIncludingAbsent": 16,
+      "presentFieldExactMatch": 1,
+      "coverageOfPresent": 1,
+      "slotExactMatch": 1
+    },
+    "matures": {
+      "present": 14,
+      "correctPresent": 14,
+      "extracted": 14,
+      "absent": 2,
+      "falseExtractions": 0,
+      "exactIncludingAbsent": 16,
+      "presentFieldExactMatch": 1,
+      "coverageOfPresent": 1,
+      "slotExactMatch": 1
+    }
+  },
+  "heldOut": {
+    "reference": {
+      "present": 4,
+      "correctPresent": 4,
+      "extracted": 4,
+      "absent": 0,
+      "falseExtractions": 0,
+      "exactIncludingAbsent": 4,
+      "presentFieldExactMatch": 1,
+      "coverageOfPresent": 1,
+      "slotExactMatch": 1
+    },
+    "amountPaise": {
+      "present": 4,
+      "correctPresent": 4,
+      "extracted": 4,
+      "absent": 0,
+      "falseExtractions": 0,
+      "exactIncludingAbsent": 4,
+      "presentFieldExactMatch": 1,
+      "coverageOfPresent": 1,
+      "slotExactMatch": 1
+    },
+    "bank": {
+      "present": 4,
+      "correctPresent": 4,
+      "extracted": 4,
+      "absent": 0,
+      "falseExtractions": 0,
+      "exactIncludingAbsent": 4,
+      "presentFieldExactMatch": 1,
+      "coverageOfPresent": 1,
+      "slotExactMatch": 1
+    },
+    "ifsc": {
+      "present": 4,
+      "correctPresent": 0,
+      "extracted": 4,
+      "absent": 0,
+      "falseExtractions": 0,
+      "exactIncludingAbsent": 0,
+      "presentFieldExactMatch": 0,
+      "coverageOfPresent": 1,
+      "slotExactMatch": 0
+    },
+    "issued": {
+      "present": 4,
+      "correctPresent": 4,
+      "extracted": 4,
+      "absent": 0,
+      "falseExtractions": 0,
+      "exactIncludingAbsent": 4,
+      "presentFieldExactMatch": 1,
+      "coverageOfPresent": 1,
+      "slotExactMatch": 1
+    },
+    "matures": {
+      "present": 4,
+      "correctPresent": 4,
+      "extracted": 4,
+      "absent": 0,
+      "falseExtractions": 0,
+      "exactIncludingAbsent": 4,
+      "presentFieldExactMatch": 1,
+      "coverageOfPresent": 1,
+      "slotExactMatch": 1
+    }
+  },
+  "failureRate": 0,
+  "meanMs": 2100.06636,
+  "rows": [
+    {
+      "id": "case-001",
+      "split": "development",
+      "layout": "A",
+      "fields": {
+        "reference": {
+          "value": "SYN-0001",
+          "rawValue": "SYN-0001",
+          "confidence": null,
+          "engineConfidence": 86,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 162,
+            "x1": 380,
+            "y1": 182
+          },
+          "method": "label-parser-v2",
+          "line": "\nreference : SYN-0001",
+          "normalizations": []
+        },
+        "amountPaise": {
+          "value": 10000000,
+          "rawValue": "10000000",
+          "confidence": null,
+          "engineConfidence": 94,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 51,
+            "y0": 217,
+            "x1": 414,
+            "y1": 237
+          },
+          "method": "label-parser-v2",
+          "line": "\namountPaise : 10000000",
+          "normalizations": []
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "rawValue": "Synthetic Bank",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 272,
+            "x1": 398,
+            "y1": 298
+          },
+          "method": "label-parser-v2",
+          "line": "\nbank : Synthetic Bank",
+          "normalizations": []
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "rawValue": "SYNBOOQOOO1",
+          "confidence": null,
+          "engineConfidence": 0,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 327,
+            "x1": 347,
+            "y1": 347
+          },
+          "method": "label-parser-v2",
+          "line": "\nifsc : SYNBOOQOOO1",
+          "normalizations": []
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "rawValue": "2026-01-01",
+          "confidence": null,
+          "engineConfidence": 94,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 382,
+            "x1": 363,
+            "y1": 402
+          },
+          "method": "label-parser-v2",
+          "line": "\nissued : 2026-01-01",
+          "normalizations": []
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "rawValue": "2030-01-01",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 51,
+            "y0": 438,
+            "x1": 380,
+            "y1": 457
+          },
+          "method": "label-parser-v2",
+          "line": "\nmatures : 2030-01-01",
+          "normalizations": []
+        }
+      },
+      "durationMs": 1130.5194,
+      "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 1\n\nreference : SYN-0001\n\namountPaise : 10000000\n\nbank : Synthetic Bank\n\nifsc : SYNBOOQOOO1\n\nissued : 2026-01-01\n\nmatures : 2030-01-01\n",
+      "rotation": 0,
+      "documentConfidence": 89,
+      "status": "completed"
+    },
+    {
+      "id": "case-002",
+      "split": "development",
+      "layout": "B",
+      "fields": {
+        "reference": {
+          "value": "SYN-0002",
+          "rawValue": "SYN-0002",
+          "confidence": null,
+          "engineConfidence": 86,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 482,
+            "x1": 455,
+            "y1": 502
+          },
+          "method": "label-parser-v2",
+          "line": "\nreference : SYN-0002",
+          "normalizations": []
+        },
+        "amountPaise": {
+          "value": 10000000,
+          "rawValue": "10000000",
+          "confidence": null,
+          "engineConfidence": 94,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 126,
+            "y0": 427,
+            "x1": 489,
+            "y1": 447
+          },
+          "method": "label-parser-v2",
+          "line": "\namountPaise : 10000000",
+          "normalizations": []
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "rawValue": "Synthetic Bank",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 372,
+            "x1": 473,
+            "y1": 398
+          },
+          "method": "label-parser-v2",
+          "line": "\nbank : Synthetic Bank",
+          "normalizations": []
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "rawValue": "SYNBOOQOOO1",
+          "confidence": null,
+          "engineConfidence": 0,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 317,
+            "x1": 422,
+            "y1": 337
+          },
+          "method": "label-parser-v2",
+          "line": "\nifsc : SYNBOOQOOO1",
+          "normalizations": []
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "rawValue": "2026-01-01",
+          "confidence": null,
+          "engineConfidence": 94,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 262,
+            "x1": 438,
+            "y1": 282
+          },
+          "method": "label-parser-v2",
+          "line": "\nissued : 2026-01-01",
+          "normalizations": []
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "rawValue": "2030-01-01",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 126,
+            "y0": 208,
+            "x1": 455,
+            "y1": 227
+          },
+          "method": "label-parser-v2",
+          "line": "\nmatures : 2030-01-01",
+          "normalizations": []
+        }
+      },
+      "durationMs": 1115.5845,
+      "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 2\n\nmatures : 2030-01-01\n\nissued : 2026-01-01\n\nifsc : SYNBOOQOOO1\n\nbank : Synthetic Bank\n\namountPaise : 10000000\n\nreference : SYN-0002\n",
+      "rotation": 0,
+      "documentConfidence": 89,
+      "status": "completed"
+    },
+    {
+      "id": "case-003",
+      "split": "development",
+      "layout": "A",
+      "fields": {
+        "amountPaise": {
+          "value": 10000200,
+          "rawValue": "10000200",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 51,
+            "y0": 162,
+            "x1": 414,
+            "y1": 182
+          },
+          "method": "label-parser-v2",
+          "line": "\namountPaise : 10000200",
+          "normalizations": []
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "rawValue": "Synthetic Bank",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 217,
+            "x1": 398,
+            "y1": 243
+          },
+          "method": "label-parser-v2",
+          "line": "\nbank : Synthetic Bank",
+          "normalizations": []
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "rawValue": "SYNBOOQOOO1",
+          "confidence": null,
+          "engineConfidence": 0,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 272,
+            "x1": 347,
+            "y1": 292
+          },
+          "method": "label-parser-v2",
+          "line": "\nifsc : SYNBOOQOOO1",
+          "normalizations": []
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "rawValue": "2026-01-01",
+          "confidence": null,
+          "engineConfidence": 94,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 327,
+            "x1": 363,
+            "y1": 347
+          },
+          "method": "label-parser-v2",
+          "line": "\nissued : 2026-01-01",
+          "normalizations": []
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "rawValue": "2030-01-01",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 51,
+            "y0": 383,
+            "x1": 380,
+            "y1": 402
+          },
+          "method": "label-parser-v2",
+          "line": "\nmatures : 2030-01-01",
+          "normalizations": []
+        }
+      },
+      "durationMs": 1079.6673999999998,
+      "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 3\n\namountPaise : 10000200\n\nbank : Synthetic Bank\n\nifsc : SYNBOOQOOO1\n\nissued : 2026-01-01\n\nmatures : 2030-01-01\n",
+      "rotation": 0,
+      "documentConfidence": 88,
+      "status": "completed"
+    },
+    {
+      "id": "case-004",
+      "split": "development",
+      "layout": "B",
+      "fields": {
+        "reference": {
+          "value": "SYN-0004",
+          "rawValue": "SYN-0004",
+          "confidence": null,
+          "engineConfidence": 90,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 482,
+            "x1": 456,
+            "y1": 502
+          },
+          "method": "label-parser-v2",
+          "line": "\nreference : SYN-0004",
+          "normalizations": []
+        },
+        "amountPaise": {
+          "value": 10000300,
+          "rawValue": "10000300",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 126,
+            "y0": 427,
+            "x1": 489,
+            "y1": 447
+          },
+          "method": "label-parser-v2",
+          "line": "\namountPaise : 10000300",
+          "normalizations": []
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "rawValue": "Synthetic Bank",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 372,
+            "x1": 473,
+            "y1": 398
+          },
+          "method": "label-parser-v2",
+          "line": "\nbank : Synthetic Bank",
+          "normalizations": []
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "rawValue": "SYNBOOQOOO1",
+          "confidence": null,
+          "engineConfidence": 0,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 317,
+            "x1": 422,
+            "y1": 337
+          },
+          "method": "label-parser-v2",
+          "line": "\nifsc : SYNBOOQOOO1",
+          "normalizations": []
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "rawValue": "2026-01-01",
+          "confidence": null,
+          "engineConfidence": 94,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 262,
+            "x1": 438,
+            "y1": 282
+          },
+          "method": "label-parser-v2",
+          "line": "\nissued : 2026-01-01",
+          "normalizations": []
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "rawValue": "2030-01-01",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 126,
+            "y0": 208,
+            "x1": 455,
+            "y1": 227
+          },
+          "method": "label-parser-v2",
+          "line": "\nmatures : 2030-01-01",
+          "normalizations": []
+        }
+      },
+      "durationMs": 1078.0558,
+      "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 4\n\nmatures : 2030-01-01\n\nissued : 2026-01-01\n\nifsc : SYNBOOQOOO1\n\nbank : Synthetic Bank\n\namountPaise : 10000300\n\nreference : SYN-0004\n",
+      "rotation": 0,
+      "documentConfidence": 89,
+      "status": "completed"
+    },
+    {
+      "id": "case-005",
+      "split": "held-out",
+      "layout": "C",
+      "fields": {
+        "reference": {
+          "value": "SYN-0005",
+          "rawValue": "SYN-0005",
+          "confidence": null,
+          "engineConfidence": 90,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 207,
+            "y0": 197,
+            "x1": 535,
+            "y1": 217
+          },
+          "method": "label-parser-v2",
+          "line": "\nreference = SYN-0005",
+          "normalizations": []
+        },
+        "amountPaise": {
+          "value": 10000400,
+          "rawValue": "10000400",
+          "confidence": null,
+          "engineConfidence": 94,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 206,
+            "y0": 252,
+            "x1": 569,
+            "y1": 272
+          },
+          "method": "label-parser-v2",
+          "line": "\namountPaise = 10000400",
+          "normalizations": []
+        },
+        "bank": {
+          "value": "Imaginary Other Bank",
+          "rawValue": "Imaginary Other Bank",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 207,
+            "y0": 307,
+            "x1": 652,
+            "y1": 333
+          },
+          "method": "label-parser-v2",
+          "line": "\nbank = Imaginary Other Bank",
+          "normalizations": []
+        },
+        "ifsc": {
+          "value": "SYNB00QOOO1",
+          "rawValue": "SYNB00QOOO1",
+          "confidence": null,
+          "engineConfidence": 0,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 207,
+            "y0": 362,
+            "x1": 502,
+            "y1": 382
+          },
+          "method": "label-parser-v2",
+          "line": "\nifsc = SYNB00QOOO1",
+          "normalizations": []
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "rawValue": "2026-01-01",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 207,
+            "y0": 417,
+            "x1": 518,
+            "y1": 437
+          },
+          "method": "label-parser-v2",
+          "line": "\nissued = 2026-01-01",
+          "normalizations": []
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "rawValue": "2030-01-01",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 206,
+            "y0": 473,
+            "x1": 535,
+            "y1": 492
+          },
+          "method": "label-parser-v2",
+          "line": "\nmatures = 2030-01-01",
+          "normalizations": []
+        }
+      },
+      "durationMs": 1101.7999,
+      "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 5\n\nreference = SYN-0005\n\namountPaise = 10000400\n\nbank = Imaginary Other Bank\n\nifsc = SYNB00QOOO1\n\nissued = 2026-01-01\n\nmatures = 2030-01-01\n",
+      "rotation": 0,
+      "documentConfidence": 91,
+      "status": "completed"
+    },
+    {
+      "id": "case-006",
+      "split": "development",
+      "layout": "B",
+      "fields": {
+        "reference": {
+          "value": "SYN-0006",
+          "rawValue": "SYN-0006",
+          "confidence": null,
+          "engineConfidence": 87,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 482,
+            "x1": 455,
+            "y1": 502
+          },
+          "method": "label-parser-v2",
+          "line": "\nreference : SYN-0006",
+          "normalizations": []
+        },
+        "amountPaise": {
+          "value": 10000500,
+          "rawValue": "10000500",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 126,
+            "y0": 427,
+            "x1": 489,
+            "y1": 447
+          },
+          "method": "label-parser-v2",
+          "line": "\namountPaise : 10000500",
+          "normalizations": []
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "rawValue": "Synthetic Bank",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 372,
+            "x1": 473,
+            "y1": 398
+          },
+          "method": "label-parser-v2",
+          "line": "\nbank : Synthetic Bank",
+          "normalizations": []
+        },
+        "ifsc": {
+          "value": "OTHROOOLOO1",
+          "rawValue": "OTHROOOLOO1",
+          "confidence": null,
+          "engineConfidence": 0,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 317,
+            "x1": 422,
+            "y1": 337
+          },
+          "method": "label-parser-v2",
+          "line": "\nifsc : OTHROOOLOO1",
+          "normalizations": []
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "rawValue": "2026-01-01",
+          "confidence": null,
+          "engineConfidence": 94,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 262,
+            "x1": 438,
+            "y1": 282
+          },
+          "method": "label-parser-v2",
+          "line": "\nissued : 2026-01-01",
+          "normalizations": []
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "rawValue": "2030-01-01",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 126,
+            "y0": 208,
+            "x1": 455,
+            "y1": 227
+          },
+          "method": "label-parser-v2",
+          "line": "\nmatures : 2030-01-01",
+          "normalizations": []
+        }
+      },
+      "durationMs": 2272.4300999999996,
+      "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 6\n\nmatures : 2030-01-01\n\nissued : 2026-01-01\n\nifsc : OTHROOOLOO1\n\nbank : Synthetic Bank\n\namountPaise : 10000500\n\nreference : SYN-0006\n",
+      "rotation": 0,
+      "documentConfidence": 89,
+      "status": "completed"
+    },
+    {
+      "id": "case-007",
+      "split": "development",
+      "layout": "A",
+      "fields": {},
+      "durationMs": 4199.413500000001,
+      "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 7\n",
+      "rotation": 0,
+      "documentConfidence": 95,
+      "status": "completed"
+    },
+    {
+      "id": "case-008",
+      "split": "development",
+      "layout": "B",
+      "fields": {
+        "reference": {
+          "value": "SYN-0008",
+          "rawValue": "SYN-0008",
+          "confidence": null,
+          "engineConfidence": 89,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 482,
+            "x1": 455,
+            "y1": 502
+          },
+          "method": "label-parser-v2",
+          "line": "\nreference : SYN-0008",
+          "normalizations": []
+        },
+        "amountPaise": {
+          "value": 10000700,
+          "rawValue": "10000700",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 126,
+            "y0": 427,
+            "x1": 489,
+            "y1": 447
+          },
+          "method": "label-parser-v2",
+          "line": "\namountPaise : 10000700",
+          "normalizations": []
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "rawValue": "Synthetic Bank",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 372,
+            "x1": 473,
+            "y1": 398
+          },
+          "method": "label-parser-v2",
+          "line": "\nbank : Synthetic Bank",
+          "normalizations": []
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "rawValue": "SYNBOOQOOO1",
+          "confidence": null,
+          "engineConfidence": 0,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 317,
+            "x1": 422,
+            "y1": 337
+          },
+          "method": "label-parser-v2",
+          "line": "\nifsc : SYNBOOQOOO1",
+          "normalizations": []
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "rawValue": "2026-01-01",
+          "confidence": null,
+          "engineConfidence": 94,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 262,
+            "x1": 438,
+            "y1": 282
+          },
+          "method": "label-parser-v2",
+          "line": "\nissued : 2026-01-01",
+          "normalizations": []
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "rawValue": "2030-01-01",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 126,
+            "y0": 208,
+            "x1": 455,
+            "y1": 227
+          },
+          "method": "label-parser-v2",
+          "line": "\nmatures : 2030-01-01",
+          "normalizations": []
+        }
+      },
+      "durationMs": 8486.3161,
+      "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 8\n\nmatures : 2030-01-01\n\nissued : 2026-01-01\n\nifsc : SYNBOOQOOO1\n\nbank : Synthetic Bank\n\namountPaise : 10000700\n\nreference : SYN-0008\n",
+      "rotation": 270,
+      "documentConfidence": 89,
+      "status": "completed"
+    },
+    {
+      "id": "case-009",
+      "split": "development",
+      "layout": "A",
+      "fields": {
+        "reference": {
+          "value": "SYN-0009",
+          "rawValue": "SYN-0009",
+          "confidence": null,
+          "engineConfidence": 90,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 162,
+            "x1": 380,
+            "y1": 182
+          },
+          "method": "label-parser-v2",
+          "line": "\nreference : SYN-0009",
+          "normalizations": []
+        },
+        "amountPaise": {
+          "value": 10000800,
+          "rawValue": "10000800",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 51,
+            "y0": 217,
+            "x1": 414,
+            "y1": 237
+          },
+          "method": "label-parser-v2",
+          "line": "\namountPaise : 10000800",
+          "normalizations": []
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "rawValue": "Synthetic Bank",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 272,
+            "x1": 398,
+            "y1": 298
+          },
+          "method": "label-parser-v2",
+          "line": "\nbank : Synthetic Bank",
+          "normalizations": []
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "rawValue": "SYNBOOQOOO1",
+          "confidence": null,
+          "engineConfidence": 0,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 327,
+            "x1": 347,
+            "y1": 347
+          },
+          "method": "label-parser-v2",
+          "line": "\nifsc : SYNBOOQOOO1",
+          "normalizations": []
+        }
+      },
+      "durationMs": 1633.3172999999988,
+      "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 9\n\nreference : SYN-0009\n\namountPaise : 10000800\n\nbank : Synthetic Bank\n\nifsc : SYNBOOQOOO1\n",
+      "rotation": 0,
+      "documentConfidence": 88,
+      "status": "completed"
+    },
+    {
+      "id": "case-010",
+      "split": "held-out",
+      "layout": "C",
+      "fields": {
+        "reference": {
+          "value": "SYN-0010",
+          "rawValue": "SYN-0010",
+          "confidence": null,
+          "engineConfidence": 91,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 207,
+            "y0": 197,
+            "x1": 536,
+            "y1": 217
+          },
+          "method": "label-parser-v2",
+          "line": "\nreference = SYN-0010",
+          "normalizations": []
+        },
+        "amountPaise": {
+          "value": 10000900,
+          "rawValue": "10000900",
+          "confidence": null,
+          "engineConfidence": 94,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 206,
+            "y0": 252,
+            "x1": 569,
+            "y1": 272
+          },
+          "method": "label-parser-v2",
+          "line": "\namountPaise = 10000900",
+          "normalizations": []
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "rawValue": "Synthetic Bank",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 207,
+            "y0": 307,
+            "x1": 553,
+            "y1": 333
+          },
+          "method": "label-parser-v2",
+          "line": "\nbank = Synthetic Bank",
+          "normalizations": []
+        },
+        "ifsc": {
+          "value": "SYNB00QOOO1",
+          "rawValue": "SYNB00QOOO1",
+          "confidence": null,
+          "engineConfidence": 0,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 207,
+            "y0": 362,
+            "x1": 502,
+            "y1": 382
+          },
+          "method": "label-parser-v2",
+          "line": "\nifsc = SYNB00QOOO1",
+          "normalizations": []
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "rawValue": "2026-01-01",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 207,
+            "y0": 417,
+            "x1": 518,
+            "y1": 437
+          },
+          "method": "label-parser-v2",
+          "line": "\nissued = 2026-01-01",
+          "normalizations": []
+        },
+        "matures": {
+          "value": "2025-01-01",
+          "rawValue": "2025-01-01",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 206,
+            "y0": 473,
+            "x1": 535,
+            "y1": 492
+          },
+          "method": "label-parser-v2",
+          "line": "\nmatures = 2025-01-01",
+          "normalizations": []
+        }
+      },
+      "durationMs": 1184.4507000000012,
+      "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 10\n\nreference = SYN-0010\n\namountPaise = 10000900\n\nbank = Synthetic Bank\n\nifsc = SYNB00QOOO1\n\nissued = 2026-01-01\n\nmatures = 2025-01-01\n",
+      "rotation": 0,
+      "documentConfidence": 91,
+      "status": "completed"
+    },
+    {
+      "id": "case-011",
+      "split": "development",
+      "layout": "A",
+      "fields": {
+        "reference": {
+          "value": "SYN-0011",
+          "rawValue": "SYN-0011",
+          "confidence": null,
+          "engineConfidence": 88,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 162,
+            "x1": 380,
+            "y1": 182
+          },
+          "method": "label-parser-v2",
+          "line": "\nreference : SYN-0011",
+          "normalizations": []
+        },
+        "amountPaise": {
+          "value": 10001000,
+          "rawValue": "10001000",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 51,
+            "y0": 217,
+            "x1": 414,
+            "y1": 237
+          },
+          "method": "label-parser-v2",
+          "line": "\namountPaise : 10001000",
+          "normalizations": []
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "rawValue": "Synthetic Bank",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 272,
+            "x1": 398,
+            "y1": 298
+          },
+          "method": "label-parser-v2",
+          "line": "\nbank : Synthetic Bank",
+          "normalizations": []
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "rawValue": "SYNBOOQOOO1",
+          "confidence": null,
+          "engineConfidence": 0,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 327,
+            "x1": 347,
+            "y1": 347
+          },
+          "method": "label-parser-v2",
+          "line": "\nifsc : SYNBOOQOOO1",
+          "normalizations": []
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "rawValue": "2026-01-01",
+          "confidence": null,
+          "engineConfidence": 94,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 382,
+            "x1": 363,
+            "y1": 402
+          },
+          "method": "label-parser-v2",
+          "line": "\nissued : 2026-01-01",
+          "normalizations": []
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "rawValue": "2030-01-01",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 51,
+            "y0": 438,
+            "x1": 380,
+            "y1": 457
+          },
+          "method": "label-parser-v2",
+          "line": "\nmatures : 2030-01-01",
+          "normalizations": []
+        }
+      },
+      "durationMs": 2530.569499999998,
+      "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 11\n\nreference : SYN-0011\n\namountPaise : 10001000\n\nbank : Synthetic Bank\n\nifsc : SYNBOOQOOO1\n\nissued : 2026-01-01\n\nmatures : 2030-01-01\n",
+      "rotation": 0,
+      "documentConfidence": 89,
+      "status": "completed"
+    },
+    {
+      "id": "case-012",
+      "split": "development",
+      "layout": "B",
+      "fields": {
+        "reference": {
+          "value": "SYN-0012",
+          "rawValue": "SYN-0012",
+          "confidence": null,
+          "engineConfidence": 88,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 482,
+            "x1": 455,
+            "y1": 502
+          },
+          "method": "label-parser-v2",
+          "line": "\nreference : SYN-0012",
+          "normalizations": []
+        },
+        "amountPaise": {
+          "value": 10001100,
+          "rawValue": "10001100",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 126,
+            "y0": 427,
+            "x1": 489,
+            "y1": 447
+          },
+          "method": "label-parser-v2",
+          "line": "\namountPaise : 10001100",
+          "normalizations": []
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "rawValue": "Synthetic Bank",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 372,
+            "x1": 473,
+            "y1": 398
+          },
+          "method": "label-parser-v2",
+          "line": "\nbank : Synthetic Bank",
+          "normalizations": []
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "rawValue": "SYNBOOQOOO1",
+          "confidence": null,
+          "engineConfidence": 0,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 317,
+            "x1": 422,
+            "y1": 337
+          },
+          "method": "label-parser-v2",
+          "line": "\nifsc : SYNBOOQOOO1",
+          "normalizations": []
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "rawValue": "2026-01-01",
+          "confidence": null,
+          "engineConfidence": 94,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 262,
+            "x1": 438,
+            "y1": 282
+          },
+          "method": "label-parser-v2",
+          "line": "\nissued : 2026-01-01",
+          "normalizations": []
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "rawValue": "2030-01-01",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 126,
+            "y0": 208,
+            "x1": 455,
+            "y1": 227
+          },
+          "method": "label-parser-v2",
+          "line": "\nmatures : 2030-01-01",
+          "normalizations": []
+        }
+      },
+      "durationMs": 1303.5622000000003,
+      "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 12\n\nmatures : 2030-01-01\n\nissued : 2026-01-01\n\nifsc : SYNBOOQOOO1\n\nbank : Synthetic Bank\n\namountPaise : 10001100\n\nreference : SYN-0012\n",
+      "rotation": 0,
+      "documentConfidence": 89,
+      "status": "completed"
+    },
+    {
+      "id": "case-013",
+      "split": "development",
+      "layout": "A",
+      "fields": {
+        "reference": {
+          "value": "SYN-0013",
+          "rawValue": "SYN-0013",
+          "confidence": null,
+          "engineConfidence": 87,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 162,
+            "x1": 380,
+            "y1": 182
+          },
+          "method": "label-parser-v2",
+          "line": "\nreference : SYN-0013",
+          "normalizations": []
+        },
+        "amountPaise": {
+          "value": 10001200,
+          "rawValue": "10001200",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 51,
+            "y0": 217,
+            "x1": 414,
+            "y1": 237
+          },
+          "method": "label-parser-v2",
+          "line": "\namountPaise : 10001200",
+          "normalizations": []
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "rawValue": "Synthetic Bank",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 272,
+            "x1": 398,
+            "y1": 298
+          },
+          "method": "label-parser-v2",
+          "line": "\nbank : Synthetic Bank",
+          "normalizations": []
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "rawValue": "SYNBOOQOOO1",
+          "confidence": null,
+          "engineConfidence": 0,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 327,
+            "x1": 347,
+            "y1": 347
+          },
+          "method": "label-parser-v2",
+          "line": "\nifsc : SYNBOOQOOO1",
+          "normalizations": []
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "rawValue": "2026-01-01",
+          "confidence": null,
+          "engineConfidence": 94,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 382,
+            "x1": 363,
+            "y1": 402
+          },
+          "method": "label-parser-v2",
+          "line": "\nissued : 2026-01-01",
+          "normalizations": []
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "rawValue": "2030-01-01",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 51,
+            "y0": 438,
+            "x1": 380,
+            "y1": 457
+          },
+          "method": "label-parser-v2",
+          "line": "\nmatures : 2030-01-01",
+          "normalizations": []
+        }
+      },
+      "durationMs": 1078.0233000000007,
+      "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 13\n\nreference : SYN-0013\n\namountPaise : 10001200\n\nbank : Synthetic Bank\n\nifsc : SYNBOOQOOO1\n\nissued : 2026-01-01\n\nmatures : 2030-01-01\n",
+      "rotation": 0,
+      "documentConfidence": 89,
+      "status": "completed"
+    },
+    {
+      "id": "case-014",
+      "split": "development",
+      "layout": "B",
+      "fields": {
+        "reference": {
+          "value": "SYN-0014",
+          "rawValue": "SYN-0014",
+          "confidence": null,
+          "engineConfidence": 86,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 482,
+            "x1": 456,
+            "y1": 502
+          },
+          "method": "label-parser-v2",
+          "line": "\nreference : SYN-0014",
+          "normalizations": []
+        },
+        "amountPaise": {
+          "value": 10001300,
+          "rawValue": "10001300",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 126,
+            "y0": 427,
+            "x1": 489,
+            "y1": 447
+          },
+          "method": "label-parser-v2",
+          "line": "\namountPaise : 10001300",
+          "normalizations": []
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "rawValue": "Synthetic Bank",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 372,
+            "x1": 473,
+            "y1": 398
+          },
+          "method": "label-parser-v2",
+          "line": "\nbank : Synthetic Bank",
+          "normalizations": []
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "rawValue": "SYNBOOQOOO1",
+          "confidence": null,
+          "engineConfidence": 0,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 317,
+            "x1": 422,
+            "y1": 337
+          },
+          "method": "label-parser-v2",
+          "line": "\nifsc : SYNBOOQOOO1",
+          "normalizations": []
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "rawValue": "2026-01-01",
+          "confidence": null,
+          "engineConfidence": 94,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 262,
+            "x1": 438,
+            "y1": 282
+          },
+          "method": "label-parser-v2",
+          "line": "\nissued : 2026-01-01",
+          "normalizations": []
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "rawValue": "2030-01-01",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 126,
+            "y0": 208,
+            "x1": 455,
+            "y1": 227
+          },
+          "method": "label-parser-v2",
+          "line": "\nmatures : 2030-01-01",
+          "normalizations": []
+        }
+      },
+      "durationMs": 2534.2288999999982,
+      "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 14\n\nmatures : 2030-01-01\n\nissued : 2026-01-01\n\nifsc : SYNBOOQOOO1\n\nbank : Synthetic Bank\n\namountPaise : 10001300\n\nreference : SYN-0014\n",
+      "rotation": 0,
+      "documentConfidence": 89,
+      "status": "completed"
+    },
+    {
+      "id": "case-015",
+      "split": "held-out",
+      "layout": "C",
+      "fields": {
+        "reference": {
+          "value": "SYN-0015",
+          "rawValue": "SYN-0015",
+          "confidence": null,
+          "engineConfidence": 90,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 207,
+            "y0": 197,
+            "x1": 535,
+            "y1": 217
+          },
+          "method": "label-parser-v2",
+          "line": "\nreference = SYN-0015",
+          "normalizations": []
+        },
+        "amountPaise": {
+          "value": 10001400,
+          "rawValue": "10001400",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 206,
+            "y0": 252,
+            "x1": 569,
+            "y1": 272
+          },
+          "method": "label-parser-v2",
+          "line": "\namountPaise = 10001400",
+          "normalizations": []
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "rawValue": "Synthetic Bank",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 207,
+            "y0": 307,
+            "x1": 553,
+            "y1": 333
+          },
+          "method": "label-parser-v2",
+          "line": "\nbank = Synthetic Bank",
+          "normalizations": []
+        },
+        "ifsc": {
+          "value": "SYNB00QOOO1",
+          "rawValue": "SYNB00QOOO1",
+          "confidence": null,
+          "engineConfidence": 0,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 207,
+            "y0": 362,
+            "x1": 502,
+            "y1": 382
+          },
+          "method": "label-parser-v2",
+          "line": "\nifsc = SYNB00QOOO1",
+          "normalizations": []
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "rawValue": "2026-01-01",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 207,
+            "y0": 417,
+            "x1": 518,
+            "y1": 437
+          },
+          "method": "label-parser-v2",
+          "line": "\nissued = 2026-01-01",
+          "normalizations": []
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "rawValue": "2030-01-01",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 206,
+            "y0": 473,
+            "x1": 535,
+            "y1": 492
+          },
+          "method": "label-parser-v2",
+          "line": "\nmatures = 2030-01-01",
+          "normalizations": []
+        }
+      },
+      "durationMs": 1697.9910999999993,
+      "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 15\n\nreference = SYN-0015\n\namountPaise = 10001400\n\nbank = Synthetic Bank\n\nifsc = SYNB00QOOO1\n\nissued = 2026-01-01\n\nmatures = 2030-01-01\n",
+      "rotation": 0,
+      "documentConfidence": 91,
+      "status": "completed"
+    },
+    {
+      "id": "case-016",
+      "split": "development",
+      "layout": "B",
+      "fields": {
+        "reference": {
+          "value": "SYN-0016",
+          "rawValue": "SYN-0016",
+          "confidence": null,
+          "engineConfidence": 87,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 482,
+            "x1": 455,
+            "y1": 502
+          },
+          "method": "label-parser-v2",
+          "line": "\nreference : SYN-0016",
+          "normalizations": []
+        },
+        "amountPaise": {
+          "value": 10001500,
+          "rawValue": "10001500",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 126,
+            "y0": 427,
+            "x1": 489,
+            "y1": 447
+          },
+          "method": "label-parser-v2",
+          "line": "\namountPaise : 10001500",
+          "normalizations": []
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "rawValue": "Synthetic Bank",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 372,
+            "x1": 473,
+            "y1": 398
+          },
+          "method": "label-parser-v2",
+          "line": "\nbank : Synthetic Bank",
+          "normalizations": []
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "rawValue": "SYNBOOQOOO1",
+          "confidence": null,
+          "engineConfidence": 0,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 317,
+            "x1": 422,
+            "y1": 337
+          },
+          "method": "label-parser-v2",
+          "line": "\nifsc : SYNBOOQOOO1",
+          "normalizations": []
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "rawValue": "2026-01-01",
+          "confidence": null,
+          "engineConfidence": 94,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 262,
+            "x1": 438,
+            "y1": 282
+          },
+          "method": "label-parser-v2",
+          "line": "\nissued : 2026-01-01",
+          "normalizations": []
+        },
+        "matures": {
+          "value": "2026-02-01",
+          "rawValue": "2026-02-01",
+          "confidence": null,
+          "engineConfidence": 94,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 126,
+            "y0": 208,
+            "x1": 455,
+            "y1": 227
+          },
+          "method": "label-parser-v2",
+          "line": "\nmatures : 2026-02-01",
+          "normalizations": []
+        }
+      },
+      "durationMs": 2302.2453000000023,
+      "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 16\n\nmatures : 2026-02-01\n\nissued : 2026-01-01\n\nifsc : SYNBOOQOOO1\n\nbank : Synthetic Bank\n\namountPaise : 10001500\n\nreference : SYN-0016\n",
+      "rotation": 0,
+      "documentConfidence": 89,
+      "status": "completed"
+    },
+    {
+      "id": "case-017",
+      "split": "development",
+      "layout": "A",
+      "fields": {
+        "reference": {
+          "value": "SYN-0017",
+          "rawValue": "SYN-0017",
+          "confidence": null,
+          "engineConfidence": 87,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 162,
+            "x1": 380,
+            "y1": 182
+          },
+          "method": "label-parser-v2",
+          "line": "\nreference : SYN-0017",
+          "normalizations": []
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "rawValue": "Synthetic Bank",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 217,
+            "x1": 398,
+            "y1": 243
+          },
+          "method": "label-parser-v2",
+          "line": "\nbank : Synthetic Bank",
+          "normalizations": []
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "rawValue": "SYNBOOQOOO1",
+          "confidence": null,
+          "engineConfidence": 0,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 272,
+            "x1": 347,
+            "y1": 292
+          },
+          "method": "label-parser-v2",
+          "line": "\nifsc : SYNBOOQOOO1",
+          "normalizations": []
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "rawValue": "2026-01-01",
+          "confidence": null,
+          "engineConfidence": 94,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 327,
+            "x1": 363,
+            "y1": 347
+          },
+          "method": "label-parser-v2",
+          "line": "\nissued : 2026-01-01",
+          "normalizations": []
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "rawValue": "2030-01-01",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 51,
+            "y0": 383,
+            "x1": 380,
+            "y1": 402
+          },
+          "method": "label-parser-v2",
+          "line": "\nmatures : 2030-01-01",
+          "normalizations": []
+        }
+      },
+      "durationMs": 2351.6731,
+      "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 17\n\nreference : SYN-0017\n\nbank : Synthetic Bank\n\nifsc : SYNBOOQOOO1\n\nissued : 2026-01-01\n\nmatures : 2030-01-01\n",
+      "rotation": 0,
+      "documentConfidence": 88,
+      "status": "completed"
+    },
+    {
+      "id": "case-018",
+      "split": "development",
+      "layout": "B",
+      "fields": {
+        "reference": {
+          "value": "SYN-0018",
+          "rawValue": "SYN-0018",
+          "confidence": null,
+          "engineConfidence": 86,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 427,
+            "x1": 455,
+            "y1": 447
+          },
+          "method": "label-parser-v2",
+          "line": "\nreference : SYN-0018",
+          "normalizations": []
+        },
+        "amountPaise": {
+          "value": 10001700,
+          "rawValue": "10001700",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 126,
+            "y0": 372,
+            "x1": 489,
+            "y1": 392
+          },
+          "method": "label-parser-v2",
+          "line": "\namountPaise : 10001700",
+          "normalizations": []
+        },
+        "bank": {
+          "value": "Synthetic Bank",
+          "rawValue": "Synthetic Bank",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 317,
+            "x1": 473,
+            "y1": 343
+          },
+          "method": "label-parser-v2",
+          "line": "\nbank : Synthetic Bank",
+          "normalizations": []
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "rawValue": "2026-01-01",
+          "confidence": null,
+          "engineConfidence": 94,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 127,
+            "y0": 262,
+            "x1": 438,
+            "y1": 282
+          },
+          "method": "label-parser-v2",
+          "line": "\nissued : 2026-01-01",
+          "normalizations": []
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "rawValue": "2030-01-01",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 126,
+            "y0": 208,
+            "x1": 455,
+            "y1": 227
+          },
+          "method": "label-parser-v2",
+          "line": "\nmatures : 2030-01-01",
+          "normalizations": []
+        }
+      },
+      "durationMs": 1050.9040000000023,
+      "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 18\n\nmatures : 2030-01-01\n\nissued : 2026-01-01\n\nbank : Synthetic Bank\n\namountPaise : 10001700\n\nreference : SYN-0018\n",
+      "rotation": 0,
+      "documentConfidence": 92,
+      "status": "completed"
+    },
+    {
+      "id": "case-019",
+      "split": "development",
+      "layout": "A",
+      "fields": {
+        "reference": {
+          "value": "SYN-0019",
+          "rawValue": "SYN-0019",
+          "confidence": null,
+          "engineConfidence": 90,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 162,
+            "x1": 380,
+            "y1": 182
+          },
+          "method": "label-parser-v2",
+          "line": "\nreference : SYN-0019",
+          "normalizations": []
+        },
+        "amountPaise": {
+          "value": 10001800,
+          "rawValue": "10001800",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 51,
+            "y0": 217,
+            "x1": 414,
+            "y1": 237
+          },
+          "method": "label-parser-v2",
+          "line": "\namountPaise : 10001800",
+          "normalizations": []
+        },
+        "ifsc": {
+          "value": "SYNBOOQOOO1",
+          "rawValue": "SYNBOOQOOO1",
+          "confidence": null,
+          "engineConfidence": 0,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 272,
+            "x1": 347,
+            "y1": 292
+          },
+          "method": "label-parser-v2",
+          "line": "\nifsc : SYNBOOQOOO1",
+          "normalizations": []
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "rawValue": "2026-01-01",
+          "confidence": null,
+          "engineConfidence": 94,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 52,
+            "y0": 327,
+            "x1": 363,
+            "y1": 347
+          },
+          "method": "label-parser-v2",
+          "line": "\nissued : 2026-01-01",
+          "normalizations": []
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "rawValue": "2030-01-01",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 51,
+            "y0": 383,
+            "x1": 380,
+            "y1": 402
+          },
+          "method": "label-parser-v2",
+          "line": "\nmatures : 2030-01-01",
+          "normalizations": []
+        }
+      },
+      "durationMs": 1549.5050999999949,
+      "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 19\n\nreference : SYN-0019\n\namountPaise : 10001800\n\nifsc : SYNBOOQOOO1\n\nissued : 2026-01-01\n\nmatures : 2030-01-01\n",
+      "rotation": 0,
+      "documentConfidence": 88,
+      "status": "completed"
+    },
+    {
+      "id": "case-020",
+      "split": "held-out",
+      "layout": "C",
+      "fields": {
+        "reference": {
+          "value": "SYN-0020",
+          "rawValue": "SYN-0020",
+          "confidence": null,
+          "engineConfidence": 92,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 207,
+            "y0": 197,
+            "x1": 536,
+            "y1": 217
+          },
+          "method": "label-parser-v2",
+          "line": "\nreference = SYN-0020",
+          "normalizations": []
+        },
+        "amountPaise": {
+          "value": 10,
+          "rawValue": "10",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 206,
+            "y0": 252,
+            "x1": 469,
+            "y1": 272
+          },
+          "method": "label-parser-v2",
+          "line": "\namountPaise = 10",
+          "normalizations": []
+        },
+        "bank": {
+          "value": "Imaginary Other Bank",
+          "rawValue": "Imaginary Other Bank",
+          "confidence": null,
+          "engineConfidence": 96,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 207,
+            "y0": 307,
+            "x1": 652,
+            "y1": 333
+          },
+          "method": "label-parser-v2",
+          "line": "\nbank = Imaginary Other Bank",
+          "normalizations": []
+        },
+        "ifsc": {
+          "value": "SYNB00QOOO1",
+          "rawValue": "SYNB00QOOO1",
+          "confidence": null,
+          "engineConfidence": 0,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 207,
+            "y0": 362,
+            "x1": 502,
+            "y1": 382
+          },
+          "method": "label-parser-v2",
+          "line": "\nifsc = SYNB00QOOO1",
+          "normalizations": []
+        },
+        "issued": {
+          "value": "2026-01-01",
+          "rawValue": "2026-01-01",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 207,
+            "y0": 417,
+            "x1": 518,
+            "y1": 437
+          },
+          "method": "label-parser-v2",
+          "line": "\nissued = 2026-01-01",
+          "normalizations": []
+        },
+        "matures": {
+          "value": "2030-01-01",
+          "rawValue": "2030-01-01",
+          "confidence": null,
+          "engineConfidence": 95,
+          "confidenceCalibration": "uncalibrated",
+          "bbox": {
+            "x0": 206,
+            "y0": 473,
+            "x1": 535,
+            "y1": 492
+          },
+          "method": "label-parser-v2",
+          "line": "\nmatures = 2030-01-01",
+          "normalizations": []
+        }
+      },
+      "durationMs": 2321.0699999999997,
+      "rawText": "SYNTHETIC FIXTURE — NOT A BANK DOCUMENT\nFictional Institute 20\n\nreference = SYN-0020\n\namountPaise = 10\n\nbank = Imaginary Other Bank\n\nifsc = SYNB00QOOO1\n\nissued = 2026-01-01\n\nmatures = 2030-01-01\n",
+      "rotation": 0,
+      "documentConfidence": 91,
+      "status": "completed"
+    }
+  ]
+}

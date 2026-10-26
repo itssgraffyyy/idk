@@ -1,3 +1,5 @@
+> Superseded by the final-gap per-field results in [results.md](results.md) and [completion report](../phase-1-2-completion-report.md). The original v1 glyph limitation below remains; new v2 extraction improvements are measured separately.
+
 # OCR error analysis and held-out evaluation
 The original85% aggregate included correctly absent fields. The actual baseline present-field results were:
 | Field | Correct / present |

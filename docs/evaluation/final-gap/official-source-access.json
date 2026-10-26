@@ -1,0 +1,34 @@
+{
+  "command": "node scripts/probe-official-sources.js",
+  "checkedAt": "2026-10-26T16:43:45.659Z",
+  "results": [
+    {
+      "url": "https://www.aicte.gov.in/",
+      "status": 200,
+      "contentType": "text/html",
+      "prefix": "<!DOCTYPE html>\r\n<html>\r\n\r\n<head>\r\n    <title>Page Title</title>\r\n    <style>\r\n        body {\r\n            margin: 0;\r\n            padding: 0;\r\n            overflow: hidden;\r\n        }\r\n\r\n        .mai",
+      "issuerPDFConfirmed": false
+    },
+    {
+      "url": "https://www.aicte.gov.in/sites/default/files/APH%20Final.pdf",
+      "status": 404,
+      "contentType": "text/html; charset=iso-8859-1",
+      "prefix": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>404 Not Found</title>\n</head><body>\n<h1>Not Found</h1>\n<p>The requested URL was not found on this server.</p>\n<p>Additionally, a ",
+      "issuerPDFConfirmed": false
+    },
+    {
+      "url": "https://www.aicte.gov.in/sites/default/files/approval/APH%20Final.pdf",
+      "status": 404,
+      "contentType": "text/html; charset=iso-8859-1",
+      "prefix": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>404 Not Found</title>\n</head><body>\n<h1>Not Found</h1>\n<p>The requested URL was not found on this server.</p>\n<p>Additionally, a ",
+      "issuerPDFConfirmed": false
+    },
+    {
+      "url": "https://aicte-india.org/",
+      "status": "fetch_failed",
+      "reason": "TimeoutError",
+      "issuerPDFConfirmed": false
+    }
+  ],
+  "limitations": "Access checks only. Search results are not issuer-document validation. No regulatory activation permitted from these results."
+}

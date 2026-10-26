@@ -1,0 +1,150 @@
+{
+  "date": "2026-10-26",
+  "timezone": "Asia/Calcutta",
+  "implementationCommit": "71c2532",
+  "baselineCommit": "2846d76",
+  "baseline": {
+    "verify": {
+      "exitCode": 0,
+      "passed": 49,
+      "failed": 0
+    },
+    "browser": {
+      "exitCode": 0,
+      "passed": 2,
+      "seconds": 43.8
+    },
+    "ocr": {
+      "exitCode": 0,
+      "documents": 20,
+      "ifscExact": 0,
+      "ifscPresent": 18,
+      "otherFieldsExact": 18,
+      "otherFieldsPresent": 18,
+      "meanMs": 2100.06636
+    }
+  },
+  "final": {
+    "verify": {
+      "command": "npm run verify",
+      "exitCode": 0,
+      "passed": 63,
+      "failed": 0,
+      "artifact": "docs/evaluation/phase-1-2-tests.txt"
+    },
+    "build": {
+      "exitCode": 0,
+      "validatedFiles": 21,
+      "type": "Syntax/reference validation and static asset packaging"
+    },
+    "browser": {
+      "command": "npm run test:e2e",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "seconds": 34,
+      "artifact": "docs/evaluation/final-gap/browser.txt"
+    },
+    "ocr": {
+      "command": "node scripts/benchmark-final-ocr.js",
+      "exitCode": 0,
+      "documents": 36,
+      "failed": 0,
+      "v1": {
+        "ifscExact": 0,
+        "ifscPresent": 18,
+        "returned": 4,
+        "meanMs": 2309.51062
+      },
+      "v2": {
+        "beforeExact": 5,
+        "afterExact": 9,
+        "present": 15,
+        "returned": 9,
+        "heldOutBefore": 2,
+        "heldOutAfter": 3,
+        "heldOutPresent": 4,
+        "meanMs": 2331.77046875
+      },
+      "categoryCommand": "node scripts/summarize-final-ocr.js"
+    },
+    "reconciliation": {
+      "command": "npm run benchmark",
+      "exitCode": 0,
+      "cases": 20,
+      "failed": 0,
+      "precision": 1,
+      "recall": 1
+    },
+    "system": {
+      "command": "npm run benchmark:system",
+      "exitCode": 0,
+      "samples": 100,
+      "concurrency": 1,
+      "p50Ms": 1.3191,
+      "p95Ms": 1.8607,
+      "maxMs": 161.7036
+    },
+    "format": {
+      "command": "npx --no-install prettier --check src public tests scripts package.json package-lock.json",
+      "exitCode": 0
+    },
+    "ifsc": {
+      "command": "node scripts/ifsc-live-check.js",
+      "exitCode": 0,
+      "mode": "public_service",
+      "independentDepositConfirmation": false
+    },
+    "officialSourceProbe": {
+      "command": "node scripts/probe-official-sources.js",
+      "exitCode": 0,
+      "issuerPDFConfirmed": false
+    },
+    "pdf": {
+      "commands": [
+        "node scripts/render-pdf-fixtures.js",
+        "npm run verify"
+      ],
+      "exitCode": 0,
+      "embeddedTextAndRealRasterOCRTested": true,
+      "fixturesVisuallyInspected": true
+    }
+  },
+  "intermediateFailures": [
+    {
+      "scope": "browser",
+      "passed": 1,
+      "failed": 1,
+      "reason": "120-second journey timeout waiting for login form after sign-out; subsequent fresh three-journey runs passed; no business assertions removed"
+    },
+    {
+      "scope": "PDF smoke",
+      "exitCode": 1,
+      "reason": "PDFDocumentProxy.destroy is unavailable in installed PDF.js; corrected cleanup to loadingTask.destroy before passing API tests"
+    }
+  ],
+  "externalLimits": {
+    "setuLiveRun": false,
+    "reason": "Owner confirmed no sandbox credentials; contract tests authorized",
+    "issuerVerifiedRules": 0,
+    "policyState": "UNVERIFIED_POLICY"
+  },
+  "remainingInternalScope": [
+    "Original three additional roles",
+    "Independent richer obligation/instrument domain and replacement lifecycle",
+    "Additional OCR fields and difficult glyph recognition",
+    "Interchangeable storage abstraction",
+    "Pagination",
+    "Typed APIs, Compose, complete structured correlated request logging"
+  ],
+  "phase1Complete": false,
+  "phase2Complete": false,
+  "productionReady": false,
+  "phase3RolloutReady": false,
+  "notes": [
+    "Original v1 tracked files unchanged",
+    "No production banking/authenticity claim",
+    "CI configuration added but not remotely executed",
+    "No GitHub push"
+  ]
+}
