@@ -11,9 +11,9 @@ const worker = await createWorker("eng", 1, {
   logger: () => {},
   errorHandler: () => {},
 });
-try {
+async function recognize(path) {
   await worker.setParameters({ tessedit_pageseg_mode: "6" });
-  let bytes = readFileSync(process.argv[2]),
+  let bytes = readFileSync(path),
     rotation = 0;
   let { data } = await worker.recognize(
     bytes,
@@ -43,16 +43,31 @@ try {
       method: "visual-glyph-templates-v1",
     };
   }
-  process.stdout.write(
-    JSON.stringify({
-      text: data.text,
-      confidence: data.confidence,
-      blocks: data.blocks,
-      fieldAttempts: { ifsc: ifscAttempt },
-      rotation,
-      engine: "tesseract.js-7-local-eng",
-    }),
-  );
-} finally {
-  await worker.terminate();
+  return JSON.stringify({
+    text: data.text,
+    confidence: data.confidence,
+    blocks: data.blocks,
+    fieldAttempts: { ifsc: ifscAttempt },
+    rotation,
+    engine: "tesseract.js-7-local-eng",
+  });
+}
+if (process.argv[2] === "--service") {
+  process.on("message", async (m) => {
+    try {
+      process.send({ result: JSON.parse(await recognize(m.path)) });
+    } catch {
+      process.send({ error: true });
+    }
+  });
+  process.on("disconnect", async () => {
+    await worker.terminate();
+    process.exit(0);
+  });
+} else {
+  try {
+    process.stdout.write(await recognize(process.argv[2]));
+  } finally {
+    await worker.terminate();
+  }
 }

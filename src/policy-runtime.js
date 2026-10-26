@@ -1,4 +1,9 @@
 export function validatePolicies(policies) {
+  const validDate = (v) =>
+    typeof v === "string" &&
+    /^\d{4}-\d{2}-\d{2}$/.test(v) &&
+    Number.isFinite(Date.parse(v)) &&
+    new Date(v).toISOString().slice(0, 10) === v;
   if (!Array.isArray(policies) || policies.length > 100)
     throw Error("Invalid trusted policy configuration");
   const ids = new Set();
@@ -8,8 +13,8 @@ export function validatePolicies(policies) {
       typeof p.version !== "string" ||
       ids.has(p.version) ||
       typeof p.scope !== "string" ||
-      !/^\d{4}-\d{2}-\d{2}$/.test(p.effectiveFrom) ||
-      !/^\d{4}-\d{2}-\d{2}$/.test(p.effectiveTo) ||
+      !validDate(p.effectiveFrom) ||
+      !validDate(p.effectiveTo) ||
       p.effectiveFrom > p.effectiveTo ||
       !Array.isArray(p.rules) ||
       p.rules.length > 100

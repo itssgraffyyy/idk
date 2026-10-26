@@ -3,6 +3,29 @@ import { join } from "node:path";
 import { foundationMigration } from "./foundation-migration.js";
 export const upgrades = [
   {
+    version: 11,
+    sql: `DROP TRIGGER cases_domain_update;
+CREATE TRIGGER cases_domain_update AFTER UPDATE OF instrument,obligation ON cases BEGIN
+ UPDATE instruments SET data=NEW.instrument,status=CASE WHEN status='superseded' THEN status ELSE 'amended' END,revision=revision+1 WHERE id=(SELECT instrument_id FROM case_domains WHERE case_id=NEW.id) AND data!=NEW.instrument;
+ UPDATE obligations SET amount_paise=json_extract(NEW.obligation,'$.amountPaise'),revision=revision+1 WHERE id=(SELECT obligation_id FROM case_domains WHERE case_id=NEW.id) AND amount_paise!=json_extract(NEW.obligation,'$.amountPaise');
+END;
+UPDATE instruments SET status='superseded' WHERE EXISTS(SELECT 1 FROM instrument_relationships r WHERE r.predecessor=instruments.id);`,
+  },
+  {
+    version: 10,
+    sql: `CREATE TABLE document_instruments(document_id TEXT PRIMARY KEY REFERENCES documents(id),instrument_id TEXT NOT NULL REFERENCES instruments(id));
+INSERT INTO document_instruments SELECT d.id,c.instrument_id FROM documents d JOIN case_domains c ON c.case_id=d.case_id;
+CREATE TRIGGER document_instrument_guard BEFORE INSERT ON document_instruments WHEN NOT EXISTS(SELECT 1 FROM documents d JOIN case_instruments c ON c.case_id=d.case_id WHERE d.id=NEW.document_id AND c.instrument_id=NEW.instrument_id) BEGIN SELECT RAISE(ABORT,'document instrument mismatch'); END;
+CREATE TRIGGER document_instrument_immutable BEFORE UPDATE ON document_instruments BEGIN SELECT RAISE(ABORT,'immutable document instrument'); END;
+CREATE TRIGGER document_instrument_no_delete BEFORE DELETE ON document_instruments BEGIN SELECT RAISE(ABORT,'immutable document instrument'); END;
+CREATE INDEX documents_instrument ON document_instruments(instrument_id,document_id);`,
+  },
+  {
+    version: 9,
+    sql: `ALTER TABLE audit ADD COLUMN correlation_id TEXT; ALTER TABLE audit ADD COLUMN category TEXT; ALTER TABLE audit ADD COLUMN outcome TEXT;
+CREATE INDEX evidence_case_kind ON evidence(case_id,kind);CREATE INDEX evidence_context ON evidence(case_id,kind,json_extract(payload,'$.contextId'));CREATE INDEX audit_correlation ON audit(correlation_id);`,
+  },
+  {
     version: 8,
     sql: `CREATE TABLE institution_profiles(tenant TEXT PRIMARY KEY REFERENCES institutions(tenant),data TEXT NOT NULL CHECK(json_valid(data)),revision INTEGER NOT NULL CHECK(revision>0));
 CREATE TRIGGER domain_link_insert BEFORE INSERT ON case_domains WHEN NOT EXISTS(SELECT 1 FROM cases c JOIN obligations o ON o.id=NEW.obligation_id AND o.tenant=c.tenant JOIN instruments i ON i.id=NEW.instrument_id AND i.tenant=c.tenant AND i.obligation_id=o.id WHERE c.id=NEW.case_id) BEGIN SELECT RAISE(ABORT,'domain relationship mismatch'); END;

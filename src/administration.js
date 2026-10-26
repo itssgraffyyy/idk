@@ -2,6 +2,7 @@ import { randomUUID, randomBytes, scrypt } from "node:crypto";
 import { promisify } from "node:util";
 import { isInstitution, canReadCase, requireRole } from "./permissions.js";
 import { validate } from "./engine.js";
+import { paginate } from "./pagination.js";
 const derive = promisify(scrypt),
   bad = (s, m) => {
     throw Object.assign(Error(m), { status: s });
@@ -79,18 +80,30 @@ export async function administration({
   json,
   res,
   revalidate,
+  url,
+  cursorKey,
 }) {
   if (path === "/api/accounts") {
     requireRole(u, ["institution_admin", "supervisor"]);
     if (method === "GET") {
+      const page = paginate(db, {
+        table: "users t",
+        where: "t.tenant=?",
+        params: [u.tenant],
+        url,
+        scope: u.id + "|accounts",
+        key: cursorKey,
+      });
+      res.setHeader("X-Next-Cursor", page.nextCursor || "");
       json(
         res,
         200,
-        db
-          .prepare(
-            "SELECT id,email,role,status FROM users WHERE tenant=? ORDER BY email LIMIT 100",
-          )
-          .all(u.tenant),
+        page.items.map(({ id, email, role, status }) => ({
+          id,
+          email,
+          role,
+          status,
+        })),
       );
       return true;
     }
@@ -212,7 +225,7 @@ export async function administration({
       });
       for (const c of db
         .prepare("SELECT * FROM cases WHERE tenant=?")
-        .all(u.tenant)) {
+        .iterate(u.tenant)) {
         evidence(u.id, c.id, "profile_reference", {
           profileRevision: (old?.revision || 0) + 1,
         });
@@ -229,6 +242,24 @@ export async function administration({
         ? db.prepare("SELECT * FROM obligations WHERE id=?").get(id)
         : null;
     if (method === "GET") {
+      if (!id) {
+        const where = isInstitution(u)
+          ? "t.tenant=?"
+          : u.role === "officer"
+            ? "EXISTS(SELECT 1 FROM case_domains d JOIN cases c ON c.id=d.case_id WHERE d.obligation_id=t.id AND c.assigned=?)"
+            : "EXISTS(SELECT 1 FROM case_domains d JOIN cases c ON c.id=d.case_id JOIN users a ON a.id=c.assigned WHERE d.obligation_id=t.id AND a.tenant=?)";
+        const page = paginate(db, {
+          table: "obligations t",
+          where,
+          params: [u.role === "officer" ? u.id : u.tenant],
+          url,
+          scope: u.id + "|" + u.role + "|obligations",
+          key: cursorKey,
+        });
+        res.setHeader("X-Next-Cursor", page.nextCursor || "");
+        json(res, 200, page.items);
+        return true;
+      }
       let rows = id
         ? existing
           ? [existing]

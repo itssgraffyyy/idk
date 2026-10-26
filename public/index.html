@@ -80,6 +80,23 @@
           </div>
         </div>
         <div id="registry" class="card"></div>
+        <form id="case-filter" class="card">
+          <label
+            >Search institutions or references<input
+              name="q"
+              maxlength="150" /></label
+          ><label
+            >Case state<select name="status">
+              <option value="">All states</option>
+              <option>registered</option>
+              <option>submitted</option>
+              <option>under_review</option>
+              <option>needs_information</option>
+              <option>resubmitted</option>
+              <option>review_recorded</option>
+            </select></label
+          ><button>Search cases</button>
+        </form>
       </section>
       <section id="detail" hidden></section>
       <section id="management" hidden></section>

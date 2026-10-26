@@ -21,6 +21,9 @@ const policy = {
   ],
 };
 test("trusted declarative versions select deterministically and map all outcomes without administrative approval", () => {
+  assert.throws(() =>
+    validatePolicies([{ ...policy, effectiveFrom: "2025-02-30" }]),
+  );
   const run = (facts = {}, p = [policy], asOf = "2026-01-01") =>
     evaluatePolicy(facts, {
       policies: validatePolicies(p),

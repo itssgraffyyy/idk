@@ -20,6 +20,14 @@ try {
     throw Error("Unsupported PDF page count or XFA");
   if ((await doc.getJSActions()) || (await doc.getAttachments()))
     throw Error("Active or attached PDF content rejected");
+  const preview = process.argv[3]?.startsWith("preview:")
+    ? Number(process.argv[3].slice(8))
+    : null;
+  if (
+    preview !== null &&
+    (!Number.isInteger(preview) || preview < 1 || preview > doc.numPages)
+  )
+    throw Error("Invalid preview page");
   const pages = [];
   let pixels = 0;
   for (let n = 1; n <= doc.numPages; n++) {
@@ -35,6 +43,23 @@ try {
     )
       throw Error("PDF pixel budget exceeded");
     if (process.argv[3] === "validate") continue;
+    if (preview !== null) {
+      if (n !== preview) continue;
+      const canvas = createCanvas(
+        Math.ceil(viewport.width),
+        Math.ceil(viewport.height),
+      );
+      await page.render({ canvasContext: canvas.getContext("2d"), viewport })
+        .promise;
+      process.stdout.write(
+        JSON.stringify({
+          page: n,
+          pages: doc.numPages,
+          png: canvas.toBuffer("image/png").toString("base64"),
+        }),
+      );
+      continue;
+    }
     const content = await page.getTextContent(),
       embedded = content.items
         .map((i) => (i.str || "") + (i.hasEOL ? "\n" : " "))
@@ -99,19 +124,20 @@ try {
     }
     page.cleanup();
   }
-  process.stdout.write(
-    JSON.stringify(
-      process.argv[3] === "validate"
-        ? { valid: true, pages: doc.numPages }
-        : {
-            text: pages.map((p) => p.text).join("\n"),
-            pages,
-            blocks: pages.flatMap((p) => p.blocks || []),
-            engine: "pdfjs6-bounded-text-or-tesseract7",
-            untrustedEmbeddedText: true,
-          },
-    ),
-  );
+  if (preview === null)
+    process.stdout.write(
+      JSON.stringify(
+        process.argv[3] === "validate"
+          ? { valid: true, pages: doc.numPages }
+          : {
+              text: pages.map((p) => p.text).join("\n"),
+              pages,
+              blocks: pages.flatMap((p) => p.blocks || []),
+              engine: "pdfjs6-bounded-text-or-tesseract7",
+              untrustedEmbeddedText: true,
+            },
+      ),
+    );
 } catch (e) {
   process.stderr.write(String(e.message));
   process.exitCode = 1;

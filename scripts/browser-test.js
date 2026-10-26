@@ -1,5 +1,5 @@
 import { createApp, seed } from "../src/server.js";
-import { mkdtempSync, rmSync } from "node:fs";
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { spawn } from "node:child_process";
@@ -51,15 +51,22 @@ try {
     ["node_modules/@playwright/test/cli.js", "test"],
     {
       env: { ...process.env, EXTERNAL_SERVER: "1" },
-      stdio: "inherit",
+      stdio: ["ignore", "pipe", "pipe"],
       windowsHide: true,
     },
   );
+  let output = "";
+  for (const stream of [child.stdout, child.stderr])
+    stream.on("data", (chunk) => {
+      output += chunk.toString();
+      process.stdout.write(chunk);
+    });
   const code = await new Promise((ok, no) => {
     child.once("error", no);
     child.once("exit", ok);
   });
   process.exitCode = code ?? 1;
+  writeFileSync("docs/evaluation/current-browser.txt", output);
 } finally {
   await app.close();
   rmSync(dir, { recursive: true, force: true });

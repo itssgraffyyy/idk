@@ -15,13 +15,23 @@ export function domainSnapshot(db, caseId) {
       .get(link.obligation_id),
     instruments: db
       .prepare(
-        "SELECT i.* FROM instruments i JOIN case_instruments c ON c.instrument_id=i.id WHERE c.case_id=? ORDER BY i.id",
+        "SELECT i.* FROM instruments i JOIN case_instruments c ON c.instrument_id=i.id WHERE c.case_id=? ORDER BY i.rowid LIMIT 100",
       )
       .all(caseId)
       .map((i) => ({ ...i, data: JSON.parse(i.data) })),
     documents: db
-      .prepare("SELECT * FROM documents WHERE case_id=? ORDER BY created,id")
+      .prepare(
+        "SELECT d.*,i.instrument_id FROM documents d JOIN document_instruments i ON i.document_id=d.id WHERE d.case_id=? ORDER BY d.rowid LIMIT 100",
+      )
       .all(caseId),
+    counts: {
+      instruments: db
+        .prepare("SELECT count(*) n FROM case_instruments WHERE case_id=?")
+        .get(caseId).n,
+      documents: db
+        .prepare("SELECT count(*) n FROM documents WHERE case_id=?")
+        .get(caseId).n,
+    },
   };
 }
 export function transition(db, user, c, body) {
@@ -70,12 +80,33 @@ export function assignOfficer(db, user, c, body) {
   return { before: c.assigned, after: officer.id, reason: body.reason };
 }
 export function prepareDocument(db, c, body) {
+  const instrumentId =
+    body.instrumentId ||
+    db
+      .prepare("SELECT instrument_id FROM case_domains WHERE case_id=?")
+      .get(c.id).instrument_id;
+  if (
+    !db
+      .prepare(
+        "SELECT 1 FROM case_instruments WHERE case_id=? AND instrument_id=?",
+      )
+      .get(c.id, instrumentId)
+  )
+    reject(404, "Linked instrument not found");
   let doc;
   if (body.documentId) {
     doc = db
       .prepare("SELECT * FROM documents WHERE id=? AND case_id=?")
       .get(body.documentId, c.id);
     if (!doc) reject(404, "Logical document not found");
+    if (
+      db
+        .prepare(
+          "SELECT instrument_id FROM document_instruments WHERE document_id=?",
+        )
+        .get(doc.id)?.instrument_id !== instrumentId
+    )
+      reject(409, "Document belongs to a different instrument");
   } else {
     const kind = body.kind || "fdr";
     if (!["fdr", "proof", "other"].includes(kind))
@@ -84,9 +115,9 @@ export function prepareDocument(db, c, body) {
       kind === "fdr"
         ? db
             .prepare(
-              "SELECT * FROM documents WHERE case_id=? AND kind='fdr' ORDER BY created,id LIMIT 1",
+              "SELECT d.* FROM documents d JOIN document_instruments i ON i.document_id=d.id WHERE d.case_id=? AND d.kind='fdr' AND i.instrument_id=? ORDER BY d.created,d.id LIMIT 1",
             )
-            .get(c.id)
+            .get(c.id, instrumentId)
         : null;
     if (!doc) {
       doc = { id: randomUUID(), kind };
@@ -97,9 +128,14 @@ export function prepareDocument(db, c, body) {
         String(body.title || kind).slice(0, 150),
         new Date().toISOString(),
       );
+      db.prepare("INSERT INTO document_instruments VALUES(?,?)").run(
+        doc.id,
+        instrumentId,
+      );
     }
   }
   return {
+    instrumentId,
     logicalDocumentId: doc.id,
     documentKind: doc.kind,
     documentVersion: db
@@ -125,7 +161,7 @@ export function registerVersion(db, id, p, user) {
 export function latestFDR(db, caseId) {
   return db
     .prepare(
-      "SELECT e.* FROM evidence e JOIN document_versions v ON v.id=e.id JOIN documents d ON d.id=v.document_id WHERE d.case_id=? AND d.kind='fdr' ORDER BY e.rowid DESC LIMIT 1",
+      "SELECT e.* FROM evidence e JOIN document_versions v ON v.id=e.id JOIN documents d ON d.id=v.document_id JOIN document_instruments i ON i.document_id=d.id JOIN case_domains c ON c.case_id=d.case_id AND c.instrument_id=i.instrument_id WHERE d.case_id=? AND d.kind='fdr' ORDER BY e.rowid DESC LIMIT 1",
     )
     .get(caseId);
 }

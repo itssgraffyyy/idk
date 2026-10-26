@@ -1,11 +1,11 @@
 window.mountReviewWorkspace = function ({ c, user, api, run, detail, escape }) {
   const id = c.id,
     h = c.history,
-    last = (k) => h.filter((e) => e.kind === k).at(-1),
+    last = (k) => (c.currentEvidence || h).filter((e) => e.kind === k).at(-1),
     ctx = last("regulatory_context"),
     report = last("evaluation"),
     host = document.querySelector("#detail .columns > div:last-child");
-  const latestDocument = h
+  const latestDocument = (c.currentEvidence || h)
       .filter(
         (e) =>
           e.kind === "document" &&

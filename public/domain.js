@@ -26,19 +26,38 @@ window.mountDomainNavigation = function ({
       panel.innerHTML =
         '<h1>Record administration</h1><button id="manage-back">Case registry</button>';
       panel.querySelector("#manage-back").onclick = () => run(registry);
+      const paged = (path, initial, host, render) => {
+        let cursor = initial.page?.nextCursor;
+        const next = document.createElement("button");
+        next.textContent = "Next records";
+        next.hidden = !cursor;
+        host.after(next);
+        render(initial);
+        next.onclick = () =>
+          run(async () => {
+            const rows = await api(
+              path + "?cursor=" + encodeURIComponent(cursor),
+            );
+            render(rows);
+            cursor = rows.page?.nextCursor;
+            next.hidden = !cursor;
+          });
+      };
       if (window.institutionRole(user)) {
         const profile = await api("/institution"),
           obligations = await api("/obligations");
-        panel.innerHTML +=
+        panel.insertAdjacentHTML(
+          "beforeend",
           '<div class="card"><h2>Institution profile</h2><form id="profile-form"><label>Institution name<input name="name" required value="' +
-          escape(profile.name || "") +
-          '"></label><label>Classification<input name="classification" required value="' +
-          escape(profile.classification || "private") +
-          '"></label><label>Programmes (JSON)<textarea name="programmes">' +
-          escape(JSON.stringify(profile.programmes || [])) +
-          '</textarea></label><label>Approval history (JSON)<textarea name="approvals">' +
-          escape(JSON.stringify(profile.approvals || [])) +
-          '</textarea></label><button>Save institution profile</button></form></div><div class="card"><h2>Security obligations</h2><div id="obligation-list"></div><form id="obligation-form"><input type="hidden" name="id"><input type="hidden" name="revision"><label>Programme<input name="programme" required></label><label>Qualification level<input name="level" required></label><label>Required amount (paise)<input name="amountPaise" type="number" min="1" step="1" required></label><label>Policy reference<input name="policyVersion" required value="UNVERIFIED_POLICY"></label><label>Period start<input type="date" name="starts" required></label><label>Period end<input type="date" name="ends" required></label><label>Exemption claim<textarea name="exemption"></textarea></label><label>Obligation status<select name="status"><option>registered</option><option>requires_review</option><option>exemption_claimed</option></select></label><button>Save obligation</button></form></div>';
+            escape(profile.name || "") +
+            '"></label><label>Classification<input name="classification" required value="' +
+            escape(profile.classification || "private") +
+            '"></label><label>Programmes (JSON)<textarea name="programmes">' +
+            escape(JSON.stringify(profile.programmes || [])) +
+            '</textarea></label><label>Approval history (JSON)<textarea name="approvals">' +
+            escape(JSON.stringify(profile.approvals || [])) +
+            '</textarea></label><button>Save institution profile</button></form></div><div class="card"><h2>Security obligations</h2><div id="obligation-list"></div><form id="obligation-form"><input type="hidden" name="id"><input type="hidden" name="revision"><label>Programme<input name="programme" required></label><label>Qualification level<input name="level" required></label><label>Required amount (paise)<input name="amountPaise" type="number" min="1" step="1" required></label><label>Policy reference<input name="policyVersion" required value="UNVERIFIED_POLICY"></label><label>Period start<input type="date" name="starts" required></label><label>Period end<input type="date" name="ends" required></label><label>Exemption claim<textarea name="exemption"></textarea></label><label>Obligation status<select name="status"><option>registered</option><option>requires_review</option><option>exemption_claimed</option></select></label><button>Save obligation</button></form></div>',
+        );
         const profileForm = panel.querySelector("#profile-form");
         function editor(name, labels, values) {
           const fieldset = document.createElement("fieldset"),
@@ -119,23 +138,26 @@ window.mountDomainNavigation = function ({
         };
         const list = panel.querySelector("#obligation-list"),
           form = panel.querySelector("#obligation-form");
-        for (const o of obligations) {
-          const entry = document.createElement("p");
-          entry.innerHTML =
-            escape(
-              o.id + " · " + o.programme + " · " + o.amount_paise + " paise",
-            ) + ' <button type="button">Edit obligation</button>';
-          entry.querySelector("button").onclick = () => {
-            for (const [k, v] of Object.entries({
-              ...o,
-              amountPaise: o.amount_paise,
-              policyVersion: o.policy_version,
-            })) {
-              if (form.elements[k]) form.elements[k].value = v ?? "";
-            }
-          };
-          list.append(entry);
-        }
+        paged("/obligations", obligations, list, (items) => {
+          list.replaceChildren();
+          for (const o of items) {
+            const entry = document.createElement("p");
+            entry.innerHTML =
+              escape(
+                o.id + " · " + o.programme + " · " + o.amount_paise + " paise",
+              ) + ' <button type="button">Edit obligation</button>';
+            entry.querySelector("button").onclick = () => {
+              for (const [k, v] of Object.entries({
+                ...o,
+                amountPaise: o.amount_paise,
+                policyVersion: o.policy_version,
+              })) {
+                if (form.elements[k]) form.elements[k].value = v ?? "";
+              }
+            };
+            list.append(entry);
+          }
+        });
         form.onsubmit = (e) => {
           e.preventDefault();
           run(async () => {
@@ -163,26 +185,34 @@ window.mountDomainNavigation = function ({
             .join("") +
           "</select></label><button>Create account</button></form>";
         panel.append(card);
-        for (const a of accounts) {
-          const row = document.createElement("p");
-          row.textContent = a.email + " · " + a.role + " · " + a.status;
-          if (a.id !== user.id) {
-            const toggle = document.createElement("button");
-            toggle.textContent =
-              a.status === "active" ? "Disable account" : "Enable account";
-            toggle.onclick = () =>
-              run(async () => {
-                await api("/accounts", "POST", {
-                  id: a.id,
-                  status: a.status === "active" ? "disabled" : "active",
-                  reason: "Account administrator changed availability",
-                });
-                await registry();
-              });
-            row.append(toggle);
-          }
-          card.querySelector("#account-list").append(row);
-        }
+        paged(
+          "/accounts",
+          accounts,
+          card.querySelector("#account-list"),
+          (items) => {
+            card.querySelector("#account-list").replaceChildren();
+            for (const a of items) {
+              const row = document.createElement("p");
+              row.textContent = a.email + " · " + a.role + " · " + a.status;
+              if (a.id !== user.id) {
+                const toggle = document.createElement("button");
+                toggle.textContent =
+                  a.status === "active" ? "Disable account" : "Enable account";
+                toggle.onclick = () =>
+                  run(async () => {
+                    await api("/accounts", "POST", {
+                      id: a.id,
+                      status: a.status === "active" ? "disabled" : "active",
+                      reason: "Account administrator changed availability",
+                    });
+                    await registry();
+                  });
+                row.append(toggle);
+              }
+              card.querySelector("#account-list").append(row);
+            }
+          },
+        );
         card.querySelector("form").onsubmit = (e) => {
           e.preventDefault();
           const b = Object.fromEntries(new FormData(e.target));
@@ -208,6 +238,43 @@ window.mountDomainCase = function ({
   const host = document.querySelector("#detail .columns > div:last-child"),
     card = document.createElement("div");
   card.className = "card";
+  for (const kind of ["history", "audit"]) {
+    let cursor = c[kind + "Page"]?.nextCursor;
+    if (!cursor) continue;
+    const panel = document.createElement("div");
+    panel.className = "card";
+    const heading = document.createElement("h3");
+    heading.textContent =
+      kind === "history" ? "Earlier evidence history" : "Earlier audit events";
+    panel.append(heading);
+    const button = document.createElement("button");
+    button.textContent = "Load older " + kind;
+    panel.append(button);
+    button.onclick = () =>
+      run(async () => {
+        const page = await api(
+          "/cases/" +
+            c.id +
+            "/" +
+            kind +
+            "?cursor=" +
+            encodeURIComponent(cursor),
+        );
+        for (const event of page.items) {
+          const detail = document.createElement("details"),
+            summary = document.createElement("summary"),
+            pre = document.createElement("pre");
+          summary.textContent =
+            (event.kind || event.action) + " · " + event.created;
+          pre.textContent = JSON.stringify(event.payload || event, null, 2);
+          detail.append(summary, pre);
+          panel.append(detail);
+        }
+        cursor = page.nextCursor;
+        button.hidden = !cursor;
+      });
+    host.append(panel);
+  }
   card.innerHTML =
     "<h2>Lifecycle and linked records</h2><p>Administrative state: <b>" +
     escape(c.domain.status) +
@@ -257,10 +324,12 @@ window.mountDomainCase = function ({
   const actions = window.institutionRole(user)
     ? ["submit", "resubmit"]
     : ["start_review", "request_information", "resume_review", "record_review"];
-  card.innerHTML +=
+  card.insertAdjacentHTML(
+    "beforeend",
     '<form id="lifecycle-form"><label>Lifecycle action<select name="action">' +
-    actions.map((a) => "<option>" + a + "</option>").join("") +
-    '</select></label><label>Transition reason<input name="reason" required></label><button>Record lifecycle transition</button></form>';
+      actions.map((a) => "<option>" + a + "</option>").join("") +
+      '</select></label><label>Transition reason<input name="reason" required></label><button>Record lifecycle transition</button></form>',
+  );
   card.querySelector("#lifecycle-form").onsubmit = (e) => {
     e.preventDefault();
     const body = Object.fromEntries(new FormData(e.target));
@@ -275,26 +344,50 @@ window.mountDomainCase = function ({
   if (window.institutionRole(user)) {
     const list = document.createElement("div");
     list.innerHTML = "<h3>Linked instruments</h3>";
-    for (const i of c.domain.instruments) {
-      const row = document.createElement("p");
-      row.textContent = i.data.reference + " · " + i.id + " · " + i.status;
-      if (i.id !== c.domain.instrument_id) {
-        const b = document.createElement("button");
-        b.textContent = "Use instrument for this case";
-        b.onclick = () =>
-          run(async () => {
-            await api("/cases/" + c.id + "/instrument-primary", "POST", {
-              instrumentId: i.id,
-              revision: c.revision,
-              reason: "Institution selected linked instrument",
+    const renderInstruments = (items) => {
+      list.innerHTML = "<h3>Linked instruments</h3>";
+      for (const i of items) {
+        const row = document.createElement("p");
+        row.textContent = i.data.reference + " · " + i.id + " · " + i.status;
+        if (i.id !== c.domain.instrument_id) {
+          const b = document.createElement("button");
+          b.textContent = "Use instrument for this case";
+          b.onclick = () =>
+            run(async () => {
+              await api("/cases/" + c.id + "/instrument-primary", "POST", {
+                instrumentId: i.id,
+                revision: c.revision,
+                reason: "Institution selected linked instrument",
+              });
+              await detail(c.id);
             });
-            await detail(c.id);
-          });
-        row.append(b);
+          row.append(b);
+        }
+        list.append(row);
       }
-      list.append(row);
-    }
+    };
+    renderInstruments(c.domain.instruments);
     card.append(list);
+    if (c.domain.counts?.instruments > 100) {
+      let cursor = null;
+      const more = document.createElement("button");
+      more.textContent = "Browse instrument pages";
+      more.onclick = () =>
+        run(async () => {
+          const page = await api(
+            "/cases/" +
+              c.id +
+              "/domain-records?kind=instruments&limit=100" +
+              (cursor ? "&cursor=" + encodeURIComponent(cursor) : ""),
+          );
+          renderInstruments(page.items);
+          cursor = page.nextCursor;
+          more.textContent = cursor
+            ? "Next instruments"
+            : "First instrument page";
+        });
+      card.append(more);
+    }
     const add = document.createElement("form");
     add.innerHTML =
       "<h3>Register another instrument</h3>" +

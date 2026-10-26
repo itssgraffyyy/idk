@@ -130,10 +130,10 @@ writeFileSync(
       command: "node scripts/benchmark-final-ocr.js",
       engine: "Tesseract.js7 local eng, PSM6 + existing rotation fallback",
       parser:
-        "ifsc-candidates-v1; no automatic financial identifier substitution",
+        "ten-field-extraction + visual-glyph-templates-v1; secondary IFSC proposals require human review; no directory/truth substitution",
       baselineParserCommit: "2846d76",
       heldOutPolicy:
-        "v1 C previously exposed; new v2 G/H not used for tuning; no tuning after first final evaluation",
+        "v1/v2 previously evaluated; v3 J/K/L layouts frozen before first recognition; no held-out tuning; repeat validation of unchanged extraction logic",
       datasets,
     },
     null,

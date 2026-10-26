@@ -35,6 +35,14 @@ async function api(path, method = "GET", body) {
     ...(body ? { body: JSON.stringify(body) } : {}),
   });
   const v = await r.json();
+  if (Array.isArray(v))
+    Object.defineProperty(v, "page", {
+      value: {
+        nextCursor: r.headers.get("x-next-cursor"),
+        total: r.headers.get("x-total-count"),
+        totalPaise: r.headers.get("x-total-paise"),
+      },
+    });
   if (!r.ok) throw Error(v.error);
   return v;
 }
@@ -119,13 +127,20 @@ function views(name) {
   for (const id of ["login", "workspace", "detail", "management"])
     $("#" + id).hidden = id !== name;
 }
-async function registry() {
+async function registry(cursor = null) {
   views("workspace");
   $("#new-case").hidden = !window.institutionRole(user);
-  const cases = await api("/cases");
-  $("#count").textContent = cases.length;
+  const filters = Object.fromEntries(new FormData($("#case-filter"))),
+    query = new URLSearchParams({
+      ...filters,
+      limit: "25",
+      ...(cursor ? { cursor } : {}),
+    });
+  const cases = await api("/cases?" + query);
+  $("#count").textContent = cases.page.total ?? cases.length;
   $("#total").textContent = money(
-    cases.reduce((n, c) => n + BigInt(c.instrument.amountPaise), 0n),
+    cases.page.totalPaise ??
+      cases.reduce((n, c) => n + BigInt(c.instrument.amountPaise), 0n),
   );
   $("#registry").innerHTML =
     '<div class="title-row"><h2>Submissions</h2><span class="muted">Assigned & accessible to you</span></div>' +
@@ -152,22 +167,39 @@ async function registry() {
   document
     .querySelectorAll("[data-case]")
     .forEach((b) => (b.onclick = () => run(() => detail(b.dataset.case))));
+  if (cursor) {
+    const first = document.createElement("button");
+    first.textContent = "First page";
+    first.onclick = () => run(() => registry());
+    $("#registry").append(first);
+  }
+  if (cases.page.nextCursor) {
+    const next = document.createElement("button");
+    next.textContent = "Next cases";
+    next.onclick = () => run(() => registry(cases.page.nextCursor));
+    $("#registry").append(next);
+  }
 }
 async function detail(id) {
   current = await api("/cases/" + id);
   const c = current,
-    h = c.history,
-    last = (k) => h.filter((e) => e.kind === k).at(-1),
+    h = [
+      ...new Map(
+        [...(c.currentEvidence || []), ...c.history].map((e) => [e.id, e]),
+      ).values(),
+    ].sort((a, b) => (a.sequence || 0) - (b.sequence || 0)),
+    last = (k) => (c.currentEvidence || h).filter((e) => e.kind === k).at(-1),
     report = last("evaluation"),
     x = last("extraction"),
     ext = last("external"),
-    doc = h
+    doc = (c.currentEvidence || h)
       .filter(
         (e) =>
           e.kind === "document" &&
           (!e.payload.documentKind || e.payload.documentKind === "fdr"),
       )
       .at(-1);
+  c.history = h;
   views("detail");
   $("#detail").innerHTML =
     '<button id="back">← Case registry</button><div class="title-row"><div><p class="eyebrow">CASE / ' +
@@ -261,9 +293,13 @@ async function detail(id) {
           "/documents/" +
           e.id +
           '">Download version ' +
-          (i + 1) +
+          escape(e.payload.documentVersion || i + 1) +
           '</a></p><p class="source">SHA-256 ' +
           escape(e.payload.sha256) +
+          (e.payload.duplicateOf
+            ? " · Identical bytes to preserved version " +
+              escape(e.payload.duplicateOf)
+            : "") +
           "</p>",
       )
       .join("") +
@@ -327,8 +363,21 @@ async function detail(id) {
       run(async () => {
         const target = $("#document-preview");
         if (doc.payload.mime === "application/pdf") {
-          target.textContent =
-            "PDFs are downloaded privately for local viewing. Embedded active content is not rendered in this workspace.";
+          target.innerHTML =
+            '<label>PDF page <input id="pdf-page" type="number" min="1" max="5" value="1"></label><button id="pdf-show">Show page</button><img class="document-image" id="pdf-image" alt="Protected PDF page preview">';
+          const show = () => {
+            const n = Number(document.querySelector("#pdf-page").value);
+            if (Number.isInteger(n) && n >= 1 && n <= 5)
+              document.querySelector("#pdf-image").src =
+                "/api/cases/" +
+                id +
+                "/documents/" +
+                doc.id +
+                "?preview=1&page=" +
+                n;
+          };
+          document.querySelector("#pdf-show").onclick = show;
+          show();
         } else if (doc.payload.mime.startsWith("image/"))
           target.innerHTML =
             '<img class="document-image" alt="Uploaded source document" src="/api/cases/' +
@@ -378,9 +427,20 @@ async function detail(id) {
     };
     $("#process").onclick = () =>
       run(async () => {
-        const p = await api("/cases/" + id + "/process", "POST", {});
+        const p = await api("/cases/" + id + "/process", "POST", {
+          background: true,
+        });
+        let job;
+        do {
+          await new Promise((resolve) => setTimeout(resolve, 500));
+          job = await api("/cases/" + id + "/jobs/" + p.jobId);
+        } while (job.status === "processing");
         await detail(id);
-        if (p.status === "failed") notice(p.error);
+        if (job.status !== "completed")
+          notice(
+            job.error ||
+              "Processing " + job.status + "; inspect evidence history",
+          );
       });
     $("#correction").onsubmit = (e) => {
       e.preventDefault();
@@ -481,6 +541,10 @@ $("#logout").onclick = () =>
   });
 $("#cases-nav").onclick = () => {
   if (user) run(registry);
+};
+$("#case-filter").onsubmit = (e) => {
+  e.preventDefault();
+  run(() => registry());
 };
 $("#instrument-fields").innerHTML = fieldInputs();
 $("#new-case").onclick = () =>

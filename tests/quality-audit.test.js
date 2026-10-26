@@ -111,7 +111,7 @@ test("single-instance lease, migration checksums and data survive reopen", async
       ).body.id;
     assert.equal(
       h.app.db.prepare("SELECT count(*) n FROM schema_migrations").get().n,
-      4,
+      7,
     );
     assert.throws(() =>
       h.app.db
@@ -540,7 +540,7 @@ test(
       assert.equal(document.status, 201);
       const route = "/cases/" + id + "/documents/" + document.body.id;
       assert.equal((await h.call(route, undefined, b)).status, 404);
-      const download = await fetch(h.base + "/api" + route + "?preview=1", {
+      const download = await fetch(h.base + "/api" + route, {
         headers: a,
       });
       assert.equal(download.headers.get("content-type"), "application/pdf");
@@ -548,6 +548,34 @@ test(
         download.headers.get("content-disposition").includes("attachment"),
       );
       assert(download.headers.get("content-disposition").includes(".pdf"));
+      const preview = await fetch(
+        h.base + "/api" + route + "?preview=1&page=1",
+        { headers: a },
+      );
+      assert.equal(preview.status, 200);
+      assert.equal(preview.headers.get("content-type"), "image/png");
+      assert.equal(
+        Buffer.from(await preview.arrayBuffer())
+          .subarray(0, 8)
+          .toString("hex"),
+        "89504e470d0a1a0a",
+      );
+      assert.equal(
+        (
+          await fetch(h.base + "/api" + route + "?preview=1&page=0", {
+            headers: a,
+          })
+        ).status,
+        400,
+      );
+      assert.equal(
+        (
+          await fetch(h.base + "/api" + route + "?preview=1&page=1", {
+            headers: b,
+          })
+        ).status,
+        404,
+      );
       const embedded = await h.call("/cases/" + id + "/process", {}, a);
       assert.equal(embedded.status, 200);
       assert.equal(embedded.body.status, "completed");

@@ -15,4 +15,10 @@ const build = spawnSync(process.execPath, ["scripts/build-check.js"], {
   stdio: "inherit",
   windowsHide: true,
 });
-process.exitCode = build.status || 0;
+if (build.status) process.exit(build.status);
+process.exitCode =
+  spawnSync(
+    process.execPath,
+    ["node_modules/typescript/bin/tsc", "-p", "tsconfig.contracts.json"],
+    { stdio: "inherit", windowsHide: true },
+  ).status || 0;
