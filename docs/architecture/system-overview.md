@@ -1,3 +1,5 @@
+> Current status: see [audit update](../audit-status-update.md) and [completion report](../phase-1-2-completion-report.md). Baseline descriptions below are retained for history.
+
 # System overview
 A single loopback Node.js service serves HTML/CSS/JS and JSON APIs. SQLite WAL stores users, sessions, institution profiles, cases, append-only evidence, durable processing states and audit events. UUID-named private files live outside the served asset directory.
 

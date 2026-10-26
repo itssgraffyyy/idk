@@ -1,0 +1,400 @@
+{
+  "datasetVersion": "synthetic-v1",
+  "asOf": "2026-10-26",
+  "configuration": "Original v1 ground truth retained; add explicit unavailable fictional IFSC and missing regulatory applicability findings after replacing fictional directory",
+  "precision": 1,
+  "recall": 1,
+  "tp": 104,
+  "fp": 0,
+  "fn": 0,
+  "rows": [
+    {
+      "id": "case-001",
+      "expected": [
+        "mock_only",
+        "policy_unverified",
+        "ifsc_unavailable",
+        "regulatory_programme_amount"
+      ],
+      "actual": [
+        "ifsc_unavailable",
+        "mock_only",
+        "policy_unverified",
+        "regulatory_programme_amount"
+      ],
+      "outcome": "human_review_required",
+      "pass": true
+    },
+    {
+      "id": "case-002",
+      "expected": [
+        "mismatch_amountPaise",
+        "mock_only",
+        "policy_unverified",
+        "ifsc_unavailable",
+        "regulatory_programme_amount"
+      ],
+      "actual": [
+        "ifsc_unavailable",
+        "mismatch_amountPaise",
+        "mock_only",
+        "policy_unverified",
+        "regulatory_programme_amount"
+      ],
+      "outcome": "human_review_required",
+      "pass": true
+    },
+    {
+      "id": "case-003",
+      "expected": [
+        "missing_reference",
+        "mock_only",
+        "policy_unverified",
+        "ifsc_unavailable",
+        "regulatory_programme_amount"
+      ],
+      "actual": [
+        "ifsc_unavailable",
+        "missing_reference",
+        "mock_only",
+        "policy_unverified",
+        "regulatory_programme_amount"
+      ],
+      "outcome": "human_review_required",
+      "pass": true
+    },
+    {
+      "id": "case-004",
+      "expected": [
+        "duplicate_reference",
+        "mock_only",
+        "policy_unverified",
+        "ifsc_unavailable",
+        "regulatory_programme_amount"
+      ],
+      "actual": [
+        "ifsc_unavailable",
+        "duplicate_reference",
+        "mock_only",
+        "policy_unverified",
+        "regulatory_programme_amount"
+      ],
+      "outcome": "human_review_required",
+      "pass": true
+    },
+    {
+      "id": "case-005",
+      "expected": [
+        "mismatch_bank",
+        "mock_only",
+        "policy_unverified",
+        "ifsc_unavailable",
+        "regulatory_programme_amount"
+      ],
+      "actual": [
+        "ifsc_unavailable",
+        "mismatch_bank",
+        "mock_only",
+        "policy_unverified",
+        "regulatory_programme_amount"
+      ],
+      "outcome": "human_review_required",
+      "pass": true
+    },
+    {
+      "id": "case-006",
+      "expected": [
+        "mismatch_ifsc",
+        "mock_only",
+        "policy_unverified",
+        "ifsc_unavailable",
+        "regulatory_programme_amount"
+      ],
+      "actual": [
+        "ifsc_unavailable",
+        "mismatch_ifsc",
+        "mock_only",
+        "policy_unverified",
+        "regulatory_programme_amount"
+      ],
+      "outcome": "human_review_required",
+      "pass": true
+    },
+    {
+      "id": "case-007",
+      "expected": [
+        "missing_amountPaise",
+        "missing_bank",
+        "missing_ifsc",
+        "missing_issued",
+        "missing_matures",
+        "missing_reference",
+        "mock_only",
+        "policy_unverified",
+        "ifsc_unavailable",
+        "regulatory_programme_amount"
+      ],
+      "actual": [
+        "ifsc_unavailable",
+        "missing_reference",
+        "missing_amountPaise",
+        "missing_bank",
+        "missing_ifsc",
+        "missing_issued",
+        "missing_matures",
+        "mock_only",
+        "policy_unverified",
+        "regulatory_programme_amount"
+      ],
+      "outcome": "human_review_required",
+      "pass": true
+    },
+    {
+      "id": "case-008",
+      "expected": [
+        "mock_only",
+        "policy_unverified",
+        "ifsc_unavailable",
+        "regulatory_programme_amount"
+      ],
+      "actual": [
+        "ifsc_unavailable",
+        "mock_only",
+        "policy_unverified",
+        "regulatory_programme_amount"
+      ],
+      "outcome": "human_review_required",
+      "pass": true
+    },
+    {
+      "id": "case-009",
+      "expected": [
+        "missing_issued",
+        "missing_matures",
+        "mock_only",
+        "policy_unverified",
+        "ifsc_unavailable",
+        "regulatory_programme_amount"
+      ],
+      "actual": [
+        "ifsc_unavailable",
+        "missing_issued",
+        "missing_matures",
+        "mock_only",
+        "policy_unverified",
+        "regulatory_programme_amount"
+      ],
+      "outcome": "human_review_required",
+      "pass": true
+    },
+    {
+      "id": "case-010",
+      "expected": [
+        "date_order",
+        "expired",
+        "mock_only",
+        "policy_unverified",
+        "ifsc_unavailable",
+        "regulatory_programme_amount"
+      ],
+      "actual": [
+        "ifsc_unavailable",
+        "mock_only",
+        "date_order",
+        "expired",
+        "policy_unverified",
+        "regulatory_programme_amount"
+      ],
+      "outcome": "human_review_required",
+      "pass": true
+    },
+    {
+      "id": "case-011",
+      "expected": [
+        "mock_only",
+        "policy_unverified",
+        "ifsc_unavailable",
+        "regulatory_programme_amount"
+      ],
+      "actual": [
+        "ifsc_unavailable",
+        "mock_only",
+        "policy_unverified",
+        "regulatory_programme_amount"
+      ],
+      "outcome": "human_review_required",
+      "pass": true
+    },
+    {
+      "id": "case-012",
+      "expected": [
+        "mock_only",
+        "policy_unverified",
+        "ifsc_unavailable",
+        "regulatory_programme_amount"
+      ],
+      "actual": [
+        "ifsc_unavailable",
+        "mock_only",
+        "policy_unverified",
+        "regulatory_programme_amount"
+      ],
+      "outcome": "human_review_required",
+      "pass": true
+    },
+    {
+      "id": "case-013",
+      "expected": [
+        "external_amountPaise",
+        "mock_only",
+        "policy_unverified",
+        "ifsc_unavailable",
+        "regulatory_programme_amount"
+      ],
+      "actual": [
+        "ifsc_unavailable",
+        "external_amountPaise",
+        "mock_only",
+        "policy_unverified",
+        "regulatory_programme_amount"
+      ],
+      "outcome": "human_review_required",
+      "pass": true
+    },
+    {
+      "id": "case-014",
+      "expected": [
+        "bank_confirmation",
+        "policy_unverified",
+        "ifsc_unavailable",
+        "regulatory_programme_amount"
+      ],
+      "actual": [
+        "ifsc_unavailable",
+        "bank_confirmation",
+        "policy_unverified",
+        "regulatory_programme_amount"
+      ],
+      "outcome": "human_review_required",
+      "pass": true
+    },
+    {
+      "id": "case-015",
+      "expected": [
+        "amount_shortfall",
+        "mock_only",
+        "policy_unverified",
+        "ifsc_unavailable",
+        "regulatory_programme_amount"
+      ],
+      "actual": [
+        "ifsc_unavailable",
+        "mock_only",
+        "amount_shortfall",
+        "policy_unverified",
+        "regulatory_programme_amount"
+      ],
+      "outcome": "human_review_required",
+      "pass": true
+    },
+    {
+      "id": "case-016",
+      "expected": [
+        "expired",
+        "mock_only",
+        "policy_unverified",
+        "ifsc_unavailable",
+        "regulatory_programme_amount"
+      ],
+      "actual": [
+        "ifsc_unavailable",
+        "mock_only",
+        "expired",
+        "policy_unverified",
+        "regulatory_programme_amount"
+      ],
+      "outcome": "human_review_required",
+      "pass": true
+    },
+    {
+      "id": "case-017",
+      "expected": [
+        "missing_amountPaise",
+        "mock_only",
+        "policy_unverified",
+        "ifsc_unavailable",
+        "regulatory_programme_amount"
+      ],
+      "actual": [
+        "ifsc_unavailable",
+        "missing_amountPaise",
+        "mock_only",
+        "policy_unverified",
+        "regulatory_programme_amount"
+      ],
+      "outcome": "human_review_required",
+      "pass": true
+    },
+    {
+      "id": "case-018",
+      "expected": [
+        "missing_ifsc",
+        "mock_only",
+        "policy_unverified",
+        "ifsc_unavailable",
+        "regulatory_programme_amount"
+      ],
+      "actual": [
+        "ifsc_unavailable",
+        "missing_ifsc",
+        "mock_only",
+        "policy_unverified",
+        "regulatory_programme_amount"
+      ],
+      "outcome": "human_review_required",
+      "pass": true
+    },
+    {
+      "id": "case-019",
+      "expected": [
+        "missing_bank",
+        "mock_only",
+        "policy_unverified",
+        "ifsc_unavailable",
+        "regulatory_programme_amount"
+      ],
+      "actual": [
+        "ifsc_unavailable",
+        "missing_bank",
+        "mock_only",
+        "policy_unverified",
+        "regulatory_programme_amount"
+      ],
+      "outcome": "human_review_required",
+      "pass": true
+    },
+    {
+      "id": "case-020",
+      "expected": [
+        "external_reference",
+        "mismatch_amountPaise",
+        "mismatch_bank",
+        "mock_only",
+        "policy_unverified",
+        "ifsc_unavailable",
+        "regulatory_programme_amount"
+      ],
+      "actual": [
+        "ifsc_unavailable",
+        "external_reference",
+        "mismatch_amountPaise",
+        "mismatch_bank",
+        "mock_only",
+        "policy_unverified",
+        "regulatory_programme_amount"
+      ],
+      "outcome": "human_review_required",
+      "pass": true
+    }
+  ]
+}

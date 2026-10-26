@@ -1,3 +1,5 @@
+> Current status: see [audit update](../audit-status-update.md) and [completion report](../phase-1-2-completion-report.md). Baseline descriptions below are retained for history.
+
 # Requirement traceability
 Only sections 1 and 18–28 were present in the supplied prompt; sections 2–17 were absent. This register describes delivered behavior without inventing omitted requirements.
 

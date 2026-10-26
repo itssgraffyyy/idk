@@ -1,3 +1,5 @@
+> Current status: see [audit update](../audit-status-update.md) and [completion report](../phase-1-2-completion-report.md). Baseline descriptions below are retained for history.
+
 # Measured local results
 Dataset: synthetic-v1; Node v22.14.0; Windows; reference date 26 October 2026.
 Machine-specific measurements are committed in adjacent JSON files.

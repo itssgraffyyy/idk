@@ -1,3 +1,5 @@
+> Current status: see [audit update](audit-status-update.md) and [completion report](phase-1-2-completion-report.md). Baseline descriptions below are retained for history.
+
 # API and frontend
 Frontend route / serves login, registry and case views according to authenticated role. It is one buildless application, not separately routed demo screens.
 

@@ -1,3 +1,5 @@
+> Current status: see [audit update](../audit-status-update.md) and [completion report](../phase-1-2-completion-report.md). Baseline descriptions below are retained for history.
+
 # Security controls and limits
 Implemented: scrypt (random per-user salt), cryptographic random session/CSRF tokens, stored token digests, absolute 8-hour expiry, logout revocation, server roles/tenant checks, assigned-officer filtering, origin/CSRF checks, login throttle (15 attempts/minute/IP), parameterized queries, payload bounds, strict financial/date validation, 4 MiB upload limit, image decode and 10-megapixel bounds, private UUID paths, SHA-256 retrieval checks, immutable evidence/audit triggers, revision conflicts, CSP and no-store headers.
 

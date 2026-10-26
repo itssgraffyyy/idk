@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-26",
+  "implementationCommit": "51ddfce",
+  "commands": {
+    "npm run verify": {
+      "exitCode": 0,
+      "tests": 49,
+      "passed": 49,
+      "failed": 0
+    },
+    "npm run test:e2e": {
+      "exitCode": 0,
+      "passed": 2,
+      "elapsedSeconds": 22.8
+    },
+    "npm audit --json": {
+      "exitCode": 0,
+      "totalAdvisories": 0,
+      "scope": "Dependency advisory scan only"
+    }
+  },
+  "setu": {
+    "liveTestRun": false,
+    "reason": "Owner confirmed no sandbox credentials; contract tests authorized"
+  },
+  "regulatory": {
+    "issuerHostConfirmed": false,
+    "assessmentState": "human_review_required"
+  },
+  "ocr": {
+    "presentFieldsEach18of18": [
+      "reference",
+      "amount",
+      "bank",
+      "issued",
+      "matures"
+    ],
+    "ifsc": {
+      "correct": 0,
+      "present": 18
+    },
+    "heldOutIfsc": {
+      "correct": 0,
+      "present": 4
+    }
+  },
+  "notes": [
+    "No source-code changes occurred after final passing tests; final formatter reported application and tests unchanged.",
+    "Formatter invocation including .env.example returned unsupported-parser error for that file; code formatting completed and no build failure occurred.",
+    "Raw automated-test output and benchmark JSON files are retained alongside this summary."
+  ]
+}

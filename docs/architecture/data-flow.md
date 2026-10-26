@@ -1,3 +1,5 @@
+> Current status: see [audit update](../audit-status-update.md) and [completion report](../phase-1-2-completion-report.md). Baseline descriptions below are retained for history.
+
 # Data flow
 1. Authenticate; store only hashed session token server-side and issue HttpOnly SameSite cookie.
 2. Authorize tenant ownership or exact officer assignment for each case resource.

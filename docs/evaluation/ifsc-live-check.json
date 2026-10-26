@@ -1,0 +1,33 @@
+{
+  "code": "HDFC0000001",
+  "source": "https://ifsc.razorpay.com/HDFC0000001",
+  "version": "live-response-sha256:a148d472f922d3579a9ae6730363532ee0deee47130fa82bf1c1b8bb706fdae2",
+  "releaseDate": "2026-09-01",
+  "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+  "realBankValidation": false,
+  "independentDepositConfirmation": false,
+  "status": "reference_match",
+  "bank": "HDFC Bank",
+  "branch": "TULSIANI CHMBRS - NARIMAN PT",
+  "record": {
+    "IMPS": true,
+    "DISTRICT": "MUMBAI",
+    "BRANCH": "TULSIANI CHMBRS - NARIMAN PT",
+    "ADDRESS": "101-104 TULSIANI CHAMBERSFREE PRESS JOURNAL MARGNARIMAN POINTMUMBAI MAHARASHTRA 400 021",
+    "STATE": "MAHARASHTRA",
+    "UPI": true,
+    "RTGS": true,
+    "MICR": "400240003",
+    "CENTRE": "MUMBAI",
+    "CONTACT": "+919890603333",
+    "CITY": "GREATER MUMBAI",
+    "ISO3166": "IN-MH",
+    "NEFT": true,
+    "SWIFT": "HDFCINBB",
+    "BANK": "HDFC Bank",
+    "BANKCODE": "HDFC",
+    "IFSC": "HDFC0000001"
+  },
+  "mode": "public_service",
+  "retrievedAt": "2026-10-26T16:07:45.414Z"
+}

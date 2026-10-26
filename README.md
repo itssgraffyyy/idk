@@ -1,5 +1,7 @@
+> Updated quality audit: [Phase 1/2 gap audit](docs/phase-1-2-gap-audit.md). The initial implementation report is historical. Real IFSC references and source-pinned AICTE reference calculations are now available; Setu is contract-tested only.
+
 # FDR Sentinel
-A local evidence and review application for fictional security deposits. This is a functional development baseline, not a completed production compliance system. AICTE policy decisions remain unconfirmed; banking evidence and IFSC lookups use explicitly fictional adapters.
+A local evidence and review application for fictional security deposits. This is a functional development baseline, not a completed production compliance system. AICTE policy decisions remain unconfirmed; banking evidence is explicitly simulated or sandbox-classified. IFSC uses a real versioned public dataset and public-service fallback.
 
 ## Run (Windows PowerShell)
 Requires Node.js 22.13+ (tested 22.14), npm, and Google Chrome for browser tests.
@@ -23,6 +25,9 @@ powershell -NoProfile -File scripts/render-fixtures.ps1
 npm run benchmark
 npm run benchmark:ocr
 npm run benchmark:system
+npm run build
+npm run verify
+npm run benchmark:ocr:audit
 ```
 The browser runner owns an isolated database, starts port 3107, uses installed Chrome, and tears down its server. Avoid another server on that port. CHROME_PATH overrides Chrome's executable path. The frontend is buildless; Node syntax checks and Playwright verify its executable assets. No frontend compilation step is required.
 
@@ -47,3 +52,5 @@ No banking API credentials are used. OCR does not download models at runtime. Ru
 - docs: architecture, traceability, threat model, rule register and measured results.
 
 Read [implementation report](docs/implementation-report.md), [results](docs/evaluation/results.md), [limitations](docs/security/security-controls.md), and [API](docs/api.md) before extending or deploying. Phase 1/2 are not declared fully complete: outstanding acceptance items are explicitly listed in traceability.
+
+Current source/version notes, Setu environment variables and remaining limitations are in docs/integrations/financial-providers.md, docs/regulatory/rule-register.md and docs/phase-1-2-gap-audit.md.

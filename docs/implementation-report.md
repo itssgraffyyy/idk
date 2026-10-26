@@ -1,3 +1,5 @@
+> Historical baseline report at b798615. Superseded for current status by phase-1-2-gap-audit.md and phase-1-2-completion-report.md.
+
 # Implementation report — 26 October 2026
 FDR Sentinel is implemented in this independent local repository. No GitHub remote push or deployment was performed. The full Phase 2 acceptance definition is not satisfied where it requires validated applicable AICTE rules and institutional evidence unavailable in this task.
 
