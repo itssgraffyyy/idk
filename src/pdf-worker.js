@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
 import { createCanvas } from "@napi-rs/canvas";
 import { glyphIFSC } from "./glyph-ocr.js";
@@ -12,7 +13,17 @@ try {
   task = getDocument({
     data: new Uint8Array(bytes),
     isEvalSupported: false,
-    useSystemFonts: true,
+    useSystemFonts: !process.argv[3]?.startsWith("preview:"),
+    ...(process.argv[3]?.startsWith("preview:")
+      ? {
+          standardFontDataUrl: fileURLToPath(
+            new URL(
+              "../node_modules/pdfjs-dist/standard_fonts/",
+              import.meta.url,
+            ),
+          ).replaceAll("\\", "/"),
+        }
+      : {}),
     stopAtErrors: true,
   });
   doc = await task.promise;
@@ -55,6 +66,7 @@ try {
         JSON.stringify({
           page: n,
           pages: doc.numPages,
+          rendering: { fontMode: "pdf-embedded-or-bundled-standard" },
           viewport: {
             width: Math.ceil(viewport.width),
             height: Math.ceil(viewport.height),

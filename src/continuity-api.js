@@ -1,7 +1,8 @@
 import { analyzeContinuity } from "./continuity.js";
 import { randomUUID } from "node:crypto";
 import { isInstitution, isReviewer } from "./permissions.js";
-import { reminderWindows } from "./reminders.js";
+import { reminderWindows, reminderCategories } from "./reminders.js";
+import { paginate } from "./pagination.js";
 const reject = (status, message) => {
   throw Object.assign(Error(message), { status });
 };
@@ -17,7 +18,24 @@ export function continuityRoute({
   u,
   body,
   tx,
+  key,
 }) {
+  if (action === "reminders/history" && method === "GET") {
+    const page = paginate(db, {
+      table: "reminder_deliveries t",
+      where: "t.case_id=? AND t.user_id=?",
+      params: [c.id, u.id],
+      url,
+      scope: u.id + "|" + u.role + "|reminder-history|" + c.id,
+      key,
+      descending: true,
+    });
+    json(res, 200, {
+      ...page,
+      items: page.items.map((r) => ({ ...r, context: JSON.parse(r.context) })),
+    });
+    return true;
+  }
   if (action === "reminders" && method === "GET") {
     const p = db
       .prepare(
@@ -28,13 +46,22 @@ export function continuityRoute({
       res,
       200,
       p
-        ? { ...p, windows: JSON.parse(p.windows) }
-        : { windows: [0, 7, 30, 90], enabled: false, revision: 0 },
+        ? {
+            ...p,
+            windows: JSON.parse(p.windows),
+            categories: JSON.parse(p.categories),
+          }
+        : {
+            windows: [0, 7, 30, 90],
+            categories: ["maturity", "clarification"],
+            enabled: false,
+            revision: 0,
+          },
     );
     return true;
   }
   if (action === "reminders" && method === "POST") {
-    let windows;
+    let windows, categories;
     try {
       windows = reminderWindows(body.windows);
     } catch (e) {
@@ -45,22 +72,45 @@ export function continuityRoute({
     tx(() => {
       const p = db
         .prepare(
-          "SELECT revision FROM reminder_preferences WHERE user_id=? AND case_id=?",
+          "SELECT revision,categories FROM reminder_preferences WHERE user_id=? AND case_id=?",
         )
         .get(u.id, c.id);
       if (body.revision !== (p?.revision || 0))
         reject(409, "Reminder preferences changed");
+      try {
+        categories = reminderCategories(
+          body.categories ??
+            JSON.parse(p?.categories || '["maturity","clarification"]'),
+        );
+      } catch (e) {
+        reject(400, e.message);
+      }
+      if (
+        categories.includes("supervisor_attention") &&
+        u.role !== "supervisor"
+      )
+        reject(403, "Supervisor reminder permission required");
+      if (categories.includes("assignment") && !isReviewer(u))
+        reject(403, "Assignment reminder permission required");
       db.prepare(
-        "INSERT INTO reminder_preferences VALUES(?,?,?,?,1) ON CONFLICT(user_id,case_id) DO UPDATE SET windows=excluded.windows,enabled=excluded.enabled,revision=reminder_preferences.revision+1",
-      ).run(u.id, c.id, JSON.stringify(windows), Number(body.enabled));
+        "INSERT INTO reminder_preferences(user_id,case_id,windows,enabled,revision,categories) VALUES(?,?,?,?,1,?) ON CONFLICT(user_id,case_id) DO UPDATE SET windows=excluded.windows,enabled=excluded.enabled,categories=excluded.categories,revision=reminder_preferences.revision+1",
+      ).run(
+        u.id,
+        c.id,
+        JSON.stringify(windows),
+        Number(body.enabled),
+        JSON.stringify(categories),
+      );
       audit(u.id, "reminder_preferences", c.id, {
         windows,
         enabled: body.enabled,
+        categories,
       });
     });
     json(res, 200, {
       revision: body.revision + 1,
       windows,
+      categories,
       enabled: body.enabled,
       delivery: "IN_APP_ONLY",
     });

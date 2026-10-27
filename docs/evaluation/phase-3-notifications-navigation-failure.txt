@@ -1,0 +1,47 @@
+(node:15324) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:16420) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:16420) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:16420) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+{"browserFixture":{"startupMs":4178.3072999999995}}
+{"category":"reminder_scheduler","outcome":"SUCCESS","delivered":0,"processed":0,"evaluated":0,"matchedConditions":0,"next":0,"basis":"Asia/Kolkata civil date","asOf":"2026-10-27"}
+{"category":"reminder_scheduler","outcome":"SUCCESS","delivered":0,"processed":0,"evaluated":0,"matchedConditions":0,"next":0,"basis":"Asia/Kolkata civil date","asOf":"2026-10-27"}
+{"category":"reminder_scheduler","outcome":"SUCCESS","delivered":0,"processed":0,"evaluated":0,"matchedConditions":0,"next":0,"basis":"Asia/Kolkata civil date","asOf":"2026-10-27"}
+{"browserFixtureFailure":{"nodeTime":"2026-10-26T22:36:23.851Z","preferences":[],"operations":[{"stage":"draft","updated":"2026-10-26T22:33:15.681Z","input_revision":3}],"deliveries":0}}
+  x  1 tests\browser\notifications.spec.js:2:1 › saved notification categories survive reload and the real scheduler produces a visible immutable delivery (3.2m)
+
+
+  1) tests\browser\notifications.spec.js:2:1 › saved notification categories survive reload and the real scheduler produces a visible immutable delivery 
+
+    Test timeout of 180000ms exceeded.
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('#registry')
+    Expected: visible
+    Error: Test timeout of 180000ms exceeded.
+
+    Call log:
+      - Expect "toBeVisible" locator('#registry') with timeout 5000ms
+      - waiting for locator('#registry')
+
+
+      38 |     const response = await page.goto("/");
+      39 |     expect(response.status()).toBe(200);
+    > 40 |     await expect(page.locator("#registry")).toBeVisible();
+         |                                             ^
+      41 |     await page.getByRole("button", { name: "Open →" }).last().click();
+      42 |     await expect(page.locator("main")).toHaveAttribute("aria-busy", "false");
+      43 |     const p = page.getByRole("region", { name: "Case review workflow" });
+        at open (G:\idk_lol\tests\browser\notifications.spec.js:40:45)
+        at G:\idk_lol\tests\browser\notifications.spec.js:50:15
+
+    Error Context: test-results\notifications-saved-notifi-1646f--visible-immutable-delivery\error-context.md
+
+  1 failed
+    tests\browser\notifications.spec.js:2:1 › saved notification categories survive reload and the real scheduler produces a visible immutable delivery 

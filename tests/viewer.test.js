@@ -39,6 +39,10 @@ test("rotated embedded text highlights overlap actual rendered source ink", asyn
       { headers: a },
     );
     assert.equal(response.status, 200);
+    assert.equal(
+      response.headers.get("x-document-font-mode"),
+      "pdf-embedded-or-bundled-standard",
+    );
     const viewport = {
         ...JSON.parse(response.headers.get("x-document-viewport")),
         page: 1,

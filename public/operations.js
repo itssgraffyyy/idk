@@ -282,18 +282,46 @@ window.mountOperationsCase = async function ({
   }
   const pending = events.pending;
   const reminderForm = document.createElement("form");
+  const reminderChoices = {
+    maturity: "Declared maturity",
+    clarification: "Awaiting clarification response",
+    correction: "Requested corrections",
+    missing_evidence: "Missing instrument evidence",
+    replacement_documentation: "Replacement documentation",
+    ...(reviewer ? { assignment: "Work assigned to me" } : {}),
+    ...(user.role === "supervisor"
+      ? {
+          supervisor_attention:
+            "Supervisory attention for high-severity findings",
+        }
+      : {}),
+  };
   reminderForm.innerHTML =
     '<label>Reminder day windows<input name="windows" value="' +
     escape(preferences.windows.join(",")) +
     '" required></label><label><input name="enabled" type="checkbox" ' +
     (preferences.enabled ? "checked" : "") +
-    ">Enable my in-app maturity and clarification reminders</label><button>Save my reminders</button><p>Uses Asia/Kolkata civil dates; no email or bank action is sent.</p>";
+    ">Enable my in-app reminders</label><fieldset><legend>Reminder categories</legend>" +
+    Object.entries(reminderChoices)
+      .map(
+        ([value, label]) =>
+          '<label><input type="checkbox" name="categories" value="' +
+          value +
+          '" ' +
+          (preferences.categories.includes(value) ? "checked" : "") +
+          ">" +
+          escape(label) +
+          "</label>",
+      )
+      .join("") +
+    "</fieldset><button>Save my reminders</button><p>Uses Asia/Kolkata civil dates. Windows mean days before explicit due dates, or elapsed days after an outstanding action was recorded. These are operational follow-ups, not statutory deadlines. No email or bank action is sent.</p>";
   reminderForm.onsubmit = (e) => {
     e.preventDefault();
     run(async () => {
       await api("/cases/" + c.id + "/reminders", "POST", {
         revision: preferences.revision,
         enabled: reminderForm.elements.enabled.checked,
+        categories: new FormData(reminderForm).getAll("categories"),
         windows: reminderForm.elements.windows.value
           .split(",")
           .map((v) => (v.trim() ? Number(v) : NaN)),
@@ -302,6 +330,48 @@ window.mountOperationsCase = async function ({
     });
   };
   continuity.append(reminderForm);
+  const deliveryHistory = document.createElement("details");
+  deliveryHistory.innerHTML =
+    '<summary>My reminder delivery history</summary><ul></ul><button type="button">Load reminder deliveries</button>';
+  let deliveryCursor = null;
+  deliveryHistory.querySelector("button").onclick = () =>
+    run(async () => {
+      const page = await api(
+        "/cases/" +
+          c.id +
+          "/reminders/history" +
+          (deliveryCursor
+            ? "?cursor=" + encodeURIComponent(deliveryCursor)
+            : ""),
+      );
+      deliveryHistory
+        .querySelector("ul")
+        .insertAdjacentHTML(
+          "afterbegin",
+          page.items
+            .map(
+              (v) =>
+                "<li>" +
+                escape(
+                  v.created + " · " + v.category + " · " + v.condition_key,
+                ) +
+                '<span class="source">' +
+                escape(
+                  v.context.legacy
+                    ? "Legacy delivery; source provenance was not recorded"
+                    : "Operational as-of " +
+                        v.context.asOf +
+                        "; source " +
+                        JSON.stringify(v.context.source),
+                ) +
+                "</span></li>",
+            )
+            .join(""),
+        );
+      deliveryCursor = page.nextCursor;
+      deliveryHistory.querySelector("button").hidden = !deliveryCursor;
+    });
+  continuity.append(deliveryHistory);
   for (const p of pending) {
     if (!institution && !reviewer) continue;
     const decision = document.createElement("form");

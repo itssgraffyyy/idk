@@ -1,6 +1,6 @@
 # Phase 3 readiness
 
-27 October 2026. No Phase 3/4 workflow implementation has begun.
+Baseline assessment at 70869f3, 27 October 2026. Phase 3 development has now begun; see [current implementation progress](../implementation-progress.md). The foundation assessment below predates those extensions. Phase 3/4 acceptance and production readiness are not claimed.
 
 The earlier internal foundation blockers are implemented: five server-enforced roles; independent obligation/instrument/logical-document/version identities; guarded initial lifecycle; predecessor/successor links; institution/programme/approval administration; rich instrument metadata; instrument-bound evidence; immutable evaluations/corrections; versioned operational policy selection and historical replay; tenant-safe bounded queries; correlated audit outcomes; private storage contracts; durable OCR jobs/model reuse; typed request/client boundaries and connected portals.
 

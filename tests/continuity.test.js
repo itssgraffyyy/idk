@@ -32,7 +32,7 @@ test("additive continuity migration preserves populated version-13 evidence and 
         .all();
     // Reconstruct the exact pre-14 schema in this disposable fixture only.
     db.exec(
-      "DROP TRIGGER continuity_instrument_revision;DROP TRIGGER continuity_link_revision;DROP TABLE continuity_events;DROP TABLE reminder_preferences;DELETE FROM schema_migrations WHERE version=14",
+      "DROP TABLE reminder_deliveries;DROP TRIGGER continuity_instrument_revision;DROP TRIGGER continuity_link_revision;DROP TABLE continuity_events;DROP TABLE reminder_preferences;DELETE FROM schema_migrations WHERE version>=14",
     );
     migrate(db, h.dir);
     assert.deepEqual(

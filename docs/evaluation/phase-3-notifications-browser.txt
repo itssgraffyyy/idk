@@ -1,0 +1,57 @@
+(node:9444) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:9196) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9196) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9196) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+{"browserFixture":{"startupMs":9756.6918}}
+{"requestId":"9b03f38e-dd6d-4145-9892-eb295f85c6cd","actor":"anonymous","method":"POST","path":"/api/login","status":200,"outcome":"SUCCESS","durationMs":1837.1191000000035}
+{"requestId":"07bec8b4-4905-4914-95a5-525d0ef7ede0","actor":"a","method":"POST","path":"/api/cases","status":201,"outcome":"SUCCESS","durationMs":3568.1988000000056}
+{"requestId":"3125d5a7-2d9b-423b-b6d7-bfbd76951eeb","actor":"anonymous","method":"GET","path":"/","status":200,"outcome":"SUCCESS","durationMs":0.993800000011106}
+{"requestId":"f7087bd7-fd51-4353-a12d-36f983c3d549","actor":"anonymous","method":"GET","path":"/style.css","status":200,"outcome":"SUCCESS","durationMs":1.221799999999348}
+{"requestId":"02e24833-7d6a-43f1-b48d-ca9f034e8e98","actor":"anonymous","method":"GET","path":"/review.js","status":200,"outcome":"SUCCESS","durationMs":1.3282999999937601}
+{"requestId":"157baf41-199a-482d-aa06-750175b44624","actor":"anonymous","method":"GET","path":"/domain.js","status":200,"outcome":"SUCCESS","durationMs":1.1288000000058673}
+{"requestId":"08ff9a44-682a-4e3a-ac46-b78c6b92e933","actor":"anonymous","method":"GET","path":"/operations.js","status":200,"outcome":"SUCCESS","durationMs":1.4605000000010477}
+{"requestId":"ede0bff2-6138-4e42-9130-6e8b80006996","actor":"anonymous","method":"GET","path":"/submission.js","status":200,"outcome":"SUCCESS","durationMs":1.8856000000087079}
+{"requestId":"b9dbf502-6837-4893-9fc4-4eedf137ed26","actor":"anonymous","method":"GET","path":"/viewer-geometry.js","status":200,"outcome":"SUCCESS","durationMs":1.333200000008219}
+{"requestId":"80309851-a504-4707-987f-7d28da702a5e","actor":"anonymous","method":"GET","path":"/app.js","status":200,"outcome":"SUCCESS","durationMs":0.6022999999986496}
+{"requestId":"a9bfcb50-a596-46f0-aa20-d677849babd3","actor":"anonymous","method":"GET","path":"/evidence-viewer.js","status":200,"outcome":"SUCCESS","durationMs":0.8945999999996275}
+{"requestId":"fc7ad112-8ee0-487f-adc8-4beed1030b9f","actor":"a","method":"GET","path":"/api/me","status":200,"outcome":"SUCCESS","durationMs":0.7207999999955064}
+{"requestId":"518fbde3-9274-4f19-b993-0b1be46af98b","actor":"a","method":"GET","path":"/api/cases","status":200,"outcome":"SUCCESS","durationMs":1.6442999999999302}
+{"requestId":"80853e21-becc-4f5d-9cb5-8cfed0144307","actor":"anonymous","method":"GET","path":"/favicon.ico","status":404,"outcome":"FAILURE","durationMs":183.99809999999707}
+{"requestId":"38fb5e78-b057-4562-9798-165671abca5a","actor":"a","method":"GET","path":"/api/cases/31933817-ebb0-4251-ac69-6b58a356f94c","status":200,"outcome":"SUCCESS","durationMs":5.236000000004424}
+{"requestId":"dfcc385c-3ced-4cbd-be58-26072e282a56","actor":"a","method":"GET","path":"/api/cases/31933817-ebb0-4251-ac69-6b58a356f94c/operations","status":200,"outcome":"SUCCESS","durationMs":2.7924000000057276}
+{"requestId":"a625d17a-9c30-4796-84b4-666c43ba07a6","actor":"a","method":"GET","path":"/api/cases/31933817-ebb0-4251-ac69-6b58a356f94c/continuity/events","status":200,"outcome":"SUCCESS","durationMs":1.0742000000027474}
+{"requestId":"2b2e7b18-3af8-461d-bae0-3ef62c80fdf4","actor":"a","method":"GET","path":"/api/cases/31933817-ebb0-4251-ac69-6b58a356f94c/reminders","status":200,"outcome":"SUCCESS","durationMs":1.3506999999954132}
+{"requestId":"2fb43637-8389-4925-ba52-d014ec96de45","actor":"a","method":"POST","path":"/api/cases/31933817-ebb0-4251-ac69-6b58a356f94c/reminders","status":200,"outcome":"SUCCESS","durationMs":124.05389999999898}
+{"category":"reminder_scheduler","outcome":"SUCCESS","delivered":1,"processed":1,"evaluated":1,"matchedConditions":1,"next":0,"basis":"Asia/Kolkata civil date","asOf":"2026-10-27"}
+{"requestId":"9d33eaa4-b7b6-4dfd-8544-2508371c0868","actor":"a","method":"GET","path":"/api/cases/31933817-ebb0-4251-ac69-6b58a356f94c","status":200,"outcome":"SUCCESS","durationMs":12.277900000000955}
+{"requestId":"2e2b5527-ac66-4a47-8a41-d885a3b9ac10","actor":"a","method":"GET","path":"/api/cases/31933817-ebb0-4251-ac69-6b58a356f94c/operations","status":200,"outcome":"SUCCESS","durationMs":10.165099999998347}
+{"requestId":"c8fed6c7-d0ee-4830-9d58-a21ee23d963c","actor":"a","method":"GET","path":"/api/cases/31933817-ebb0-4251-ac69-6b58a356f94c/continuity/events","status":200,"outcome":"SUCCESS","durationMs":2.8136999999987893}
+{"requestId":"dda25a9e-e2cb-47d4-983f-a6b87f3e5914","actor":"a","method":"GET","path":"/api/cases/31933817-ebb0-4251-ac69-6b58a356f94c/reminders","status":200,"outcome":"SUCCESS","durationMs":1.865300000004936}
+{"requestId":"5b1dd99c-10f5-4a1c-b28b-c0059e05c194","actor":"a","method":"GET","path":"/api/cases/31933817-ebb0-4251-ac69-6b58a356f94c/reminders","status":200,"outcome":"SUCCESS","durationMs":1.2286000000021886}
+{"requestId":"94bc8fa3-17f9-4bf0-9688-9f10641f4338","actor":"anonymous","method":"GET","path":"/","status":200,"outcome":"SUCCESS","durationMs":0.7728000000061002}
+{"requestId":"f7a5826a-fcae-4c0f-8678-5cd5189c0898","actor":"anonymous","method":"GET","path":"/style.css","status":200,"outcome":"SUCCESS","durationMs":0.7355999999999767}
+{"requestId":"c6801dc5-65c8-40cc-b290-27d175bed0d2","actor":"anonymous","method":"GET","path":"/review.js","status":200,"outcome":"SUCCESS","durationMs":0.921699999991688}
+{"requestId":"131fe20a-49cb-490e-8af5-76346679899c","actor":"anonymous","method":"GET","path":"/domain.js","status":200,"outcome":"SUCCESS","durationMs":1.196299999995972}
+{"requestId":"eac535a7-8f60-47d8-b923-04e80ecf36db","actor":"anonymous","method":"GET","path":"/operations.js","status":200,"outcome":"SUCCESS","durationMs":1.0834999999933643}
+{"requestId":"0443d1dd-5691-4865-84eb-1a7c3d399343","actor":"anonymous","method":"GET","path":"/submission.js","status":200,"outcome":"SUCCESS","durationMs":1.1324000000022352}
+{"requestId":"2604c060-b0be-42b4-9b8e-80aff3295906","actor":"anonymous","method":"GET","path":"/viewer-geometry.js","status":200,"outcome":"SUCCESS","durationMs":1.0740000000077998}
+{"requestId":"541e202d-1da1-4f7e-ac42-9f0e6875c2b7","actor":"anonymous","method":"GET","path":"/evidence-viewer.js","status":200,"outcome":"SUCCESS","durationMs":1.087599999998929}
+{"requestId":"67afa976-ab9c-4e48-89e8-7eb7f2cd5723","actor":"anonymous","method":"GET","path":"/app.js","status":200,"outcome":"SUCCESS","durationMs":1.71919999999227}
+{"requestId":"5becb2f5-9a56-441d-b03e-0f4685fdbc65","actor":"a","method":"GET","path":"/api/me","status":200,"outcome":"SUCCESS","durationMs":0.9222000000008848}
+{"requestId":"e6e426de-25f5-422c-b519-d252cde11156","actor":"a","method":"GET","path":"/api/cases","status":200,"outcome":"SUCCESS","durationMs":2.0424999999959255}
+{"requestId":"d4d4dd44-9a4f-4c68-ba05-f3aee5baec54","actor":"a","method":"GET","path":"/api/cases/31933817-ebb0-4251-ac69-6b58a356f94c","status":200,"outcome":"SUCCESS","durationMs":12.564599999997881}
+{"requestId":"549b610a-af1d-4fa2-b73a-fe2b63a4b842","actor":"a","method":"GET","path":"/api/cases/31933817-ebb0-4251-ac69-6b58a356f94c/operations","status":200,"outcome":"SUCCESS","durationMs":4.225000000005821}
+{"requestId":"3d9f17fb-b0be-46a8-ab73-a1f0e2d2e573","actor":"a","method":"GET","path":"/api/cases/31933817-ebb0-4251-ac69-6b58a356f94c/continuity/events","status":200,"outcome":"SUCCESS","durationMs":2.239000000001397}
+{"requestId":"bde803c1-6ad9-49f7-af71-726dd00ea82e","actor":"a","method":"GET","path":"/api/cases/31933817-ebb0-4251-ac69-6b58a356f94c/reminders","status":200,"outcome":"SUCCESS","durationMs":1.3435999999928754}
+{"requestId":"f3eb101f-2582-44d4-a06e-890867d588cc","actor":"a","method":"GET","path":"/api/cases/31933817-ebb0-4251-ac69-6b58a356f94c/reminders/history","status":200,"outcome":"SUCCESS","durationMs":1.3081999999994878}
+{"requestId":"3ba43390-5e45-4e5c-8038-240536b3225f","actor":"a","method":"GET","path":"/api/cases/31933817-ebb0-4251-ac69-6b58a356f94c/reminders/history","status":200,"outcome":"SUCCESS","durationMs":3.751800000012736}
+{"requestId":"87b1a902-f291-4297-a6f2-3636933b04c0","actor":"a","method":"GET","path":"/api/cases/31933817-ebb0-4251-ac69-6b58a356f94c/reminders/history","status":200,"outcome":"SUCCESS","durationMs":0.7866000000067288}
+  ok 1 tests\browser\notifications.spec.js:3:1 › saved notification categories survive reload and the real scheduler produces a visible immutable delivery (12.7s)
+
+  1 passed (1.5m)

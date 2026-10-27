@@ -1,0 +1,40 @@
+(node:12752) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:18736) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18736) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18736) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  x  1 tests\browser\notifications.spec.js:2:1 › saved notification categories survive reload and the real scheduler produces a visible immutable delivery (3.0m)
+
+
+  1) tests\browser\notifications.spec.js:2:1 › saved notification categories survive reload and the real scheduler produces a visible immutable delivery 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 0
+
+    Call Log:
+    - Test timeout of 180000ms exceeded
+
+      78 |       { timeout: 90000, intervals: [1000] },
+      79 |     )
+    > 80 |     .toBe(1);
+         |      ^
+      81 |   await panel
+      82 |     .locator("summary")
+      83 |     .filter({ hasText: "My reminder delivery history" })
+        at G:\idk_lol\tests\browser\notifications.spec.js:80:6
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\notifications-saved-notifi-1646f--visible-immutable-delivery\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\notifications-saved-notifi-1646f--visible-immutable-delivery\error-context.md
+
+  1 failed
+    tests\browser\notifications.spec.js:2:1 › saved notification categories survive reload and the real scheduler produces a visible immutable delivery 

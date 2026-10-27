@@ -1,0 +1,70 @@
+(node:6068) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 12 tests using 1 worker
+
+(node:3124) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3124) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3124) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+{"browserFixture":{"startupMs":5865.4539}}
+  ok  1 tests\browser\administration.spec.js:2:1 › institution administrator edits profile, programme/history, independent obligation and account through backend UI (6.1s)
+{"browserFixture":{"startupMs":3869.1676000000007}}
+  ok  2 tests\browser\continuity.spec.js:2:1 › institution proposes a documented replacement and officer records an internal relationship without bank release (8.6s)
+{"browserFixture":{"startupMs":7146.4051}}
+  ok  3 tests\browser\journeys.spec.js:2:1 › ambiguous IFSC is visible and requires a reasoned manual correction (15.6s)
+{"browserFixture":{"startupMs":5327.585899999998}}
+  ok  4 tests\browser\journeys.spec.js:83:1 › institution submits evidence; officer compares, requests clarification; institution responds (21.7s)
+{"browserFixture":{"startupMs":6416.395300000004}}
+  ok  5 tests\browser\journeys.spec.js:279:1 › responsive login and rejected credentials (1.6s)
+{"browserFixture":{"startupMs":4358.56289999999}}
+{"category":"reminder_scheduler","outcome":"SUCCESS","delivered":1,"processed":1,"evaluated":1,"matchedConditions":1,"next":0,"basis":"Asia/Kolkata civil date","asOf":"2026-10-27"}
+  ok  6 tests\browser\notifications.spec.js:3:1 › saved notification categories survive reload and the real scheduler produces a visible immutable delivery (59.5s)
+{"browserFixture":{"startupMs":4993.08070000002}}
+{"browserFixtureFailure":{"nodeTime":"2026-10-27T05:28:20.607Z","preferences":[],"operations":[{"stage":"draft","updated":"2026-10-27T05:28:02.784Z","input_revision":4}],"deliveries":0}}
+  x   7 tests\browser\pdf.spec.js:3:1 › private PDF is rendered as protected page image in institution workspace (28.3s)
+(node:14000) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14000) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14000) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+{"browserFixture":{"startupMs":7313.455399999999}}
+{"category":"reminder_scheduler","outcome":"SUCCESS","delivered":0,"processed":0,"evaluated":0,"matchedConditions":0,"next":0,"basis":"Asia/Kolkata civil date","asOf":"2026-10-27"}
+  ok  8 tests\browser\provider.spec.js:2:1 › local financial provider scenarios are genuine API results and clearly MOCK in officer workspace (17.7s)
+{"browserFixture":{"startupMs":11598.441100000011}}
+  ok  9 tests\browser\resolution.spec.js:2:1 › reviewer targets a finding; institution corrects only disputed amount and reviewer closes the response (15.3s)
+{"browserFixture":{"startupMs":6196.056899999996}}
+  ok 10 tests\browser\roles.spec.js:2:1 › supervisor performs guarded review transition and auditor can only inspect the same authority case (5.2s)
+{"browserFixture":{"startupMs":10167.262799999997}}
+  ok 11 tests\browser\submission.spec.js:2:1 › guided upload-first draft survives reload, prefills only chosen proposals and receives persisted acknowledgement (13.5s)
+{"browserFixture":{"startupMs":10386.9142}}
+{"category":"reminder_scheduler","outcome":"SUCCESS","delivered":0,"processed":0,"evaluated":0,"matchedConditions":0,"next":0,"basis":"Asia/Kolkata civil date","asOf":"2026-10-27"}
+  ok 12 tests\browser\viewer.spec.js:3:1 › reviewer compares original/corrected fields across protected PDF versions with measured highlights and zoom (1.0m)
+
+
+  1) tests\browser\pdf.spec.js:3:1 › private PDF is rendered as protected page image in institution workspace 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 503
+
+      49 |   await page.getByRole("button", { name: "Preview latest source" }).click();
+      50 |   const result = await response;
+    > 51 |   expect(result.status()).toBe(200);
+         |                           ^
+      52 |   expect(result.headers()["content-type"]).toBe("image/png");
+      53 |   await expect(page.locator("#pdf-image")).toBeVisible();
+      54 |   await expect
+        at G:\idk_lol\tests\browser\pdf.spec.js:51:27
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\pdf-private-PDF-is-rendere-5332a-ge-in-institution-workspace\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\pdf-private-PDF-is-rendere-5332a-ge-in-institution-workspace\error-context.md
+
+  1 failed
+    tests\browser\pdf.spec.js:3:1 › private PDF is rendered as protected page image in institution workspace 
+  11 passed (7.4m)

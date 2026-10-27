@@ -1,0 +1,36 @@
+(node:18548) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:5392) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5392) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5392) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  x  1 tests\browser\notifications.spec.js:2:1 › saved notification categories survive reload and the real scheduler produces a visible immutable delivery (3.2m)
+
+
+  1) tests\browser\notifications.spec.js:2:1 › saved notification categories survive reload and the real scheduler produces a visible immutable delivery 
+
+    Test timeout of 180000ms exceeded.
+
+    Error: locator.click: Test timeout of 180000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Open →' }).last()
+
+
+      32 |   const open = async () => {
+      33 |     await page.goto("/");
+    > 34 |     await page.getByRole("button", { name: "Open →" }).last().click();
+         |                                                               ^
+      35 |     await expect(page.locator("main")).toHaveAttribute("aria-busy", "false");
+      36 |     const p = page.getByRole("region", { name: "Case review workflow" });
+      37 |     await p
+        at open (G:\idk_lol\tests\browser\notifications.spec.js:34:63)
+        at G:\idk_lol\tests\browser\notifications.spec.js:43:15
+
+    Error Context: test-results\notifications-saved-notifi-1646f--visible-immutable-delivery\error-context.md
+
+  1 failed
+    tests\browser\notifications.spec.js:2:1 › saved notification categories survive reload and the real scheduler produces a visible immutable delivery 

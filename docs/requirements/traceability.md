@@ -63,3 +63,5 @@ The preceding original-prompt table is a historical snapshot. Current implementa
 | 4A–4E | Existing Phase 1/2 OCR/security/deployment foundations retained | New held-out OCR, relationships/simulation, audit chain/identity/infrastructure hardening, analytics/accessibility and final integrated acceptance remain |
 
 Lifecycle follow-up: src/lifecycle.js and the existing case UI add source-version/hash/method amount observations and a signed scoped recorded-event timeline; successor-only viewing is verified. Full acceptance: 107 tests, build/types and eleven journeys pass. See the continuity report for limits and raw outputs.
+
+Notification follow-up accepted: migration 15, src/reminders.js, src/continuity-api.js and connected operations UI implement immutable delivery context and broader opt-in operational categories with role rechecks. tests/notifications.test.js and the real scheduler browser cover persistence, rollback, dedupe and isolation. Full acceptance: 114 tests, build/types and twelve journeys. Clearance-delay/release notifications await 3C. Preview-only bundled-font startup is covered by actual OCR round-trip; no OCR benchmark improvement is claimed.

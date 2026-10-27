@@ -17,3 +17,5 @@
 | Accessible workspace/analytics | Each role sees useful actions and measured workload, not decorative charts | Actual authorized database aggregates and minimal task telemetry | Clear empty/error states; no invented statistics or productivity claims | Existing UI retained; 4D refinement pending |
 
 No duplicate portal or separate graph service is introduced. Each new capability belongs to submission, case review, lifecycle or administrative decision workflows. Every completed milestone must add authorization, persistence, failure and browser evidence before its status is promoted.
+
+Accepted follow-up: lifecycle timeline, evidence-bound amount observations and broader notification categories are implemented; 114 tests, build/types and twelve journeys pass. Private immutable reminder delivery history is visible in the existing case workspace. Clearance-delay/release events remain dependent on 3C. See the continuity report for exact scope and limitations.

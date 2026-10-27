@@ -1,0 +1,94 @@
+{
+  "fixtureSHA256": "903fb8ed09d3ff2775bb7ec1da6bea9c066e7495c02dc3a683615d0445803770",
+  "node": "v22.14.0",
+  "timeoutMs": 15000,
+  "memoryBudgetMiB": 256,
+  "method": "Alternating independent child processes; OS filesystem cache is uncontrolled. Both modes render the same embedded/bundled PDF font configuration; only host-font discovery differs. Small diagnostic sample, not a throughput or production SLA benchmark.",
+  "trials": [
+    {
+      "repetition": 1,
+      "mode": "host_font_discovery_control",
+      "elapsedMs": 1208.5922,
+      "exitCode": 0,
+      "timedOut": false,
+      "pngSHA256": "00a8942f52bac477734ca06e2c9795e075ed8ae3b48907a151858d0431710c92",
+      "resources": {
+        "userCPUTimeMicroseconds": 750000,
+        "systemCPUTimeMicroseconds": 328000,
+        "peakRSSKiB": 90456
+      },
+      "fontMode": "pdf-embedded-or-bundled-standard"
+    },
+    {
+      "repetition": 1,
+      "mode": "portable_preview",
+      "elapsedMs": 794.5310000000002,
+      "exitCode": 0,
+      "timedOut": false,
+      "pngSHA256": "00a8942f52bac477734ca06e2c9795e075ed8ae3b48907a151858d0431710c92",
+      "resources": {
+        "userCPUTimeMicroseconds": 656000,
+        "systemCPUTimeMicroseconds": 187000,
+        "peakRSSKiB": 72432
+      },
+      "fontMode": "pdf-embedded-or-bundled-standard"
+    },
+    {
+      "repetition": 2,
+      "mode": "host_font_discovery_control",
+      "elapsedMs": 970.5626000000002,
+      "exitCode": 0,
+      "timedOut": false,
+      "pngSHA256": "00a8942f52bac477734ca06e2c9795e075ed8ae3b48907a151858d0431710c92",
+      "resources": {
+        "userCPUTimeMicroseconds": 703000,
+        "systemCPUTimeMicroseconds": 250000,
+        "peakRSSKiB": 90812
+      },
+      "fontMode": "pdf-embedded-or-bundled-standard"
+    },
+    {
+      "repetition": 2,
+      "mode": "portable_preview",
+      "elapsedMs": 1085.0998,
+      "exitCode": 0,
+      "timedOut": false,
+      "pngSHA256": "00a8942f52bac477734ca06e2c9795e075ed8ae3b48907a151858d0431710c92",
+      "resources": {
+        "userCPUTimeMicroseconds": 812000,
+        "systemCPUTimeMicroseconds": 343000,
+        "peakRSSKiB": 71396
+      },
+      "fontMode": "pdf-embedded-or-bundled-standard"
+    },
+    {
+      "repetition": 3,
+      "mode": "host_font_discovery_control",
+      "elapsedMs": 1038.9975000000004,
+      "exitCode": 0,
+      "timedOut": false,
+      "pngSHA256": "00a8942f52bac477734ca06e2c9795e075ed8ae3b48907a151858d0431710c92",
+      "resources": {
+        "userCPUTimeMicroseconds": 640000,
+        "systemCPUTimeMicroseconds": 281000,
+        "peakRSSKiB": 91112
+      },
+      "fontMode": "pdf-embedded-or-bundled-standard"
+    },
+    {
+      "repetition": 3,
+      "mode": "portable_preview",
+      "elapsedMs": 997.9649,
+      "exitCode": 0,
+      "timedOut": false,
+      "pngSHA256": "00a8942f52bac477734ca06e2c9795e075ed8ae3b48907a151858d0431710c92",
+      "resources": {
+        "userCPUTimeMicroseconds": 859000,
+        "systemCPUTimeMicroseconds": 234000,
+        "peakRSSKiB": 71184
+      },
+      "fontMode": "pdf-embedded-or-bundled-standard"
+    }
+  ],
+  "successfulPNGsIdentical": true
+}

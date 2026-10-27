@@ -819,6 +819,7 @@ export function createApp({
           return;
         if (
           continuityRoute({
+            key: cursorKey,
             db,
             c,
             u,
@@ -969,7 +970,7 @@ export function createApp({
                     process.execPath,
                     [
                       "--max-old-space-size=256",
-                      join(root, "src", "pdf-worker.js"),
+                      join(root, "src", "pdf-preview-worker.js"),
                       storage.path(e.id),
                       "preview:" + page,
                     ],
@@ -992,6 +993,7 @@ export function createApp({
               fail(409, "Integrity failure");
             res.setHeader("Content-Type", "image/png");
             res.setHeader("X-Document-Pages", String(result.pages));
+            res.setHeader("X-Document-Font-Mode", result.rendering.fontMode);
             res.setHeader(
               "X-Document-Viewport",
               JSON.stringify(result.viewport),
@@ -999,6 +1001,7 @@ export function createApp({
             audit(u.id, "document_preview", id, {
               documentVersionId: e.id,
               page,
+              fontMode: result.rendering.fontMode,
             });
             res.end(Buffer.from(result.png, "base64"));
             return;
@@ -1784,13 +1787,25 @@ export function createApp({
   server.headersTimeout = 10000;
   let reminderPosition = 0;
   const reminderTimer = setInterval(() => {
+    let event;
     try {
-      reminderPosition = tx(() =>
+      const result = tx(() =>
         runReminderBatch(db, { after: reminderPosition }),
-      ).next;
-    } catch {
-      logSink({ category: "reminder_scheduler", outcome: "FAILURE" });
+      );
+      reminderPosition = result.next;
+      event = { category: "reminder_scheduler", outcome: "SUCCESS", ...result };
+    } catch (error) {
+      event = {
+        category: "reminder_scheduler",
+        outcome: "FAILURE",
+        errorCode: /^[A-Z_0-9]{1,80}$/.test(String(error.code))
+          ? error.code
+          : "INTERNAL_ERROR",
+      };
     }
+    try {
+      logSink(event);
+    } catch {}
   }, 60000);
   reminderTimer.unref();
   return {

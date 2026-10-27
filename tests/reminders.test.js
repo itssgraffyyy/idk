@@ -72,9 +72,9 @@ test("persisted opt-in reminders are deduplicated, bounded and reauthorize users
       0,
     );
     h.app.db.prepare("UPDATE users SET tenant='college-b' WHERE id='a'").run();
-    h.app.db.prepare("DELETE FROM case_notifications").run();
+    h.app.db.prepare("UPDATE reminder_preferences SET windows='[30]'").run();
     assert.equal(
-      runReminderBatch(h.app.db, { asOf: "2030-12-26" }).delivered,
+      runReminderBatch(h.app.db, { asOf: "2030-12-15" }).delivered,
       0,
     );
     assert.throws(() => runReminderBatch(h.app.db, { asOf: "2031-02-30" }));

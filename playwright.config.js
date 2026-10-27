@@ -4,6 +4,7 @@ export default defineConfig({
   workers: 1,
   use: {
     launchOptions: {
+      args: ["--disable-gpu"],
       executablePath:
         process.env.CHROME_PATH ||
         "C:/Program Files/Google/Chrome/Application/chrome.exe",

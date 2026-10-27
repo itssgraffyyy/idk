@@ -268,6 +268,7 @@ test("institution submits evidence; officer compares, requests clarification; in
   await page.getByRole("button", { name: "Sign in securely" }).click();
   await page.getByRole("button", { name: "Open →" }).last().click();
   const proof = page.locator("#policy-proof");
+  await expect(page.locator("main")).toHaveAttribute("aria-busy", "false");
   await proof
     .locator("[name=reason]")
     .fill("Applicability checked against uploaded synthetic source");
