@@ -153,6 +153,7 @@ export function clearanceService({
       revision: event.revision,
       previous: event.previous,
       authority,
+      payloadSHA256: snapshotHash(payload),
     });
     return decode(
       db.prepare("SELECT * FROM clearance_events WHERE id=?").get(event.id),

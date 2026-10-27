@@ -8,7 +8,9 @@ import { notificationMigration } from "./notification-migration.js";
 import { clearanceMigration } from "./clearance-migration.js";
 import { policyHistoryMigration } from "./policy-history.js";
 import { analysisMigration } from "./analysis-migration.js";
+import { auditIntegrityMigration } from "./audit-integrity.js";
 export const upgrades = [
+  auditIntegrityMigration,
   analysisMigration,
   policyHistoryMigration,
   clearanceMigration,

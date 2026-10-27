@@ -35,6 +35,7 @@ import { clearanceRoutes } from "./clearance-api.js";
 import { validateProcedure } from "./clearance-procedure.js";
 import { policyDecisionRoute } from "./policy-decisions.js";
 import { analysisRoute } from "./analysis-api.js";
+import { createAuditIntegrity } from "./audit-integrity.js";
 import {
   capturePolicyConfiguration,
   bindPolicyContext,
@@ -102,6 +103,8 @@ export function createApp({
     ? JSON.parse(readFileSync(process.env.PROCEDURE_FILE, "utf8"))
     : [],
   storage = null,
+  auditKeyFile = process.env.AUDIT_KEY_FILE,
+  auditCheckpointFile = process.env.AUDIT_CHECKPOINT_FILE,
   logSink = process.env.LOG_REQUESTS === "true"
     ? (event) => process.stdout.write(JSON.stringify(event) + "\n")
     : () => {},
@@ -145,25 +148,42 @@ export function createApp({
     rates = new Map(),
     limitRequest = requestLimiter();
   let activeValidators = 0;
-  const audit = (u, a, id, p = {}) =>
-    db
-      .prepare(
-        "INSERT INTO audit(actor,action,case_id,payload,created,correlation_id,category,outcome) VALUES(?,?,?,?,?,?,?,?)",
-      )
-      .run(
-        u,
-        a,
-        id ?? null,
-        JSON.stringify(scrub(p)),
-        new Date().toISOString(),
-        requestContext.getStore()?.id || "system",
-        category(a),
-        /failed|failure/.test(a)
-          ? "FAILURE"
-          : /denied/.test(a)
-            ? "DENIED"
-            : "SUCCESS",
-      );
+  let auditIntegrity,
+    transactionDepth = 0;
+  try {
+    auditIntegrity = createAuditIntegrity(db, {
+      dir,
+      keyFile: auditKeyFile,
+      checkpointFile: auditCheckpointFile,
+    });
+  } catch (error) {
+    ocrPool.close();
+    try {
+      db.close();
+    } finally {
+      releaseLock();
+    }
+    throw error;
+  }
+  const audit = (u, a, id, p = {}) => {
+    db.prepare(
+      "INSERT INTO audit(actor,action,case_id,payload,created,correlation_id,category,outcome) VALUES(?,?,?,?,?,?,?,?)",
+    ).run(
+      u,
+      a,
+      id ?? null,
+      JSON.stringify(scrub(p)),
+      new Date().toISOString(),
+      requestContext.getStore()?.id || "system",
+      category(a),
+      /failed|failure/.test(a)
+        ? "FAILURE"
+        : /denied/.test(a)
+          ? "DENIED"
+          : "SUCCESS",
+    );
+    if (!transactionDepth) auditIntegrity.checkpoint();
+  };
   let policyCapsule;
   try {
     policyCapsule = tx(() =>
@@ -199,7 +219,10 @@ export function createApp({
     );
     if (["evaluation", "evaluation_replay"].includes(kind))
       bindPolicyContext(db, eid, id, p);
-    audit(u, kind, id, { evidenceId: eid });
+    audit(u, kind, id, {
+      evidenceId: eid,
+      payloadSHA256: hash(Buffer.from(JSON.stringify(p))),
+    });
     return eid;
   }
   db.prepare(
@@ -350,14 +373,19 @@ export function createApp({
   }
   function tx(fn) {
     db.exec("BEGIN IMMEDIATE");
+    transactionDepth++;
+    let r;
     try {
-      const r = fn();
+      r = fn();
       db.exec("COMMIT");
-      return r;
     } catch (e) {
       db.exec("ROLLBACK");
       throw e;
+    } finally {
+      transactionDepth--;
     }
+    auditIntegrity.checkpoint();
+    return r;
   }
   const clearances = clearanceService({
     db,
@@ -558,6 +586,23 @@ export function createApp({
             email: u.email,
             role: u.role,
             csrf: u.csrf,
+          });
+          return;
+        }
+        if (path === "/api/security/audit-integrity" && req.method === "GET") {
+          if (!["supervisor", "audit_reviewer"].includes(u.role))
+            fail(403, "Audit verification role required");
+          // Global verification exposes only this caller's verification outcome, no event IDs or counts.
+          const result = auditIntegrity.verify();
+          audit(u.id, "audit_integrity_verified", null, {
+            rootId: result.rootId,
+          });
+          json(res, 200, {
+            valid: result.valid,
+            algorithm: result.algorithm,
+            trust: result.trust,
+            legacyWasUnsignedBeforeEnrollment: true,
+            elapsedMs: result.elapsedMs,
           });
           return;
         }
@@ -1956,8 +2001,13 @@ export function createApp({
           ocrPool.close();
           await Promise.allSettled([...pendingJobs]);
           try {
-            db.close();
-          } catch {}
+            auditIntegrity.checkpoint();
+          } catch {
+          } finally {
+            try {
+              db.close();
+            } catch {}
+          }
           releaseLock();
           done();
         }),

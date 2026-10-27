@@ -1,0 +1,9 @@
+{
+    "passed":  5,
+    "durationMs":  18555.9606,
+    "failed":  0,
+    "command":  "node --test --test-concurrency=1 tests/audit-integrity.test.js",
+    "concurrentProcessProof":  "Read-only verifier paused after pinning first audit row while live server committed another case and advanced filesystem checkpoint; verifier retained original event count and passed; subsequent verification saw extension.",
+    "classification":  "OBSERVED_TOOL_RESULT_SUMMARY_NOT_RAW_TRANSCRIPT",
+    "tests":  5
+}
