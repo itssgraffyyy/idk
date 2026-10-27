@@ -21,6 +21,7 @@ export const reminderCategoryNames = [
   "replacement_documentation",
   "assignment",
   "supervisor_attention",
+  "clearance_delay",
 ];
 export function reminderCategories(value) {
   if (
@@ -256,6 +257,24 @@ export function runReminderBatch(
         "Pending replacement needs successor document evidence.",
         { proposalId: proposal.id, instrumentId: proposal.successor },
       );
+    for (const request of db
+      .prepare(
+        "SELECT * FROM clearance_events r WHERE r.case_id=? AND r.kind='request' AND r.rowid=(SELECT max(v.rowid) FROM clearance_events v WHERE v.entity=r.entity) AND json_extract(r.payload,'$.status')='pending' ORDER BY r.rowid LIMIT 500",
+      )
+      .all(c.id)) {
+      const payload = JSON.parse(request.payload);
+      aged(
+        request.id,
+        request.created,
+        "clearance_delay",
+        "A department clearance request remains pending; inspect its current evidence and assignment.",
+        {
+          requestEventId: request.id,
+          department: payload.department,
+          requirementId: payload.requirementId,
+        },
+      );
+    }
     if (u.id === c.assigned && ["officer", "supervisor"].includes(u.role)) {
       const assignment = db
         .prepare(

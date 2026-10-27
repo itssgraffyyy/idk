@@ -479,6 +479,7 @@ async function detail(id) {
   window.mountFindingSourceLinks({ c, api, run, escape });
   window.mountReviewWorkspace({ c, user, api, run, detail, escape });
   await window.mountOperationsCase({ c, user, api, run, detail, escape });
+  window.mountClearanceCase({ c, user, api, run, detail });
   window.mountDomainCase({
     c,
     user,
@@ -496,6 +497,7 @@ async function enter() {
   await registry();
   window.mountDomainNavigation({ user, api, run, views, registry, escape });
   window.mountOperationsNavigation({ user, api, run, views, detail, escape });
+  window.mountClearanceNavigation({ user, api, run, views });
   window.mountSubmissionNavigation({ user, api, run, views, detail, escape });
 }
 $("#login-form").onsubmit = (e) => {

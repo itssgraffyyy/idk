@@ -4,12 +4,14 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 export const test = base.extend({
+  appOptions: [{}, { option: true }],
   caseServer: [
-    async ({}, use) => {
+    async ({ appOptions }, use) => {
       const started = performance.now();
       const dir = mkdtempSync(join(tmpdir(), "sentinel-browser-isolated-")),
         app = createApp({
           dir,
+          ...appOptions,
           logSink: (event) => {
             if (
               event.category === "reminder_scheduler" ||
@@ -26,8 +28,16 @@ export const test = base.extend({
           ["auditor", "audit_reviewer", "authority"],
           ["institution", "institution", "fictional"],
           ["officer", "officer", "authority"],
+          ["department", "officer", "authority"],
         ].map(([name, role, tenant]) => ({
-          id: name === "institution" ? "a" : name === "officer" ? "o" : name,
+          id:
+            name === "institution"
+              ? "a"
+              : name === "officer"
+                ? "o"
+                : name === "department"
+                  ? "z-department"
+                  : name,
           email: name + "@test.local",
           password: "test-" + name + "-password",
           role,

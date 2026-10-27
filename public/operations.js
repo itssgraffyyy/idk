@@ -288,6 +288,7 @@ window.mountOperationsCase = async function ({
     correction: "Requested corrections",
     missing_evidence: "Missing instrument evidence",
     replacement_documentation: "Replacement documentation",
+    clearance_delay: "Pending department clearance follow-up",
     ...(reviewer ? { assignment: "Work assigned to me" } : {}),
     ...(user.role === "supervisor"
       ? {

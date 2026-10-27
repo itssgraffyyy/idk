@@ -19,3 +19,7 @@
 No duplicate portal or separate graph service is introduced. Each new capability belongs to submission, case review, lifecycle or administrative decision workflows. Every completed milestone must add authorization, persistence, failure and browser evidence before its status is promoted.
 
 Accepted follow-up: lifecycle timeline, evidence-bound amount observations and broader notification categories are implemented; 114 tests, build/types and twelve journeys pass. Private immutable reminder delivery history is visible in the existing case workspace. Clearance-delay/release events remain dependent on 3C. See the continuity report for exact scope and limitations.
+
+Clearance implementation is now connected to the existing portal: versioned server-configured procedure activation, department permissions, selected-source review queues, explicit blockers, internal maker/checker, retained decision history and guarded closure/reopening. Targeted tests pass; integrated acceptance remains pending. Official procedure confirmation/external release remain unavailable; synthetic fixtures are visibly fictional. See phase-3-clearances-report.md.
+
+Clearance acceptance: 128 tests/build/types and thirteen browser journeys passed. Internal workflow checkpoint is accepted; official-source confirmation and external execution are not established. Remaining Phase 3D/4 scope remains open.

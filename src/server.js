@@ -30,6 +30,9 @@ import { viewerRoute } from "./viewer.js";
 import { continuityRoute } from "./continuity-api.js";
 import { runReminderBatch } from "./reminders.js";
 import { lifecycleRoute } from "./lifecycle.js";
+import { clearanceService } from "./clearance-service.js";
+import { clearanceRoutes } from "./clearance-api.js";
+import { validateProcedure } from "./clearance-procedure.js";
 import { readFileSync, writeFileSync, mkdirSync, unlinkSync } from "node:fs";
 import { resolve, join } from "node:path";
 import { randomBytes, randomUUID } from "node:crypto";
@@ -88,12 +91,23 @@ export function createApp({
     : [],
   policyScope = "aicte",
   verifiedSourceHashes = [],
+  procedures = process.env.PROCEDURE_FILE
+    ? JSON.parse(readFileSync(process.env.PROCEDURE_FILE, "utf8"))
+    : [],
   storage = null,
   logSink = process.env.LOG_REQUESTS === "true"
     ? (event) => process.stdout.write(JSON.stringify(event) + "\n")
     : () => {},
 } = {}) {
   policies = validatePolicies(policies);
+  if (!Array.isArray(procedures) || procedures.length > 100)
+    throw Error("Invalid trusted procedure configuration");
+  procedures = procedures.map(validateProcedure);
+  if (
+    new Set(procedures.map((p) => p.scope + "|" + p.version)).size !==
+    procedures.length
+  )
+    throw Error("Duplicate procedure configuration");
   const ocrPool = new OCRPool();
   const pendingJobs = new Set();
   mkdirSync(dir, { recursive: true });
@@ -308,6 +322,12 @@ export function createApp({
       throw e;
     }
   }
+  const clearances = clearanceService({
+    db,
+    audit,
+    procedures,
+    policyConfig: { policies, scope: policyScope, verifiedSourceHashes },
+  });
   const server = http.createServer((req, res) => {
     const ctx = { id: randomUUID(), actor: "anonymous" },
       start = performance.now();
@@ -351,6 +371,7 @@ export function createApp({
             "/review.js",
             "/domain.js",
             "/operations.js",
+            "/clearances.js",
             "/submission.js",
             "/evidence-viewer.js",
             "/viewer-geometry.js",
@@ -603,6 +624,24 @@ export function createApp({
             json,
             res,
             cursorKey,
+          })
+        )
+          return;
+        if (
+          clearanceRoutes({
+            service: clearances,
+            db,
+            u,
+            path,
+            method: req.method,
+            body,
+            url,
+            tx,
+            json,
+            res,
+            storage,
+            audit,
+            key: cursorKey,
           })
         )
           return;

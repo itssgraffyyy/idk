@@ -96,8 +96,20 @@ export function operationSnapshot(db, c) {
         last("evaluation")?.payload.operationalPolicy?.outcome ||
         "UNVERIFIED_POLICY",
       administrative: state.stage,
-      clearance: "NOT_INITIATED",
-      release: "NOT_REQUESTED",
+      clearance: db
+        .prepare(
+          "SELECT 1 FROM clearance_events WHERE case_id=? AND kind='binding' LIMIT 1",
+        )
+        .get(c.id)
+        ? "SEE_CURRENT_CLEARANCE_READINESS"
+        : "NOT_INITIATED",
+      release: db
+        .prepare(
+          "SELECT 1 FROM clearance_events WHERE case_id=? AND kind='proposal' AND action='confirmed' LIMIT 1",
+        )
+        .get(c.id)
+        ? "INTERNAL_DECISION_RECORDED_BANK_UNCONFIRMED"
+        : "NOT_REQUESTED",
     },
     needsReview: state.reviewed_input_revision !== state.input_revision,
     resolution: row ? JSON.parse(row.payload) : null,
@@ -140,7 +152,13 @@ export function moveOperation(db, u, c, body) {
     clarify: [["under_review"], "awaiting_response", "reviewer"],
     response: [["awaiting_response"], "response_received", "institution"],
     reevaluate: [
-      ["response_received", "under_review"],
+      [
+        "response_received",
+        "under_review",
+        "pending_clearance",
+        "ready_for_decision",
+        "decision_recorded",
+      ],
       "reevaluation_required",
       "reviewer",
     ],

@@ -87,3 +87,24 @@ Schema changes will be additive, checksum-versioned migrations after 11. Existin
 ## Accepted checkpoint after session 42830
 
 114 tests passed (388.18s), build/types passed, twelve browser journeys passed (3.8m). Notification migration 15 and portable preview are accepted locally; failed-run artifacts retained. Next: implement 3C departmental procedure DAG, limited grants, requests/responses and evidence-bound maker-checker. Full Phase 3/4 remains incomplete. Earlier pending-session instructions are superseded.
+
+## Clearance checkpoint implementation in progress
+
+- Accepted notification/preview checkpoint is local commit 0a0a188 (114 tests/build/types/twelve browsers). No push.
+- New uncommitted Phase 3C modules: clearance-procedure.js (closed bounded DAG/canonical snapshots), clearance-migration.js schema 16 append-only scoped event streams, clearance-service.js (configured procedure activation, grants, case binding, selected-source requests, responses/withdrawals, internal maker/checker), clearance-api.js and existing-server integration. New existing-portal controls are in public/clearances.js. Official procedures remain UNVERIFIED_OFFICIAL and blocked; synthetic fixtures are explicit, trusted server configuration only.
+- Four procedure unit tests pass. Four API clearance tests, seven continuity tests and three policy-runtime tests passed together (14 tests, 71.32s). This includes fixing nested frozen regulatory-context replay; tests prove private/government conditional historical replay differs correctly. Two additional schema-preservation/reassignment tests have since been added and await execution.
+- Build/types passed after the first UI integration (60 files). New browser journey is still being debugged; do not report it passed. Actual fixes: allowlisted the new static script, corrected the synthetic department account ID so normal officer assignment stays unchanged, removed nested run() calls that discarded refresh, and added explicit post-activation ready-state waiting. Failed browser logs retained under evaluation/phase-3-clearances-*failure.txt. Current browser session: 74319.
+- Follow-up before final 3C acceptance: ensure stale decision proposals can return through guarded review, record current/invalidated decision status independently of external release, include current reviewer validity in final snapshots, test new source/policy/procedure/grant invalidation and finalize clearance-delay reminders. Existing close/archive endpoint still needs a current-decision guard. Do not mark 3C complete yet.
+- Then full verify (at least 125 tests expected after the new ten clearance tests and replay regression), all thirteen browser journeys, migration/concurrency/isolation, reports and local commit. Full 3D/4A-4E remain outstanding; original OCR layouts/recognition code are unchanged.
+
+## Frozen clearance acceptance run
+
+All nine targeted clearance API tests passed (53.22s), including closure/reopening, stale-proposal recovery and opted-in clearance-delay delivery. Broader initial DAG/clearance/operations run passed fourteen tests (53.85s). The multi-role browser passed before the closure/reopening extension (34.2s total). Session 67819 now runs full verify (128 expected tests), build/types and all thirteen browsers, including UI closure/reopening. Source is frozen until this run finishes. Do not claim the full run passed before collecting its result. On failure, preserve the artifact, fix the actual failure and rerun appropriate checks. No new original OCR benchmark or external confirmation is claimed.
+
+
+Session 67819 backend acceptance: 128/128 tests pass (385.71s), build/types pass (60 files). Full thirteen-browser run underway; new clearance journey including closure/reopening passed (22.4s). Continue waiting for all journeys before committing. Next phase 3D should preserve immutable trusted policy configuration capsules alongside new evaluations and explain rule-level fact/evidence/exception/uncertainty; legacy evaluations must remain honestly marked when original configuration is unavailable. Replay nested-context defect is already fixed and tested. Do not alter runtime source while the current browser suite runs.
+
+
+## Accepted clearance checkpoint after session 67819
+
+128 automated tests passed (385.71s), build/types passed (60 files), all thirteen browser journeys passed (3.9m), including closure/reopening. Runtime source remained frozen throughout. Local commit follows; no push. Current checkpoint implements internal 3C workflow with synthetic and unverified-official configurations only. Official trusted-source acceptance remains gated pending authoritative confirmation and 3D source-provenance extensions. Next implement 3D immutable policy capsules/explanations and historical replay, then 4A-4E. Existing migration checksums 5-15 are unchanged; new schema is 16. Original OCR recognition/layout partitions unchanged.

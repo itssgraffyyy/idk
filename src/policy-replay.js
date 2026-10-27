@@ -52,7 +52,7 @@ export function replayPolicySnapshot(db, caseId, evaluationId, asOf, config) {
     operationalPolicy: evaluatePolicy(
       {
         ...original.sources.instrument,
-        ...(context ? JSON.parse(context.payload) : {}),
+        ...(context ? JSON.parse(context.payload).context || {} : {}),
         proofs,
       },
       { ...config, asOf },

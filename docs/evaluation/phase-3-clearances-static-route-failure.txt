@@ -1,0 +1,50 @@
+(node:1612) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:10664) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10664) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10664) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+{"browserFixture":{"startupMs":2628.5294}}
+{"category":"reminder_scheduler","outcome":"SUCCESS","delivered":0,"processed":0,"evaluated":0,"matchedConditions":0,"next":0,"basis":"Asia/Kolkata civil date","asOf":"2026-10-27"}
+{"category":"reminder_scheduler","outcome":"SUCCESS","delivered":0,"processed":0,"evaluated":0,"matchedConditions":0,"next":0,"basis":"Asia/Kolkata civil date","asOf":"2026-10-27"}
+{"browserFixtureFailure":{"nodeTime":"2026-10-27T06:07:44.674Z","preferences":[],"operations":[{"stage":"under_review","updated":"2026-10-27T06:05:50.987Z","input_revision":5}],"deliveries":0}}
+  x  1 tests\browser\clearances.spec.js:13:1 › configured synthetic department review shares only selected evidence and a separate checker records an internal decision (2.0m)
+
+
+  1) tests\browser\clearances.spec.js:13:1 › configured synthetic department review shares only selected evidence and a separate checker records an internal decision 
+
+    Test timeout of 120000ms exceeded.
+
+    Error: browserContext.close: Test ended.
+    Browser logs:
+
+    <launching> C:/Program Files/Google/Chrome/Application/chrome.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,AvoidCorsURLLoaderRestartOnRedirect,Translate,AutoDeElevate,OptimizationHints,NetworkTimeServiceQuerying,AimEnabled,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --disable-gpu --user-data-dir=C:\Users\lenovo\AppData\Local\Temp\playwright_chromiumdev_profile-BICBAJ --remote-debugging-pipe --no-startup-window
+    <launched> pid=13532
+    [pid=13532][err] [13532:16336:1027/113544.184:ERROR:components\os_crypt\async\browser\os_crypt_win.cc:63] Failed to encrypt: The system cannot find the file specified. (0x2)
+    [pid=13532][err] [13532:2332:1027/113544.250:ERROR:chrome\installer\util\google_update_settings_win.cc:270] Failed opening key Software\Google\Update\ClientStateMedium\{8A69D345-D564-463c-AFF1-A69D9E530F96} to set usagestats; result: 5
+    [pid=13532][err] [13532:9728:1027/113546.038:ERROR:components\password_manager\core\browser\password_store\login_database_async_helper.cc:100] Encryption is not available.
+    [pid=13532][err] [13532:16116:1027/113546.039:ERROR:components\password_manager\core\browser\password_store\login_database_async_helper.cc:100] Encryption is not available.
+    [pid=13532][err] [13532:4076:1027/113548.184:ERROR:services\device\public\cpp\geolocation\system_geolocation_source_win.cc:124] Failed to create IAppCapability: Access is denied. (0x80070005)
+    [pid=13532] <gracefully close start>
+
+      248 |   } finally {
+      249 |     await institution.close();
+    > 250 |     await department.close();
+          |     ^
+      251 |     await officer.close();
+      252 |   }
+      253 | });
+        at G:\idk_lol\tests\browser\clearances.spec.js:250:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\clearances-configured-synt-476e4-ecords-an-internal-decision\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\clearances-configured-synt-476e4-ecords-an-internal-decision\error-context.md
+
+  1 failed
+    tests\browser\clearances.spec.js:13:1 › configured synthetic department review shares only selected evidence and a separate checker records an internal decision 

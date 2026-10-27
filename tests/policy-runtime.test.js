@@ -2,6 +2,84 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { evaluatePolicy, validatePolicies } from "../src/policy-runtime.js";
 import { harness, instrument } from "./support/harness.js";
+import { replayPolicySnapshot } from "../src/policy-replay.js";
+test("frozen replay restores nested regulatory context rather than current context or its envelope", async () => {
+  const conditional = {
+    ...policy,
+    rules: [
+      {
+        id: "private-minimum",
+        type: "minimum_amount",
+        amountPaise: 20000000,
+        conditions: { ownership: "private" },
+      },
+    ],
+  };
+  const h = await harness({
+    policies: [conditional],
+    policyScope: "synthetic-test",
+  });
+  try {
+    const a = await h.login("a"),
+      id = await h.create(a),
+      root = "/cases/" + id;
+    let c = (await h.call(root, undefined, a)).body;
+    assert.equal(
+      (
+        await h.call(
+          root + "/regulatory-context",
+          {
+            context: { ownership: "private", programme: "engineering" },
+            revision: c.revision,
+          },
+          a,
+        )
+      ).status,
+      201,
+    );
+    const frozen = h.app.db
+      .prepare(
+        "SELECT id FROM evidence WHERE case_id=? AND kind='evaluation' ORDER BY rowid DESC LIMIT 1",
+      )
+      .get(id).id;
+    c = (await h.call(root, undefined, a)).body;
+    assert.equal(
+      (
+        await h.call(
+          root + "/regulatory-context",
+          {
+            context: { ownership: "government", programme: "engineering" },
+            revision: c.revision,
+          },
+          a,
+        )
+      ).status,
+      201,
+    );
+    const config = { policies: [conditional], scope: "synthetic-test" };
+    const replay = replayPolicySnapshot(
+      h.app.db,
+      id,
+      frozen,
+      "2026-01-01",
+      config,
+    );
+    assert.equal(replay.operationalPolicy.outcome, "NON_COMPLIANT");
+    assert.equal(replay.operationalPolicy.checks[0].outcome, "NON_COMPLIANT");
+    const latest = h.app.db
+      .prepare(
+        "SELECT id FROM evidence WHERE case_id=? AND kind='evaluation' ORDER BY rowid DESC LIMIT 1",
+      )
+      .get(id).id;
+    assert.equal(
+      replayPolicySnapshot(h.app.db, id, latest, "2026-01-01", config)
+        .operationalPolicy.outcome,
+      "NOT_APPLICABLE",
+    );
+  } finally {
+    await h.close();
+  }
+});
 const policy = {
   version: "SYNTHETIC-2025",
   scope: "synthetic-test",

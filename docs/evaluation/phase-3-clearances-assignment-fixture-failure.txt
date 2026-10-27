@@ -1,0 +1,39 @@
+(node:12112) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:16996) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:16996) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:16996) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+{"browserFixture":{"startupMs":3677.5597}}
+{"browserFixtureFailure":{"nodeTime":"2026-10-27T06:04:42.013Z","preferences":[],"operations":[{"stage":"submitted","updated":"2026-10-27T06:04:40.999Z","input_revision":5}],"deliveries":0}}
+  x  1 tests\browser\clearances.spec.js:13:1 › configured synthetic department review shares only selected evidence and a separate checker records an internal decision (5.6s)
+
+
+  1) tests\browser\clearances.spec.js:13:1 › configured synthetic department review shares only selected evidence and a separate checker records an internal decision 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 404
+
+      93 |           })
+      94 |         ).status(),
+    > 95 |       ).toBe(200);
+         |         ^
+      96 |     }
+      97 |     await login(page.request, "supervisor");
+      98 |     await page.goto("/");
+        at G:\idk_lol\tests\browser\clearances.spec.js:95:9
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\clearances-configured-synt-476e4-ecords-an-internal-decision\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\clearances-configured-synt-476e4-ecords-an-internal-decision\error-context.md
+
+  1 failed
+    tests\browser\clearances.spec.js:13:1 › configured synthetic department review shares only selected evidence and a separate checker records an internal decision 

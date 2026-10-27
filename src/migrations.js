@@ -5,7 +5,9 @@ import { operationsMigration } from "./operations-migration.js";
 import { submissionMigration } from "./submission-migration.js";
 import { continuityMigration } from "./continuity-migration.js";
 import { notificationMigration } from "./notification-migration.js";
+import { clearanceMigration } from "./clearance-migration.js";
 export const upgrades = [
+  clearanceMigration,
   notificationMigration,
   continuityMigration,
   operationsMigration,
