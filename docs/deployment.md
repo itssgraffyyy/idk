@@ -1,6 +1,6 @@
 # Local deployment and recovery
 
-Use Node22.14 or a compatible supported Node22 release. `npm ci --ignore-scripts --no-audit`, `npm run setup`, then `npm start`. Setup prints credentials only for new accounts; retain them privately. Rerunning setup preserves credentials/data. Set DATA_DIR to a private persistent directory. One process owns each directory; never remove an active owner's lock. See .env.example: variables must be set explicitly; there is no automatic dotenv loading.
+Use patched Node22.23.4 or a later supported Node22.x release; the CLI rejects older or unqualified runtimes. `npm ci --ignore-scripts --no-audit`, `npm run setup`, then `npm start`. Setup prints credentials only for new accounts; retain them privately. Rerunning setup preserves credentials/data. Set DATA_DIR to a private persistent directory. One process owns each directory; never remove an active owner's lock. See .env.example: variables must be set explicitly; there is no automatic dotenv loading.
 
 ## Runtime configuration
 
@@ -25,3 +25,4 @@ Use the implemented stopped-source signed bundle and isolated restore commands i
 Production operation additionally requires managed TLS/Host settings, private volume ACL/encryption, real scanning, independently protected signing/checkpoint/backup custody, consented issuer/bank acceptance and operational security review. Child time/heap/concurrency bounds are not OS filesystem/network sandboxing or a total-RSS limit. SQLite supports a single owning process; distributed deployment requires a deliberate shared database/storage/leased-worker design.
 
 Native clean install/start/upload/process/restart is exercised by `npm run validate:clean` in an isolated directory. Full local acceptance and load results are recorded separately; no configuration file alone establishes successful deployment or production scale.
+

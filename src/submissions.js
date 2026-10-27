@@ -1,3 +1,4 @@
+import { iterateRows } from "./sqlite-rows.js";
 import { isInstitution } from "./permissions.js";
 import { intakeDocument } from "./document-intake.js";
 import { extract, validate, comparable } from "./engine.js";
@@ -364,11 +365,11 @@ export async function submissions({
         u.id,
       );
       registerVersion(db, doc.id, p, u);
-      for (const attempt of db
-        .prepare(
-          "SELECT * FROM draft_extraction_attempts WHERE document_id=? ORDER BY rowid",
-        )
-        .iterate(doc.id))
+      for (const attempt of iterateRows(
+        db,
+        "SELECT * FROM draft_extraction_attempts WHERE document_id=? ORDER BY rowid",
+        doc.id,
+      ))
         evidence(u.id, caseId, "draft_extraction_attempt", {
           attemptId: attempt.id,
           draftId: id,

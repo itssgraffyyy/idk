@@ -1,10 +1,15 @@
 import { mkdtempSync, cpSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, dirname, delimiter } from "node:path";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 const exec = promisify(execFile),
   dir = mkdtempSync(join(tmpdir(), "sentinel-clean-"));
+const runtimeEnv = { ...process.env };
+const pathKey =
+  Object.keys(runtimeEnv).find((k) => k.toLowerCase() === "path") || "PATH";
+runtimeEnv[pathKey] =
+  dirname(process.execPath) + delimiter + (runtimeEnv[pathKey] || "");
 try {
   for (const p of [
     "package.json",
@@ -40,12 +45,13 @@ try {
         ];
   await exec(install[0], install[1], {
     cwd: dir,
+    env: runtimeEnv,
     timeout: 240000,
     maxBuffer: 1048576,
     windowsHide: true,
   });
   const env = {
-    ...process.env,
+    ...runtimeEnv,
     DATA_DIR: join(dir, "data"),
     AUDIT_KEY_FILE: join(dir, "data", "security", "audit.key"),
     AUDIT_CHECKPOINT_FILE: join(

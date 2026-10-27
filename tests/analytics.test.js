@@ -27,6 +27,11 @@ test("analytics totals, attention and optional measurements respect live institu
       validationCorrections: 0,
     };
     assert.equal(
+      (await h.call("/workflow-measurements", { ...sample, caseId: {} }, a))
+        .status,
+      400,
+    );
+    assert.equal(
       (await h.call("/workflow-measurements", sample, a)).status,
       201,
     );
@@ -144,6 +149,18 @@ test("event timings use exact historical completion windows and unknown stays nu
     assert.equal(result.timing.clarificationResponse.samples, 1);
     assert.equal(result.timing.clarificationResponse.meanMs, 172800000);
     assert.equal(result.timing.review.meanMs, null);
+    db.prepare("INSERT INTO submission_drafts VALUES(?,?,?,?,1,?,?,?)").run(
+      randomUUID(),
+      "college-a",
+      "a",
+      "{}",
+      id,
+      "2026-09-01T00:00:00.000Z",
+      "2026-10-01T00:00:00.000Z",
+    );
+    db.prepare(
+      "UPDATE obligations SET starts=?,ends=? WHERE id=(SELECT obligation_id FROM case_domains WHERE case_id=?)",
+    ).run("2026-01-01", "2026-12-31", id);
     const requestEvent = randomUUID();
     db.prepare(
       "INSERT INTO clearance_events VALUES(?,?,?,?,?,?,?,?,?,?,?)",
@@ -207,6 +224,9 @@ test("event timings use exact historical completion windows and unknown stays nu
       new Date("2026-10-27T00:00:00Z"),
     );
     assert.equal(completed.timing.clearance.meanMs, 172800000);
+    assert.equal(completed.timing.preparation.meanMs, 30 * 86400000);
+    assert.equal(completed.obligationPeriods.recordedInPeriod, 1);
+    assert.equal(completed.obligationPeriods.unspecified, 0);
     assert.equal(completed.timing.processing.meanMs, 1234);
     assert.equal(completed.timing.reviewerWaiting.meanMs, 86400000);
     assert.equal(completed.historyCounts.repeatedReviews, 1);

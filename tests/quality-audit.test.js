@@ -6,6 +6,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { createApp, seed } from "../src/server.js";
 import { openStore } from "../src/store.js";
+import { upgrades } from "../src/migrations.js";
 import { extract } from "../src/extraction.js";
 import { buildPDF } from "../scripts/pdf-fixtures.js";
 const instrument = {
@@ -111,7 +112,7 @@ test("single-instance lease, migration checksums and data survive reopen", async
       ).body.id;
     assert.equal(
       h.app.db.prepare("SELECT count(*) n FROM schema_migrations").get().n,
-      17,
+      upgrades.length,
     );
     assert.throws(() =>
       h.app.db

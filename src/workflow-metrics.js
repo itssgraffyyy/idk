@@ -153,11 +153,18 @@ export function operationalMetrics(db, u, url, now = new Date()) {
         "SELECT created FROM evidence WHERE case_id=? AND kind='workflow_transition' AND json_extract(payload,'$.after')='submitted' ORDER BY rowid LIMIT 1",
       )
       .get(c.id);
-    const first = db
+    const firstDraft = db
       .prepare(
-        "SELECT created FROM evidence WHERE case_id=? ORDER BY rowid LIMIT 1",
+        "SELECT created FROM submission_drafts WHERE case_id=? ORDER BY created,id LIMIT 1",
       )
       .get(c.id);
+    const first =
+      firstDraft ||
+      db
+        .prepare(
+          "SELECT created FROM evidence WHERE case_id=? ORDER BY rowid LIMIT 1",
+        )
+        .get(c.id);
     if (
       submission &&
       first &&
@@ -292,6 +299,24 @@ export function operationalMetrics(db, u, url, now = new Date()) {
     cases: cases.length,
     recordedCurrentInstruments: instruments,
     linkedObligations: new Set(cases.map((c) => c.obligation_id)).size,
+    obligationPeriods: (() => {
+      const rows = db
+        .prepare(
+          `SELECT DISTINCT o.* FROM obligations o JOIN case_domains d ON d.obligation_id=o.id JOIN cases c ON c.id=d.case_id WHERE ${access.where}`,
+        )
+        .all(...access.params);
+      return {
+        recordedInPeriod: rows.filter(
+          (o) =>
+            o.status === "registered" &&
+            o.starts &&
+            o.ends &&
+            o.starts <= today &&
+            o.ends >= today,
+        ).length,
+        unspecified: rows.filter((o) => !o.starts || !o.ends).length,
+      };
+    })(),
     stages,
     bottlenecks,
     attention,
@@ -342,7 +367,9 @@ export function operationalMetrics(db, u, url, now = new Date()) {
       history:
         "Events completed within the selected UTC window. No events outside the window contribute to counts.",
       preparation:
-        "First saved case evidence to first submit; excludes time before case creation and unsubmitted drafts.",
+        "Earliest linked saved draft (or first case evidence when no draft exists) to first submit completed in the window; excludes unsubmitted drafts and time before the first saved record.",
+      obligationPeriods:
+        "Registered linked obligations with both declared period boundaries covering the as-of UTC date; unspecified periods are separate. Not independent proof of legal applicability, coverage or bank confirmation.",
       clarificationResponse:
         "Request to recorded response; repeated responses are separate observations.",
       review:
@@ -398,6 +425,11 @@ export function workflowMetricsRoute({
     ].includes(body.task)
   )
     fail(400, "Invalid measurement contract");
+  if (
+    body.caseId !== undefined &&
+    (typeof body.caseId !== "string" || !/^[a-f0-9-]{36}$/.test(body.caseId))
+  )
+    fail(400, "Invalid measurement case reference");
   for (const [k, max] of [
     ["durationMs", 7200000],
     ["clicks", 10000],

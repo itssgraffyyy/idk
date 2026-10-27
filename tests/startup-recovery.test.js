@@ -45,7 +45,11 @@ test("twenty-five missing-key failures and restored restarts preserve enrollment
       try {
         app = createApp(isolatedAppOptions(h.dir));
       } catch (error) {
-        observed = { status: error.status, message: error.message };
+        observed = {
+          status: error.status,
+          message: error.message,
+          stack: error.stack,
+        };
       }
       if (app) {
         await app.close();

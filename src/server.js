@@ -1,3 +1,5 @@
+import { iterateRows } from "./sqlite-rows.js";
+import { assertSupportedRuntime } from "./runtime.js";
 import { SetuSandboxProvider } from "./setu.js";
 import { ruleRegister, validateContext } from "./regulatory.js";
 import {
@@ -959,9 +961,11 @@ export function createApp({
           });
           let total = 0n,
             count = 0;
-          for (const row of db
-            .prepare(`SELECT c.instrument FROM cases c WHERE ${where}`)
-            .iterate(...params)) {
+          for (const row of iterateRows(
+            db,
+            `SELECT c.instrument FROM cases c WHERE ${where}`,
+            ...params,
+          )) {
             total += BigInt(JSON.parse(row.instrument).amountPaise);
             count++;
           }
@@ -2201,6 +2205,7 @@ if (
   process.argv[1] &&
   resolve(process.argv[1]) === fileURLToPath(import.meta.url)
 ) {
+  assertSupportedRuntime();
   const app = createApp();
   if (!app.db.prepare("SELECT count(*) n FROM users").get().n) {
     console.error("Run node scripts/setup.js first");

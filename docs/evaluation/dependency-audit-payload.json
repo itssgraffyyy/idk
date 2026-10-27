@@ -1,7 +1,7 @@
 {
   "purpose": "Public package-name/version advisory audit; reviewed locally before approval",
   "destination": "https://registry.npmjs.org/-/npm/v1/security/advisories/bulk",
-  "lockfileSHA256": "9c47d48c1d84c4bedea0e3b4302d3ee02e375a92861b6eb41d0db8007b8d8aa0",
+  "lockfileSHA256": "f56b922aafe81789dd8f15c6e64947fb1e4f7e720e2e122a1b563c4cc00630d3",
   "excluded": [
     "project name",
     "source code",

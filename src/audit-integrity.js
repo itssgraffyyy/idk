@@ -1,3 +1,4 @@
+import { iterateRows } from "./sqlite-rows.js";
 import {
   createHash,
   createHmac,
@@ -172,11 +173,10 @@ function verifyPinnedAudit(db, { keyFile, checkpointFile, captured }) {
     last = 0,
     count = 0,
     legacyDigest = createHash("sha256");
-  for (const r of db
-    .prepare(
-      "SELECT a.*,s.previous_mac,s.payload_sha256,s.mac FROM audit a LEFT JOIN audit_seals s ON s.audit_id=a.id ORDER BY a.id",
-    )
-    .iterate()) {
+  for (const r of iterateRows(
+    db,
+    "SELECT a.*,s.previous_mac,s.payload_sha256,s.mac FROM audit a LEFT JOIN audit_seals s ON s.audit_id=a.id ORDER BY a.id",
+  )) {
     const row = Object.fromEntries(columns.map((k) => [k, r[k]])),
       hash = digest(row);
     if (

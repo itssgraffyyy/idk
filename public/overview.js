@@ -169,6 +169,11 @@
       );
       el(
         "p",
+        `${d.obligationPeriods.recordedInPeriod} registered obligations within their declared period; ${d.obligationPeriods.unspecified} have unspecified periods.`,
+        parent,
+      );
+      el(
+        "p",
         "Recorded information requires evidence review. A maturity event never confirms bank release.",
         parent,
       ).className = "muted";

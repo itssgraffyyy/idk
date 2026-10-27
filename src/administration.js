@@ -1,3 +1,4 @@
+import { iterateRows } from "./sqlite-rows.js";
 import { randomUUID, randomBytes, scrypt } from "node:crypto";
 import { promisify } from "node:util";
 import { isInstitution, canReadCase, requireRole } from "./permissions.js";
@@ -223,9 +224,11 @@ export async function administration({
         before: old ? JSON.parse(old.data) : null,
         after: profile,
       });
-      for (const c of db
-        .prepare("SELECT * FROM cases WHERE tenant=?")
-        .iterate(u.tenant)) {
+      for (const c of iterateRows(
+        db,
+        "SELECT * FROM cases WHERE tenant=?",
+        u.tenant,
+      )) {
         evidence(u.id, c.id, "profile_reference", {
           profileRevision: (old?.revision || 0) + 1,
         });
