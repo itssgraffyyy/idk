@@ -1,3 +1,5 @@
+> Current extension status (27Oct2026): C1-C3/H1-H10 and the concrete medium foundation requirements have been implemented in place; Phase3-4 workflows/security/analytics now extend them. The report below is a historical checkpoint, including its old missing/future statements. See [current traceability](requirements/traceability.md), [current security](phase-4c-security-report.md) and [live acceptance progress](implementation-progress.md). Final local186-test/21-browser acceptance passes; issuer/bank and deployment dependencies remain explicit.
+
 # Phase 1 + 2 final gap audit
 
 ## Implementation closure — 27 October 2026

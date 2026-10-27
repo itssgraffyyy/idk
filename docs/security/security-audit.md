@@ -1,3 +1,5 @@
+> Current Phase3-4 security implementation and failure evidence: [Phase4C report](../phase-4c-security-report.md). MFA, conditional maker/checker, scanner boundary, cryptographic audit and signed isolated restore supersede older missing-control statements below. Final local186-test/21-browser acceptance passes; no production certification.
+
 # Current security validation — 27 October 2026
 
 The current control evidence is in [implementation results](../phase-1-2-implementation-results.md) and the complete [test log](../evaluation/phase-1-2-tests.txt). Five roles, authority/tenant/object boundaries, account revocation, signed bounded pagination, instrument-specific evidence, correlated categorized audit outcomes, credential redaction, private exclusive storage/quarantine, protected PDF page rendering and bounded reusable OCR recovery are implemented and tested. Uploaded PDF active content is not embedded in the browser. Historical replay cannot replace the current assessment or grant administrative approval.

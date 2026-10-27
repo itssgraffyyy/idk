@@ -1,0 +1,53 @@
+(node:16052) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 21 tests using 1 worker
+
+(node:3960) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3960) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+{"browserFixture":{"startupMs":3641.3834}}
+  ok  1 tests\browser\administration.spec.js:2:1 › institution administrator edits profile, programme/history, independent obligation and account through backend UI (13.5s)
+{"browserFixture":{"startupMs":5252.9277}}
+  ok  2 tests\browser\analysis.spec.js:2:1 › institution explores relationships, freezes a read-only scenario and verifies saved replay (4.8s)
+{"browserFixture":{"startupMs":3337.040799999995}}
+  ok  3 tests\browser\analytics.spec.js:35:1 › mobile overview supports keyboard navigation, scoped analytics and optional content-free task measurement (2.4s)
+{"browserFixture":{"startupMs":3788.7662999999957}}
+  ok  4 tests\browser\analytics.spec.js:94:1 › paired scripted maturity navigation records actual timings without claiming human productivity gains (3.4s)
+{"browserFixture":{"startupMs":3017.0535999999993}}
+  ok  5 tests\browser\applicability.spec.js:19:1 › officer sees contradictory applicability and requests reconciliation without offering financial-field edits (4.4s)
+{"browserFixture":{"startupMs":2745.0918999999994}}
+  ok  6 tests\browser\clearances.spec.js:13:1 › configured synthetic department review shares only selected evidence and a separate checker records an internal decision (17.5s)
+{"browserFixture":{"startupMs":13301.970199999996}}
+  ok  7 tests\browser\continuity.spec.js:2:1 › institution proposes a documented replacement and officer records an internal relationship without bank release (15.8s)
+{"browserFixture":{"startupMs":8505.256900000008}}
+  ok  8 tests\browser\journeys.spec.js:2:1 › ambiguous IFSC is visible and requires a reasoned manual correction (4.5s)
+{"browserFixture":{"startupMs":5779.05230000001}}
+  ok  9 tests\browser\journeys.spec.js:83:1 › institution submits evidence; officer compares, requests clarification; institution responds (14.6s)
+{"browserFixture":{"startupMs":4462.525400000013}}
+  ok 10 tests\browser\journeys.spec.js:279:1 › responsive login and rejected credentials (1.3s)
+{"browserFixture":{"startupMs":3310.9769000000088}}
+  ok 11 tests\browser\mfa.spec.js:4:1 › required administrator completes masked authenticator setup and signs in using a single-use recovery code (3.7s)
+{"browserFixture":{"startupMs":3538.0316000000166}}
+{"category":"reminder_scheduler","outcome":"SUCCESS","delivered":1,"processed":1,"evaluated":1,"matchedConditions":1,"next":0,"basis":"Asia/Kolkata civil date","asOf":"2026-10-27"}
+  ok 12 tests\browser\notifications.spec.js:3:1 › saved notification categories survive reload and the real scheduler produces a visible immutable delivery (1.0m)
+{"browserFixture":{"startupMs":4210.461099999986}}
+  ok 13 tests\browser\ocr-review.spec.js:3:1 › real rotated OCR presents conflicting name readings and records explicit corrections with source history intact (14.6s)
+{"browserFixture":{"startupMs":2569.184500000003}}
+  ok 14 tests\browser\pdf.spec.js:3:1 › private PDF is rendered as protected page image in institution workspace (5.7s)
+{"browserFixture":{"startupMs":3532.103199999983}}
+  ok 15 tests\browser\policy-history.spec.js:6:1 › reviewer inspects explained synthetic rules and the exact historical extraction after a later correction (4.8s)
+{"browserFixture":{"startupMs":3624.3595000000205}}
+  ok 16 tests\browser\procedure-confirmation.spec.js:35:1 › officer sees exact confirmation provenance with an explicit synthetic-only authority label (2.2s)
+{"browserFixture":{"startupMs":3498.4470000000438}}
+  ok 17 tests\browser\provider.spec.js:2:1 › local financial provider scenarios are genuine API results and clearly MOCK in officer workspace (4.5s)
+{"browserFixture":{"startupMs":2961.721099999966}}
+  ok 18 tests\browser\resolution.spec.js:2:1 › reviewer targets a finding; institution corrects only disputed amount and reviewer closes the response (4.4s)
+{"browserFixture":{"startupMs":3592.3620999999694}}
+  ok 19 tests\browser\roles.spec.js:2:1 › supervisor performs guarded review transition and auditor can only inspect the same authority case (3.2s)
+{"browserFixture":{"startupMs":3976.3780999999726}}
+  ok 20 tests\browser\submission.spec.js:2:1 › guided upload-first draft survives reload, prefills only chosen proposals and receives persisted acknowledgement (6.5s)
+{"browserFixture":{"startupMs":3087.5285999999614}}
+  ok 21 tests\browser\viewer.spec.js:3:1 › reviewer compares original/corrected fields across protected PDF versions with measured highlights and zoom (9.3s)
+
+  21 passed (5.6m)

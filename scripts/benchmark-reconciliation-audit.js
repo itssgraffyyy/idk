@@ -18,7 +18,13 @@ for (const c of d.cases) {
     }),
     actual = new Set(result.findings.map((f) => f.code));
   // v1 fixture identifiers are fictional even where syntax is valid.
-  for (const field of ["institutionName", "depositor", "branch", "currency"]) {
+  for (const field of [
+    "institutionName",
+    "depositor",
+    "branch",
+    "currency",
+    "type",
+  ]) {
     expected.add("missing_" + field);
     expected.add("missing_declaration_" + field);
   }
@@ -41,7 +47,7 @@ const report = {
   datasetVersion: d.version,
   asOf: "2026-10-26",
   configuration:
-    "Original v1 ground truth retained; add explicit unavailable fictional IFSC, candidate review for present fictional codes, and missing regulatory applicability findings. Original domain-conflict expectations unchanged.",
+    "Original v1 ground truth retained; add explicit unavailable fictional IFSC, candidate review for present fictional codes, missing regulatory applicability and five subsequently required financial identity/type fields. V1 declares no instrument type; both missing declaration and extraction findings are required. Original domain-conflict expectations unchanged.",
   precision: tp / (tp + fp),
   recall: tp / (tp + fn),
   tp,

@@ -1,6 +1,6 @@
 # Phase 4C security and reliability status
 
-Current status: capabilities implemented with targeted validation; final integrated acceptance is running. Earlier chronological checkpoints are retained in `implementation-progress.md` and Git history. This document describes the resulting controls and their actual limits.
+Current status: final local186-test/21-browser acceptance, build/types/lint, native clean-install/restart,60-document frozen OCR and200-case load pass. See phase-3-4-completion-report.md; historical checkpoints below are superseded by those final results. Earlier chronological checkpoints are retained in `implementation-progress.md` and Git history. This document describes the resulting controls and their actual limits.
 
 | Control | Implementation | Proof |
 | --- | --- | --- |

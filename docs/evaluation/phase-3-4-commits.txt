@@ -1,0 +1,23 @@
+adcd610 Implement saved submissions and evidence-to-resolution workflow foundations
+359f957 Add protected versioned evidence viewer and isolated browser acceptance
+8fbe9c2 Implement declared continuity, immutable replacement proposals and opt-in reminders
+0525aeb Add source-bound lifecycle observations and recorded timeline
+0a0a188 Add provenance-bound operational reminders and portable private PDF previews
+ca4eb76 Implement scoped departmental clearances and evidence-bound internal decisions
+3bfbafe Freeze populated synthetic migration fixtures and verify historical upgrades
+0bc33c1 Preserve policy configurations and explain source-bound historical decisions
+abecded Freeze new synthetic OCR development validation and untouched held-out layouts
+84ace24 Measure genuine OCR development baseline with per-field and worker resource evidence
+526b07b Improve source-bound OCR segmentation type extraction and conservative regional review
+4cb9e63 Record frozen held-out OCR evaluation and limits
+eeedd93 Add authorized evidence relationships and frozen read-only scenarios
+644e152 Sign audit history and verify protected checkpoints with consistent reads
+f81a681 Add session-bound MFA enrollment, recovery and administrative step-up
+18264c4 Bind upload scanning to source versions and minimize worker credentials
+89c62bb Add signed offline backups and verified isolated restore with session revocation
+1bae77b Reauthorize private reads and pin departmental request revisions
+3a8dfb6 Gate procedure trust on versioned issuer confirmation records and preserve replay
+985e0ab Require reconciliation of conflicting programme and level facts
+aa8f684 Harden isolated validation and add structural lint and restart stability checks
+e9c59f6 Add authorized operational analytics and optional private workflow measurements
+98e0029 Fix SQLite iterator GC lifetime and enforce patched Node22 security baseline

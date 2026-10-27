@@ -1,0 +1,21 @@
+node.exe : (node:10820) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+At line:2 char:1
++ & .\.scratch\node-runtime\node-v22.23.4-win-x64\node.exe scripts/benc ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:10820) Ex...nge at any time:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+(Use `node --trace-warnings ...` to show where the warning was created)
+file:///G:/idk_lol/scripts/benchmark-phase-4.js:63
+      throw Error(
+            ^
+
+Error: /analytics?days=30 returned 429: {"error":"Request rate exceeded"}
+    at get (file:///G:/idk_lol/scripts/benchmark-phase-4.js:63:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async file:///G:/idk_lol/scripts/benchmark-phase-4.js:21:11
+    at async Promise.all (index 0)
+    at async sample (file:///G:/idk_lol/scripts/benchmark-phase-4.js:17:5)
+    at async file:///G:/idk_lol/scripts/benchmark-phase-4.js:75:3
+
+Node.js v22.23.4

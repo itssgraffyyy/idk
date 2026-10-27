@@ -19,7 +19,8 @@
     "benchmark:ocr:final": "node scripts/benchmark-final-ocr.js",
     "typecheck": "tsc -p tsconfig.contracts.json",
     "lint": "eslint src public scripts tests eslint.config.js",
-    "validate:clean": "node scripts/validate-clean-start.js"
+    "validate:clean": "node scripts/validate-clean-start.js",
+    "benchmark:phase4": "node scripts/benchmark-phase-4.js"
   },
   "engines": {
     "node": ">=22.23.4 <23"

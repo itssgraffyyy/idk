@@ -1,3 +1,5 @@
+> Final local acceptance: [Phase3 +4 completion report](phase-3-4-completion-report.md).186 backend tests,21 browser journeys, frozen OCR/load/native-install checks pass; older pending-milestone statements below are historical. External authority/deployment limits remain.
+
 # Phase 4D: operational overview and measured interaction
 
 Implemented in the existing role portals: a compact attention overview beside the registry, source-safe case links, optional expanded analytics, role-specific team aggregation, keyboard focus on view changes, a skip link, reachable mobile navigation, stronger small-text contrast and collapsible secondary metrics. The original registry, evidence comparison, protected viewer, domain administration and review workflows remain connected.

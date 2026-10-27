@@ -1,0 +1,165 @@
+node.exe : (node:3572) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+At line:2 char:162
++ ... format.txt; & .\.scratch\node-runtime\node-v22.23.4-win-x64\node.exe  ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:3572) Exp...nge at any time:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "node": "v22.23.4",
+  "platform": "win32",
+  "cpu": "Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz",
+  "logicalCPUs": 8,
+  "totalMemoryBytes": 8458571776,
+  "dataset": {
+    "syntheticCases": 200,
+    "institutionA": 150,
+    "institutionB": 50,
+    "realBankData": false
+  },
+  "method": "Sequential endpoint groups, admission paced at four requests/second beneath the default300/IP/minute limit. Pacing waits excluded from request latency; configured concurrency and actual maximum in flight reported separately. HTTP loopback, one SQLite owner with WAL/signed audit checkpoints. No production SLA/distributed-scale claim. CPU/RSS are main-process measurements; native OCR measured separately. Scenario dates are explicit hypothetical assumptions.",
+  "journal": "docs/evaluation/phase-4e-load-progress-1793117439068.jsonl",
+  "results": [
+    {
+      "name": "Create persisted cases with signed audit checkpoints",
+      "samples": 200,
+      "concurrency": 1,
+      "maxObservedInFlight": 1,
+      "admissionWaitMsTotal": 14342.220200000018,
+      "failures": 0,
+      "p50Ms": 175.52460000000065,
+      "p95Ms": 445.0197999999946,
+      "maxMs": 852.3734000000004
+    },
+    {
+      "name": "Tenant case search and stable page",
+      "samples": 40,
+      "concurrency": 5,
+      "maxObservedInFlight": 3,
+      "admissionWaitMsTotal": 9796.1783,
+      "failures": 0,
+      "p50Ms": 11.13320000001113,
+      "p95Ms": 12.673299999994924,
+      "maxMs": 13.982000000003609
+    },
+    {
+      "name": "Bounded case evidence history",
+      "samples": 40,
+      "concurrency": 5,
+      "maxObservedInFlight": 1,
+      "admissionWaitMsTotal": 9918.751300000004,
+      "failures": 0,
+      "p50Ms": 7.83980000000156,
+      "p95Ms": 14.607499999998254,
+      "maxMs": 21.340400000000955
+    },
+    {
+      "name": "Scoped operational analytics:150 cases",
+      "samples": 20,
+      "concurrency": 1,
+      "maxObservedInFlight": 1,
+      "admissionWaitMsTotal": 2376.6392000000196,
+      "failures": 0,
+      "p50Ms": 131.94770000000426,
+      "p95Ms": 178.489699999991,
+      "maxMs": 787.2362999999896
+    },
+    {
+      "name": "Authorized relationships:200 accessible cases",
+      "samples": 10,
+      "concurrency": 1,
+      "maxObservedInFlight": 1,
+      "admissionWaitMsTotal": 590.9885000000068,
+      "failures": 0,
+      "p50Ms": 194.3758000000089,
+      "p95Ms": 292.2468000000081,
+      "maxMs": 292.2468000000081
+    },
+    {
+      "name": "Department queue:empty configured register",
+      "samples": 20,
+      "concurrency": 5,
+      "maxObservedInFlight": 1,
+      "admissionWaitMsTotal": 4749.464700000011,
+      "failures": 0,
+      "p50Ms": 2.2677000000112457,
+      "p95Ms": 6.467000000004191,
+      "maxMs": 8.50329999999667
+    },
+    {
+      "name": "Whole audit-chain verification by supervisor",
+      "samples": 5,
+      "concurrency": 1,
+      "maxObservedInFlight": 1,
+      "admissionWaitMsTotal": 481.72149999997055,
+      "failures": 0,
+      "p50Ms": 169.39979999999923,
+      "p95Ms": 864.8113999999914,
+      "maxMs": 864.8113999999914
+    },
+    {
+      "name": "Publish bounded synthetic text documents",
+      "samples": 5,
+      "concurrency": 1,
+      "maxObservedInFlight": 1,
+      "admissionWaitMsTotal": 123.6356999999698,
+      "failures": 0,
+      "p50Ms": 266.29009999999835,
+      "p95Ms": 298.22619999999006,
+      "maxMs": 298.22619999999006
+    },
+    {
+      "name": "Text extraction and complete deterministic reevaluation (not OCR)",
+      "samples": 5,
+      "concurrency": 1,
+      "maxObservedInFlight": 1,
+      "admissionWaitMsTotal": 0.010300000023562461,
+      "failures": 0,
+      "p50Ms": 347.7908999999927,
+      "p95Ms": 478.5923999999941,
+      "maxMs": 478.5923999999941
+    },
+    {
+      "name": "Local MOCK provider through API and deterministic evaluation",
+      "samples": 10,
+      "concurrency": 1,
+      "maxObservedInFlight": 1,
+      "admissionWaitMsTotal": 645.3797999999952,
+      "failures": 0,
+      "p50Ms": 168.85050000000047,
+      "p95Ms": 527.684500000003,
+      "maxMs": 527.684500000003
+    },
+    {
+      "name": "Source-linked regulatory decision explanation",
+      "samples": 20,
+      "concurrency": 1,
+      "maxObservedInFlight": 1,
+      "admissionWaitMsTotal": 1766.4916999999841,
+      "failures": 0,
+      "p50Ms": 157.84249999999884,
+      "p95Ms": 200.6039000000019,
+      "maxMs": 439.25049999999464
+    },
+    {
+      "name": "Persist read-only baseline scenario",
+      "samples": 10,
+      "concurrency": 1,
+      "maxObservedInFlight": 1,
+      "admissionWaitMsTotal": 706.9270000000251,
+      "failures": 0,
+      "p50Ms": 155.89620000000286,
+      "p95Ms": 283.8426000000036,
+      "maxMs": 283.8426000000036
+    }
+  ],
+  "elapsedMs": 105285.3391,
+  "cpuMicroseconds": {
+    "user": 9921000,
+    "system": 4359000
+  },
+  "peakSampledRSSBytes": 271167488,
+  "crossTenantObjectDenied": true,
+  "finishedAt": "2026-10-27T16:12:24.354Z"
+}

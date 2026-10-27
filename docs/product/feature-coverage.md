@@ -1,6 +1,6 @@
 # Product coverage and integration
 
-27 October2026. Local Phase3–4 capabilities are implemented in the existing application; final whole-suite/browser/deployment/load acceptance is running. Historical milestone counts are not substituted for final results. Source authority and production readiness remain separate.
+27 October2026. Local Phase3Â–4 capabilities are implemented in the existing application; final local186-test/21-browser/OCR/load/native-install acceptance passes; see [completion report](../phase-3-4-completion-report.md). Historical milestone counts are not substituted for final results. Source authority and production readiness remain separate.
 
 | Capability | User/problem/workflow | Data and permission boundary | Failure behavior / evidence |
 | --- | --- | --- | --- |
@@ -18,8 +18,8 @@
 | Identity, audit and recovery | Account owner/auditor/operator protects access and recovers service | Encrypted TOTP/recovery/session assurance; HMAC audit root/seals/checkpoints; private hash-checked backups | Throttling/revocation/tamper/truncation/atomicity/concurrent verification/restored-start tests; trust/custody limits disclosed |
 | Operational overview | Each role identifies evidence, maturity, clarification or changed-input attention | Actual currently accessible cases; compact registry preview and case links | Retry/queue fallback, bounded queries, source-safe labels; analytics tests and mobile keyboard browser |
 | Analytics and optional measurement | Institution/reviewer/supervisor inspects backlog/timing and self-selected workflow effort | Scoped UTC history/current inventory; enum/duration/count measurements, no sensitive values | Oversize413, unknown/null timings, current assignment revocation, read-only auditor; no invented statistics or productivity gain |
-| Infrastructure | Operator installs and runs one private local service | Existing Node/SQLite single owner, bounded workers, private storage contract, checksum migrations | CI/container configuration; actual native clean-start/load/full acceptance pending separately; no distributed-scale claim |
+| Infrastructure | Operator installs and runs one private local service | Existing Node/SQLite single owner, bounded workers, private storage contract, checksum migrations | CI/container configuration; actual native clean-start/load/full acceptance passes within disclosed local bounds; no distributed-scale claim |
 
 The UI retains purpose-specific existing navigation and merges related evidence, lifecycle, administrative decisions, history/help, relationships and scenarios into their case workflow. Secondary analytics/measurement content is collapsed by default. Mobile navigation, keyboard focus/skip link, source text contrast and responsive tables are exercised. No parallel portal, standalone graph product, graph database or mandatory paid AI service was introduced.
 
-Current code/test traceability: [requirements](../requirements/traceability.md). Detailed security limits: [Phase4C](../phase-4c-security-report.md). UX and measurement method: [Phase4D](../phase-4d-ux-analytics-report.md). Final results will be recorded after acceptance, not inferred from configured CI or Docker files.
+Current code/test traceability: [requirements](../requirements/traceability.md). Detailed security limits: [Phase4C](../phase-4c-security-report.md). UX and measurement method: [Phase4D](../phase-4d-ux-analytics-report.md). Final local results are in the completion report; Docker and remote CI remain unexecuted.

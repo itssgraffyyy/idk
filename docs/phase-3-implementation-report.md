@@ -1,3 +1,5 @@
+> Final local acceptance: [Phase3 +4 completion report](phase-3-4-completion-report.md).186 backend tests,21 browser journeys, frozen OCR/load/native-install checks pass; older pending-milestone statements below are historical. External authority/deployment limits remain.
+
 # Phase 3 implementation report
 
 Status: in progress, 27 October 2026. Existing application extended from `70869f3`; no framework/database rewrite or remote push.

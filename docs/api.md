@@ -1,3 +1,5 @@
+> Current Phase3-4 extensions: [API additions](api-phase-3-4.md). Existing baseline tables below are historical; later role, viewer, clearance and security contracts supersede conflicting statements.
+
 > Current status: see [audit update](audit-status-update.md) and [completion report](phase-1-2-completion-report.md). Baseline descriptions below are retained for history.
 
 # API and frontend

@@ -1,6 +1,6 @@
 # FDR Sentinel
 
-An existing local evidence and review application, extended in place through Phase3 operational workflows and Phase4 intelligence/security/UX capabilities. Final integrated acceptance is in progress; [implementation progress](docs/implementation-progress.md) records actual checkpoints. No framework rewrite, working-data reset or remote push was performed.
+An existing local evidence and review application, extended in place through Phase3 operational workflows and Phase4 intelligence/security/UX capabilities. Final local acceptance passes186 backend tests and21 browser journeys; see [completion report](docs/phase-3-4-completion-report.md). [implementation progress](docs/implementation-progress.md) records actual checkpoints. No framework rewrite, working-data reset or remote push was performed.
 
 Real banking/issuer confirmation is separate from application workflow. Official AICTE authority remains unverified; MOCK and Setu sandbox results are explicitly labelled. A real versioned IFSC reference does not authenticate an FDR. All final administrative decisions require authorized human review; maturity never implies bank release.
 

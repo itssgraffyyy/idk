@@ -1,10 +1,10 @@
 {
   "datasetVersion": "synthetic-v1",
   "asOf": "2026-10-26",
-  "configuration": "Original v1 ground truth retained; add explicit unavailable fictional IFSC, candidate review for present fictional codes, and missing regulatory applicability findings. Original domain-conflict expectations unchanged.",
+  "configuration": "Original v1 ground truth retained; add explicit unavailable fictional IFSC, candidate review for present fictional codes, missing regulatory applicability and five subsequently required financial identity/type fields. V1 declares no instrument type; both missing declaration and extraction findings are required. Original domain-conflict expectations unchanged.",
   "precision": 1,
   "recall": 1,
-  "tp": 282,
+  "tp": 322,
   "fp": 0,
   "fn": 0,
   "rows": [
@@ -23,6 +23,8 @@
         "missing_declaration_branch",
         "missing_currency",
         "missing_declaration_currency",
+        "missing_type",
+        "missing_declaration_type",
         "ifsc_extraction_review"
       ],
       "actual": [
@@ -36,6 +38,8 @@
         "missing_branch",
         "missing_declaration_currency",
         "missing_currency",
+        "missing_declaration_type",
+        "missing_type",
         "mock_only",
         "policy_unverified",
         "regulatory_programme_amount"
@@ -59,6 +63,8 @@
         "missing_declaration_branch",
         "missing_currency",
         "missing_declaration_currency",
+        "missing_type",
+        "missing_declaration_type",
         "ifsc_extraction_review"
       ],
       "actual": [
@@ -73,6 +79,8 @@
         "missing_branch",
         "missing_declaration_currency",
         "missing_currency",
+        "missing_declaration_type",
+        "missing_type",
         "mock_only",
         "policy_unverified",
         "regulatory_programme_amount"
@@ -96,6 +104,8 @@
         "missing_declaration_branch",
         "missing_currency",
         "missing_declaration_currency",
+        "missing_type",
+        "missing_declaration_type",
         "ifsc_extraction_review"
       ],
       "actual": [
@@ -110,6 +120,8 @@
         "missing_branch",
         "missing_declaration_currency",
         "missing_currency",
+        "missing_declaration_type",
+        "missing_type",
         "mock_only",
         "policy_unverified",
         "regulatory_programme_amount"
@@ -133,6 +145,8 @@
         "missing_declaration_branch",
         "missing_currency",
         "missing_declaration_currency",
+        "missing_type",
+        "missing_declaration_type",
         "ifsc_extraction_review"
       ],
       "actual": [
@@ -147,6 +161,8 @@
         "missing_branch",
         "missing_declaration_currency",
         "missing_currency",
+        "missing_declaration_type",
+        "missing_type",
         "mock_only",
         "policy_unverified",
         "regulatory_programme_amount"
@@ -170,6 +186,8 @@
         "missing_declaration_branch",
         "missing_currency",
         "missing_declaration_currency",
+        "missing_type",
+        "missing_declaration_type",
         "ifsc_extraction_review"
       ],
       "actual": [
@@ -184,6 +202,8 @@
         "missing_branch",
         "missing_declaration_currency",
         "missing_currency",
+        "missing_declaration_type",
+        "missing_type",
         "mock_only",
         "policy_unverified",
         "regulatory_programme_amount"
@@ -207,6 +227,8 @@
         "missing_declaration_branch",
         "missing_currency",
         "missing_declaration_currency",
+        "missing_type",
+        "missing_declaration_type",
         "ifsc_extraction_review"
       ],
       "actual": [
@@ -221,6 +243,8 @@
         "missing_branch",
         "missing_declaration_currency",
         "missing_currency",
+        "missing_declaration_type",
+        "missing_type",
         "mock_only",
         "policy_unverified",
         "regulatory_programme_amount"
@@ -248,7 +272,9 @@
         "missing_branch",
         "missing_declaration_branch",
         "missing_currency",
-        "missing_declaration_currency"
+        "missing_declaration_currency",
+        "missing_type",
+        "missing_declaration_type"
       ],
       "actual": [
         "ifsc_unavailable",
@@ -266,6 +292,8 @@
         "missing_branch",
         "missing_declaration_currency",
         "missing_currency",
+        "missing_declaration_type",
+        "missing_type",
         "mock_only",
         "policy_unverified",
         "regulatory_programme_amount"
@@ -288,6 +316,8 @@
         "missing_declaration_branch",
         "missing_currency",
         "missing_declaration_currency",
+        "missing_type",
+        "missing_declaration_type",
         "ifsc_extraction_review"
       ],
       "actual": [
@@ -301,6 +331,8 @@
         "missing_branch",
         "missing_declaration_currency",
         "missing_currency",
+        "missing_declaration_type",
+        "missing_type",
         "mock_only",
         "policy_unverified",
         "regulatory_programme_amount"
@@ -325,6 +357,8 @@
         "missing_declaration_branch",
         "missing_currency",
         "missing_declaration_currency",
+        "missing_type",
+        "missing_declaration_type",
         "ifsc_extraction_review"
       ],
       "actual": [
@@ -340,6 +374,8 @@
         "missing_branch",
         "missing_declaration_currency",
         "missing_currency",
+        "missing_declaration_type",
+        "missing_type",
         "mock_only",
         "policy_unverified",
         "regulatory_programme_amount"
@@ -364,6 +400,8 @@
         "missing_declaration_branch",
         "missing_currency",
         "missing_declaration_currency",
+        "missing_type",
+        "missing_declaration_type",
         "ifsc_extraction_review"
       ],
       "actual": [
@@ -377,6 +415,8 @@
         "missing_branch",
         "missing_declaration_currency",
         "missing_currency",
+        "missing_declaration_type",
+        "missing_type",
         "mock_only",
         "date_order",
         "expired",
@@ -401,6 +441,8 @@
         "missing_declaration_branch",
         "missing_currency",
         "missing_declaration_currency",
+        "missing_type",
+        "missing_declaration_type",
         "ifsc_extraction_review"
       ],
       "actual": [
@@ -414,6 +456,8 @@
         "missing_branch",
         "missing_declaration_currency",
         "missing_currency",
+        "missing_declaration_type",
+        "missing_type",
         "mock_only",
         "policy_unverified",
         "regulatory_programme_amount"
@@ -436,6 +480,8 @@
         "missing_declaration_branch",
         "missing_currency",
         "missing_declaration_currency",
+        "missing_type",
+        "missing_declaration_type",
         "ifsc_extraction_review"
       ],
       "actual": [
@@ -449,6 +495,8 @@
         "missing_branch",
         "missing_declaration_currency",
         "missing_currency",
+        "missing_declaration_type",
+        "missing_type",
         "mock_only",
         "policy_unverified",
         "regulatory_programme_amount"
@@ -472,6 +520,8 @@
         "missing_declaration_branch",
         "missing_currency",
         "missing_declaration_currency",
+        "missing_type",
+        "missing_declaration_type",
         "ifsc_extraction_review"
       ],
       "actual": [
@@ -486,6 +536,8 @@
         "missing_branch",
         "missing_declaration_currency",
         "missing_currency",
+        "missing_declaration_type",
+        "missing_type",
         "mock_only",
         "policy_unverified",
         "regulatory_programme_amount"
@@ -508,6 +560,8 @@
         "missing_declaration_branch",
         "missing_currency",
         "missing_declaration_currency",
+        "missing_type",
+        "missing_declaration_type",
         "ifsc_extraction_review"
       ],
       "actual": [
@@ -521,6 +575,8 @@
         "missing_branch",
         "missing_declaration_currency",
         "missing_currency",
+        "missing_declaration_type",
+        "missing_type",
         "bank_confirmation",
         "policy_unverified",
         "regulatory_programme_amount"
@@ -544,6 +600,8 @@
         "missing_declaration_branch",
         "missing_currency",
         "missing_declaration_currency",
+        "missing_type",
+        "missing_declaration_type",
         "ifsc_extraction_review"
       ],
       "actual": [
@@ -557,6 +615,8 @@
         "missing_branch",
         "missing_declaration_currency",
         "missing_currency",
+        "missing_declaration_type",
+        "missing_type",
         "mock_only",
         "amount_shortfall",
         "policy_unverified",
@@ -581,6 +641,8 @@
         "missing_declaration_branch",
         "missing_currency",
         "missing_declaration_currency",
+        "missing_type",
+        "missing_declaration_type",
         "ifsc_extraction_review"
       ],
       "actual": [
@@ -594,6 +656,8 @@
         "missing_branch",
         "missing_declaration_currency",
         "missing_currency",
+        "missing_declaration_type",
+        "missing_type",
         "mock_only",
         "expired",
         "policy_unverified",
@@ -618,6 +682,8 @@
         "missing_declaration_branch",
         "missing_currency",
         "missing_declaration_currency",
+        "missing_type",
+        "missing_declaration_type",
         "ifsc_extraction_review"
       ],
       "actual": [
@@ -632,6 +698,8 @@
         "missing_branch",
         "missing_declaration_currency",
         "missing_currency",
+        "missing_declaration_type",
+        "missing_type",
         "mock_only",
         "policy_unverified",
         "regulatory_programme_amount"
@@ -654,7 +722,9 @@
         "missing_branch",
         "missing_declaration_branch",
         "missing_currency",
-        "missing_declaration_currency"
+        "missing_declaration_currency",
+        "missing_type",
+        "missing_declaration_type"
       ],
       "actual": [
         "ifsc_unavailable",
@@ -667,6 +737,8 @@
         "missing_branch",
         "missing_declaration_currency",
         "missing_currency",
+        "missing_declaration_type",
+        "missing_type",
         "mock_only",
         "policy_unverified",
         "regulatory_programme_amount"
@@ -690,6 +762,8 @@
         "missing_declaration_branch",
         "missing_currency",
         "missing_declaration_currency",
+        "missing_type",
+        "missing_declaration_type",
         "ifsc_extraction_review"
       ],
       "actual": [
@@ -704,6 +778,8 @@
         "missing_branch",
         "missing_declaration_currency",
         "missing_currency",
+        "missing_declaration_type",
+        "missing_type",
         "mock_only",
         "policy_unverified",
         "regulatory_programme_amount"
@@ -729,6 +805,8 @@
         "missing_declaration_branch",
         "missing_currency",
         "missing_declaration_currency",
+        "missing_type",
+        "missing_declaration_type",
         "ifsc_extraction_review"
       ],
       "actual": [
@@ -745,6 +823,8 @@
         "missing_branch",
         "missing_declaration_currency",
         "missing_currency",
+        "missing_declaration_type",
+        "missing_type",
         "mock_only",
         "policy_unverified",
         "regulatory_programme_amount"

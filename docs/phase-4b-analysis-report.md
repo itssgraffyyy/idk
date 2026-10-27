@@ -1,3 +1,5 @@
+> Final local acceptance: [Phase3 +4 completion report](phase-3-4-completion-report.md).186 backend tests,21 browser journeys, frozen OCR/load/native-install checks pass; older pending-milestone statements below are historical. External authority/deployment limits remain.
+
 # Phase 4B relationships and read-only scenarios
 
 Schema 18 adds independent immutable legal-entity declaration revisions and analysis snapshot/result records. Existing cases, obligations, instruments, documents, hashes, evaluations and migrations remain intact. No graph database or stack migration.

@@ -1,0 +1,21 @@
+node.exe : (node:8728) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+At line:2 char:220
++ ... format.txt; & .\.scratch\node-runtime\node-v22.23.4-win-x64\node.exe  ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:8728) Exp...nge at any time:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+(Use `node --trace-warnings ...` to show where the warning was created)
+file:///G:/idk_lol/scripts/benchmark-phase-4.js:172
+      if (r.status !== 201) throw Error(JSON.stringify(r.body));
+                                  ^
+
+Error: {"error":"Invalid date"}
+    at file:///G:/idk_lol/scripts/benchmark-phase-4.js:172:35
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async file:///G:/idk_lol/scripts/benchmark-phase-4.js:34:11
+    at async Promise.all (index 0)
+    at async sample (file:///G:/idk_lol/scripts/benchmark-phase-4.js:28:5)
+    at async file:///G:/idk_lol/scripts/benchmark-phase-4.js:164:3
+
+Node.js v22.23.4

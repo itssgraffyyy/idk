@@ -1,0 +1,548 @@
+{
+  "applicationCommit": "98e002930fc8516282ba8f8a17577ac1d362c87a",
+  "runtime": "v22.23.4",
+  "backend": {
+    "tests": 186,
+    "passed": 186,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 787652.6885
+  },
+  "browser": {
+    "passed": 21,
+    "failed": 0,
+    "durationLabel": "5.6m"
+  },
+  "build": {
+    "validatedFiles": 82,
+    "passed": true
+  },
+  "typecheck": {
+    "passed": true
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "dependencyAudit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "cleanStartup": {
+    "command": "node scripts/validate-clean-start.js",
+    "cleanNpmCi": true,
+    "provisioningIdempotent": true,
+    "ready": true,
+    "login": true,
+    "registration": true,
+    "documentHashPreserved": true,
+    "processing": true,
+    "restartPersistence": true,
+    "evaluationsPreserved": 3,
+    "migrations": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22
+    ]
+  },
+  "reconciliation": {
+    "cases": 20,
+    "passed": 20,
+    "precision": 1,
+    "recall": 1
+  },
+  "ocr": {
+    "heldout": {
+      "samples": 12,
+      "failures": 0,
+      "metrics": {
+        "reference": {
+          "expectedPresent": 12,
+          "exact": 12,
+          "exactMatchRate": 1,
+          "coverage": 1,
+          "incorrectUnflaggedCandidates": 0,
+          "flaggedReviewCandidates": 0,
+          "withheldRecognitionConflicts": 0,
+          "correctlyWithheldUncertain": 0,
+          "intentionallyAbsent": 0,
+          "correctlyAbsent": 0,
+          "falseExtractions": 0
+        },
+        "amountPaise": {
+          "expectedPresent": 12,
+          "exact": 12,
+          "exactMatchRate": 1,
+          "coverage": 1,
+          "incorrectUnflaggedCandidates": 0,
+          "flaggedReviewCandidates": 0,
+          "withheldRecognitionConflicts": 0,
+          "correctlyWithheldUncertain": 0,
+          "intentionallyAbsent": 0,
+          "correctlyAbsent": 0,
+          "falseExtractions": 0
+        },
+        "bank": {
+          "expectedPresent": 12,
+          "exact": 12,
+          "exactMatchRate": 1,
+          "coverage": 1,
+          "incorrectUnflaggedCandidates": 0,
+          "flaggedReviewCandidates": 1,
+          "withheldRecognitionConflicts": 0,
+          "correctlyWithheldUncertain": 0,
+          "intentionallyAbsent": 0,
+          "correctlyAbsent": 0,
+          "falseExtractions": 0
+        },
+        "ifsc": {
+          "expectedPresent": 10,
+          "exact": 10,
+          "exactMatchRate": 1,
+          "coverage": 1,
+          "incorrectUnflaggedCandidates": 0,
+          "flaggedReviewCandidates": 4,
+          "withheldRecognitionConflicts": 0,
+          "correctlyWithheldUncertain": 2,
+          "intentionallyAbsent": 2,
+          "correctlyAbsent": 2,
+          "falseExtractions": 0
+        },
+        "issued": {
+          "expectedPresent": 12,
+          "exact": 12,
+          "exactMatchRate": 1,
+          "coverage": 1,
+          "incorrectUnflaggedCandidates": 0,
+          "flaggedReviewCandidates": 0,
+          "withheldRecognitionConflicts": 0,
+          "correctlyWithheldUncertain": 0,
+          "intentionallyAbsent": 0,
+          "correctlyAbsent": 0,
+          "falseExtractions": 0
+        },
+        "matures": {
+          "expectedPresent": 12,
+          "exact": 12,
+          "exactMatchRate": 1,
+          "coverage": 1,
+          "incorrectUnflaggedCandidates": 0,
+          "flaggedReviewCandidates": 0,
+          "withheldRecognitionConflicts": 0,
+          "correctlyWithheldUncertain": 0,
+          "intentionallyAbsent": 0,
+          "correctlyAbsent": 0,
+          "falseExtractions": 0
+        },
+        "institutionName": {
+          "expectedPresent": 12,
+          "exact": 12,
+          "exactMatchRate": 1,
+          "coverage": 1,
+          "incorrectUnflaggedCandidates": 0,
+          "flaggedReviewCandidates": 0,
+          "withheldRecognitionConflicts": 0,
+          "correctlyWithheldUncertain": 0,
+          "intentionallyAbsent": 0,
+          "correctlyAbsent": 0,
+          "falseExtractions": 0
+        },
+        "depositor": {
+          "expectedPresent": 10,
+          "exact": 10,
+          "exactMatchRate": 1,
+          "coverage": 1,
+          "incorrectUnflaggedCandidates": 0,
+          "flaggedReviewCandidates": 0,
+          "withheldRecognitionConflicts": 0,
+          "correctlyWithheldUncertain": 0,
+          "intentionallyAbsent": 2,
+          "correctlyAbsent": 2,
+          "falseExtractions": 0
+        },
+        "branch": {
+          "expectedPresent": 12,
+          "exact": 12,
+          "exactMatchRate": 1,
+          "coverage": 1,
+          "incorrectUnflaggedCandidates": 0,
+          "flaggedReviewCandidates": 0,
+          "withheldRecognitionConflicts": 0,
+          "correctlyWithheldUncertain": 0,
+          "intentionallyAbsent": 0,
+          "correctlyAbsent": 0,
+          "falseExtractions": 0
+        },
+        "currency": {
+          "expectedPresent": 10,
+          "exact": 10,
+          "exactMatchRate": 1,
+          "coverage": 1,
+          "incorrectUnflaggedCandidates": 0,
+          "flaggedReviewCandidates": 0,
+          "withheldRecognitionConflicts": 0,
+          "correctlyWithheldUncertain": 0,
+          "intentionallyAbsent": 2,
+          "correctlyAbsent": 2,
+          "falseExtractions": 0
+        },
+        "type": {
+          "expectedPresent": 12,
+          "exact": 12,
+          "exactMatchRate": 1,
+          "coverage": 1,
+          "incorrectUnflaggedCandidates": 0,
+          "flaggedReviewCandidates": 0,
+          "withheldRecognitionConflicts": 0,
+          "correctlyWithheldUncertain": 0,
+          "intentionallyAbsent": 0,
+          "correctlyAbsent": 0,
+          "falseExtractions": 0
+        }
+      },
+      "coldWallMs": 2660.9516999999996,
+      "warmMedianWallMs": 994.8995999999988,
+      "coldCPUSecondsIncludingStartup": 3.421,
+      "warmMeanCPUSeconds": 2.1474545454545453,
+      "peakRSSKiB": 404400
+    },
+    "regression": {
+      "samples": 48,
+      "failures": 0,
+      "metrics": {
+        "reference": {
+          "expectedPresent": 46,
+          "exact": 46,
+          "exactMatchRate": 1,
+          "coverage": 1,
+          "incorrectUnflaggedCandidates": 0,
+          "flaggedReviewCandidates": 0,
+          "withheldRecognitionConflicts": 0,
+          "correctlyWithheldUncertain": 0,
+          "intentionallyAbsent": 2,
+          "correctlyAbsent": 2,
+          "falseExtractions": 0
+        },
+        "amountPaise": {
+          "expectedPresent": 46,
+          "exact": 46,
+          "exactMatchRate": 1,
+          "coverage": 1,
+          "incorrectUnflaggedCandidates": 0,
+          "flaggedReviewCandidates": 0,
+          "withheldRecognitionConflicts": 0,
+          "correctlyWithheldUncertain": 0,
+          "intentionallyAbsent": 2,
+          "correctlyAbsent": 2,
+          "falseExtractions": 0
+        },
+        "bank": {
+          "expectedPresent": 46,
+          "exact": 46,
+          "exactMatchRate": 1,
+          "coverage": 1,
+          "incorrectUnflaggedCandidates": 0,
+          "flaggedReviewCandidates": 0,
+          "withheldRecognitionConflicts": 0,
+          "correctlyWithheldUncertain": 0,
+          "intentionallyAbsent": 2,
+          "correctlyAbsent": 2,
+          "falseExtractions": 0
+        },
+        "ifsc": {
+          "expectedPresent": 45,
+          "exact": 40,
+          "exactMatchRate": 0.8888888888888888,
+          "coverage": 0.8888888888888888,
+          "incorrectUnflaggedCandidates": 0,
+          "flaggedReviewCandidates": 37,
+          "withheldRecognitionConflicts": 0,
+          "correctlyWithheldUncertain": 0,
+          "intentionallyAbsent": 3,
+          "correctlyAbsent": 3,
+          "falseExtractions": 0
+        },
+        "issued": {
+          "expectedPresent": 46,
+          "exact": 46,
+          "exactMatchRate": 1,
+          "coverage": 1,
+          "incorrectUnflaggedCandidates": 0,
+          "flaggedReviewCandidates": 0,
+          "withheldRecognitionConflicts": 0,
+          "correctlyWithheldUncertain": 0,
+          "intentionallyAbsent": 2,
+          "correctlyAbsent": 2,
+          "falseExtractions": 0
+        },
+        "matures": {
+          "expectedPresent": 46,
+          "exact": 46,
+          "exactMatchRate": 1,
+          "coverage": 1,
+          "incorrectUnflaggedCandidates": 0,
+          "flaggedReviewCandidates": 0,
+          "withheldRecognitionConflicts": 0,
+          "correctlyWithheldUncertain": 0,
+          "intentionallyAbsent": 2,
+          "correctlyAbsent": 2,
+          "falseExtractions": 0
+        },
+        "institutionName": {
+          "expectedPresent": 12,
+          "exact": 12,
+          "exactMatchRate": 1,
+          "coverage": 1,
+          "incorrectUnflaggedCandidates": 0,
+          "flaggedReviewCandidates": 0,
+          "withheldRecognitionConflicts": 0,
+          "correctlyWithheldUncertain": 0,
+          "intentionallyAbsent": 36,
+          "correctlyAbsent": 36,
+          "falseExtractions": 0
+        },
+        "depositor": {
+          "expectedPresent": 12,
+          "exact": 12,
+          "exactMatchRate": 1,
+          "coverage": 1,
+          "incorrectUnflaggedCandidates": 0,
+          "flaggedReviewCandidates": 0,
+          "withheldRecognitionConflicts": 0,
+          "correctlyWithheldUncertain": 0,
+          "intentionallyAbsent": 36,
+          "correctlyAbsent": 36,
+          "falseExtractions": 0
+        },
+        "branch": {
+          "expectedPresent": 12,
+          "exact": 12,
+          "exactMatchRate": 1,
+          "coverage": 1,
+          "incorrectUnflaggedCandidates": 0,
+          "flaggedReviewCandidates": 0,
+          "withheldRecognitionConflicts": 0,
+          "correctlyWithheldUncertain": 0,
+          "intentionallyAbsent": 36,
+          "correctlyAbsent": 36,
+          "falseExtractions": 0
+        },
+        "currency": {
+          "expectedPresent": 12,
+          "exact": 12,
+          "exactMatchRate": 1,
+          "coverage": 1,
+          "incorrectUnflaggedCandidates": 0,
+          "flaggedReviewCandidates": 0,
+          "withheldRecognitionConflicts": 0,
+          "correctlyWithheldUncertain": 0,
+          "intentionallyAbsent": 36,
+          "correctlyAbsent": 36,
+          "falseExtractions": 0
+        },
+        "type": {
+          "expectedPresent": 0,
+          "exact": 0,
+          "exactMatchRate": null,
+          "coverage": null,
+          "incorrectUnflaggedCandidates": 0,
+          "flaggedReviewCandidates": 0,
+          "withheldRecognitionConflicts": 0,
+          "correctlyWithheldUncertain": 0,
+          "intentionallyAbsent": 48,
+          "correctlyAbsent": 48,
+          "falseExtractions": 0
+        }
+      },
+      "peakRSSKiB": 429124
+    },
+    "recognitionRetuned": false,
+    "releaseEvaluationReusesPreviouslyFrozenSets": true
+  },
+  "load": {
+    "node": "v22.23.4",
+    "platform": "win32",
+    "cpu": "Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz",
+    "logicalCPUs": 8,
+    "totalMemoryBytes": 8458571776,
+    "dataset": {
+      "syntheticCases": 200,
+      "institutionA": 150,
+      "institutionB": 50,
+      "realBankData": false
+    },
+    "method": "Sequential endpoint groups, admission paced at four requests/second beneath the default300/IP/minute limit. Pacing waits excluded from request latency; configured concurrency and actual maximum in flight reported separately. HTTP loopback, one SQLite owner with WAL/signed audit checkpoints. No production SLA/distributed-scale claim. CPU/RSS are main-process measurements; native OCR measured separately. Scenario dates are explicit hypothetical assumptions.",
+    "journal": "docs/evaluation/phase-4e-load-progress-1793117439068.jsonl",
+    "results": [
+      {
+        "name": "Create persisted cases with signed audit checkpoints",
+        "samples": 200,
+        "concurrency": 1,
+        "maxObservedInFlight": 1,
+        "admissionWaitMsTotal": 14342.220200000018,
+        "failures": 0,
+        "p50Ms": 175.52460000000065,
+        "p95Ms": 445.0197999999946,
+        "maxMs": 852.3734000000004
+      },
+      {
+        "name": "Tenant case search and stable page",
+        "samples": 40,
+        "concurrency": 5,
+        "maxObservedInFlight": 3,
+        "admissionWaitMsTotal": 9796.1783,
+        "failures": 0,
+        "p50Ms": 11.13320000001113,
+        "p95Ms": 12.673299999994924,
+        "maxMs": 13.982000000003609
+      },
+      {
+        "name": "Bounded case evidence history",
+        "samples": 40,
+        "concurrency": 5,
+        "maxObservedInFlight": 1,
+        "admissionWaitMsTotal": 9918.751300000004,
+        "failures": 0,
+        "p50Ms": 7.83980000000156,
+        "p95Ms": 14.607499999998254,
+        "maxMs": 21.340400000000955
+      },
+      {
+        "name": "Scoped operational analytics:150 cases",
+        "samples": 20,
+        "concurrency": 1,
+        "maxObservedInFlight": 1,
+        "admissionWaitMsTotal": 2376.6392000000196,
+        "failures": 0,
+        "p50Ms": 131.94770000000426,
+        "p95Ms": 178.489699999991,
+        "maxMs": 787.2362999999896
+      },
+      {
+        "name": "Authorized relationships:200 accessible cases",
+        "samples": 10,
+        "concurrency": 1,
+        "maxObservedInFlight": 1,
+        "admissionWaitMsTotal": 590.9885000000068,
+        "failures": 0,
+        "p50Ms": 194.3758000000089,
+        "p95Ms": 292.2468000000081,
+        "maxMs": 292.2468000000081
+      },
+      {
+        "name": "Department queue:empty configured register",
+        "samples": 20,
+        "concurrency": 5,
+        "maxObservedInFlight": 1,
+        "admissionWaitMsTotal": 4749.464700000011,
+        "failures": 0,
+        "p50Ms": 2.2677000000112457,
+        "p95Ms": 6.467000000004191,
+        "maxMs": 8.50329999999667
+      },
+      {
+        "name": "Whole audit-chain verification by supervisor",
+        "samples": 5,
+        "concurrency": 1,
+        "maxObservedInFlight": 1,
+        "admissionWaitMsTotal": 481.72149999997055,
+        "failures": 0,
+        "p50Ms": 169.39979999999923,
+        "p95Ms": 864.8113999999914,
+        "maxMs": 864.8113999999914
+      },
+      {
+        "name": "Publish bounded synthetic text documents",
+        "samples": 5,
+        "concurrency": 1,
+        "maxObservedInFlight": 1,
+        "admissionWaitMsTotal": 123.6356999999698,
+        "failures": 0,
+        "p50Ms": 266.29009999999835,
+        "p95Ms": 298.22619999999006,
+        "maxMs": 298.22619999999006
+      },
+      {
+        "name": "Text extraction and complete deterministic reevaluation (not OCR)",
+        "samples": 5,
+        "concurrency": 1,
+        "maxObservedInFlight": 1,
+        "admissionWaitMsTotal": 0.010300000023562461,
+        "failures": 0,
+        "p50Ms": 347.7908999999927,
+        "p95Ms": 478.5923999999941,
+        "maxMs": 478.5923999999941
+      },
+      {
+        "name": "Local MOCK provider through API and deterministic evaluation",
+        "samples": 10,
+        "concurrency": 1,
+        "maxObservedInFlight": 1,
+        "admissionWaitMsTotal": 645.3797999999952,
+        "failures": 0,
+        "p50Ms": 168.85050000000047,
+        "p95Ms": 527.684500000003,
+        "maxMs": 527.684500000003
+      },
+      {
+        "name": "Source-linked regulatory decision explanation",
+        "samples": 20,
+        "concurrency": 1,
+        "maxObservedInFlight": 1,
+        "admissionWaitMsTotal": 1766.4916999999841,
+        "failures": 0,
+        "p50Ms": 157.84249999999884,
+        "p95Ms": 200.6039000000019,
+        "maxMs": 439.25049999999464
+      },
+      {
+        "name": "Persist read-only baseline scenario",
+        "samples": 10,
+        "concurrency": 1,
+        "maxObservedInFlight": 1,
+        "admissionWaitMsTotal": 706.9270000000251,
+        "failures": 0,
+        "p50Ms": 155.89620000000286,
+        "p95Ms": 283.8426000000036,
+        "maxMs": 283.8426000000036
+      }
+    ],
+    "elapsedMs": 105285.3391,
+    "cpuMicroseconds": {
+      "user": 9921000,
+      "system": 4359000
+    },
+    "peakSampledRSSBytes": 271167488,
+    "crossTenantObjectDenied": true,
+    "finishedAt": "2026-10-27T16:12:24.354Z"
+  },
+  "externalExecution": {
+    "liveSetu": false,
+    "realIssuerConfirmation": false,
+    "realScanner": false,
+    "docker": false,
+    "remoteCI": false,
+    "productionDeployment": false
+  },
+  "workingDataUsedForTests": false,
+  "remotePush": false
+}
