@@ -496,6 +496,20 @@ async function detail(id) {
 async function enter() {
   $("#identity").textContent = user.email + " · " + user.role;
   $("#logout").hidden = false;
+  const security = window.mountAccountSecurity({
+    user,
+    api,
+    run,
+    views,
+    enter,
+  });
+  if (user.mfaEnrollmentRequired) {
+    for (const b of document.querySelectorAll("aside button"))
+      b.hidden = b.id !== "account-security-nav";
+    await security.open();
+    return;
+  }
+  $("#cases-nav").hidden = false;
   await registry();
   window.mountDomainNavigation({ user, api, run, views, registry, escape });
   window.mountOperationsNavigation({ user, api, run, views, detail, escape });
@@ -508,7 +522,11 @@ $("#login-form").onsubmit = (e) => {
     user = await api(
       "/login",
       "POST",
-      Object.fromEntries(new FormData(e.target)),
+      Object.fromEntries(
+        [...new FormData(e.target)].filter(
+          ([key, value]) => !["mfaCode", "recoveryCode"].includes(key) || value,
+        ),
+      ),
     );
     e.target.reset();
     await enter();

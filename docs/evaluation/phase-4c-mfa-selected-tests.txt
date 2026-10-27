@@ -1,0 +1,101 @@
+TAP version 13
+# (node:1796) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: standalone verification pins a consistent read while a real separate writer advances the protected checkpoint
+ok 1 - standalone verification pins a consistent read while a real separate writer advances the protected checkpoint
+  ---
+  duration_ms: 4059.9637
+  ...
+# Subtest: audit signatures cover automatic inserts, rollback atomically and expose no cross-authority event counts through API
+ok 2 - audit signatures cover automatic inserts, rollback atomically and expose no cross-authority event counts through API
+  ---
+  duration_ms: 4813.976
+  ...
+# Subtest: offline verifier detects changed events, reordered content, middle deletion, valid-prefix truncation, seals and genesis tampering
+ok 3 - offline verifier detects changed events, reordered content, middle deletion, valid-prefix truncation, seals and genesis tampering
+  ---
+  duration_ms: 5021.4381
+  ...
+# Subtest: missing keys or checkpoints fail closed, release startup ownership and never silently reenroll existing history
+ok 4 - missing keys or checkpoints fail closed, release startup ownership and never silently reenroll existing history
+  ---
+  duration_ms: 2971.261
+  ...
+# Subtest: historical schema15 audit rows are preserved and explicitly anchored only at enrollment
+ok 5 - historical schema15 audit rows are preserved and explicitly anchored only at enrollment
+  ---
+  duration_ms: 1981.2442
+  ...
+# (node:9432) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: TOTP matches all SHA1 RFC6238 time vectors including beyond32bit counters and rejects invalid parameters
+ok 6 - TOTP matches all SHA1 RFC6238 time vectors including beyond32bit counters and rejects invalid parameters
+  ---
+  duration_ms: 3.2017
+  ...
+# Subtest: concurrent authenticator and recovery logins consume each factor once and failed attempts remain throttled across requests
+ok 7 - concurrent authenticator and recovery logins consume each factor once and failed attempts remain throttled across requests
+  ---
+  duration_ms: 5267.7146
+  ...
+# Subtest: required-role enrollment is session bound, encrypted, throttled, replay protected and enforces recent step-up and session revocation
+ok 8 - required-role enrollment is session bound, encrypted, throttled, replay protected and enforces recent step-up and session revocation
+  ---
+  duration_ms: 6900.2091
+  ...
+# Subtest: audit reviewers can secure their own account while domain writes remain forbidden; missing MFA key never resets enrollment
+ok 9 - audit reviewers can secure their own account while domain writes remain forbidden; missing MFA key never resets enrollment
+  ---
+  duration_ms: 3771.7908
+  ...
+# (node:17004) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: IFSC and INR/date parsing retain raw evidence and refuse unsafe ambiguity
+ok 10 - IFSC and INR/date parsing retain raw evidence and refuse unsafe ambiguity
+  ---
+  duration_ms: 549.6073
+  ...
+# Subtest: single-instance lease, migration checksums and data survive reopen
+ok 11 - single-instance lease, migration checksums and data survive reopen
+  ---
+  duration_ms: 3553.1236
+  ...
+# Subtest: idempotency, concurrent edits, host/session boundaries and policy claims are backend enforced
+ok 12 - idempotency, concurrent edits, host/session boundaries and policy claims are backend enforced
+  ---
+  duration_ms: 4699.9141
+  ...
+# Subtest: in-flight OCR cannot supersede manual correction and session revocation cancels evidence writes
+ok 13 - in-flight OCR cannot supersede manual correction and session revocation cancels evidence writes
+  ---
+  duration_ms: 4081.789
+  ...
+# Subtest: provider delay cannot evaluate a stale declaration; database failure returns safe API error
+ok 14 - provider delay cannot evaluate a stale declaration; database failure returns safe API error
+  ---
+  duration_ms: 2989.1998
+  ...
+# Subtest: repeated corrections retain exact finding provenance, reject unauthorized writes and preserve prior evaluations
+ok 15 - repeated corrections retain exact finding provenance, reject unauthorized writes and preserve prior evaluations
+  ---
+  duration_ms: 5494.4057
+  ...
+# Subtest: disabled accounts cannot login or use existing sessions
+ok 16 - disabled accounts cannot login or use existing sessions
+  ---
+  duration_ms: 3487.9898
+  ...
+# Subtest: private bounded PDF upload, embedded text, scanned OCR, history and unsafe PDFs
+ok 17 - private bounded PDF upload, embedded text, scanned OCR, history and unsafe PDFs
+  ---
+  duration_ms: 12690.5674
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 73102.9724

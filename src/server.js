@@ -36,6 +36,8 @@ import { validateProcedure } from "./clearance-procedure.js";
 import { policyDecisionRoute } from "./policy-decisions.js";
 import { analysisRoute } from "./analysis-api.js";
 import { createAuditIntegrity } from "./audit-integrity.js";
+import { createMFA } from "./mfa.js";
+import { accountSecurity } from "./account-security.js";
 import {
   capturePolicyConfiguration,
   bindPolicyContext,
@@ -105,6 +107,11 @@ export function createApp({
   storage = null,
   auditKeyFile = process.env.AUDIT_KEY_FILE,
   auditCheckpointFile = process.env.AUDIT_CHECKPOINT_FILE,
+  mfaKeyFile = process.env.MFA_KEY_FILE,
+  mfaNow = () => Date.now(),
+  mfaRequiredRoles = (process.env.MFA_REQUIRED_ROLES || "")
+    .split(",")
+    .filter(Boolean),
   logSink = process.env.LOG_REQUESTS === "true"
     ? (event) => process.stdout.write(JSON.stringify(event) + "\n")
     : () => {},
@@ -149,6 +156,7 @@ export function createApp({
     limitRequest = requestLimiter();
   let activeValidators = 0;
   let auditIntegrity,
+    mfa,
     transactionDepth = 0;
   try {
     auditIntegrity = createAuditIntegrity(db, {
@@ -156,6 +164,17 @@ export function createApp({
       keyFile: auditKeyFile,
       checkpointFile: auditCheckpointFile,
     });
+    if (
+      !Array.isArray(mfaRequiredRoles) ||
+      mfaRequiredRoles.some((r) => !roles.includes(r))
+    )
+      throw Error("Invalid required MFA roles");
+    if (
+      resolve(mfaKeyFile || join(dir, "security", "mfa.key")) ===
+      auditIntegrity.paths.keyFile
+    )
+      throw Error("MFA and audit require separate keys");
+    mfa = createMFA(db, { dir, keyFile: mfaKeyFile, now: mfaNow });
   } catch (error) {
     ocrPool.close();
     try {
@@ -439,6 +458,7 @@ export function createApp({
             "/clearances.js",
             "/policy-decisions.js",
             "/analysis.js",
+            "/account-security.js",
             "/submission.js",
             "/evidence-viewer.js",
             "/viewer-geometry.js",
@@ -524,12 +544,29 @@ export function createApp({
           }
           const token = randomBytes(32).toString("hex"),
             csrf = randomBytes(24).toString("hex");
-          db.prepare("INSERT INTO sessions VALUES(?,?,?,?)").run(
-            hash(token),
-            u.id,
-            csrf,
-            Date.now() + 28800000,
-          );
+          const live = db.prepare("SELECT * FROM users WHERE id=?").get(u.id);
+          if (
+            live?.status !== "active" ||
+            live.password !== u.password ||
+            live.role !== u.role ||
+            live.tenant !== u.tenant
+          )
+            fail(401, "Account changed; sign in again");
+          if (mfa.state(u.id)?.enabled) mfa.limit(u.id);
+          tx(() => {
+            const factor = mfa.consume(u.id, body);
+            db.prepare("INSERT INTO sessions VALUES(?,?,?,?)").run(
+              hash(token),
+              u.id,
+              csrf,
+              Date.now() + 28800000,
+            );
+            if (factor.mfa) mfa.assure(hash(token));
+            audit(u.id, "login", null, {
+              secondFactor: factor.mfa,
+              usedRecoveryId: factor.recoveryId || null,
+            });
+          });
           res.setHeader(
             "Set-Cookie",
             "sentinel=" +
@@ -537,8 +574,14 @@ export function createApp({
               "; HttpOnly; SameSite=Strict; Path=/; Max-Age=28800" +
               (secure ? "; Secure" : ""),
           );
-          audit(u.id, "login");
-          json(res, 200, { id: u.id, email: u.email, role: u.role, csrf });
+          json(res, 200, {
+            id: u.id,
+            email: u.email,
+            role: u.role,
+            csrf,
+            mfaEnrollmentRequired:
+              mfaRequiredRoles.includes(u.role) && !mfa.state(u.id)?.enabled,
+          });
           return;
         }
         const token = req.headers.cookie?.match(
@@ -577,7 +620,15 @@ export function createApp({
         if (
           req.method !== "GET" &&
           u.role === "audit_reviewer" &&
-          path !== "/api/logout"
+          path !== "/api/logout" &&
+          ![
+            "/api/security/mfa/enroll",
+            "/api/security/mfa/confirm",
+            "/api/security/mfa/recovery",
+            "/api/security/mfa/disable",
+            "/api/security/step-up",
+            "/api/security/password",
+          ].includes(path)
         )
           fail(403, "Audit reviewer has read-only access");
         if (path === "/api/me" && req.method === "GET") {
@@ -586,9 +637,49 @@ export function createApp({
             email: u.email,
             role: u.role,
             csrf: u.csrf,
+            mfaEnrollmentRequired:
+              mfaRequiredRoles.includes(u.role) && !mfa.state(u.id)?.enabled,
           });
           return;
         }
+        if (
+          await accountSecurity({
+            db,
+            u,
+            token: hash(token),
+            path,
+            method: req.method,
+            body,
+            mfa,
+            requiredRoles: mfaRequiredRoles,
+            tx,
+            audit,
+            json,
+            res,
+          })
+        )
+          return;
+        if (
+          path !== "/api/logout" &&
+          mfaRequiredRoles.includes(u.role) &&
+          !mfa.state(u.id)?.enabled
+        )
+          fail(403, "MFA enrollment required; open Account security");
+        if (
+          path !== "/api/logout" &&
+          mfa.state(u.id)?.enabled &&
+          !mfa.assurance(hash(token))
+        )
+          fail(401, "MFA session verification required; sign in again");
+        if (
+          req.method !== "GET" &&
+          mfa.state(u.id)?.enabled &&
+          /\/api\/accounts|\/api\/clearance\/(activations|grants)|\/api\/clearance\/cases\/.*\/(confirm|close|reopen)|\/assign$/.test(
+            path,
+          ) &&
+          (mfa.assurance(hash(token))?.stepup_expires || 0) < mfa.now()
+        )
+          fail(403, "Recent MFA step-up required; open Account security");
         if (path === "/api/security/audit-integrity" && req.method === "GET") {
           if (!["supervisor", "audit_reviewer"].includes(u.role))
             fail(403, "Audit verification role required");

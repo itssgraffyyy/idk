@@ -1,8 +1,13 @@
 import { spawnSync } from "node:child_process";
 import { writeFileSync, readdirSync } from "node:fs";
-const files = readdirSync("tests")
-    .filter((p) => p.endsWith(".test.js"))
-    .map((p) => "tests/" + p),
+const requested = process.argv.slice(2);
+if (requested.some((file) => !/^tests\/[a-z0-9-]+\.test\.js$/.test(file)))
+  throw Error("Expected explicit tests/*.test.js paths");
+const files = requested.length
+    ? requested
+    : readdirSync("tests")
+        .filter((p) => p.endsWith(".test.js"))
+        .map((p) => "tests/" + p),
   r = spawnSync(
     process.execPath,
     ["--test", "--test-concurrency=1", ...files],

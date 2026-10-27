@@ -6,7 +6,7 @@ export function scrub(value) {
     return Object.fromEntries(
       Object.entries(value).map(([key, v]) => [
         key,
-        /password|secret|token|authorization|cookie|csrf|credential|^vua$|^pan$/i.test(
+        /password|secret|token|authorization|cookie|csrf|credential|mfaCode|recoveryCode|otpauth|^vua$|^pan$/i.test(
           key,
         )
           ? "[REDACTED]"

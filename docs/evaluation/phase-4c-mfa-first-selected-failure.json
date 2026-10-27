@@ -1,0 +1,12 @@
+{
+    "failedTest":  "audit reviewers can secure their own account while domain writes remain forbidden; missing MFA key never resets enrollment",
+    "failure":  "Startup assert.throws expectation failed; the captured tool output was truncated and exact underlying exception was not retained",
+    "followup":  "Isolated test passed (3763.47ms). Same three-file sequence subsequently passed all17 with a retained raw transcript. Initial cause remains undiagnosed; final startup/recovery acceptance must revisit.",
+    "durationMs":  72247.6653,
+    "classification":  "OBSERVED_TOOL_RESULT_SUMMARY_NOT_RAW_TRANSCRIPT",
+    "passed":  16,
+    "command":  "node --test --test-concurrency=1 tests/mfa.test.js tests/audit-integrity.test.js tests/quality-audit.test.js",
+    "failureLocation":  "tests/mfa.test.js:340",
+    "tests":  17,
+    "failed":  1
+}

@@ -9,7 +9,9 @@ import { clearanceMigration } from "./clearance-migration.js";
 import { policyHistoryMigration } from "./policy-history.js";
 import { analysisMigration } from "./analysis-migration.js";
 import { auditIntegrityMigration } from "./audit-integrity.js";
+import { mfaMigration } from "./mfa.js";
 export const upgrades = [
+  mfaMigration,
   auditIntegrityMigration,
   analysisMigration,
   policyHistoryMigration,
