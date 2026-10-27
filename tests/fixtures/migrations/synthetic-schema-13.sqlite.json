@@ -1,0 +1,15 @@
+{
+  "classification": "SYNTHETIC_TEST_ONLY",
+  "schemaVersion": 13,
+  "generatorCheckpoint": "ca4eb76",
+  "containsRealData": false,
+  "sessions": 0,
+  "sha256": "9f92fa51c5efa63754973d08b689d2cd4591f689539d3ed73d73688df3238f6f",
+  "sourceText": "Synthetic PHASE12-TEST text deposit; bytes represented by immutable source hashes. Not an authentic deposit.",
+  "preservedTables": [
+    "cases",
+    "evidence",
+    "document_versions",
+    "case_notifications"
+  ]
+}

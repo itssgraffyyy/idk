@@ -15,7 +15,7 @@ Running 1 test using 1 worker
   x  1 tests\browser\clearances.spec.js:13:1 › configured synthetic department review shares only selected evidence and a separate checker records an internal decision (2.0m)
 
 
-  1) tests\browser\clearances.spec.js:13:1 › configured synthetic department review shares only selected evidence and a separate checker records an internal decision 
+  1) tests\browser\clearances.spec.js:13:1 › configured synthetic department review shares only selected evidence and a separate checker records an internal decision
 
     Test timeout of 120000ms exceeded.
 
@@ -47,4 +47,4 @@ Running 1 test using 1 worker
     Error Context: test-results\clearances-configured-synt-476e4-ecords-an-internal-decision\error-context.md
 
   1 failed
-    tests\browser\clearances.spec.js:13:1 › configured synthetic department review shares only selected evidence and a separate checker records an internal decision 
+    tests\browser\clearances.spec.js:13:1 › configured synthetic department review shares only selected evidence and a separate checker records an internal decision

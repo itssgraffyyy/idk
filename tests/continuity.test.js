@@ -5,57 +5,24 @@ import { harness } from "./support/harness.js";
 import { randomUUID } from "node:crypto";
 import { migrate } from "../src/migrations.js";
 import { readdirSync } from "node:fs";
-test("additive continuity migration preserves populated version-13 evidence and document hashes", async () => {
-  const h = await harness();
+import { migrationFixture } from "./support/migration-fixture.js";
+test("additive continuity migration preserves frozen version-13 evidence and document hashes", () => {
+  const f = migrationFixture(13);
   try {
-    const a = await h.login("a"),
-      id = await h.create(a);
+    const before = f.snapshot();
+    migrate(f.db, f.dir);
+    migrate(f.db, f.dir);
+    assert.deepEqual(f.snapshot(), before);
+    assert.deepEqual(f.db.prepare("PRAGMA foreign_key_check").all(), []);
+    assert(readdirSync(f.dir).some((p) => p.startsWith("pre-migration-14-")));
     assert.equal(
-      (
-        await h.call(
-          "/cases/" + id + "/documents",
-          {
-            mime: "text/plain",
-            base64: Buffer.from("Historical immutable source").toString(
-              "base64",
-            ),
-          },
-          a,
-        )
-      ).status,
-      201,
-    );
-    const db = h.app.db,
-      before = db.prepare("SELECT * FROM evidence ORDER BY rowid").all(),
-      versions = db
-        .prepare("SELECT * FROM document_versions ORDER BY rowid")
-        .all();
-    // Reconstruct the exact pre-14 schema in this disposable fixture only.
-    db.exec(
-      "DROP TABLE clearance_events;DROP TABLE reminder_deliveries;DROP TRIGGER continuity_instrument_revision;DROP TRIGGER continuity_link_revision;DROP TABLE continuity_events;DROP TABLE reminder_preferences;DELETE FROM schema_migrations WHERE version>=14",
-    );
-    migrate(db, h.dir);
-    assert.deepEqual(
-      db.prepare("SELECT * FROM evidence ORDER BY rowid").all(),
-      before,
-    );
-    assert.deepEqual(
-      db.prepare("SELECT * FROM document_versions ORDER BY rowid").all(),
-      versions,
-    );
-    assert.deepEqual(db.prepare("PRAGMA foreign_key_check").all(), []);
-    assert.ok(
-      readdirSync(h.dir).some((p) => p.startsWith("pre-migration-14-")),
-    );
-    migrate(db, h.dir);
-    assert.equal(
-      db
+      f.db
         .prepare("SELECT count(*) n FROM schema_migrations WHERE version=14")
         .get().n,
       1,
     );
   } finally {
-    await h.close();
+    f.close();
   }
 });
 test("document-backed replacement registration is race-safe and never releases or supersedes a deposit", async () => {

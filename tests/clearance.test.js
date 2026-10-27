@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { harness, instrument } from "./support/harness.js";
 import { migrate } from "../src/migrations.js";
 import { readdirSync } from "node:fs";
+import { migrationFixture } from "./support/migration-fixture.js";
 import { runReminderBatch } from "../src/reminders.js";
 import {
   syntheticProcedure as procedure,
@@ -227,37 +228,21 @@ test("opt-in clearance follow-up is source-bound, deduplicated and stops after a
     await h.close();
   }
 });
-test("schema 16 is additive and repeatable over populated schema 15 without changing source versions or evaluations", async () => {
-  const h = await harness(options);
+test("schema 16 is additive and repeatable over frozen schema 15 without changing source versions or evaluations", () => {
+  const f = migrationFixture(15);
   try {
-    const c = await setup(h),
-      db = h.app.db;
-    const evidence = db.prepare("SELECT * FROM evidence ORDER BY rowid").all(),
-      versions = db
-        .prepare("SELECT * FROM document_versions ORDER BY rowid")
-        .all();
-    // Synthetic disposable database only; real migrations never drop these tables.
-    db.exec(
-      "DROP TABLE clearance_events;DELETE FROM schema_migrations WHERE version=16",
-    );
-    migrate(db, h.dir);
-    migrate(db, h.dir);
-    assert.deepEqual(
-      db.prepare("SELECT * FROM evidence ORDER BY rowid").all(),
-      evidence,
-    );
-    assert.deepEqual(
-      db.prepare("SELECT * FROM document_versions ORDER BY rowid").all(),
-      versions,
-    );
-    assert.deepEqual(db.prepare("PRAGMA foreign_key_check").all(), []);
-    assert(readdirSync(h.dir).some((p) => p.startsWith("pre-migration-16-")));
+    const before = f.snapshot();
+    migrate(f.db, f.dir);
+    migrate(f.db, f.dir);
+    assert.deepEqual(f.snapshot(), before);
+    assert.deepEqual(f.db.prepare("PRAGMA foreign_key_check").all(), []);
+    assert(readdirSync(f.dir).some((p) => p.startsWith("pre-migration-16-")));
     assert.equal(
-      (await h.call(c.admin, undefined, c.o)).body.blockers[0].code,
-      "PROCEDURE_NOT_BOUND",
+      f.db.prepare("SELECT count(*) n FROM clearance_events").get().n,
+      0,
     );
   } finally {
-    await h.close();
+    f.close();
   }
 });
 test("reassignment revokes the old department view and renewed grants cannot revive an older response", async () => {

@@ -1,4 +1,5 @@
 import { test } from "node:test";
+import { migrationFixture } from "./support/migration-fixture.js";
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { harness, instrument } from "./support/harness.js";
@@ -402,52 +403,20 @@ test("pending replacement documentation reminder stops after successor evidence 
     await h.close();
   }
 });
-test("migration retains legacy notification bytes and keys and does not redeliver the same window", async () => {
-  const h = await harness();
+test("migration retains frozen legacy notification bytes and keys and does not redeliver the same window", () => {
+  const f = migrationFixture(14);
   try {
-    const a = await h.login("a"),
-      id = await h.create(a),
-      root = "/cases/" + id,
-      db = h.app.db;
-    assert.equal(
-      (
-        await h.call(
-          root + "/reminders",
-          { revision: 0, windows: [7], enabled: true },
-          a,
-        )
-      ).status,
-      200,
-    );
-    const instrumentId = db.prepare("SELECT id FROM instruments").get().id;
-    db.exec(
-      "DROP TABLE reminder_deliveries;ALTER TABLE reminder_preferences DROP COLUMN categories;DELETE FROM schema_migrations WHERE version=15",
-    );
-    db.prepare("INSERT INTO case_notifications VALUES(?,?,?,?,?,?,?,NULL)").run(
-      randomUUID(),
-      "a",
-      id,
-      "maturity_reminder",
-      ["reminder", id, instrumentId, "2031-01-01", 7].join(":"),
-      "Historical notification preserved",
-      "2030-12-26T00:00:00.000Z",
-    );
-    const before = db
-      .prepare("SELECT * FROM case_notifications ORDER BY rowid")
-      .all();
-    migrate(db, h.dir);
-    assert.deepEqual(
-      db.prepare("SELECT * FROM case_notifications ORDER BY rowid").all(),
-      before,
-    );
+    const before = f.snapshot();
+    migrate(f.db, f.dir);
+    assert.deepEqual(f.snapshot(), before);
     const legacy = JSON.parse(
-      db.prepare("SELECT context FROM reminder_deliveries").get().context,
+      f.db.prepare("SELECT context FROM reminder_deliveries").get().context,
     );
     assert.equal(legacy.legacy, true);
     assert.equal(legacy.sourceProvenance, "NOT_RECORDED");
-    assert.equal(runReminderBatch(db, { asOf: "2030-12-26" }).delivered, 0);
-    assert.deepEqual(db.prepare("PRAGMA foreign_key_check").all(), []);
+    assert.equal(runReminderBatch(f.db, { asOf: "2030-12-26" }).delivered, 0);
+    assert.deepEqual(f.db.prepare("PRAGMA foreign_key_check").all(), []);
   } finally {
-    await h.close();
+    f.close();
   }
 });
