@@ -4,6 +4,7 @@ window.openEvidenceViewer = async function ({
   run,
   escape,
   versionId,
+  extractionId = null,
   field,
   page = 1,
 }) {
@@ -13,6 +14,7 @@ window.openEvidenceViewer = async function ({
   let versions = await api("/cases/" + c.id + "/viewer/versions"),
     cursor = versions.nextCursor,
     selected = versionId || versions.items.at(-1)?.id,
+    selectedExtraction = extractionId,
     metadata,
     viewport,
     selectedField = field || "",
@@ -20,7 +22,7 @@ window.openEvidenceViewer = async function ({
   root.innerHTML =
     '<div class="viewer-controls"><label>Document version<select id="viewer-version" aria-label="Document version"></select></label><button id="viewer-more">Load earlier document versions</button><label>PDF page<input id="pdf-page" type="number" min="1" max="5" value="' +
     page +
-    '"></label><button id="pdf-show">Show page</button><label>Evidence comparison<select id="viewer-mode"><option value="latest">Latest extracted or corrected fields</option><option value="original">Original extraction</option></select></label><label>Highlight extracted field<select id="viewer-field"></select></label><label>Evidence zoom (%)<input id="viewer-zoom" type="range" min="50" max="200" step="25" value="100"></label><a id="viewer-download">Download original version</a></div><p id="viewer-status" role="status"></p><div class="viewer-stage"><div class="viewer-canvas"><img id="pdf-image" alt="Protected source page"><svg id="viewer-overlay" aria-hidden="true"></svg></div></div><pre id="viewer-text" hidden></pre><dl id="viewer-facts"></dl>';
+    '"></label><button id="pdf-show">Show page</button><label>Evidence comparison<select id="viewer-mode" aria-label="Evidence comparison"><option value="latest">Latest extracted or corrected fields</option><option value="original">Original extraction</option></select></label><label>Highlight extracted field<select id="viewer-field"></select></label><label>Evidence zoom (%)<input id="viewer-zoom" type="range" min="50" max="200" step="25" value="100"></label><a id="viewer-download">Download original version</a></div><p id="viewer-status" role="status"></p><div class="viewer-stage"><div class="viewer-canvas"><img id="pdf-image" alt="Protected source page"><svg id="viewer-overlay" aria-hidden="true"></svg></div></div><pre id="viewer-text" hidden></pre><dl id="viewer-facts"></dl>';
   const $ = (s) => root.querySelector(s),
     status = $("#viewer-status"),
     select = $("#viewer-version");
@@ -99,7 +101,25 @@ window.openEvidenceViewer = async function ({
       const n = Number($("#pdf-page").value);
       if (!Number.isInteger(n) || n < 1 || n > 5)
         throw Error("Choose a page from 1 to 5");
-      metadata = await api("/cases/" + c.id + "/viewer/" + selected);
+      metadata = await api(
+        "/cases/" +
+          c.id +
+          "/viewer/" +
+          selected +
+          (selectedExtraction
+            ? "?extractionId=" + encodeURIComponent(selectedExtraction)
+            : ""),
+      );
+      const previousRecorded = $("#viewer-mode option[value='recorded']");
+      const previousMode = $("#viewer-mode").value;
+      if (previousRecorded) previousRecorded.remove();
+      if (metadata.recorded) {
+        const option = document.createElement("option");
+        option.value = "recorded";
+        option.textContent = "Extraction recorded with selected evaluation";
+        $("#viewer-mode").append(option);
+        $("#viewer-mode").value = previousRecorded ? previousMode : "recorded";
+      }
       if (![...select.options].some((o) => o.value === selected))
         addVersions([metadata.document]);
       select.value = selected;
@@ -169,6 +189,8 @@ window.openEvidenceViewer = async function ({
   select.onchange = () =>
     run(async () => {
       selected = select.value;
+      selectedExtraction = null;
+      $("#viewer-mode").value = "latest";
       $("#pdf-page").value = 1;
       await show();
     });

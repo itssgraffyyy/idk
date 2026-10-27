@@ -68,11 +68,25 @@ export function viewerRoute({
         })) || [],
     };
   };
+  const requestedExtraction = url.searchParams.get("extractionId");
+  const recorded = requestedExtraction
+    ? db
+        .prepare(
+          "SELECT id,payload,created FROM evidence WHERE id=? AND case_id=? AND kind='extraction' AND json_extract(payload,'$.documentId')=?",
+        )
+        .get(requestedExtraction, c.id, row.id)
+    : null;
+  if (requestedExtraction && !recorded)
+    throw Object.assign(
+      Error("Recorded extraction does not belong to this source version"),
+      { status: 404 },
+    );
   audit(u.id, "evidence_viewer_read", c.id, { documentVersionId: row.id });
   json(res, 200, {
     document: row,
     latest: expose(latest),
     original: expose(original),
+    recorded: expose(recorded),
     extractions: extractions.map((e) => ({
       id: e.id,
       created: e.created,

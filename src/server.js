@@ -33,6 +33,12 @@ import { lifecycleRoute } from "./lifecycle.js";
 import { clearanceService } from "./clearance-service.js";
 import { clearanceRoutes } from "./clearance-api.js";
 import { validateProcedure } from "./clearance-procedure.js";
+import { policyDecisionRoute } from "./policy-decisions.js";
+import {
+  capturePolicyConfiguration,
+  bindPolicyContext,
+  attachPolicyContext,
+} from "./policy-history.js";
 import { readFileSync, writeFileSync, mkdirSync, unlinkSync } from "node:fs";
 import { resolve, join } from "node:path";
 import { randomBytes, randomUUID } from "node:crypto";
@@ -157,6 +163,29 @@ export function createApp({
             ? "DENIED"
             : "SUCCESS",
       );
+  let policyCapsule;
+  try {
+    policyCapsule = tx(() =>
+      capturePolicyConfiguration(
+        db,
+        {
+          policies,
+          scope: policyScope,
+          verifiedSourceHashes,
+          regulatoryRegister: ruleRegister,
+        },
+        audit,
+      ),
+    );
+  } catch (error) {
+    ocrPool.close();
+    try {
+      db.close();
+    } finally {
+      releaseLock();
+    }
+    throw error;
+  }
   function evidence(u, id, kind, p) {
     const eid = randomUUID();
     db.prepare("INSERT INTO evidence VALUES(?,?,?,?,?,?)").run(
@@ -167,6 +196,8 @@ export function createApp({
       new Date().toISOString(),
       u,
     );
+    if (["evaluation", "evaluation_replay"].includes(kind))
+      bindPolicyContext(db, eid, id, p);
     audit(u, kind, id, { evidenceId: eid });
     return eid;
   }
@@ -269,6 +300,11 @@ export function createApp({
       r.supersedes = null;
       r.isHistoricalReplay = true;
     }
+    attachPolicyContext(r, policyCapsule, {
+      instrument: JSON.parse(c.instrument),
+      context: context?.payload.context || {},
+      proofs,
+    });
     const eid = evidence(u, c.id, asOf ? "evaluation_replay" : "evaluation", r);
     if (!asOf) {
       const delta = recordResolution(db, c.id, eid, last("evaluation"), r);
@@ -372,6 +408,7 @@ export function createApp({
             "/domain.js",
             "/operations.js",
             "/clearances.js",
+            "/policy-decisions.js",
             "/submission.js",
             "/evidence-viewer.js",
             "/viewer-geometry.js",
@@ -841,6 +878,22 @@ export function createApp({
         )
           return;
         if (
+          policyDecisionRoute({
+            db,
+            c,
+            action,
+            method: req.method,
+            url,
+            json,
+            res,
+            audit,
+            u,
+            key: cursorKey,
+            currentConfigurationSHA256: policyCapsule.sha256,
+          })
+        )
+          return;
+        if (
           viewerRoute({
             db,
             c,
@@ -1076,6 +1129,11 @@ export function createApp({
         if (action === "policy-evaluate") {
           officer();
           if (
+            body.policyBasis !== undefined &&
+            !["recorded", "current"].includes(body.policyBasis)
+          )
+            fail(400, "Unsupported policy replay basis");
+          if (
             typeof body.asOf !== "string" ||
             !/^\d{4}-\d{2}-\d{2}$/.test(body.asOf) ||
             !Number.isFinite(Date.parse(body.asOf)) ||
@@ -1084,18 +1142,38 @@ export function createApp({
             fail(400, "Valid historical evaluation date required");
           let eid;
           tx(() => {
-            eid = body.evaluationId
-              ? evidence(
-                  u.id,
-                  id,
-                  "evaluation_replay",
-                  replayPolicySnapshot(db, id, body.evaluationId, body.asOf, {
-                    policies,
-                    scope: policyScope,
-                    verifiedSourceHashes,
-                  }),
+            let sourceId = body.evaluationId;
+            if (!sourceId) {
+              const latest = db
+                .prepare(
+                  "SELECT id,payload FROM evidence WHERE case_id=? AND kind='evaluation' ORDER BY rowid DESC LIMIT 1",
                 )
-              : reevaluate(u.id, c, body.asOf);
+                .get(id);
+              const inputRevision = db
+                .prepare(
+                  "SELECT input_revision FROM case_operations WHERE case_id=?",
+                )
+                .get(id).input_revision;
+              sourceId =
+                latest &&
+                JSON.parse(latest.payload).inputRevision === inputRevision
+                  ? latest.id
+                  : reevaluate(u.id, c);
+            }
+            eid = evidence(
+              u.id,
+              id,
+              "evaluation_replay",
+              replayPolicySnapshot(db, id, sourceId, body.asOf, {
+                policies,
+                scope: policyScope,
+                verifiedSourceHashes,
+                capsule: policyCapsule,
+                basis:
+                  body.policyBasis ||
+                  (body.evaluationId ? "recorded" : "current"),
+              }),
+            );
           });
           json(res, 201, { evaluationId: eid });
           return;

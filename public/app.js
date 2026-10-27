@@ -257,9 +257,9 @@ async function detail(id) {
               escape(f.message) +
               '</p><p class="source">Reviewer action: ' +
               escape(f.suggestedAction || "Review referenced evidence") +
-              '</p><div class="source">' +
+              '</p><details class="source"><summary>Evidence references</summary><pre>' +
               escape(JSON.stringify(f.sources)) +
-              "</div></div>",
+              "</pre></details></div>",
           )
           .join("")
       : '<p class="muted">Upload evidence or run an evaluation.</p>') +
@@ -480,6 +480,7 @@ async function detail(id) {
   window.mountReviewWorkspace({ c, user, api, run, detail, escape });
   await window.mountOperationsCase({ c, user, api, run, detail, escape });
   window.mountClearanceCase({ c, user, api, run, detail });
+  window.mountPolicyDecisions({ c, api, run, escape });
   window.mountDomainCase({
     c,
     user,

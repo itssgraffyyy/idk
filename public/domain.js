@@ -321,12 +321,15 @@ window.mountDomainCase = function ({
             "</option>",
         )
         .join("") +
-      "</select></label><button>Replay policy evaluation</button>";
+      '</select></label><label>Policy configuration for frozen facts<select name="policyBasis"><option value="recorded">Configuration recorded with that evaluation</option><option value="current">Current trusted configuration — reassessment</option></select></label><p>Current facts use current configuration. Frozen facts can retain their recorded configuration; financial evidence is not reassessed at a fabricated historical date.</p><button>Replay policy evaluation</button>';
     replay.onsubmit = (e) => {
       e.preventDefault();
       run(async () => {
         await api("/cases/" + c.id + "/policy-evaluate", "POST", {
           asOf: replay.elements.asOf.value,
+          policyBasis: replay.elements.evaluationId.value
+            ? replay.elements.policyBasis.value
+            : "current",
           ...(replay.elements.evaluationId.value
             ? { evaluationId: replay.elements.evaluationId.value }
             : {}),

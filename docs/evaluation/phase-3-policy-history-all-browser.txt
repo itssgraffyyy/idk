@@ -1,0 +1,41 @@
+(node:13752) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 14 tests using 1 worker
+
+(node:9472) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9472) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9472) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+{"browserFixture":{"startupMs":2431.8731000000002}}
+  ok  1 tests\browser\administration.spec.js:2:1 › institution administrator edits profile, programme/history, independent obligation and account through backend UI (3.9s)
+{"browserFixture":{"startupMs":4068.0656}}
+  ok  2 tests\browser\clearances.spec.js:13:1 › configured synthetic department review shares only selected evidence and a separate checker records an internal decision (9.8s)
+{"browserFixture":{"startupMs":5119.997600000002}}
+  ok  3 tests\browser\continuity.spec.js:2:1 › institution proposes a documented replacement and officer records an internal relationship without bank release (3.8s)
+{"browserFixture":{"startupMs":3932.4329}}
+  ok  4 tests\browser\journeys.spec.js:2:1 › ambiguous IFSC is visible and requires a reasoned manual correction (1.4s)
+{"browserFixture":{"startupMs":2698.0603000000046}}
+  ok  5 tests\browser\journeys.spec.js:83:1 › institution submits evidence; officer compares, requests clarification; institution responds (13.2s)
+{"browserFixture":{"startupMs":2635.215000000004}}
+  ok  6 tests\browser\journeys.spec.js:279:1 › responsive login and rejected credentials (828ms)
+{"browserFixture":{"startupMs":4648.795299999991}}
+{"category":"reminder_scheduler","outcome":"SUCCESS","delivered":1,"processed":1,"evaluated":1,"matchedConditions":1,"next":0,"basis":"Asia/Kolkata civil date","asOf":"2026-10-27"}
+  ok  7 tests\browser\notifications.spec.js:3:1 › saved notification categories survive reload and the real scheduler produces a visible immutable delivery (59.5s)
+{"browserFixture":{"startupMs":3043.7578000000067}}
+  ok  8 tests\browser\pdf.spec.js:3:1 › private PDF is rendered as protected page image in institution workspace (2.2s)
+{"browserFixture":{"startupMs":2048.0963000000047}}
+  ok  9 tests\browser\policy-history.spec.js:6:1 › reviewer inspects explained synthetic rules and the exact historical extraction after a later correction (2.8s)
+{"browserFixture":{"startupMs":2224.300900000002}}
+  ok 10 tests\browser\provider.spec.js:2:1 › local financial provider scenarios are genuine API results and clearly MOCK in officer workspace (2.4s)
+{"browserFixture":{"startupMs":2277.4339000000036}}
+  ok 11 tests\browser\resolution.spec.js:2:1 › reviewer targets a finding; institution corrects only disputed amount and reviewer closes the response (6.0s)
+{"browserFixture":{"startupMs":2081.36500000002}}
+  ok 12 tests\browser\roles.spec.js:2:1 › supervisor performs guarded review transition and auditor can only inspect the same authority case (1.9s)
+{"browserFixture":{"startupMs":2846.2580000000016}}
+  ok 13 tests\browser\submission.spec.js:2:1 › guided upload-first draft survives reload, prefills only chosen proposals and receives persisted acknowledgement (3.7s)
+{"browserFixture":{"startupMs":2218.6561999999976}}
+  ok 14 tests\browser\viewer.spec.js:3:1 › reviewer compares original/corrected fields across protected PDF versions with measured highlights and zoom (10.9s)
+
+  14 passed (3.0m)

@@ -1,0 +1,46 @@
+(node:16968) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:14904) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14904) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14904) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+{"browserFixture":{"startupMs":2468.6117}}
+{"browserFixtureFailure":{"nodeTime":"2026-10-27T06:51:12.638Z","preferences":[],"operations":[{"stage":"draft","updated":"2026-10-27T06:51:05.285Z","input_revision":6}],"deliveries":0}}
+  x  1 tests\browser\policy-history.spec.js:6:1 › reviewer inspects explained synthetic rules and the exact historical extraction after a later correction (13.9s)
+
+
+  1) tests\browser\policy-history.spec.js:6:1 › reviewer inspects explained synthetic rules and the exact historical extraction after a later correction
+
+    Error: expect(locator).toHaveValue(expected) failed
+
+    Locator: getByLabel('Evidence comparison', { exact: true })
+    Expected: "recorded"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveValue" getByLabel('Evidence comparison', { exact: true }) with timeout 5000ms
+      - waiting for getByLabel('Evidence comparison', { exact: true })
+
+
+      109 |     await expect(
+      110 |       page.getByLabel("Evidence comparison", { exact: true }),
+    > 111 |     ).toHaveValue("recorded");
+          |       ^
+      112 |     await expect(page.locator("#viewer-text")).toContainText("POLICY-UI");
+      113 |     await expect(page.locator("#viewer-facts")).toContainText("12500000");
+      114 |     await page
+        at G:\idk_lol\tests\browser\policy-history.spec.js:111:7
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\policy-history-reviewer-in-7d64a-on-after-a-later-correction\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\policy-history-reviewer-in-7d64a-on-after-a-later-correction\error-context.md
+
+  1 failed
+    tests\browser\policy-history.spec.js:6:1 › reviewer inspects explained synthetic rules and the exact historical extraction after a later correction

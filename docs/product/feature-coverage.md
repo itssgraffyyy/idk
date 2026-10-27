@@ -23,3 +23,5 @@ Accepted follow-up: lifecycle timeline, evidence-bound amount observations and b
 Clearance implementation is now connected to the existing portal: versioned server-configured procedure activation, department permissions, selected-source review queues, explicit blockers, internal maker/checker, retained decision history and guarded closure/reopening. Targeted tests pass; integrated acceptance remains pending. Official procedure confirmation/external release remain unavailable; synthetic fixtures are visibly fictional. See phase-3-clearances-report.md.
 
 Clearance acceptance: 128 tests/build/types and thirteen browser journeys passed. Internal workflow checkpoint is accepted; official-source confirmation and external execution are not established. Remaining Phase 3D/4 scope remains open.
+
+Policy decision explanation/history now implemented and connected to the case portal: recorded source/rule/fact references, authority separation, missing evidence, explicit recorded/current replay and exact historical extraction viewing. Accepted with 136 tests/build/types and fourteen journeys. Official authority remains unconfirmed; Phase 4 extensions remain pending.
