@@ -1,0 +1,4470 @@
+{
+  "classification": "SYNTHETIC_TEST_ONLY",
+  "version": "synthetic-v4",
+  "frozenBeforeRecognitionChanges": true,
+  "baselineCommit": "0bc33c101368ffc59bf2c5f61c23764de9b315ec",
+  "generatedAt": "2026-10-27T07:13:54.107Z",
+  "partitions": {
+    "development": 18,
+    "validation": 12,
+    "held-out": 12
+  },
+  "rule": "Tune only development/validation. First held-out recognition runs only after recognition code is frozen; do not tune on held-out results. Original V1/V2/V3 remain regression corpora.",
+  "fields": [
+    "reference",
+    "amountPaise",
+    "bank",
+    "ifsc",
+    "issued",
+    "matures",
+    "institutionName",
+    "depositor",
+    "branch",
+    "currency",
+    "type"
+  ],
+  "fonts": [
+    {
+      "file": "arial.ttf",
+      "family": "SentinelFrozen0",
+      "sha256": "74d696e666f696e93db685a85c94bfbfcc0796dfcf8a2e2e2e2c908a54e82949"
+    },
+    {
+      "file": "cour.ttf",
+      "family": "SentinelFrozen1",
+      "sha256": "6aab1f79264ccda1e7129dba62dbe3750b10eaa27408a327dadb808724e62c84"
+    },
+    {
+      "file": "times.ttf",
+      "family": "SentinelFrozen2",
+      "sha256": "f2cb777422a10368904d3f691e650e39da862fe723389056324927df540a35ec"
+    },
+    {
+      "file": "tahoma.ttf",
+      "family": "SentinelFrozen3",
+      "sha256": "dbccddcd68ffa5f9e4d2b9f8ca2507145e0c1f02f8f03298cb1f6281fe3ad12e"
+    },
+    {
+      "file": "georgia.ttf",
+      "family": "SentinelFrozen4",
+      "sha256": "38dffcaf1fac89492f7c56c600a14daf36ae42f7c21985cd4134ae113124a58f"
+    },
+    {
+      "file": "verdana.ttf",
+      "family": "SentinelFrozen5",
+      "sha256": "6a8481fe107ee547893c018b13dba291c2020bec3de5da6525d9ac09f6bc2105"
+    },
+    {
+      "file": "segoeui.ttf",
+      "family": "SentinelFrozen6",
+      "sha256": "73db31e13ef5151beb6a5272cff4c6de6ae2f0bbc3688f4046e5e63593f9953a"
+    }
+  ],
+  "layouts": [
+    {
+      "id": "M-single",
+      "split": "development",
+      "font": 0,
+      "columns": 1
+    },
+    {
+      "id": "N-ledger",
+      "split": "development",
+      "font": 1,
+      "columns": 2
+    },
+    {
+      "id": "O-bordered",
+      "split": "development",
+      "font": 2,
+      "columns": 1
+    },
+    {
+      "id": "P-two-panels",
+      "split": "validation",
+      "font": 3,
+      "columns": 2
+    },
+    {
+      "id": "Q-spaced",
+      "split": "validation",
+      "font": 4,
+      "columns": 1
+    },
+    {
+      "id": "R-compact",
+      "split": "held-out",
+      "font": 5,
+      "columns": 2
+    },
+    {
+      "id": "S-reverse-ledger",
+      "split": "held-out",
+      "font": 6,
+      "columns": 1
+    }
+  ],
+  "cases": [
+    {
+      "id": "ocr-v4-01",
+      "split": "development",
+      "layout": "M-single",
+      "scenario": "clean",
+      "sha256": "ba4dc613547dfbe62abf05505a22986b6df485182f18e22db8c46339e777fed7",
+      "font": "arial.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0001",
+          "amountPaise": 12512300,
+          "bank": "HDFC Bank",
+          "ifsc": "HDFC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 1",
+          "depositor": "Fictional Education Trust 1",
+          "branch": "PARK STREET",
+          "currency": "INR",
+          "type": "FDR"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 435.578125,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 55,
+            "y0": 241,
+            "x1": 542.390625,
+            "y1": 284
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 347,
+            "x1": 419.5625,
+            "y1": 390
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 453.40625,
+            "y1": 496
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 559,
+            "x1": 398.328125,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 55,
+            "y0": 665,
+            "x1": 435.640625,
+            "y1": 708
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 601.015625,
+            "y1": 814
+          },
+          "depositor": {
+            "x0": 55,
+            "y0": 877,
+            "x1": 690.53125,
+            "y1": 920
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 983,
+            "x1": 497.203125,
+            "y1": 1026
+          },
+          "currency": {
+            "x0": 55,
+            "y0": 1089,
+            "x1": 266.59375,
+            "y1": 1132
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1195,
+            "x1": 376.875,
+            "y1": 1238
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "HDFC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-02",
+      "split": "development",
+      "layout": "M-single",
+      "scenario": "low-contrast",
+      "sha256": "b73d7e96869fdccecb6a9a381f6fad6e49aa9c8273a9ac8676b1e55e25968e0b",
+      "font": "arial.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0002",
+          "amountPaise": 12524600,
+          "bank": "ICICI Bank",
+          "ifsc": "ICIC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 2",
+          "depositor": "Fictional Education Trust 2",
+          "branch": "JUHU TARA ROAD",
+          "currency": "INR",
+          "type": "TERM_DEPOSIT"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 435.578125,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 55,
+            "y0": 241,
+            "x1": 542.390625,
+            "y1": 284
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 347,
+            "x1": 403.578125,
+            "y1": 390
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 428.53125,
+            "y1": 496
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 559,
+            "x1": 398.328125,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 55,
+            "y0": 665,
+            "x1": 435.640625,
+            "y1": 708
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 601.015625,
+            "y1": 814
+          },
+          "depositor": {
+            "x0": 55,
+            "y0": 877,
+            "x1": 690.53125,
+            "y1": 920
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 983,
+            "x1": 555.84375,
+            "y1": 1026
+          },
+          "currency": {
+            "x0": 55,
+            "y0": 1089,
+            "x1": 266.59375,
+            "y1": 1132
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1195,
+            "x1": 499.609375,
+            "y1": 1238
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "ICIC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-03",
+      "split": "development",
+      "layout": "M-single",
+      "scenario": "right-angle-rotation",
+      "sha256": "712277bebcb5e45505d3f8350ada6680c1e0c85ba208ac7eba8482c729bfdd47",
+      "font": "arial.ttf",
+      "rotation": 90,
+      "dimensions": {
+        "width": 1500,
+        "height": 1900
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0003",
+          "amountPaise": 12536900,
+          "bank": "Kotak Mahindra Bank",
+          "ifsc": "KKBK0000958",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 3",
+          "depositor": "Fictional Education Trust 3",
+          "branch": "MUMBAI-NPT",
+          "currency": "INR",
+          "type": "FDR"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 435.578125,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 55,
+            "y0": 241,
+            "x1": 542.390625,
+            "y1": 284
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 347,
+            "x1": 554.8125,
+            "y1": 390
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 449.90625,
+            "y1": 496
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 559,
+            "x1": 398.328125,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 55,
+            "y0": 665,
+            "x1": 435.640625,
+            "y1": 708
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 601.015625,
+            "y1": 814
+          },
+          "depositor": {
+            "x0": 55,
+            "y0": 877,
+            "x1": 690.53125,
+            "y1": 920
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 983,
+            "x1": 479.96875,
+            "y1": 1026
+          },
+          "currency": {
+            "x0": 55,
+            "y0": 1089,
+            "x1": 266.59375,
+            "y1": 1132
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1195,
+            "x1": 376.875,
+            "y1": 1238
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "KKBK0000958",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-04",
+      "split": "development",
+      "layout": "M-single",
+      "scenario": "light-noise",
+      "sha256": "dad1b917aa12769ee85897caae671ef8db7be8341b51e62e97af80d3b7ea9fc6",
+      "font": "arial.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0004",
+          "amountPaise": 12549200,
+          "bank": "HDFC Bank",
+          "ifsc": "HDFC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 4",
+          "depositor": "Fictional Education Trust 4",
+          "branch": "PARK STREET",
+          "currency": "INR",
+          "type": "TERM_DEPOSIT"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 435.578125,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 55,
+            "y0": 241,
+            "x1": 542.390625,
+            "y1": 284
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 347,
+            "x1": 419.5625,
+            "y1": 390
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 453.40625,
+            "y1": 496
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 559,
+            "x1": 398.328125,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 55,
+            "y0": 665,
+            "x1": 435.640625,
+            "y1": 708
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 601.015625,
+            "y1": 814
+          },
+          "depositor": {
+            "x0": 55,
+            "y0": 877,
+            "x1": 690.53125,
+            "y1": 920
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 983,
+            "x1": 497.203125,
+            "y1": 1026
+          },
+          "currency": {
+            "x0": 55,
+            "y0": 1089,
+            "x1": 266.59375,
+            "y1": 1132
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1195,
+            "x1": 499.609375,
+            "y1": 1238
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "HDFC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-05",
+      "split": "development",
+      "layout": "M-single",
+      "scenario": "missing-fields",
+      "sha256": "bcc37f2e8651a04774cc9c8e5e41a109cfb4000cdc4ca56eea49be455980758c",
+      "font": "arial.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0005",
+          "amountPaise": 12561500,
+          "bank": "ICICI Bank",
+          "ifsc": "ICIC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 5",
+          "branch": "JUHU TARA ROAD",
+          "type": "FDR"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 435.578125,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 55,
+            "y0": 241,
+            "x1": 542.390625,
+            "y1": 284
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 347,
+            "x1": 403.578125,
+            "y1": 390
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 428.53125,
+            "y1": 496
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 559,
+            "x1": 398.328125,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 55,
+            "y0": 665,
+            "x1": 435.640625,
+            "y1": 708
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 601.015625,
+            "y1": 814
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 877,
+            "x1": 555.84375,
+            "y1": 920
+          },
+          "type": {
+            "x0": 55,
+            "y0": 983,
+            "x1": 376.875,
+            "y1": 1026
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "ICIC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-06",
+      "split": "development",
+      "layout": "M-single",
+      "scenario": "conflicting-IFSC",
+      "sha256": "d14451ec1cedb430056d75da823b82c6f2f23262d1cd85b421038a52dd5c038c",
+      "font": "arial.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0006",
+          "amountPaise": 12573800,
+          "bank": "Kotak Mahindra Bank",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 6",
+          "depositor": "Fictional Education Trust 6",
+          "branch": "MUMBAI-NPT",
+          "currency": "INR",
+          "type": "TERM_DEPOSIT"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 435.578125,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 55,
+            "y0": 241,
+            "x1": 542.390625,
+            "y1": 284
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 347,
+            "x1": 554.8125,
+            "y1": 390
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 690.03125,
+            "y1": 496
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 559,
+            "x1": 398.328125,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 55,
+            "y0": 665,
+            "x1": 435.640625,
+            "y1": 708
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 601.015625,
+            "y1": 814
+          },
+          "depositor": {
+            "x0": 55,
+            "y0": 877,
+            "x1": 690.53125,
+            "y1": 920
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 983,
+            "x1": 479.96875,
+            "y1": 1026
+          },
+          "currency": {
+            "x0": 55,
+            "y0": 1089,
+            "x1": 266.59375,
+            "y1": 1132
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1195,
+            "x1": 499.609375,
+            "y1": 1238
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [
+        "ifsc"
+      ],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "KKBK0000958",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-07",
+      "split": "development",
+      "layout": "N-ledger",
+      "scenario": "clean",
+      "sha256": "29d1d5aeee2b3836db5d531cb8a274aca776988c9df1dcc480a689764675a272",
+      "font": "cour.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0007",
+          "amountPaise": 12586100,
+          "bank": "HDFC Bank",
+          "ifsc": "HDFC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 7",
+          "depositor": "Fictional Education Trust 7",
+          "branch": "PARK STREET",
+          "currency": "INR",
+          "type": "FDR"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 143,
+            "x1": 371.8515625,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 990,
+            "y0": 143,
+            "x1": 1450.875,
+            "y1": 178
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 328,
+            "x1": 357.44921875,
+            "y1": 363
+          },
+          "ifsc": {
+            "x0": 990,
+            "y0": 328,
+            "x1": 1321.25390625,
+            "y1": 363
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 513,
+            "x1": 386.25390625,
+            "y1": 548
+          },
+          "matures": {
+            "x0": 990,
+            "y0": 513,
+            "x1": 1364.4609375,
+            "y1": 548
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 698,
+            "x1": 602.2890625,
+            "y1": 733
+          },
+          "depositor": {
+            "x0": 990,
+            "y0": 698,
+            "x1": 1623.703125,
+            "y1": 733
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 883,
+            "x1": 415.05859375,
+            "y1": 918
+          },
+          "currency": {
+            "x0": 990,
+            "y0": 883,
+            "x1": 1191.6328125,
+            "y1": 918
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1068,
+            "x1": 357.44921875,
+            "y1": 1103
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "HDFC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-08",
+      "split": "development",
+      "layout": "N-ledger",
+      "scenario": "low-contrast",
+      "sha256": "cfb3d9fca82396f4e3a5772edf5b95bc328c07f38fa7a6ffa1a43ac22c24805c",
+      "font": "cour.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0008",
+          "amountPaise": 12598400,
+          "bank": "ICICI Bank",
+          "ifsc": "ICIC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 8",
+          "depositor": "Fictional Education Trust 8",
+          "branch": "JUHU TARA ROAD",
+          "currency": "INR",
+          "type": "TERM_DEPOSIT"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 143,
+            "x1": 371.8515625,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 990,
+            "y0": 143,
+            "x1": 1450.875,
+            "y1": 178
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 328,
+            "x1": 371.8515625,
+            "y1": 363
+          },
+          "ifsc": {
+            "x0": 990,
+            "y0": 328,
+            "x1": 1321.25390625,
+            "y1": 363
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 513,
+            "x1": 386.25390625,
+            "y1": 548
+          },
+          "matures": {
+            "x0": 990,
+            "y0": 513,
+            "x1": 1364.4609375,
+            "y1": 548
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 698,
+            "x1": 602.2890625,
+            "y1": 733
+          },
+          "depositor": {
+            "x0": 990,
+            "y0": 698,
+            "x1": 1623.703125,
+            "y1": 733
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 883,
+            "x1": 458.265625,
+            "y1": 918
+          },
+          "currency": {
+            "x0": 990,
+            "y0": 883,
+            "x1": 1191.6328125,
+            "y1": 918
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1068,
+            "x1": 487.0703125,
+            "y1": 1103
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "ICIC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-09",
+      "split": "development",
+      "layout": "N-ledger",
+      "scenario": "right-angle-rotation",
+      "sha256": "e352b7b43eaa781fce6cc74c4667a7ee28d98657542daa4e6d454395f6127fe7",
+      "font": "cour.ttf",
+      "rotation": 180,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0009",
+          "amountPaise": 12610700,
+          "bank": "Kotak Mahindra Bank",
+          "ifsc": "KKBK0000958",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 9",
+          "depositor": "Fictional Education Trust 9",
+          "branch": "MUMBAI-NPT",
+          "currency": "INR",
+          "type": "FDR"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 143,
+            "x1": 371.8515625,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 990,
+            "y0": 143,
+            "x1": 1450.875,
+            "y1": 178
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 328,
+            "x1": 501.47265625,
+            "y1": 363
+          },
+          "ifsc": {
+            "x0": 990,
+            "y0": 328,
+            "x1": 1321.25390625,
+            "y1": 363
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 513,
+            "x1": 386.25390625,
+            "y1": 548
+          },
+          "matures": {
+            "x0": 990,
+            "y0": 513,
+            "x1": 1364.4609375,
+            "y1": 548
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 698,
+            "x1": 602.2890625,
+            "y1": 733
+          },
+          "depositor": {
+            "x0": 990,
+            "y0": 698,
+            "x1": 1623.703125,
+            "y1": 733
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 883,
+            "x1": 400.65625,
+            "y1": 918
+          },
+          "currency": {
+            "x0": 990,
+            "y0": 883,
+            "x1": 1191.6328125,
+            "y1": 918
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1068,
+            "x1": 357.44921875,
+            "y1": 1103
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "KKBK0000958",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-10",
+      "split": "development",
+      "layout": "N-ledger",
+      "scenario": "light-noise",
+      "sha256": "a4c4ce3f445746ab25b3940b277de7e99c7a8f2e142e0c41d0479db111b51cf5",
+      "font": "cour.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0010",
+          "amountPaise": 12623000,
+          "bank": "HDFC Bank",
+          "ifsc": "HDFC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 10",
+          "depositor": "Fictional Education Trust 10",
+          "branch": "PARK STREET",
+          "currency": "INR",
+          "type": "TERM_DEPOSIT"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 143,
+            "x1": 371.8515625,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 990,
+            "y0": 143,
+            "x1": 1450.875,
+            "y1": 178
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 328,
+            "x1": 357.44921875,
+            "y1": 363
+          },
+          "ifsc": {
+            "x0": 990,
+            "y0": 328,
+            "x1": 1321.25390625,
+            "y1": 363
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 513,
+            "x1": 386.25390625,
+            "y1": 548
+          },
+          "matures": {
+            "x0": 990,
+            "y0": 513,
+            "x1": 1364.4609375,
+            "y1": 548
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 698,
+            "x1": 616.69140625,
+            "y1": 733
+          },
+          "depositor": {
+            "x0": 990,
+            "y0": 698,
+            "x1": 1638.10546875,
+            "y1": 733
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 883,
+            "x1": 415.05859375,
+            "y1": 918
+          },
+          "currency": {
+            "x0": 990,
+            "y0": 883,
+            "x1": 1191.6328125,
+            "y1": 918
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1068,
+            "x1": 487.0703125,
+            "y1": 1103
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "HDFC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-11",
+      "split": "development",
+      "layout": "N-ledger",
+      "scenario": "missing-fields",
+      "sha256": "efa6e7d4f965dbc025cdcc6142014e60448a8d2c5df7bebe02eac6144f23e8d6",
+      "font": "cour.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0011",
+          "amountPaise": 12635300,
+          "bank": "ICICI Bank",
+          "ifsc": "ICIC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 11",
+          "branch": "JUHU TARA ROAD",
+          "type": "FDR"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 143,
+            "x1": 371.8515625,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 990,
+            "y0": 143,
+            "x1": 1450.875,
+            "y1": 178
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 328,
+            "x1": 371.8515625,
+            "y1": 363
+          },
+          "ifsc": {
+            "x0": 990,
+            "y0": 328,
+            "x1": 1321.25390625,
+            "y1": 363
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 513,
+            "x1": 386.25390625,
+            "y1": 548
+          },
+          "matures": {
+            "x0": 990,
+            "y0": 513,
+            "x1": 1364.4609375,
+            "y1": 548
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 698,
+            "x1": 616.69140625,
+            "y1": 733
+          },
+          "branch": {
+            "x0": 990,
+            "y0": 698,
+            "x1": 1393.265625,
+            "y1": 733
+          },
+          "type": {
+            "x0": 55,
+            "y0": 883,
+            "x1": 357.44921875,
+            "y1": 918
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "ICIC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-12",
+      "split": "development",
+      "layout": "N-ledger",
+      "scenario": "conflicting-IFSC",
+      "sha256": "f6904c0206d7f946b5332e68e3bc1a8de953e1f258fd5eee332d48e9d6826a6a",
+      "font": "cour.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0012",
+          "amountPaise": 12647600,
+          "bank": "Kotak Mahindra Bank",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 12",
+          "depositor": "Fictional Education Trust 12",
+          "branch": "MUMBAI-NPT",
+          "currency": "INR",
+          "type": "TERM_DEPOSIT"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 143,
+            "x1": 371.8515625,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 990,
+            "y0": 143,
+            "x1": 1450.875,
+            "y1": 178
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 328,
+            "x1": 501.47265625,
+            "y1": 363
+          },
+          "ifsc": {
+            "x0": 990,
+            "y0": 328,
+            "x1": 1522.88671875,
+            "y1": 363
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 513,
+            "x1": 386.25390625,
+            "y1": 548
+          },
+          "matures": {
+            "x0": 990,
+            "y0": 513,
+            "x1": 1364.4609375,
+            "y1": 548
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 698,
+            "x1": 616.69140625,
+            "y1": 733
+          },
+          "depositor": {
+            "x0": 990,
+            "y0": 698,
+            "x1": 1638.10546875,
+            "y1": 733
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 883,
+            "x1": 400.65625,
+            "y1": 918
+          },
+          "currency": {
+            "x0": 990,
+            "y0": 883,
+            "x1": 1191.6328125,
+            "y1": 918
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1068,
+            "x1": 487.0703125,
+            "y1": 1103
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [
+        "ifsc"
+      ],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "KKBK0000958",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-13",
+      "split": "development",
+      "layout": "O-bordered",
+      "scenario": "clean",
+      "sha256": "54dd3706203442e5c522858ec1b6193ed6afd153e55e2c7d701f844ca4c8c847",
+      "font": "times.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0013",
+          "amountPaise": 12659900,
+          "bank": "HDFC Bank",
+          "ifsc": "HDFC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 13",
+          "depositor": "Fictional Education Trust 13",
+          "branch": "PARK STREET",
+          "currency": "INR",
+          "type": "FDR"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 409.671875,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 55,
+            "y0": 241,
+            "x1": 507.4375,
+            "y1": 284
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 347,
+            "x1": 392.75,
+            "y1": 390
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 420.390625,
+            "y1": 496
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 559,
+            "x1": 363.375,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 55,
+            "y0": 665,
+            "x1": 409.59375,
+            "y1": 708
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 580.234375,
+            "y1": 814
+          },
+          "depositor": {
+            "x0": 55,
+            "y0": 877,
+            "x1": 656.421875,
+            "y1": 920
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 983,
+            "x1": 464.453125,
+            "y1": 1026
+          },
+          "currency": {
+            "x0": 55,
+            "y0": 1089,
+            "x1": 254.0625,
+            "y1": 1132
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1195,
+            "x1": 352.296875,
+            "y1": 1238
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "HDFC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-14",
+      "split": "development",
+      "layout": "O-bordered",
+      "scenario": "low-contrast",
+      "sha256": "13a4fbdf1f84fe4f2ba996d9e705f012db3085a5cd6af59dadd4882fefec90d3",
+      "font": "times.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0014",
+          "amountPaise": 12672200,
+          "bank": "ICICI Bank",
+          "ifsc": "ICIC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 14",
+          "depositor": "Fictional Education Trust 14",
+          "branch": "JUHU TARA ROAD",
+          "currency": "INR",
+          "type": "TERM_DEPOSIT"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 409.671875,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 55,
+            "y0": 241,
+            "x1": 507.4375,
+            "y1": 284
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 347,
+            "x1": 382.046875,
+            "y1": 390
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 399.03125,
+            "y1": 496
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 559,
+            "x1": 363.375,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 55,
+            "y0": 665,
+            "x1": 409.59375,
+            "y1": 708
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 580.234375,
+            "y1": 814
+          },
+          "depositor": {
+            "x0": 55,
+            "y0": 877,
+            "x1": 656.421875,
+            "y1": 920
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 983,
+            "x1": 529.703125,
+            "y1": 1026
+          },
+          "currency": {
+            "x0": 55,
+            "y0": 1089,
+            "x1": 254.0625,
+            "y1": 1132
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1195,
+            "x1": 464.65625,
+            "y1": 1238
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "ICIC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-15",
+      "split": "development",
+      "layout": "O-bordered",
+      "scenario": "right-angle-rotation",
+      "sha256": "a21938f985fc055261c5700aeba8556357e3f76126381e9395416b7ea0457676",
+      "font": "times.ttf",
+      "rotation": 90,
+      "dimensions": {
+        "width": 1500,
+        "height": 1900
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0015",
+          "amountPaise": 12684500,
+          "bank": "Kotak Mahindra Bank",
+          "ifsc": "KKBK0000958",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 15",
+          "depositor": "Fictional Education Trust 15",
+          "branch": "MUMBAI-NPT",
+          "currency": "INR",
+          "type": "FDR"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 409.671875,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 55,
+            "y0": 241,
+            "x1": 507.4375,
+            "y1": 284
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 347,
+            "x1": 518,
+            "y1": 390
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 425.703125,
+            "y1": 496
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 559,
+            "x1": 363.375,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 55,
+            "y0": 665,
+            "x1": 409.59375,
+            "y1": 708
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 580.234375,
+            "y1": 814
+          },
+          "depositor": {
+            "x0": 55,
+            "y0": 877,
+            "x1": 656.421875,
+            "y1": 920
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 983,
+            "x1": 462.9375,
+            "y1": 1026
+          },
+          "currency": {
+            "x0": 55,
+            "y0": 1089,
+            "x1": 254.0625,
+            "y1": 1132
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1195,
+            "x1": 352.296875,
+            "y1": 1238
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "KKBK0000958",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-16",
+      "split": "development",
+      "layout": "O-bordered",
+      "scenario": "light-noise",
+      "sha256": "ed31cd0cde769cb3e2ae5266e198801fa205514aec1e64b98acc8b44ca0b0f97",
+      "font": "times.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0016",
+          "amountPaise": 12696800,
+          "bank": "HDFC Bank",
+          "ifsc": "HDFC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 16",
+          "depositor": "Fictional Education Trust 16",
+          "branch": "PARK STREET",
+          "currency": "INR",
+          "type": "TERM_DEPOSIT"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 409.671875,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 55,
+            "y0": 241,
+            "x1": 507.4375,
+            "y1": 284
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 347,
+            "x1": 392.75,
+            "y1": 390
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 420.390625,
+            "y1": 496
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 559,
+            "x1": 363.375,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 55,
+            "y0": 665,
+            "x1": 409.59375,
+            "y1": 708
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 580.234375,
+            "y1": 814
+          },
+          "depositor": {
+            "x0": 55,
+            "y0": 877,
+            "x1": 656.421875,
+            "y1": 920
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 983,
+            "x1": 464.453125,
+            "y1": 1026
+          },
+          "currency": {
+            "x0": 55,
+            "y0": 1089,
+            "x1": 254.0625,
+            "y1": 1132
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1195,
+            "x1": 464.65625,
+            "y1": 1238
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "HDFC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-17",
+      "split": "development",
+      "layout": "O-bordered",
+      "scenario": "missing-fields",
+      "sha256": "a0220f35df35fac9f7837a00086b1fee5694d5f55f85506039aea857a4274786",
+      "font": "times.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0017",
+          "amountPaise": 12709100,
+          "bank": "ICICI Bank",
+          "ifsc": "ICIC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 17",
+          "branch": "JUHU TARA ROAD",
+          "type": "FDR"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 409.671875,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 55,
+            "y0": 241,
+            "x1": 507.4375,
+            "y1": 284
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 347,
+            "x1": 382.046875,
+            "y1": 390
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 399.03125,
+            "y1": 496
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 559,
+            "x1": 363.375,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 55,
+            "y0": 665,
+            "x1": 409.59375,
+            "y1": 708
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 580.234375,
+            "y1": 814
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 877,
+            "x1": 529.703125,
+            "y1": 920
+          },
+          "type": {
+            "x0": 55,
+            "y0": 983,
+            "x1": 352.296875,
+            "y1": 1026
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "ICIC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-18",
+      "split": "development",
+      "layout": "O-bordered",
+      "scenario": "conflicting-IFSC",
+      "sha256": "f7391ada4cafd0f2db5abf4eeb282777f7443696f1121c23b0482507b5f1cb86",
+      "font": "times.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0018",
+          "amountPaise": 12721400,
+          "bank": "Kotak Mahindra Bank",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 18",
+          "depositor": "Fictional Education Trust 18",
+          "branch": "MUMBAI-NPT",
+          "currency": "INR",
+          "type": "TERM_DEPOSIT"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 409.671875,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 55,
+            "y0": 241,
+            "x1": 507.4375,
+            "y1": 284
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 347,
+            "x1": 518,
+            "y1": 390
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 647.953125,
+            "y1": 496
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 559,
+            "x1": 363.375,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 55,
+            "y0": 665,
+            "x1": 409.59375,
+            "y1": 708
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 580.234375,
+            "y1": 814
+          },
+          "depositor": {
+            "x0": 55,
+            "y0": 877,
+            "x1": 656.421875,
+            "y1": 920
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 983,
+            "x1": 462.9375,
+            "y1": 1026
+          },
+          "currency": {
+            "x0": 55,
+            "y0": 1089,
+            "x1": 254.0625,
+            "y1": 1132
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1195,
+            "x1": 464.65625,
+            "y1": 1238
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [
+        "ifsc"
+      ],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "KKBK0000958",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-19",
+      "split": "validation",
+      "layout": "P-two-panels",
+      "scenario": "clean",
+      "sha256": "2df083a97dabf811529fbd75937332cb856a5b4f8e7528219bb2808d5d650fb4",
+      "font": "tahoma.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0019",
+          "amountPaise": 12733700,
+          "bank": "HDFC Bank",
+          "ifsc": "HDFC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 19",
+          "depositor": "Fictional Education Trust 19",
+          "branch": "PARK STREET",
+          "currency": "INR",
+          "type": "FDR"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 143,
+            "x1": 331.22265625,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 990,
+            "y0": 143,
+            "x1": 1353.29296875,
+            "y1": 178
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 328,
+            "x1": 318.6953125,
+            "y1": 363
+          },
+          "ifsc": {
+            "x0": 990,
+            "y0": 328,
+            "x1": 1274.70703125,
+            "y1": 363
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 513,
+            "x1": 313.92578125,
+            "y1": 548
+          },
+          "matures": {
+            "x0": 990,
+            "y0": 513,
+            "x1": 1279.1953125,
+            "y1": 548
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 698,
+            "x1": 479.359375,
+            "y1": 733
+          },
+          "depositor": {
+            "x0": 990,
+            "y0": 698,
+            "x1": 1475.6015625,
+            "y1": 733
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 883,
+            "x1": 367.12890625,
+            "y1": 918
+          },
+          "currency": {
+            "x0": 990,
+            "y0": 883,
+            "x1": 1147.37109375,
+            "y1": 918
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1068,
+            "x1": 296.5,
+            "y1": 1103
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "HDFC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-20",
+      "split": "validation",
+      "layout": "P-two-panels",
+      "scenario": "low-contrast",
+      "sha256": "f9891e7dfdf88e29965bcabc73725903a2037d351cf7fdb948a80a09059a3456",
+      "font": "tahoma.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0020",
+          "amountPaise": 12746000,
+          "bank": "ICICI Bank",
+          "ifsc": "ICIC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 20",
+          "depositor": "Fictional Education Trust 20",
+          "branch": "JUHU TARA ROAD",
+          "currency": "INR",
+          "type": "TERM_DEPOSIT"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 143,
+            "x1": 331.22265625,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 990,
+            "y0": 143,
+            "x1": 1355.05078125,
+            "y1": 178
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 328,
+            "x1": 314.96875,
+            "y1": 363
+          },
+          "ifsc": {
+            "x0": 990,
+            "y0": 328,
+            "x1": 1262.02734375,
+            "y1": 363
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 513,
+            "x1": 313.92578125,
+            "y1": 548
+          },
+          "matures": {
+            "x0": 990,
+            "y0": 513,
+            "x1": 1279.1953125,
+            "y1": 548
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 698,
+            "x1": 479.359375,
+            "y1": 733
+          },
+          "depositor": {
+            "x0": 990,
+            "y0": 698,
+            "x1": 1475.6015625,
+            "y1": 733
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 883,
+            "x1": 411.89453125,
+            "y1": 918
+          },
+          "currency": {
+            "x0": 990,
+            "y0": 883,
+            "x1": 1147.37109375,
+            "y1": 918
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1068,
+            "x1": 392.79296875,
+            "y1": 1103
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "ICIC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-21",
+      "split": "validation",
+      "layout": "P-two-panels",
+      "scenario": "right-angle-rotation",
+      "sha256": "74c71794572928bf8681c87bb109675daf6a1f3019d270182d69133116c4dd19",
+      "font": "tahoma.ttf",
+      "rotation": 180,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0021",
+          "amountPaise": 12758300,
+          "bank": "Kotak Mahindra Bank",
+          "ifsc": "KKBK0000958",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 21",
+          "depositor": "Fictional Education Trust 21",
+          "branch": "MUMBAI-NPT",
+          "currency": "INR",
+          "type": "FDR"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 143,
+            "x1": 331.22265625,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 990,
+            "y0": 143,
+            "x1": 1355.05078125,
+            "y1": 178
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 328,
+            "x1": 423.2734375,
+            "y1": 363
+          },
+          "ifsc": {
+            "x0": 990,
+            "y0": 328,
+            "x1": 1271.765625,
+            "y1": 363
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 513,
+            "x1": 313.92578125,
+            "y1": 548
+          },
+          "matures": {
+            "x0": 990,
+            "y0": 513,
+            "x1": 1279.1953125,
+            "y1": 548
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 698,
+            "x1": 479.359375,
+            "y1": 733
+          },
+          "depositor": {
+            "x0": 990,
+            "y0": 698,
+            "x1": 1475.6015625,
+            "y1": 733
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 883,
+            "x1": 362.18359375,
+            "y1": 918
+          },
+          "currency": {
+            "x0": 990,
+            "y0": 883,
+            "x1": 1147.37109375,
+            "y1": 918
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1068,
+            "x1": 296.5,
+            "y1": 1103
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "KKBK0000958",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-22",
+      "split": "validation",
+      "layout": "P-two-panels",
+      "scenario": "light-noise",
+      "sha256": "f5b1a42043d90f35127f45d5fcd68afcf400ec8ccdbaeca368b7f39ee0bb534a",
+      "font": "tahoma.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0022",
+          "amountPaise": 12770600,
+          "bank": "HDFC Bank",
+          "ifsc": "HDFC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 22",
+          "depositor": "Fictional Education Trust 22",
+          "branch": "PARK STREET",
+          "currency": "INR",
+          "type": "TERM_DEPOSIT"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 143,
+            "x1": 331.22265625,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 990,
+            "y0": 143,
+            "x1": 1354.4765625,
+            "y1": 178
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 328,
+            "x1": 318.6953125,
+            "y1": 363
+          },
+          "ifsc": {
+            "x0": 990,
+            "y0": 328,
+            "x1": 1274.70703125,
+            "y1": 363
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 513,
+            "x1": 313.92578125,
+            "y1": 548
+          },
+          "matures": {
+            "x0": 990,
+            "y0": 513,
+            "x1": 1279.1953125,
+            "y1": 548
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 698,
+            "x1": 479.359375,
+            "y1": 733
+          },
+          "depositor": {
+            "x0": 990,
+            "y0": 698,
+            "x1": 1475.6015625,
+            "y1": 733
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 883,
+            "x1": 367.12890625,
+            "y1": 918
+          },
+          "currency": {
+            "x0": 990,
+            "y0": 883,
+            "x1": 1147.37109375,
+            "y1": 918
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1068,
+            "x1": 392.79296875,
+            "y1": 1103
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "HDFC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-23",
+      "split": "validation",
+      "layout": "P-two-panels",
+      "scenario": "missing-fields",
+      "sha256": "ee79a66c0f3ef4f14f8b1cfd0c5ee7b022d7e0f62fff4ae0cbdd37175d46d7d6",
+      "font": "tahoma.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0023",
+          "amountPaise": 12782900,
+          "bank": "ICICI Bank",
+          "ifsc": "ICIC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 23",
+          "branch": "JUHU TARA ROAD",
+          "type": "FDR"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 143,
+            "x1": 331.22265625,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 990,
+            "y0": 143,
+            "x1": 1355.05078125,
+            "y1": 178
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 328,
+            "x1": 314.96875,
+            "y1": 363
+          },
+          "ifsc": {
+            "x0": 990,
+            "y0": 328,
+            "x1": 1262.02734375,
+            "y1": 363
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 513,
+            "x1": 313.92578125,
+            "y1": 548
+          },
+          "matures": {
+            "x0": 990,
+            "y0": 513,
+            "x1": 1279.1953125,
+            "y1": 548
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 698,
+            "x1": 479.359375,
+            "y1": 733
+          },
+          "branch": {
+            "x0": 990,
+            "y0": 698,
+            "x1": 1346.89453125,
+            "y1": 733
+          },
+          "type": {
+            "x0": 55,
+            "y0": 883,
+            "x1": 296.5,
+            "y1": 918
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "ICIC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-24",
+      "split": "validation",
+      "layout": "P-two-panels",
+      "scenario": "conflicting-IFSC",
+      "sha256": "5e4d96e15b86df3b7e915817064867505e94e8565ba3a72b30ae8e6c61eca746",
+      "font": "tahoma.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0024",
+          "amountPaise": 12795200,
+          "bank": "Kotak Mahindra Bank",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 24",
+          "depositor": "Fictional Education Trust 24",
+          "branch": "MUMBAI-NPT",
+          "currency": "INR",
+          "type": "TERM_DEPOSIT"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 143,
+            "x1": 331.22265625,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 990,
+            "y0": 143,
+            "x1": 1355.05078125,
+            "y1": 178
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 328,
+            "x1": 423.2734375,
+            "y1": 363
+          },
+          "ifsc": {
+            "x0": 990,
+            "y0": 328,
+            "x1": 1447.06640625,
+            "y1": 363
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 513,
+            "x1": 313.92578125,
+            "y1": 548
+          },
+          "matures": {
+            "x0": 990,
+            "y0": 513,
+            "x1": 1279.1953125,
+            "y1": 548
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 698,
+            "x1": 479.359375,
+            "y1": 733
+          },
+          "depositor": {
+            "x0": 990,
+            "y0": 698,
+            "x1": 1475.6015625,
+            "y1": 733
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 883,
+            "x1": 362.18359375,
+            "y1": 918
+          },
+          "currency": {
+            "x0": 990,
+            "y0": 883,
+            "x1": 1147.37109375,
+            "y1": 918
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1068,
+            "x1": 392.79296875,
+            "y1": 1103
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [
+        "ifsc"
+      ],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "KKBK0000958",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-25",
+      "split": "validation",
+      "layout": "Q-spaced",
+      "scenario": "clean",
+      "sha256": "64b17503a30147bddfc98913b425e33d6792bcf29ef077404053ac520b61a2bc",
+      "font": "georgia.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0025",
+          "amountPaise": 12807500,
+          "bank": "HDFC Bank",
+          "ifsc": "HDFC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 25",
+          "depositor": "Fictional Education Trust 25",
+          "branch": "PARK STREET",
+          "currency": "INR",
+          "type": "FDR"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 437.6875,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 90,
+            "y0": 241,
+            "x1": 583.3125,
+            "y1": 284
+          },
+          "bank": {
+            "x0": 125,
+            "y0": 347,
+            "x1": 486.15625,
+            "y1": 390
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 445.984375,
+            "y1": 496
+          },
+          "issued": {
+            "x0": 90,
+            "y0": 559,
+            "x1": 432.109375,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 125,
+            "y0": 665,
+            "x1": 513.0625,
+            "y1": 708
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 629.203125,
+            "y1": 814
+          },
+          "depositor": {
+            "x0": 90,
+            "y0": 877,
+            "x1": 751.046875,
+            "y1": 920
+          },
+          "branch": {
+            "x0": 125,
+            "y0": 983,
+            "x1": 559.890625,
+            "y1": 1026
+          },
+          "currency": {
+            "x0": 55,
+            "y0": 1089,
+            "x1": 269.734375,
+            "y1": 1132
+          },
+          "type": {
+            "x0": 90,
+            "y0": 1195,
+            "x1": 419.421875,
+            "y1": 1238
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "HDFC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-26",
+      "split": "validation",
+      "layout": "Q-spaced",
+      "scenario": "low-contrast",
+      "sha256": "e44bef1efd33b8861c3267e4ac1f88304730ca2f643687e9f95afe472698844f",
+      "font": "georgia.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0026",
+          "amountPaise": 12819800,
+          "bank": "ICICI Bank",
+          "ifsc": "ICIC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 26",
+          "depositor": "Fictional Education Trust 26",
+          "branch": "JUHU TARA ROAD",
+          "currency": "INR",
+          "type": "TERM_DEPOSIT"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 438.890625,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 90,
+            "y0": 241,
+            "x1": 581.625,
+            "y1": 284
+          },
+          "bank": {
+            "x0": 125,
+            "y0": 347,
+            "x1": 474.890625,
+            "y1": 390
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 422.25,
+            "y1": 496
+          },
+          "issued": {
+            "x0": 90,
+            "y0": 559,
+            "x1": 432.109375,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 125,
+            "y0": 665,
+            "x1": 513.0625,
+            "y1": 708
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 630.40625,
+            "y1": 814
+          },
+          "depositor": {
+            "x0": 90,
+            "y0": 877,
+            "x1": 752.25,
+            "y1": 920
+          },
+          "branch": {
+            "x0": 125,
+            "y0": 983,
+            "x1": 628.078125,
+            "y1": 1026
+          },
+          "currency": {
+            "x0": 55,
+            "y0": 1089,
+            "x1": 269.734375,
+            "y1": 1132
+          },
+          "type": {
+            "x0": 90,
+            "y0": 1195,
+            "x1": 547.328125,
+            "y1": 1238
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "ICIC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-27",
+      "split": "validation",
+      "layout": "Q-spaced",
+      "scenario": "right-angle-rotation",
+      "sha256": "d24ebeb9ea0fcb281a6a5e7f4cf4854947a0c4eb649660971f87d43b59dc63db",
+      "font": "georgia.ttf",
+      "rotation": 90,
+      "dimensions": {
+        "width": 1500,
+        "height": 1900
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0027",
+          "amountPaise": 12832100,
+          "bank": "Kotak Mahindra Bank",
+          "ifsc": "KKBK0000958",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 27",
+          "depositor": "Fictional Education Trust 27",
+          "branch": "MUMBAI-NPT",
+          "currency": "INR",
+          "type": "FDR"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 436.859375,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 90,
+            "y0": 241,
+            "x1": 579.96875,
+            "y1": 284
+          },
+          "bank": {
+            "x0": 125,
+            "y0": 347,
+            "x1": 628.203125,
+            "y1": 390
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 450.171875,
+            "y1": 496
+          },
+          "issued": {
+            "x0": 90,
+            "y0": 559,
+            "x1": 432.109375,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 125,
+            "y0": 665,
+            "x1": 513.0625,
+            "y1": 708
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 628.375,
+            "y1": 814
+          },
+          "depositor": {
+            "x0": 90,
+            "y0": 877,
+            "x1": 750.21875,
+            "y1": 920
+          },
+          "branch": {
+            "x0": 125,
+            "y0": 983,
+            "x1": 558.9375,
+            "y1": 1026
+          },
+          "currency": {
+            "x0": 55,
+            "y0": 1089,
+            "x1": 269.734375,
+            "y1": 1132
+          },
+          "type": {
+            "x0": 90,
+            "y0": 1195,
+            "x1": 419.421875,
+            "y1": 1238
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "KKBK0000958",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-28",
+      "split": "validation",
+      "layout": "Q-spaced",
+      "scenario": "light-noise",
+      "sha256": "7a20d2124569528a49274cfa8283b0c89751c9d70e58020df9c23d676b13b809",
+      "font": "georgia.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0028",
+          "amountPaise": 12844400,
+          "bank": "HDFC Bank",
+          "ifsc": "HDFC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 28",
+          "depositor": "Fictional Education Trust 28",
+          "branch": "PARK STREET",
+          "currency": "INR",
+          "type": "TERM_DEPOSIT"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 439.859375,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 90,
+            "y0": 241,
+            "x1": 584.921875,
+            "y1": 284
+          },
+          "bank": {
+            "x0": 125,
+            "y0": 347,
+            "x1": 486.15625,
+            "y1": 390
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 445.984375,
+            "y1": 496
+          },
+          "issued": {
+            "x0": 90,
+            "y0": 559,
+            "x1": 432.109375,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 125,
+            "y0": 665,
+            "x1": 513.0625,
+            "y1": 708
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 631.375,
+            "y1": 814
+          },
+          "depositor": {
+            "x0": 90,
+            "y0": 877,
+            "x1": 753.21875,
+            "y1": 920
+          },
+          "branch": {
+            "x0": 125,
+            "y0": 983,
+            "x1": 559.890625,
+            "y1": 1026
+          },
+          "currency": {
+            "x0": 55,
+            "y0": 1089,
+            "x1": 269.734375,
+            "y1": 1132
+          },
+          "type": {
+            "x0": 90,
+            "y0": 1195,
+            "x1": 547.328125,
+            "y1": 1238
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "HDFC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-29",
+      "split": "validation",
+      "layout": "Q-spaced",
+      "scenario": "missing-fields",
+      "sha256": "8aa6bacf337331d97064e015777add6b9cfa98da0d5491c040caca3a742f7c92",
+      "font": "georgia.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0029",
+          "amountPaise": 12856700,
+          "bank": "ICICI Bank",
+          "ifsc": "ICIC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 29",
+          "branch": "JUHU TARA ROAD",
+          "type": "FDR"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 438.890625,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 90,
+            "y0": 241,
+            "x1": 581.78125,
+            "y1": 284
+          },
+          "bank": {
+            "x0": 125,
+            "y0": 347,
+            "x1": 474.890625,
+            "y1": 390
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 422.25,
+            "y1": 496
+          },
+          "issued": {
+            "x0": 90,
+            "y0": 559,
+            "x1": 432.109375,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 125,
+            "y0": 665,
+            "x1": 513.0625,
+            "y1": 708
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 630.40625,
+            "y1": 814
+          },
+          "branch": {
+            "x0": 90,
+            "y0": 877,
+            "x1": 593.078125,
+            "y1": 920
+          },
+          "type": {
+            "x0": 125,
+            "y0": 983,
+            "x1": 454.421875,
+            "y1": 1026
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "ICIC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-30",
+      "split": "validation",
+      "layout": "Q-spaced",
+      "scenario": "conflicting-IFSC",
+      "sha256": "25d3d852eee16a61ddbfa03267b78fa637ab9782a33883a36e5fcaedff4bcbf9",
+      "font": "georgia.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0030",
+          "amountPaise": 12869000,
+          "bank": "Kotak Mahindra Bank",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 30",
+          "depositor": "Fictional Education Trust 30",
+          "branch": "MUMBAI-NPT",
+          "currency": "INR",
+          "type": "TERM_DEPOSIT"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 440.203125,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 90,
+            "y0": 241,
+            "x1": 586.546875,
+            "y1": 284
+          },
+          "bank": {
+            "x0": 125,
+            "y0": 347,
+            "x1": 628.203125,
+            "y1": 390
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 696.65625,
+            "y1": 496
+          },
+          "issued": {
+            "x0": 90,
+            "y0": 559,
+            "x1": 432.109375,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 125,
+            "y0": 665,
+            "x1": 513.0625,
+            "y1": 708
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 631.71875,
+            "y1": 814
+          },
+          "depositor": {
+            "x0": 90,
+            "y0": 877,
+            "x1": 753.5625,
+            "y1": 920
+          },
+          "branch": {
+            "x0": 125,
+            "y0": 983,
+            "x1": 558.9375,
+            "y1": 1026
+          },
+          "currency": {
+            "x0": 55,
+            "y0": 1089,
+            "x1": 269.734375,
+            "y1": 1132
+          },
+          "type": {
+            "x0": 90,
+            "y0": 1195,
+            "x1": 547.328125,
+            "y1": 1238
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [
+        "ifsc"
+      ],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "KKBK0000958",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-31",
+      "split": "held-out",
+      "layout": "R-compact",
+      "scenario": "clean",
+      "sha256": "9341a7c05e9121721eaf5c9a218be27331339229c66a9311d143af74eefbe797",
+      "font": "verdana.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0031",
+          "amountPaise": 12881300,
+          "bank": "HDFC Bank",
+          "ifsc": "HDFC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 31",
+          "depositor": "Fictional Education Trust 31",
+          "branch": "PARK STREET",
+          "currency": "INR",
+          "type": "FDR"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 143,
+            "x1": 372.47265625,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 990,
+            "y0": 143,
+            "x1": 1412.6484375,
+            "y1": 178
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 328,
+            "x1": 357.25,
+            "y1": 363
+          },
+          "ifsc": {
+            "x0": 990,
+            "y0": 328,
+            "x1": 1317.7265625,
+            "y1": 363
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 513,
+            "x1": 356.32421875,
+            "y1": 548
+          },
+          "matures": {
+            "x0": 990,
+            "y0": 513,
+            "x1": 1326.38671875,
+            "y1": 548
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 698,
+            "x1": 542.453125,
+            "y1": 733
+          },
+          "depositor": {
+            "x0": 990,
+            "y0": 698,
+            "x1": 1545.2578125,
+            "y1": 733
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 883,
+            "x1": 409.85546875,
+            "y1": 918
+          },
+          "currency": {
+            "x0": 990,
+            "y0": 883,
+            "x1": 1171.13671875,
+            "y1": 918
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1068,
+            "x1": 331.046875,
+            "y1": 1103
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "HDFC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-32",
+      "split": "held-out",
+      "layout": "R-compact",
+      "scenario": "low-contrast",
+      "sha256": "85d027e67fe77886907446a4866153b5c911d04482b9d1903a56fdc02ed989c7",
+      "font": "verdana.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0032",
+          "amountPaise": 12893600,
+          "bank": "ICICI Bank",
+          "ifsc": "ICIC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 32",
+          "depositor": "Fictional Education Trust 32",
+          "branch": "JUHU TARA ROAD",
+          "currency": "INR",
+          "type": "TERM_DEPOSIT"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 143,
+            "x1": 372.47265625,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 990,
+            "y0": 143,
+            "x1": 1412.6484375,
+            "y1": 178
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 328,
+            "x1": 353.9921875,
+            "y1": 363
+          },
+          "ifsc": {
+            "x0": 990,
+            "y0": 328,
+            "x1": 1304.3671875,
+            "y1": 363
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 513,
+            "x1": 356.32421875,
+            "y1": 548
+          },
+          "matures": {
+            "x0": 990,
+            "y0": 513,
+            "x1": 1326.38671875,
+            "y1": 548
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 698,
+            "x1": 542.453125,
+            "y1": 733
+          },
+          "depositor": {
+            "x0": 990,
+            "y0": 698,
+            "x1": 1545.2578125,
+            "y1": 733
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 883,
+            "x1": 459.09765625,
+            "y1": 918
+          },
+          "currency": {
+            "x0": 990,
+            "y0": 883,
+            "x1": 1171.13671875,
+            "y1": 918
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1068,
+            "x1": 441.4609375,
+            "y1": 1103
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "ICIC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-33",
+      "split": "held-out",
+      "layout": "R-compact",
+      "scenario": "right-angle-rotation",
+      "sha256": "021e37e7ece8eb005f9e8fa2253d2c8f58501cd41aa8d9a669c4352935870bb5",
+      "font": "verdana.ttf",
+      "rotation": 180,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0033",
+          "amountPaise": 12905900,
+          "bank": "Kotak Mahindra Bank",
+          "ifsc": "KKBK0000958",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 33",
+          "depositor": "Fictional Education Trust 33",
+          "branch": "MUMBAI-NPT",
+          "currency": "INR",
+          "type": "FDR"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 143,
+            "x1": 372.47265625,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 990,
+            "y0": 143,
+            "x1": 1412.6484375,
+            "y1": 178
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 328,
+            "x1": 477.84765625,
+            "y1": 363
+          },
+          "ifsc": {
+            "x0": 990,
+            "y0": 328,
+            "x1": 1316.98828125,
+            "y1": 363
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 513,
+            "x1": 356.32421875,
+            "y1": 548
+          },
+          "matures": {
+            "x0": 990,
+            "y0": 513,
+            "x1": 1326.38671875,
+            "y1": 548
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 698,
+            "x1": 542.453125,
+            "y1": 733
+          },
+          "depositor": {
+            "x0": 990,
+            "y0": 698,
+            "x1": 1545.2578125,
+            "y1": 733
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 883,
+            "x1": 403.52734375,
+            "y1": 918
+          },
+          "currency": {
+            "x0": 990,
+            "y0": 883,
+            "x1": 1171.13671875,
+            "y1": 918
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1068,
+            "x1": 331.046875,
+            "y1": 1103
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "KKBK0000958",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-34",
+      "split": "held-out",
+      "layout": "R-compact",
+      "scenario": "light-noise",
+      "sha256": "18e38bf8972d09cd126459040c38aeb80b259fbd940c57c165822bf259598fe0",
+      "font": "verdana.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0034",
+          "amountPaise": 12918200,
+          "bank": "HDFC Bank",
+          "ifsc": "HDFC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 34",
+          "depositor": "Fictional Education Trust 34",
+          "branch": "PARK STREET",
+          "currency": "INR",
+          "type": "TERM_DEPOSIT"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 143,
+            "x1": 372.47265625,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 990,
+            "y0": 143,
+            "x1": 1412.6484375,
+            "y1": 178
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 328,
+            "x1": 357.25,
+            "y1": 363
+          },
+          "ifsc": {
+            "x0": 990,
+            "y0": 328,
+            "x1": 1317.7265625,
+            "y1": 363
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 513,
+            "x1": 356.32421875,
+            "y1": 548
+          },
+          "matures": {
+            "x0": 990,
+            "y0": 513,
+            "x1": 1326.38671875,
+            "y1": 548
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 698,
+            "x1": 542.453125,
+            "y1": 733
+          },
+          "depositor": {
+            "x0": 990,
+            "y0": 698,
+            "x1": 1545.2578125,
+            "y1": 733
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 883,
+            "x1": 409.85546875,
+            "y1": 918
+          },
+          "currency": {
+            "x0": 990,
+            "y0": 883,
+            "x1": 1171.13671875,
+            "y1": 918
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1068,
+            "x1": 441.4609375,
+            "y1": 1103
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "HDFC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-35",
+      "split": "held-out",
+      "layout": "R-compact",
+      "scenario": "missing-fields",
+      "sha256": "263cf7eb948defed464b2b8b2c0895cadb1b53f4551720faf87256c01d51f9ed",
+      "font": "verdana.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0035",
+          "amountPaise": 12930500,
+          "bank": "ICICI Bank",
+          "ifsc": "ICIC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 35",
+          "branch": "JUHU TARA ROAD",
+          "type": "FDR"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 143,
+            "x1": 372.47265625,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 990,
+            "y0": 143,
+            "x1": 1412.6484375,
+            "y1": 178
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 328,
+            "x1": 353.9921875,
+            "y1": 363
+          },
+          "ifsc": {
+            "x0": 990,
+            "y0": 328,
+            "x1": 1304.3671875,
+            "y1": 363
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 513,
+            "x1": 356.32421875,
+            "y1": 548
+          },
+          "matures": {
+            "x0": 990,
+            "y0": 513,
+            "x1": 1326.38671875,
+            "y1": 548
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 698,
+            "x1": 542.453125,
+            "y1": 733
+          },
+          "branch": {
+            "x0": 990,
+            "y0": 698,
+            "x1": 1394.09765625,
+            "y1": 733
+          },
+          "type": {
+            "x0": 55,
+            "y0": 883,
+            "x1": 331.046875,
+            "y1": 918
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "ICIC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-36",
+      "split": "held-out",
+      "layout": "R-compact",
+      "scenario": "conflicting-IFSC",
+      "sha256": "54caa42f09b55309b93e9b5e661a7eb33dfbd2eff7972e0e30df6ddc4101c243",
+      "font": "verdana.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0036",
+          "amountPaise": 12942800,
+          "bank": "Kotak Mahindra Bank",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 36",
+          "depositor": "Fictional Education Trust 36",
+          "branch": "MUMBAI-NPT",
+          "currency": "INR",
+          "type": "TERM_DEPOSIT"
+        },
+        "originalUnrotatedLineBoxes": {
+          "reference": {
+            "x0": 55,
+            "y0": 143,
+            "x1": 372.47265625,
+            "y1": 178
+          },
+          "amountPaise": {
+            "x0": 990,
+            "y0": 143,
+            "x1": 1412.6484375,
+            "y1": 178
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 328,
+            "x1": 477.84765625,
+            "y1": 363
+          },
+          "ifsc": {
+            "x0": 990,
+            "y0": 328,
+            "x1": 1518.64453125,
+            "y1": 363
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 513,
+            "x1": 356.32421875,
+            "y1": 548
+          },
+          "matures": {
+            "x0": 990,
+            "y0": 513,
+            "x1": 1326.38671875,
+            "y1": 548
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 698,
+            "x1": 542.453125,
+            "y1": 733
+          },
+          "depositor": {
+            "x0": 990,
+            "y0": 698,
+            "x1": 1545.2578125,
+            "y1": 733
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 883,
+            "x1": 403.52734375,
+            "y1": 918
+          },
+          "currency": {
+            "x0": 990,
+            "y0": 883,
+            "x1": 1171.13671875,
+            "y1": 918
+          },
+          "type": {
+            "x0": 55,
+            "y0": 1068,
+            "x1": 441.4609375,
+            "y1": 1103
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [
+        "ifsc"
+      ],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "KKBK0000958",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-37",
+      "split": "held-out",
+      "layout": "S-reverse-ledger",
+      "scenario": "clean",
+      "sha256": "f0396932de23b718bd5f466fe1c3363b35b6fb22649376b55f1487c1fbb8e89a",
+      "font": "segoeui.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0037",
+          "amountPaise": 12955100,
+          "bank": "HDFC Bank",
+          "ifsc": "HDFC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 37",
+          "depositor": "Fictional Education Trust 37",
+          "branch": "PARK STREET",
+          "currency": "INR",
+          "type": "FDR"
+        },
+        "originalUnrotatedLineBoxes": {
+          "type": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 365,
+            "y1": 178
+          },
+          "currency": {
+            "x0": 55,
+            "y0": 241,
+            "x1": 256.34375,
+            "y1": 284
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 347,
+            "x1": 454.390625,
+            "y1": 390
+          },
+          "depositor": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 697.265625,
+            "y1": 496
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 559,
+            "x1": 615.953125,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 55,
+            "y0": 665,
+            "x1": 437.296875,
+            "y1": 708
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 388.640625,
+            "y1": 814
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 877,
+            "x1": 424.671875,
+            "y1": 920
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 983,
+            "x1": 399.390625,
+            "y1": 1026
+          },
+          "amountPaise": {
+            "x0": 55,
+            "y0": 1089,
+            "x1": 530.328125,
+            "y1": 1132
+          },
+          "reference": {
+            "x0": 55,
+            "y0": 1195,
+            "x1": 419.390625,
+            "y1": 1238
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "HDFC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-38",
+      "split": "held-out",
+      "layout": "S-reverse-ledger",
+      "scenario": "low-contrast",
+      "sha256": "85d5fcc425c6743d8ff966077eccb7cea08a7c91f156fab5d738822cf34a66a8",
+      "font": "segoeui.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0038",
+          "amountPaise": 12967400,
+          "bank": "ICICI Bank",
+          "ifsc": "ICIC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 38",
+          "depositor": "Fictional Education Trust 38",
+          "branch": "JUHU TARA ROAD",
+          "currency": "INR",
+          "type": "TERM_DEPOSIT"
+        },
+        "originalUnrotatedLineBoxes": {
+          "type": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 494.53125,
+            "y1": 178
+          },
+          "currency": {
+            "x0": 55,
+            "y0": 241,
+            "x1": 256.34375,
+            "y1": 284
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 347,
+            "x1": 525.390625,
+            "y1": 390
+          },
+          "depositor": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 697.265625,
+            "y1": 496
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 559,
+            "x1": 615.953125,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 55,
+            "y0": 665,
+            "x1": 437.296875,
+            "y1": 708
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 388.640625,
+            "y1": 814
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 877,
+            "x1": 400.734375,
+            "y1": 920
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 983,
+            "x1": 383.96875,
+            "y1": 1026
+          },
+          "amountPaise": {
+            "x0": 55,
+            "y0": 1089,
+            "x1": 530.328125,
+            "y1": 1132
+          },
+          "reference": {
+            "x0": 55,
+            "y0": 1195,
+            "x1": 419.390625,
+            "y1": 1238
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "ICIC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-39",
+      "split": "held-out",
+      "layout": "S-reverse-ledger",
+      "scenario": "right-angle-rotation",
+      "sha256": "5247e2f39dca2f5941665876164797109f27d6377d904d04abdf77dcf521a563",
+      "font": "segoeui.ttf",
+      "rotation": 90,
+      "dimensions": {
+        "width": 1500,
+        "height": 1900
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0039",
+          "amountPaise": 12979700,
+          "bank": "Kotak Mahindra Bank",
+          "ifsc": "KKBK0000958",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 39",
+          "depositor": "Fictional Education Trust 39",
+          "branch": "MUMBAI-NPT",
+          "currency": "INR",
+          "type": "FDR"
+        },
+        "originalUnrotatedLineBoxes": {
+          "type": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 365,
+            "y1": 178
+          },
+          "currency": {
+            "x0": 55,
+            "y0": 241,
+            "x1": 256.34375,
+            "y1": 284
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 347,
+            "x1": 467.875,
+            "y1": 390
+          },
+          "depositor": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 697.265625,
+            "y1": 496
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 559,
+            "x1": 615.953125,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 55,
+            "y0": 665,
+            "x1": 437.296875,
+            "y1": 708
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 388.640625,
+            "y1": 814
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 877,
+            "x1": 418.109375,
+            "y1": 920
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 983,
+            "x1": 542.359375,
+            "y1": 1026
+          },
+          "amountPaise": {
+            "x0": 55,
+            "y0": 1089,
+            "x1": 530.328125,
+            "y1": 1132
+          },
+          "reference": {
+            "x0": 55,
+            "y0": 1195,
+            "x1": 419.390625,
+            "y1": 1238
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "KKBK0000958",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-40",
+      "split": "held-out",
+      "layout": "S-reverse-ledger",
+      "scenario": "light-noise",
+      "sha256": "984fe80f794beb9110a11a9f781cf63e444ec45c9374b649aeec12276794a0f1",
+      "font": "segoeui.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0040",
+          "amountPaise": 12992000,
+          "bank": "HDFC Bank",
+          "ifsc": "HDFC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 40",
+          "depositor": "Fictional Education Trust 40",
+          "branch": "PARK STREET",
+          "currency": "INR",
+          "type": "TERM_DEPOSIT"
+        },
+        "originalUnrotatedLineBoxes": {
+          "type": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 494.53125,
+            "y1": 178
+          },
+          "currency": {
+            "x0": 55,
+            "y0": 241,
+            "x1": 256.34375,
+            "y1": 284
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 347,
+            "x1": 454.390625,
+            "y1": 390
+          },
+          "depositor": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 697.265625,
+            "y1": 496
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 559,
+            "x1": 615.953125,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 55,
+            "y0": 665,
+            "x1": 437.296875,
+            "y1": 708
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 388.640625,
+            "y1": 814
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 877,
+            "x1": 424.671875,
+            "y1": 920
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 983,
+            "x1": 399.390625,
+            "y1": 1026
+          },
+          "amountPaise": {
+            "x0": 55,
+            "y0": 1089,
+            "x1": 530.328125,
+            "y1": 1132
+          },
+          "reference": {
+            "x0": 55,
+            "y0": 1195,
+            "x1": 419.390625,
+            "y1": 1238
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "HDFC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-41",
+      "split": "held-out",
+      "layout": "S-reverse-ledger",
+      "scenario": "missing-fields",
+      "sha256": "1b6826a1762a7534be3f1a6d0834e5f50854f6e7c791b37fbf967dd53df2828c",
+      "font": "segoeui.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0041",
+          "amountPaise": 13004300,
+          "bank": "ICICI Bank",
+          "ifsc": "ICIC0001234",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 41",
+          "branch": "JUHU TARA ROAD",
+          "type": "FDR"
+        },
+        "originalUnrotatedLineBoxes": {
+          "type": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 365,
+            "y1": 178
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 241,
+            "x1": 525.390625,
+            "y1": 284
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 347,
+            "x1": 615.953125,
+            "y1": 390
+          },
+          "matures": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 437.296875,
+            "y1": 496
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 559,
+            "x1": 388.640625,
+            "y1": 602
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 665,
+            "x1": 400.734375,
+            "y1": 708
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 383.96875,
+            "y1": 814
+          },
+          "amountPaise": {
+            "x0": 55,
+            "y0": 877,
+            "x1": 530.328125,
+            "y1": 920
+          },
+          "reference": {
+            "x0": 55,
+            "y0": 983,
+            "x1": 419.390625,
+            "y1": 1026
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "ICIC0001234",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    },
+    {
+      "id": "ocr-v4-42",
+      "split": "held-out",
+      "layout": "S-reverse-ledger",
+      "scenario": "conflicting-IFSC",
+      "sha256": "0d1182115b582db5e202b6a6eb521da1e56ef7006c437d601ddb602745325ab7",
+      "font": "segoeui.ttf",
+      "rotation": 0,
+      "dimensions": {
+        "width": 1900,
+        "height": 1500
+      },
+      "groundTruth": {
+        "extracted": {
+          "reference": "SYN4-0042",
+          "amountPaise": 13016600,
+          "bank": "Kotak Mahindra Bank",
+          "issued": "2026-02-01",
+          "matures": "2031-02-01",
+          "institutionName": "Fictional Academy 42",
+          "depositor": "Fictional Education Trust 42",
+          "branch": "MUMBAI-NPT",
+          "currency": "INR",
+          "type": "TERM_DEPOSIT"
+        },
+        "originalUnrotatedLineBoxes": {
+          "type": {
+            "x0": 55,
+            "y0": 135,
+            "x1": 494.53125,
+            "y1": 178
+          },
+          "currency": {
+            "x0": 55,
+            "y0": 241,
+            "x1": 256.34375,
+            "y1": 284
+          },
+          "branch": {
+            "x0": 55,
+            "y0": 347,
+            "x1": 467.875,
+            "y1": 390
+          },
+          "depositor": {
+            "x0": 55,
+            "y0": 453,
+            "x1": 697.265625,
+            "y1": 496
+          },
+          "institutionName": {
+            "x0": 55,
+            "y0": 559,
+            "x1": 615.953125,
+            "y1": 602
+          },
+          "matures": {
+            "x0": 55,
+            "y0": 665,
+            "x1": 437.296875,
+            "y1": 708
+          },
+          "issued": {
+            "x0": 55,
+            "y0": 771,
+            "x1": 388.640625,
+            "y1": 814
+          },
+          "ifsc": {
+            "x0": 55,
+            "y0": 877,
+            "x1": 649.453125,
+            "y1": 920
+          },
+          "bank": {
+            "x0": 55,
+            "y0": 983,
+            "x1": 542.359375,
+            "y1": 1026
+          },
+          "amountPaise": {
+            "x0": 55,
+            "y0": 1089,
+            "x1": 530.328125,
+            "y1": 1132
+          },
+          "reference": {
+            "x0": 55,
+            "y0": 1195,
+            "x1": 419.390625,
+            "y1": 1238
+          }
+        },
+        "coordinateNote": "Boxes describe original renderer coordinates; rotate using declared canvas dimensions to compare with stored image."
+      },
+      "expectedReview": [
+        "ifsc"
+      ],
+      "referenceSource": {
+        "version": "razorpay-ifsc-v2.0.62",
+        "source": "https://github.com/razorpay/ifsc/releases/tag/v2.0.62",
+        "releaseDate": "2026-09-01",
+        "datasetSHA256": "2bb970b317739984ba05b83de718f1445c23bc93f63a54e1f577fe888e6190e0",
+        "code": "KKBK0000958",
+        "role": "Branch-reference consistency only; not deposit authenticity"
+      }
+    }
+  ]
+}

@@ -1,0 +1,197 @@
+{
+  "purpose": "Original V1/V2/V3 regression corpus, unchanged before V4 work",
+  "files": [
+    {
+      "path": "datasets/v1/documents/case-001.png",
+      "sha256": "9f994e6d4fd2fcd15310b14b7b5d1e00a9333b97a43e8e448b8f5dfad1d81044"
+    },
+    {
+      "path": "datasets/v1/documents/case-002.png",
+      "sha256": "64ae47d1f30d940466d4c908c569a6a1a2a06da56b2d85ad768b8de360ed605d"
+    },
+    {
+      "path": "datasets/v1/documents/case-003.png",
+      "sha256": "861982c3128188f567d2e5d1095a2deeb3a68edd1201297f0a3f9df80747d50b"
+    },
+    {
+      "path": "datasets/v1/documents/case-004.png",
+      "sha256": "41e30735b38516ebd56590f32fc4eb136e4934612551735d2eb9b82a150d7fa9"
+    },
+    {
+      "path": "datasets/v1/documents/case-005.png",
+      "sha256": "74928526e4a22cae85f9723e79eed2120950816d553794960ef8610562276cd9"
+    },
+    {
+      "path": "datasets/v1/documents/case-006.png",
+      "sha256": "7951cd4d4dc46b7deec987f8ab2c94aa5b5e359105710ac8060934926df55765"
+    },
+    {
+      "path": "datasets/v1/documents/case-007.png",
+      "sha256": "e62011430b9d80253c28dd58f22c273bb506f15f96bc07ca24b9df1460825661"
+    },
+    {
+      "path": "datasets/v1/documents/case-008.png",
+      "sha256": "98df375791e17989109089ef15b0b2fb4ce0314afc11c60734bedd2cbfa41af1"
+    },
+    {
+      "path": "datasets/v1/documents/case-009.png",
+      "sha256": "96b1e6d261ce3b43b5da1d92131279c222cc4f2090225919fa1c563c0d255718"
+    },
+    {
+      "path": "datasets/v1/documents/case-010.png",
+      "sha256": "89b19df9b288e84dbae7f9d33765c4f497bf06f833d47cc30452d3b7f8915d77"
+    },
+    {
+      "path": "datasets/v1/documents/case-011.png",
+      "sha256": "69e8e419876a31ea21ed1638212951647938ddd8951431f99d0954f2f2e77026"
+    },
+    {
+      "path": "datasets/v1/documents/case-012.png",
+      "sha256": "da2bf907f40d0819736594cd9bd98c01dca4475a6e903b6f93a3f33d0db1630e"
+    },
+    {
+      "path": "datasets/v1/documents/case-013.png",
+      "sha256": "35b6246072160ca38f8d3b2d099a438d5e6dbe3c55544673a7584cf0c65c97e9"
+    },
+    {
+      "path": "datasets/v1/documents/case-014.png",
+      "sha256": "fae98f1e9643e6870c51f1652d892fb86344c5e64022c8ac1bb9c712abe49c23"
+    },
+    {
+      "path": "datasets/v1/documents/case-015.png",
+      "sha256": "a2158ef08752f89d3a2fd7e901e9ce17db4cd62e1a006e143a7673887ce5d860"
+    },
+    {
+      "path": "datasets/v1/documents/case-016.png",
+      "sha256": "863e3a7e7f60a617fa8403a5977e2aa6497dcf4d27dd55193d97d108122fbf2d"
+    },
+    {
+      "path": "datasets/v1/documents/case-017.png",
+      "sha256": "74f1e739db03d967e063bfca243813e752f44a315c2df67666243f0f83940dd5"
+    },
+    {
+      "path": "datasets/v1/documents/case-018.png",
+      "sha256": "06a6f46e1c2ac948376d45ce8fc6c113c7a2d50d06df942aeafd185ed0caf62d"
+    },
+    {
+      "path": "datasets/v1/documents/case-019.png",
+      "sha256": "79e22b90a59003d49d26af6172b4920334abd7dcc438cad47133dce178aa2956"
+    },
+    {
+      "path": "datasets/v1/documents/case-020.png",
+      "sha256": "591ef16468cb32e5cf9148ca0e29163327ddfe383ffb65fb2c99ffd9a488222b"
+    },
+    {
+      "path": "datasets/v2/documents/ocr-v2-01.png",
+      "sha256": "3c601dddaa5d427d32e7afbce61f2d22b76037d3ffb03e113bc47b6d8cdef8b9"
+    },
+    {
+      "path": "datasets/v2/documents/ocr-v2-02.png",
+      "sha256": "3df78c8681e47fba6e82fca5d2ab12036d09607a4f44a56c8375cfaa226f8631"
+    },
+    {
+      "path": "datasets/v2/documents/ocr-v2-03.png",
+      "sha256": "ffce2c741d8721964227b2519f6f214aef5353a95c573d84ccd5cc90f8365f93"
+    },
+    {
+      "path": "datasets/v2/documents/ocr-v2-04.png",
+      "sha256": "f7583b6a1b5f06bd78ab236c43c080f3b37d8e46af0bf95dcd13a2dbe76db78c"
+    },
+    {
+      "path": "datasets/v2/documents/ocr-v2-05.png",
+      "sha256": "a54cfe7b9cbd7b6788cb006df38484928089287f9f41cdb74971bbfb418226ec"
+    },
+    {
+      "path": "datasets/v2/documents/ocr-v2-06.png",
+      "sha256": "b36d1c98481a0bf6b8b34d49d4ed2017d6a8fb4b33fd8a1313bc5bd0e2ebd05e"
+    },
+    {
+      "path": "datasets/v2/documents/ocr-v2-07.png",
+      "sha256": "567bfdeaeac41050f02d9b8ffd2f957853b80225dfedd7ea3ea7ea56bff70803"
+    },
+    {
+      "path": "datasets/v2/documents/ocr-v2-08.png",
+      "sha256": "2ce6213d52aa4fdd3b0756b5c6095a620610b2b96a32163e2f4e11b30251b442"
+    },
+    {
+      "path": "datasets/v2/documents/ocr-v2-09.png",
+      "sha256": "0502bf49cd72556c9f1a9c984902a0939c68c39997db98b5190595426755eb9f"
+    },
+    {
+      "path": "datasets/v2/documents/ocr-v2-10.png",
+      "sha256": "ef9bb87544223bac3ec587dc7babfbb79840db45efdd1052f974598f9962a311"
+    },
+    {
+      "path": "datasets/v2/documents/ocr-v2-11.png",
+      "sha256": "4e250593444b035a29ff4b5a97470bb9df33fc270590df001ced8d6fa835403f"
+    },
+    {
+      "path": "datasets/v2/documents/ocr-v2-12.png",
+      "sha256": "af7f7f739b2bda3dac05fc826cc86a7459edd19e06717499ec211790d720d5bb"
+    },
+    {
+      "path": "datasets/v2/documents/ocr-v2-13.png",
+      "sha256": "d3f05d69c3e171c0a7d82e8c6ef56b48c1b6873eba91331fa9610fa19e94916a"
+    },
+    {
+      "path": "datasets/v2/documents/ocr-v2-14.png",
+      "sha256": "8dd992e7015b44076c86e27f7b839f339a0f2f3f57116578a379a120f0bda105"
+    },
+    {
+      "path": "datasets/v2/documents/ocr-v2-15.png",
+      "sha256": "159a11cc20a85f4602aa0be74f66848b1294a7688ded6b1ba34d179cea2a29ad"
+    },
+    {
+      "path": "datasets/v2/documents/ocr-v2-16.png",
+      "sha256": "b8cc29b27ba2eeeee116501ead0e6146517a2836e0766034e20e27b622a40302"
+    },
+    {
+      "path": "datasets/v3/documents/ocr-v3-01.png",
+      "sha256": "754db35c83571983ffd900121df24a2470d80972650a05105cccb15971737dc6"
+    },
+    {
+      "path": "datasets/v3/documents/ocr-v3-02.png",
+      "sha256": "abb7ed50006c33faae256bd216fa143b509184ed4bf403ddfdc642d670edb7ec"
+    },
+    {
+      "path": "datasets/v3/documents/ocr-v3-03.png",
+      "sha256": "27795bacb6e137a4cee282e64a446739e6d0dc6d74a9b199c5ae6c72a7ec6e9c"
+    },
+    {
+      "path": "datasets/v3/documents/ocr-v3-04.png",
+      "sha256": "10626cee85b23a93549b03ce0e0199eb7cae7677a2df6c84e2eb2c94cc88606c"
+    },
+    {
+      "path": "datasets/v3/documents/ocr-v3-05.png",
+      "sha256": "2f22cbb9f5ff121eaf070008e0965f2a57b456d160d1457f3ce42d81f3c5d979"
+    },
+    {
+      "path": "datasets/v3/documents/ocr-v3-06.png",
+      "sha256": "45b61a47abff0fa999b1ef50bb734cbe59ee8b4d03ccdf0d862edbf7e9e3edc8"
+    },
+    {
+      "path": "datasets/v3/documents/ocr-v3-07.png",
+      "sha256": "df1ed6821ae15631b0b1ea14247eeec7f09c88d82642685a7f7d3c402a1a99c3"
+    },
+    {
+      "path": "datasets/v3/documents/ocr-v3-08.png",
+      "sha256": "bfdd1651eb57fdd731f1ede4a418d870a6eb6036fad37ae8ee8acdd433ce9534"
+    },
+    {
+      "path": "datasets/v3/documents/ocr-v3-09.png",
+      "sha256": "b40db03271d3df0cc9363c64192ca0071de1e08f4e87623679ca81fd5ce32ea2"
+    },
+    {
+      "path": "datasets/v3/documents/ocr-v3-10.png",
+      "sha256": "290caa0526cdfade86f369c4deabe82fd820b56ed0847b1925f697e0bbf99b2b"
+    },
+    {
+      "path": "datasets/v3/documents/ocr-v3-11.png",
+      "sha256": "04a304465b694eef7b7c31cda38cf04de85b630ed21ac59c785e16cf4b0f996c"
+    },
+    {
+      "path": "datasets/v3/documents/ocr-v3-12.png",
+      "sha256": "3234654762403c1aebdd7f677144878c958578af046676292447cf081113e3ad"
+    }
+  ]
+}

@@ -3,3 +3,5 @@
 *.jpg binary
 *.jpeg binary
 *.gz binary
+datasets/v4/manifest.json text eol=lf
+datasets/v4/manifest.sha256 text eol=lf
