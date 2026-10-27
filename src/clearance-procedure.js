@@ -58,6 +58,8 @@ export function validateProcedure(input) {
       "scope",
       "classification",
       "source",
+      "sourceSHA256",
+      "interpretationReviewReference",
       "effectiveFrom",
       "effectiveTo",
       "requirements",
@@ -76,6 +78,16 @@ export function validateProcedure(input) {
     input.requirements.length > 50
   )
     reject("Invalid versioned clearance procedure");
+  if (
+    (input.sourceSHA256 !== undefined &&
+      (typeof input.sourceSHA256 !== "string" ||
+        !/^[a-f0-9]{64}$/.test(input.sourceSHA256))) ||
+    (input.interpretationReviewReference !== undefined &&
+      (typeof input.interpretationReviewReference !== "string" ||
+        !input.interpretationReviewReference.trim() ||
+        input.interpretationReviewReference.length > 1000))
+  )
+    reject("Invalid procedure source/review reference");
   const ids = new Set();
   for (const r of input.requirements) {
     if (
@@ -143,9 +155,11 @@ export function clearanceReadiness({
   responses = [],
   asOf,
   currentBinding = true,
+  confirmations = [],
 }) {
   const p = validateProcedure(procedure);
   if (!date(asOf)) reject("A valid assessment date is required");
+  const trust = procedureTrust(p, confirmations, asOf);
   if (!plain(facts) || !Array.isArray(responses) || responses.length > 50)
     reject("Invalid clearance assessment facts");
   const seen = new Set();
@@ -231,12 +245,15 @@ export function clearanceReadiness({
   if (asOf < p.effectiveFrom || asOf > p.effectiveTo)
     blockers.push({ code: "PROCEDURE_OUTSIDE_EFFECTIVE_PERIOD" });
   if (!currentBinding) blockers.push({ code: "STALE_PROCEDURE_BINDING" });
-  if (p.classification !== "SYNTHETIC")
+  if (!trust.operationPermitted)
     blockers.push({ code: "OFFICIAL_PROCEDURE_UNVERIFIED" });
   return {
     procedureVersion: p.version,
     procedureHash: snapshotHash(p),
-    classification: p.classification,
+    classification: trust.classification,
+    ...(trust.candidates.length
+      ? { procedureTrust: trust, declaredClassification: p.classification }
+      : {}),
     asOf,
     items,
     blockers,
@@ -244,5 +261,139 @@ export function clearanceReadiness({
     administrativeApproval: false,
     externalRelease: "NOT_CONFIRMED",
     realRegulatoryAuthority: false,
+  };
+}
+// Operator-owned out-of-band confirmation register. HTTP actors cannot supply it.
+// A recorded issuer confirmation is not automated authentication of the issuer.
+export function validateProcedureConfirmations(input) {
+  if (!Array.isArray(input) || input.length > 100)
+    reject("Invalid bounded procedure confirmation register");
+  const ids = new Set();
+  for (const p of input) {
+    if (
+      !exact(p, [
+        "id",
+        "scope",
+        "procedureSHA256",
+        "sourceSHA256",
+        "sourceURL",
+        "issuerConfirmationReference",
+        "interpretationReviewReference",
+        "reviewedBy",
+        "confirmedAt",
+        "expiresOn",
+        "verificationContext",
+      ]) ||
+      !validId(p.id) ||
+      ids.has(p.id) ||
+      !validId(p.scope) ||
+      !validId(p.reviewedBy) ||
+      !["INDEPENDENT_ISSUER_CONFIRMATION", "SYNTHETIC_CONTRACT_TEST"].includes(
+        p.verificationContext,
+      ) ||
+      !date(p.expiresOn) ||
+      typeof p.confirmedAt !== "string" ||
+      !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/.test(
+        p.confirmedAt,
+      ) ||
+      !Number.isFinite(Date.parse(p.confirmedAt)) ||
+      new Date(p.confirmedAt).toISOString().slice(0, 10) !==
+        p.confirmedAt.slice(0, 10) ||
+      p.confirmedAt.slice(0, 10) > p.expiresOn
+    )
+      reject("Invalid procedure confirmation identity/period");
+    ids.add(p.id);
+    for (const field of ["procedureSHA256", "sourceSHA256"])
+      if (typeof p[field] !== "string" || !/^[a-f0-9]{64}$/.test(p[field]))
+        reject("Exact procedure/source SHA256 required");
+    for (const field of [
+      "issuerConfirmationReference",
+      "interpretationReviewReference",
+    ])
+      if (
+        typeof p[field] !== "string" ||
+        !p[field].trim() ||
+        p[field].length > 1000
+      )
+        reject(
+          "Independent confirmation and interpretation references required",
+        );
+    let url;
+    try {
+      url = new URL(p.sourceURL);
+    } catch {
+      reject("HTTPS source URL required");
+    }
+    if (
+      url.protocol !== "https:" ||
+      url.username ||
+      url.password ||
+      p.sourceURL.length > 2000
+    )
+      reject("HTTPS source URL required");
+    if (
+      p.verificationContext === "SYNTHETIC_CONTRACT_TEST" &&
+      !p.scope.startsWith("synthetic-")
+    )
+      reject(
+        "Contract confirmation is restricted to explicitly synthetic scopes",
+      );
+    if (
+      p.verificationContext === "INDEPENDENT_ISSUER_CONFIRMATION" &&
+      (/\.(invalid|test)$/.test(url.hostname) ||
+        ["localhost", "127.0.0.1", "[::1]"].includes(url.hostname))
+    )
+      reject("Test/loopback sources cannot be independent issuer confirmation");
+  }
+  return structuredClone(input);
+}
+export function procedureTrust(p, register, asOf) {
+  const configured = validateProcedureConfirmations(register);
+  if (!date(asOf)) reject("Valid procedure trust date required");
+  if (p.classification === "SYNTHETIC")
+    return {
+      status: "SYNTHETIC",
+      classification: "SYNTHETIC",
+      operationPermitted: true,
+      issuerConfirmationRecorded: false,
+      confirmation: null,
+      candidates: [],
+    };
+  const candidates = configured.filter(
+    (v) =>
+      v.scope === p.scope &&
+      v.procedureSHA256 === snapshotHash(p) &&
+      v.sourceSHA256 === p.sourceSHA256 &&
+      v.sourceURL === p.source &&
+      v.interpretationReviewReference === p.interpretationReviewReference,
+  );
+  const effective = candidates.filter(
+    (v) => v.confirmedAt.slice(0, 10) <= asOf && v.expiresOn >= asOf,
+  );
+  if (effective.length !== 1)
+    return {
+      status:
+        effective.length > 1
+          ? "AMBIGUOUS_CONFIRMATIONS"
+          : candidates.length
+            ? "CONFIRMATION_NOT_EFFECTIVE"
+            : "UNVERIFIED",
+      classification: p.classification,
+      operationPermitted: false,
+      issuerConfirmationRecorded: false,
+      confirmation: null,
+      candidates,
+    };
+  const confirmation = effective[0],
+    synthetic = confirmation.verificationContext === "SYNTHETIC_CONTRACT_TEST";
+  return {
+    status: synthetic
+      ? "SYNTHETIC_CONTRACT_CONFIRMATION"
+      : "ISSUER_CONFIRMATION_RECORDED",
+    classification: synthetic ? "SYNTHETIC" : "ISSUER_VERIFIED",
+    operationPermitted: true,
+    issuerConfirmationRecorded: !synthetic,
+    confirmation,
+    candidates,
   };
 }

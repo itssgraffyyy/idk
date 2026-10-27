@@ -7,6 +7,8 @@ import { migrationFixture } from "./support/migration-fixture.js";
 import { runReminderBatch } from "../src/reminders.js";
 import { LocalPrivateStorage } from "../src/storage.js";
 import { clearanceService } from "../src/clearance-service.js";
+import { snapshotHash } from "../src/clearance-procedure.js";
+import { createApp } from "../src/server.js";
 import {
   syntheticProcedure as procedure,
   syntheticPolicy as policy,
@@ -16,6 +18,134 @@ const options = {
   policies: [policy],
   policyScope: "synthetic-test",
 };
+test("trusted synthetic issuer contract drives internal decision only; configuration revocation invalidates current decisions while frozen scenarios replay", async () => {
+  const p = {
+    ...procedure,
+    classification: "UNVERIFIED_OFFICIAL",
+    source: "https://issuer.example.invalid/contract-only.pdf",
+    sourceSHA256: "a".repeat(64),
+    interpretationReviewReference: "SYNTHETIC-INTERPRETATION-NOT-AICTE",
+  };
+  const confirmation = {
+    id: "synthetic-api-contract",
+    scope: p.scope,
+    procedureSHA256: snapshotHash(p),
+    sourceSHA256: p.sourceSHA256,
+    sourceURL: p.source,
+    issuerConfirmationReference:
+      "SYNTHETIC-CONTRACT-NOT-A-REAL-ISSUER-CONFIRMATION",
+    interpretationReviewReference: p.interpretationReviewReference,
+    reviewedBy: "synthetic-source-reviewer",
+    confirmedAt: "2025-01-01T00:00:00Z",
+    expiresOn: "2035-12-31",
+    verificationContext: "SYNTHETIC_CONTRACT_TEST",
+  };
+  const config = {
+      ...options,
+      procedures: [p],
+      procedureConfirmations: [confirmation],
+    },
+    h = await harness(config);
+  let restarted;
+  try {
+    const c = await setup(h);
+    assert.equal(
+      (
+        await h.call(
+          "/clearance/activations",
+          {
+            scope: p.scope,
+            version: p.version,
+            revision: 1,
+            reason: "Reject client authority injection",
+            issuerConfirmed: true,
+          },
+          c.s,
+        )
+      ).status,
+      403,
+    );
+    for (const requirement of ["academic", "parallel"])
+      assert.equal(
+        (await accept(h, c, await request(h, c, requirement))).status,
+        201,
+      );
+    const ready = (await h.call(c.admin, undefined, c.o)).body;
+    assert.equal(ready.readyForInternalReview, true);
+    assert.equal(ready.classification, "SYNTHETIC");
+    assert.equal(ready.procedureTrust.issuerConfirmationRecorded, false);
+    const ops = (await h.call(c.root + "/operations", undefined, c.o)).body;
+    const snapshot = await h.call(
+      c.root + "/analysis/snapshots",
+      { inputRevision: ops.input_revision },
+      c.o,
+    );
+    assert.equal(snapshot.status, 201);
+    const scenario = await h.call(
+      c.root + "/analysis/scenarios",
+      {
+        snapshotId: snapshot.body.id,
+        changes: {
+          asOf: "2026-10-27",
+          starts: "2026-01-01",
+          ends: "2032-01-01",
+        },
+      },
+      c.o,
+    );
+    assert.equal(scenario.status, 201);
+    const proposal = await h.call(
+      c.admin + "/proposals",
+      {
+        outcome: "approve",
+        reason: "Synthetic contract internal decision only",
+      },
+      c.o,
+    );
+    assert.equal(proposal.status, 201);
+    const confirmed = await h.call(
+      c.admin + "/confirm",
+      {
+        entity: proposal.body.entity,
+        revision: 1,
+        reason: "Independent synthetic checker",
+      },
+      c.s,
+    );
+    assert.equal(confirmed.status, 201, JSON.stringify(confirmed.body));
+    assert.equal(confirmed.body.payload.externalRelease, "NOT_CONFIRMED");
+    assert.equal(confirmed.body.payload.classification, "SYNTHETIC");
+    await h.app.close();
+    restarted = createApp({
+      dir: h.dir,
+      ...config,
+      procedureConfirmations: [],
+    });
+    await new Promise((ok) => restarted.server.listen(0, "127.0.0.1", ok));
+    const get = async (path) => {
+      const r = await fetch(
+        "http://127.0.0.1:" + restarted.server.address().port + "/api" + path,
+        { headers: c.o },
+      );
+      return { status: r.status, body: await r.json() };
+    };
+    const revoked = (await get(c.admin)).body;
+    assert.equal(revoked.readyForInternalReview, false);
+    assert.ok(
+      revoked.blockers.some((b) => b.code === "OFFICIAL_PROCEDURE_UNVERIFIED"),
+    );
+    assert.ok(revoked.decisions.every((d) => !d.current));
+    const replay = await get(
+      c.root + "/analysis/records/" + scenario.body.id + "/replay",
+    );
+    assert.equal(replay.status, 200);
+    assert.equal(replay.body.reproduced, true);
+    assert.equal(replay.body.result.administrativeApproval, false);
+  } finally {
+    await restarted?.close();
+    await h.close();
+  }
+});
 test("department download rechecks session and exact request event after storage returns", async () => {
   for (const mutation of ["session", "request"]) {
     const h = await harness(options),

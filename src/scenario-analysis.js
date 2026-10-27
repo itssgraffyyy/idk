@@ -108,6 +108,7 @@ export function scenarioSnapshot(db, c, capsule, clearances, user) {
       capsule,
       clearance: {
         procedure,
+        confirmations: readiness.procedureTrust?.candidates || [],
         readiness,
         responses: (readiness.requests || []).map((r) => ({
           requirementId: r.payload.requirementId,
@@ -251,6 +252,7 @@ function evaluateScenario(snapshot, changes) {
   const clearanceResult = clearance.procedure
     ? clearanceReadiness({
         procedure: clearance.procedure,
+        confirmations: clearance.confirmations || [],
         facts,
         responses: clearance.responses,
         asOf,

@@ -1,0 +1,746 @@
+{
+  "classification": "SYNTHETIC_COMPATIBILITY_FIXTURE_NOT_ISSUER_EVIDENCE",
+  "sourceCommit": "1bae77b",
+  "hashes": {
+    "src/scenario-analysis.js": "1976ffb011da771a13244110f50c7e44a2160892c258b81874669cc75b71c10f",
+    "src/clearance-procedure.js": "8235fd4760254e1c3154537d2444205da7d05b68ad8e2dbf83dea2f3c4d4850f"
+  },
+  "cases": [
+    {
+      "classification": "SYNTHETIC",
+      "snapshot": {
+        "format": 1,
+        "asOf": "2026-10-27",
+        "domain": {
+          "instrument_id": "synthetic-one"
+        },
+        "obligation": {
+          "amount_paise": 12500000,
+          "starts": "2026-01-01",
+          "ends": "2032-01-01"
+        },
+        "instruments": [
+          {
+            "id": "synthetic-one",
+            "data": {
+              "reference": "SYNTHETIC-COMPATIBILITY-ONLY",
+              "amountPaise": 12500000,
+              "bank": "HDFC Bank",
+              "ifsc": "HDFC0001234",
+              "issued": "2026-01-01",
+              "matures": "2031-01-01",
+              "currency": "INR",
+              "type": "FDR"
+            }
+          }
+        ],
+        "documents": [],
+        "evidenceReferences": [],
+        "policyFacts": {
+          "context": {},
+          "proofs": []
+        },
+        "capsule": {
+          "sha256": "synthetic-test-only",
+          "configuration": {
+            "policies": [
+              {
+                "version": "SYNTHETIC-2026",
+                "scope": "synthetic-test",
+                "classification": "SYNTHETIC",
+                "source": "fictional:test-only",
+                "reviewReference": "automated-fixture-review",
+                "verification": "verified",
+                "effectiveFrom": "2025-01-01",
+                "effectiveTo": "2035-12-31",
+                "rules": [
+                  {
+                    "id": "minimum",
+                    "type": "minimum_amount",
+                    "amountPaise": 10000000,
+                    "severity": "HIGH"
+                  }
+                ]
+              }
+            ],
+            "scope": "synthetic-test",
+            "verifiedSourceHashes": []
+          }
+        },
+        "clearance": {
+          "procedure": {
+            "version": "SYNTHETIC-CLEARANCE-1",
+            "scope": "synthetic-test",
+            "classification": "SYNTHETIC",
+            "source": "fictional:test-only; not an AICTE procedure",
+            "effectiveFrom": "2025-01-01",
+            "effectiveTo": "2035-12-31",
+            "requirements": [
+              {
+                "id": "academic",
+                "label": "Synthetic academic review",
+                "department": "academic",
+                "mandatory": true,
+                "dependsOn": [],
+                "conditions": {},
+                "evidenceKinds": [
+                  "FDR"
+                ]
+              },
+              {
+                "id": "parallel",
+                "label": "Synthetic parallel review",
+                "department": "coordination",
+                "mandatory": true,
+                "dependsOn": [],
+                "conditions": {},
+                "evidenceKinds": []
+              }
+            ]
+          },
+          "responses": [],
+          "readiness": {
+            "blockers": [
+              {
+                "code": "SYNTHETIC_MISSING_SOURCE"
+              }
+            ]
+          }
+        }
+      },
+      "changes": {
+        "asOf": "2026-10-27",
+        "amountPaise": 14000000,
+        "updates": [
+          {
+            "id": "synthetic-one",
+            "matures": "2034-01-01"
+          }
+        ]
+      },
+      "result": {
+        "format": 1,
+        "classification": "HYPOTHETICAL_NOT_APPROVAL_OR_BANK_CONFIRMATION",
+        "asOf": "2026-10-27",
+        "changes": {
+          "asOf": "2026-10-27",
+          "amountPaise": 14000000,
+          "updates": [
+            {
+              "id": "synthetic-one",
+              "matures": "2034-01-01"
+            }
+          ]
+        },
+        "continuity": {
+          "basis": "DECLARED_INCLUSIVE_CIVIL_DATES",
+          "pooling": "DISALLOWED",
+          "bankConfirmation": "UNCONFIRMED",
+          "legalCoverage": "REQUIRES_HUMAN_REVIEW",
+          "establishedGap": false,
+          "segments": [
+            {
+              "starts": "2026-01-01",
+              "ends": "2032-01-01",
+              "instrumentIds": [
+                "synthetic-one"
+              ],
+              "maximumSingleAmountPaise": "12500000",
+              "status": "POTENTIAL_DECLARED_SHORTFALL"
+            }
+          ],
+          "issues": [],
+          "excluded": []
+        },
+        "policy": {
+          "version": "SYNTHETIC-2026",
+          "outcome": "COMPLIANT",
+          "checks": [
+            {
+              "ruleId": "minimum",
+              "policyVersion": "SYNTHETIC-2026",
+              "source": "fictional:test-only",
+              "sourceSHA256": null,
+              "classification": "SYNTHETIC",
+              "severity": "HIGH",
+              "expected": 10000000,
+              "actual": 12500000,
+              "evidence": [],
+              "missingEvidence": [],
+              "outcome": "COMPLIANT"
+            }
+          ],
+          "classification": "SYNTHETIC",
+          "realRegulatoryAuthority": false,
+          "administrativeApproval": false,
+          "asOf": "2026-10-27"
+        },
+        "clearance": {
+          "procedureVersion": "SYNTHETIC-CLEARANCE-1",
+          "procedureHash": "7ef81076ac88f6a94bfaa550e094f6e773fa40c477db350d78218bfeeff8237b",
+          "classification": "SYNTHETIC",
+          "asOf": "2026-10-27",
+          "items": [
+            {
+              "id": "academic",
+              "label": "Synthetic academic review",
+              "department": "academic",
+              "mandatory": true,
+              "status": "NOT_REQUESTED",
+              "missingFacts": [],
+              "reasons": [
+                "Department request required"
+              ],
+              "evidenceKinds": [
+                "FDR"
+              ],
+              "dependsOn": []
+            },
+            {
+              "id": "parallel",
+              "label": "Synthetic parallel review",
+              "department": "coordination",
+              "mandatory": true,
+              "status": "NOT_REQUESTED",
+              "missingFacts": [],
+              "reasons": [
+                "Department request required"
+              ],
+              "evidenceKinds": [],
+              "dependsOn": []
+            }
+          ],
+          "blockers": [
+            {
+              "requirementId": "academic",
+              "department": "academic",
+              "code": "NOT_REQUESTED",
+              "reasons": [
+                "Department request required"
+              ]
+            },
+            {
+              "requirementId": "parallel",
+              "department": "coordination",
+              "code": "NOT_REQUESTED",
+              "reasons": [
+                "Department request required"
+              ]
+            }
+          ],
+          "readyForInternalReview": false,
+          "administrativeApproval": false,
+          "externalRelease": "NOT_CONFIRMED",
+          "realRegulatoryAuthority": false
+        },
+        "missingEvidence": [
+          "SOURCE_FDR_DOCUMENT",
+          "CURRENT_EXTRACTION"
+        ],
+        "factConflicts": [],
+        "recordedAdministrativeBlockers": [
+          {
+            "code": "SYNTHETIC_MISSING_SOURCE"
+          }
+        ],
+        "policyConfigurationSHA256": "synthetic-test-only",
+        "assumptions": [
+          "Changed declared instrument synthetic-one; no bank confirmation.",
+          "Declared dates are inclusive; no pooling of distinct deposits.",
+          "Existing proposed instruments stay excluded until actually registered.",
+          "Unchanged missing documents, proof decisions and administrative blockers remain unresolved.",
+          "Results cannot authorize release, modify evidence or establish legal sufficiency."
+        ],
+        "administrativeApproval": false,
+        "bankRelease": false,
+        "baseline": {
+          "asOf": "2026-10-27",
+          "continuity": {
+            "basis": "DECLARED_INCLUSIVE_CIVIL_DATES",
+            "pooling": "DISALLOWED",
+            "bankConfirmation": "UNCONFIRMED",
+            "legalCoverage": "REQUIRES_HUMAN_REVIEW",
+            "establishedGap": false,
+            "segments": [
+              {
+                "starts": "2026-01-01",
+                "ends": "2031-01-01",
+                "instrumentIds": [
+                  "synthetic-one"
+                ],
+                "maximumSingleAmountPaise": "12500000",
+                "status": "POTENTIAL_DECLARED_COVERAGE"
+              },
+              {
+                "starts": "2031-01-02",
+                "ends": "2032-01-01",
+                "instrumentIds": [],
+                "maximumSingleAmountPaise": "0",
+                "status": "POTENTIAL_DECLARED_SHORTFALL"
+              }
+            ],
+            "issues": [],
+            "excluded": []
+          },
+          "policy": {
+            "version": "SYNTHETIC-2026",
+            "outcome": "COMPLIANT",
+            "checks": [
+              {
+                "ruleId": "minimum",
+                "policyVersion": "SYNTHETIC-2026",
+                "source": "fictional:test-only",
+                "sourceSHA256": null,
+                "classification": "SYNTHETIC",
+                "severity": "HIGH",
+                "expected": 10000000,
+                "actual": 12500000,
+                "evidence": [],
+                "missingEvidence": [],
+                "outcome": "COMPLIANT"
+              }
+            ],
+            "classification": "SYNTHETIC",
+            "realRegulatoryAuthority": false,
+            "administrativeApproval": false,
+            "asOf": "2026-10-27"
+          },
+          "clearance": {
+            "procedureVersion": "SYNTHETIC-CLEARANCE-1",
+            "procedureHash": "7ef81076ac88f6a94bfaa550e094f6e773fa40c477db350d78218bfeeff8237b",
+            "classification": "SYNTHETIC",
+            "asOf": "2026-10-27",
+            "items": [
+              {
+                "id": "academic",
+                "label": "Synthetic academic review",
+                "department": "academic",
+                "mandatory": true,
+                "status": "NOT_REQUESTED",
+                "missingFacts": [],
+                "reasons": [
+                  "Department request required"
+                ],
+                "evidenceKinds": [
+                  "FDR"
+                ],
+                "dependsOn": []
+              },
+              {
+                "id": "parallel",
+                "label": "Synthetic parallel review",
+                "department": "coordination",
+                "mandatory": true,
+                "status": "NOT_REQUESTED",
+                "missingFacts": [],
+                "reasons": [
+                  "Department request required"
+                ],
+                "evidenceKinds": [],
+                "dependsOn": []
+              }
+            ],
+            "blockers": [
+              {
+                "requirementId": "academic",
+                "department": "academic",
+                "code": "NOT_REQUESTED",
+                "reasons": [
+                  "Department request required"
+                ]
+              },
+              {
+                "requirementId": "parallel",
+                "department": "coordination",
+                "code": "NOT_REQUESTED",
+                "reasons": [
+                  "Department request required"
+                ]
+              }
+            ],
+            "readyForInternalReview": false,
+            "administrativeApproval": false,
+            "externalRelease": "NOT_CONFIRMED",
+            "realRegulatoryAuthority": false
+          },
+          "missingEvidence": [
+            "SOURCE_FDR_DOCUMENT",
+            "CURRENT_EXTRACTION"
+          ]
+        },
+        "comparisonAssumption": "If the recorded obligation has no period, baseline uses the hypothetical period; baseline does not infer a legal holding period."
+      }
+    },
+    {
+      "classification": "UNVERIFIED_OFFICIAL",
+      "snapshot": {
+        "format": 1,
+        "asOf": "2026-10-27",
+        "domain": {
+          "instrument_id": "synthetic-one"
+        },
+        "obligation": {
+          "amount_paise": 12500000,
+          "starts": "2026-01-01",
+          "ends": "2032-01-01"
+        },
+        "instruments": [
+          {
+            "id": "synthetic-one",
+            "data": {
+              "reference": "SYNTHETIC-COMPATIBILITY-ONLY",
+              "amountPaise": 12500000,
+              "bank": "HDFC Bank",
+              "ifsc": "HDFC0001234",
+              "issued": "2026-01-01",
+              "matures": "2031-01-01",
+              "currency": "INR",
+              "type": "FDR"
+            }
+          }
+        ],
+        "documents": [],
+        "evidenceReferences": [],
+        "policyFacts": {
+          "context": {},
+          "proofs": []
+        },
+        "capsule": {
+          "sha256": "synthetic-test-only",
+          "configuration": {
+            "policies": [
+              {
+                "version": "SYNTHETIC-2026",
+                "scope": "synthetic-test",
+                "classification": "SYNTHETIC",
+                "source": "fictional:test-only",
+                "reviewReference": "automated-fixture-review",
+                "verification": "verified",
+                "effectiveFrom": "2025-01-01",
+                "effectiveTo": "2035-12-31",
+                "rules": [
+                  {
+                    "id": "minimum",
+                    "type": "minimum_amount",
+                    "amountPaise": 10000000,
+                    "severity": "HIGH"
+                  }
+                ]
+              }
+            ],
+            "scope": "synthetic-test",
+            "verifiedSourceHashes": []
+          }
+        },
+        "clearance": {
+          "procedure": {
+            "version": "SYNTHETIC-CLEARANCE-1",
+            "scope": "synthetic-test",
+            "classification": "UNVERIFIED_OFFICIAL",
+            "source": "fictional:test-only; not an AICTE procedure",
+            "effectiveFrom": "2025-01-01",
+            "effectiveTo": "2035-12-31",
+            "requirements": [
+              {
+                "id": "academic",
+                "label": "Synthetic academic review",
+                "department": "academic",
+                "mandatory": true,
+                "dependsOn": [],
+                "conditions": {},
+                "evidenceKinds": [
+                  "FDR"
+                ]
+              },
+              {
+                "id": "parallel",
+                "label": "Synthetic parallel review",
+                "department": "coordination",
+                "mandatory": true,
+                "dependsOn": [],
+                "conditions": {},
+                "evidenceKinds": []
+              }
+            ]
+          },
+          "responses": [],
+          "readiness": {
+            "blockers": [
+              {
+                "code": "SYNTHETIC_MISSING_SOURCE"
+              }
+            ]
+          }
+        }
+      },
+      "changes": {
+        "asOf": "2026-10-27",
+        "amountPaise": 14000000,
+        "updates": [
+          {
+            "id": "synthetic-one",
+            "matures": "2034-01-01"
+          }
+        ]
+      },
+      "result": {
+        "format": 1,
+        "classification": "HYPOTHETICAL_NOT_APPROVAL_OR_BANK_CONFIRMATION",
+        "asOf": "2026-10-27",
+        "changes": {
+          "asOf": "2026-10-27",
+          "amountPaise": 14000000,
+          "updates": [
+            {
+              "id": "synthetic-one",
+              "matures": "2034-01-01"
+            }
+          ]
+        },
+        "continuity": {
+          "basis": "DECLARED_INCLUSIVE_CIVIL_DATES",
+          "pooling": "DISALLOWED",
+          "bankConfirmation": "UNCONFIRMED",
+          "legalCoverage": "REQUIRES_HUMAN_REVIEW",
+          "establishedGap": false,
+          "segments": [
+            {
+              "starts": "2026-01-01",
+              "ends": "2032-01-01",
+              "instrumentIds": [
+                "synthetic-one"
+              ],
+              "maximumSingleAmountPaise": "12500000",
+              "status": "POTENTIAL_DECLARED_SHORTFALL"
+            }
+          ],
+          "issues": [],
+          "excluded": []
+        },
+        "policy": {
+          "version": "SYNTHETIC-2026",
+          "outcome": "COMPLIANT",
+          "checks": [
+            {
+              "ruleId": "minimum",
+              "policyVersion": "SYNTHETIC-2026",
+              "source": "fictional:test-only",
+              "sourceSHA256": null,
+              "classification": "SYNTHETIC",
+              "severity": "HIGH",
+              "expected": 10000000,
+              "actual": 12500000,
+              "evidence": [],
+              "missingEvidence": [],
+              "outcome": "COMPLIANT"
+            }
+          ],
+          "classification": "SYNTHETIC",
+          "realRegulatoryAuthority": false,
+          "administrativeApproval": false,
+          "asOf": "2026-10-27"
+        },
+        "clearance": {
+          "procedureVersion": "SYNTHETIC-CLEARANCE-1",
+          "procedureHash": "91c2fce9a6874a1161f654af0a80ea9c30ed9771a51d73d8a86874cdfb684c08",
+          "classification": "UNVERIFIED_OFFICIAL",
+          "asOf": "2026-10-27",
+          "items": [
+            {
+              "id": "academic",
+              "label": "Synthetic academic review",
+              "department": "academic",
+              "mandatory": true,
+              "status": "NOT_REQUESTED",
+              "missingFacts": [],
+              "reasons": [
+                "Department request required"
+              ],
+              "evidenceKinds": [
+                "FDR"
+              ],
+              "dependsOn": []
+            },
+            {
+              "id": "parallel",
+              "label": "Synthetic parallel review",
+              "department": "coordination",
+              "mandatory": true,
+              "status": "NOT_REQUESTED",
+              "missingFacts": [],
+              "reasons": [
+                "Department request required"
+              ],
+              "evidenceKinds": [],
+              "dependsOn": []
+            }
+          ],
+          "blockers": [
+            {
+              "requirementId": "academic",
+              "department": "academic",
+              "code": "NOT_REQUESTED",
+              "reasons": [
+                "Department request required"
+              ]
+            },
+            {
+              "requirementId": "parallel",
+              "department": "coordination",
+              "code": "NOT_REQUESTED",
+              "reasons": [
+                "Department request required"
+              ]
+            },
+            {
+              "code": "OFFICIAL_PROCEDURE_UNVERIFIED"
+            }
+          ],
+          "readyForInternalReview": false,
+          "administrativeApproval": false,
+          "externalRelease": "NOT_CONFIRMED",
+          "realRegulatoryAuthority": false
+        },
+        "missingEvidence": [
+          "SOURCE_FDR_DOCUMENT",
+          "CURRENT_EXTRACTION"
+        ],
+        "factConflicts": [],
+        "recordedAdministrativeBlockers": [
+          {
+            "code": "SYNTHETIC_MISSING_SOURCE"
+          }
+        ],
+        "policyConfigurationSHA256": "synthetic-test-only",
+        "assumptions": [
+          "Changed declared instrument synthetic-one; no bank confirmation.",
+          "Declared dates are inclusive; no pooling of distinct deposits.",
+          "Existing proposed instruments stay excluded until actually registered.",
+          "Unchanged missing documents, proof decisions and administrative blockers remain unresolved.",
+          "Results cannot authorize release, modify evidence or establish legal sufficiency."
+        ],
+        "administrativeApproval": false,
+        "bankRelease": false,
+        "baseline": {
+          "asOf": "2026-10-27",
+          "continuity": {
+            "basis": "DECLARED_INCLUSIVE_CIVIL_DATES",
+            "pooling": "DISALLOWED",
+            "bankConfirmation": "UNCONFIRMED",
+            "legalCoverage": "REQUIRES_HUMAN_REVIEW",
+            "establishedGap": false,
+            "segments": [
+              {
+                "starts": "2026-01-01",
+                "ends": "2031-01-01",
+                "instrumentIds": [
+                  "synthetic-one"
+                ],
+                "maximumSingleAmountPaise": "12500000",
+                "status": "POTENTIAL_DECLARED_COVERAGE"
+              },
+              {
+                "starts": "2031-01-02",
+                "ends": "2032-01-01",
+                "instrumentIds": [],
+                "maximumSingleAmountPaise": "0",
+                "status": "POTENTIAL_DECLARED_SHORTFALL"
+              }
+            ],
+            "issues": [],
+            "excluded": []
+          },
+          "policy": {
+            "version": "SYNTHETIC-2026",
+            "outcome": "COMPLIANT",
+            "checks": [
+              {
+                "ruleId": "minimum",
+                "policyVersion": "SYNTHETIC-2026",
+                "source": "fictional:test-only",
+                "sourceSHA256": null,
+                "classification": "SYNTHETIC",
+                "severity": "HIGH",
+                "expected": 10000000,
+                "actual": 12500000,
+                "evidence": [],
+                "missingEvidence": [],
+                "outcome": "COMPLIANT"
+              }
+            ],
+            "classification": "SYNTHETIC",
+            "realRegulatoryAuthority": false,
+            "administrativeApproval": false,
+            "asOf": "2026-10-27"
+          },
+          "clearance": {
+            "procedureVersion": "SYNTHETIC-CLEARANCE-1",
+            "procedureHash": "91c2fce9a6874a1161f654af0a80ea9c30ed9771a51d73d8a86874cdfb684c08",
+            "classification": "UNVERIFIED_OFFICIAL",
+            "asOf": "2026-10-27",
+            "items": [
+              {
+                "id": "academic",
+                "label": "Synthetic academic review",
+                "department": "academic",
+                "mandatory": true,
+                "status": "NOT_REQUESTED",
+                "missingFacts": [],
+                "reasons": [
+                  "Department request required"
+                ],
+                "evidenceKinds": [
+                  "FDR"
+                ],
+                "dependsOn": []
+              },
+              {
+                "id": "parallel",
+                "label": "Synthetic parallel review",
+                "department": "coordination",
+                "mandatory": true,
+                "status": "NOT_REQUESTED",
+                "missingFacts": [],
+                "reasons": [
+                  "Department request required"
+                ],
+                "evidenceKinds": [],
+                "dependsOn": []
+              }
+            ],
+            "blockers": [
+              {
+                "requirementId": "academic",
+                "department": "academic",
+                "code": "NOT_REQUESTED",
+                "reasons": [
+                  "Department request required"
+                ]
+              },
+              {
+                "requirementId": "parallel",
+                "department": "coordination",
+                "code": "NOT_REQUESTED",
+                "reasons": [
+                  "Department request required"
+                ]
+              },
+              {
+                "code": "OFFICIAL_PROCEDURE_UNVERIFIED"
+              }
+            ],
+            "readyForInternalReview": false,
+            "administrativeApproval": false,
+            "externalRelease": "NOT_CONFIRMED",
+            "realRegulatoryAuthority": false
+          },
+          "missingEvidence": [
+            "SOURCE_FDR_DOCUMENT",
+            "CURRENT_EXTRACTION"
+          ]
+        },
+        "comparisonAssumption": "If the recorded obligation has no period, baseline uses the hypothetical period; baseline does not infer a legal holding period."
+      }
+    }
+  ]
+}

@@ -79,6 +79,37 @@
           content,
         );
         const blockers = element("ul", undefined, content);
+        if (r.procedureTrust) {
+          const proof = element("details", undefined, content);
+          element("summary", "Procedure source and confirmation record", proof);
+          element(
+            "p",
+            r.procedureTrust.status === "SYNTHETIC_CONTRACT_CONFIRMATION"
+              ? "Synthetic issuer contract test only — no real issuer confirmation."
+              : "Confirmation state: " +
+                  r.procedureTrust.status +
+                  ". Recorded issuer correspondence, rule interpretation and administrative approval remain separate.",
+            proof,
+          );
+          for (const record of r.procedureTrust.candidates) {
+            element("p", "Source: " + record.sourceURL, proof);
+            element(
+              "p",
+              "Issuer reference: " + record.issuerConfirmationReference,
+              proof,
+            );
+            element(
+              "p",
+              "Interpretation review: " +
+                record.interpretationReviewReference +
+                "; recorded " +
+                record.confirmedAt +
+                "; expires " +
+                record.expiresOn,
+              proof,
+            );
+          }
+        }
         for (const b of r.blockers)
           element(
             "li",

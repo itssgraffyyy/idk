@@ -7,6 +7,8 @@ import {
   clearanceReadiness,
   snapshotHash,
   validateProcedure,
+  validateProcedureConfirmations,
+  procedureTrust,
 } from "./clearance-procedure.js";
 const fail = (status, message) => {
   throw Object.assign(Error(message), { status });
@@ -25,8 +27,10 @@ export function clearanceService({
   procedures = [],
   policyConfig = {},
   uploadScanRequired = false,
+  procedureConfirmations = [],
 }) {
   const configured = procedures.map(validateProcedure);
+  const confirmations = validateProcedureConfirmations(procedureConfirmations);
   if (
     configured.length > 100 ||
     new Set(configured.map((p) => p.scope + "|" + p.version)).size !==
@@ -173,7 +177,7 @@ export function clearanceService({
     g.payload.userId === userId &&
     isReviewer(activeUser(userId)) &&
     activeUser(userId).tenant === authority;
-  function source(caseId) {
+  function source(caseId, asOf = new Date().toISOString().slice(0, 10)) {
     const ops = db
       .prepare("SELECT input_revision FROM case_operations WHERE case_id=?")
       .get(caseId);
@@ -239,6 +243,9 @@ export function clearanceService({
       regulatoryContext: context?.id || null,
       facts,
       policyHash: snapshotHash(policyConfig),
+      procedureTrust: binding(caseId)
+        ? procedureTrust(binding(caseId).payload.procedure, confirmations, asOf)
+        : null,
     };
   }
   function requestCurrent(request, currentSource, b) {
@@ -252,9 +259,10 @@ export function clearanceService({
     );
   }
   function readiness(u, caseId) {
+    const asOf = new Date().toISOString().slice(0, 10);
     const { authority } = caseFor(u, caseId),
       b = binding(caseId),
-      currentSource = source(caseId);
+      currentSource = source(caseId, asOf);
     if (!b || b.authority !== authority)
       return {
         readyForInternalReview: false,
@@ -282,9 +290,10 @@ export function clearanceService({
       }));
     const result = clearanceReadiness({
       procedure: p,
+      confirmations,
       facts: currentSource.facts,
       responses,
-      asOf: new Date().toISOString().slice(0, 10),
+      asOf,
       currentBinding: a?.id === b.payload.activationId,
     });
     if (
@@ -352,7 +361,7 @@ export function clearanceService({
       result.blockers.push({ code: "POLICY_PROCEDURE_SCOPE_MISMATCH" });
     if (
       policyConfig.scope !== p.scope ||
-      policy.classification !== p.classification ||
+      policy.classification !== result.classification ||
       policy.outcome !== "COMPLIANT"
     )
       result.blockers.push({
@@ -421,6 +430,15 @@ export function clearanceService({
       authorize(u, ["supervisor", "audit_reviewer"]);
       return {
         procedures: configured,
+        procedureTrust: configured.map((p) => ({
+          version: p.version,
+          scope: p.scope,
+          trust: procedureTrust(
+            p,
+            confirmations,
+            new Date().toISOString().slice(0, 10),
+          ),
+        })),
         activations: rows(u.tenant, "activation"),
         grants: rows(u.tenant, "grant"),
         reviewers: db
@@ -432,6 +450,12 @@ export function clearanceService({
     },
     activate(u, body) {
       authorize(u, ["supervisor"]);
+      if (
+        Object.keys(body).some(
+          (k) => !["version", "scope", "revision", "reason"].includes(k),
+        )
+      )
+        fail(400, "Activation accepts configured version references only");
       const p = configured.find(
         (v) => v.version === body.version && v.scope === body.scope,
       );
@@ -461,6 +485,11 @@ export function clearanceService({
         payload: {
           procedure: p,
           hash: snapshotHash(p),
+          procedureTrust: procedureTrust(
+            p,
+            confirmations,
+            new Date().toISOString().slice(0, 10),
+          ),
           reason: reason(body.reason),
         },
       });
@@ -494,6 +523,12 @@ export function clearanceService({
       });
     },
     bind(u, caseId, body) {
+      if (
+        Object.keys(body).some(
+          (k) => !["scope", "revision", "reason"].includes(k),
+        )
+      )
+        fail(400, "Binding accepts configured scope references only");
       const { authority } = caseFor(u, caseId, true),
         a = activation(authority, body.scope);
       if (!a) fail(409, "Activate a configured procedure first");
@@ -518,6 +553,11 @@ export function clearanceService({
         payload: {
           activationId: a.id,
           procedure: a.payload.procedure,
+          procedureTrust: procedureTrust(
+            a.payload.procedure,
+            confirmations,
+            new Date().toISOString().slice(0, 10),
+          ),
           reason: reason(body.reason),
         },
       });

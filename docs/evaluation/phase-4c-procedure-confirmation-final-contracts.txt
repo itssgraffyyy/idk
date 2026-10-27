@@ -1,0 +1,25 @@
+TAP version 13
+# Subtest: procedure confirmation binds exact source, interpretation and version; synthetic contract never becomes real issuer authority
+ok 1 - procedure confirmation binds exact source, interpretation and version; synthetic contract never becomes real issuer authority
+  ---
+  duration_ms: 5.0882
+  ...
+# Subtest: confirmation schema rejects client-like flags, non-synthetic contract scope, missing provenance and fake independent test sources
+ok 2 - confirmation schema rejects client-like flags, non-synthetic contract scope, missing provenance and fake independent test sources
+  ---
+  duration_ms: 1.5121
+  ...
+# Subtest: frozen pre-confirmation synthetic and unverified scenario wire results remain exactly reproducible
+ok 3 - frozen pre-confirmation synthetic and unverified scenario wire results remain exactly reproducible
+  ---
+  duration_ms: 5.9784
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 135.3231

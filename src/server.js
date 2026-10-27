@@ -38,6 +38,7 @@ import { analysisRoute } from "./analysis-api.js";
 import { createAuditIntegrity } from "./audit-integrity.js";
 import { createMFA } from "./mfa.js";
 import { accountSecurity } from "./account-security.js";
+import { validateProcedureConfirmations } from "./clearance-procedure.js";
 import { workerEnvironment } from "./worker-environment.js";
 import {
   configuredScanner,
@@ -122,11 +123,17 @@ export function createApp({
     .filter(Boolean),
   uploadScanner = configuredScanner(),
   uploadScanRequired = process.env.UPLOAD_SCAN_REQUIRED === "true",
+  procedureConfirmations = process.env.PROCEDURE_CONFIRMATIONS_FILE
+    ? JSON.parse(readFileSync(process.env.PROCEDURE_CONFIRMATIONS_FILE, "utf8"))
+    : [],
   logSink = process.env.LOG_REQUESTS === "true"
     ? (event) => process.stdout.write(JSON.stringify(event) + "\n")
     : () => {},
 } = {}) {
   policies = validatePolicies(policies);
+  procedureConfirmations = validateProcedureConfirmations(
+    procedureConfirmations,
+  );
   if (!Array.isArray(procedures) || procedures.length > 100)
     throw Error("Invalid trusted procedure configuration");
   procedures = procedures.map(validateProcedure);
@@ -421,6 +428,7 @@ export function createApp({
     audit,
     procedures,
     uploadScanRequired,
+    procedureConfirmations,
     policyConfig: { policies, scope: policyScope, verifiedSourceHashes },
   });
   const server = http.createServer((req, res) => {

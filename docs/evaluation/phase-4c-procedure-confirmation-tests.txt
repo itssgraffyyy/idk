@@ -1,0 +1,114 @@
+TAP version 13
+# (node:8680) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: source version disagreements, concurrent sponsor revisions and corrupted replacement cycles remain reviewable
+ok 1 - source version disagreements, concurrent sponsor revisions and corrupted replacement cycles remain reviewable
+  ---
+  duration_ms: 5721.1213
+  ...
+# Subtest: hypothetical clearance assumptions retain source trust and do not resolve administrative evidence blockers
+ok 2 - hypothetical clearance assumptions retain source trust and do not resolve administrative evidence blockers
+  ---
+  duration_ms: 7.6049
+  ...
+# Subtest: authorized relationships detect conflicts, legitimate repeated bytes and declared multi-institution sponsor without privacy expansion
+ok 3 - authorized relationships detect conflicts, legitimate repeated bytes and declared multi-institution sponsor without privacy expansion
+  ---
+  duration_ms: 5952.8744
+  ...
+# Subtest: scenario API freezes inputs, rejects stale capture, preserves operational rows and reproduces after changes with access rechecked
+ok 4 - scenario API freezes inputs, rejects stale capture, preserves operational rows and reproduces after changes with access rechecked
+  ---
+  duration_ms: 5386.5773
+  ...
+# Subtest: pure simulation forbids pooling and counts duplicate identities once, retains effective policy dates and missing facts
+ok 5 - pure simulation forbids pooling and counts duplicate identities once, retains effective policy dates and missing facts
+  ---
+  duration_ms: 4.3249
+  ...
+# Subtest: relationship expansion fails explicitly for large authorized scope and never substitutes a partial clean result
+ok 6 - relationship expansion fails explicitly for large authorized scope and never substitutes a partial clean result
+  ---
+  duration_ms: 6273.7186
+  ...
+# (node:3308) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: trusted synthetic issuer contract drives internal decision only; configuration revocation invalidates current decisions while frozen scenarios replay
+ok 7 - trusted synthetic issuer contract drives internal decision only; configuration revocation invalidates current decisions while frozen scenarios replay
+  ---
+  duration_ms: 7158.2026
+  ...
+# Subtest: department download rechecks session and exact request event after storage returns
+ok 8 - department download rechecks session and exact request event after storage returns
+  ---
+  duration_ms: 10322.798
+  ...
+# Subtest: guarded internal closure preserves obligations and bank state; reopening starts a fresh evidence review
+ok 9 - guarded internal closure preserves obligations and bank state; reopening starts a fresh evidence review
+  ---
+  duration_ms: 5425.8302
+  ...
+# Subtest: stale proposal recovers through guarded re-evaluation and review without deleting earlier history
+ok 10 - stale proposal recovers through guarded re-evaluation and review without deleting earlier history
+  ---
+  duration_ms: 5847.2054
+  ...
+# Subtest: opt-in clearance follow-up is source-bound, deduplicated and stops after a department response
+ok 11 - opt-in clearance follow-up is source-bound, deduplicated and stops after a department response
+  ---
+  duration_ms: 5007.2966
+  ...
+# Subtest: schema 16 is additive and repeatable over frozen schema 15 without changing source versions or evaluations
+ok 12 - schema 16 is additive and repeatable over frozen schema 15 without changing source versions or evaluations
+  ---
+  duration_ms: 1982.6667
+  ...
+# Subtest: reassignment revokes the old department view and renewed grants cannot revive an older response
+ok 13 - reassignment revokes the old department view and renewed grants cannot revive an older response
+  ---
+  duration_ms: 6386.3787
+  ...
+# Subtest: department grants expose selected immutable sources without full case access; revocation and tenants fail closed
+ok 14 - department grants expose selected immutable sources without full case access; revocation and tenants fail closed
+  ---
+  duration_ms: 6593.8036
+  ...
+# Subtest: parallel clearances, immutable responses and distinct concurrent checker record an internal synthetic decision only
+ok 15 - parallel clearances, immutable responses and distinct concurrent checker record an internal synthetic decision only
+  ---
+  duration_ms: 6072.0263
+  ...
+# Subtest: withdrawal, source changes and procedure reactivation invalidate current clearances and stale proposals
+ok 16 - withdrawal, source changes and procedure reactivation invalidate current clearances and stale proposals
+  ---
+  duration_ms: 6386.7468
+  ...
+# Subtest: same-supervisor maker checker and unknown client procedure activation are rejected
+ok 17 - same-supervisor maker checker and unknown client procedure activation are rejected
+  ---
+  duration_ms: 7331.5225
+  ...
+# Subtest: procedure confirmation binds exact source, interpretation and version; synthetic contract never becomes real issuer authority
+ok 18 - procedure confirmation binds exact source, interpretation and version; synthetic contract never becomes real issuer authority
+  ---
+  duration_ms: 5.6867
+  ...
+# Subtest: confirmation schema rejects client-like flags, non-synthetic contract scope, missing provenance and fake independent test sources
+ok 19 - confirmation schema rejects client-like flags, non-synthetic contract scope, missing provenance and fake independent test sources
+  ---
+  duration_ms: 0.8298
+  ...
+# Subtest: frozen pre-confirmation synthetic and unverified scenario wire results remain exactly reproducible
+ok 20 - frozen pre-confirmation synthetic and unverified scenario wire results remain exactly reproducible
+  ---
+  duration_ms: 6.0329
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 92366.0501
