@@ -290,6 +290,14 @@ export function clearanceService({
       extraction.payload.documentId !== document?.id
     )
       result.blockers.push({ code: "INSTRUMENT_EXTRACTION_REQUIRES_REVIEW" });
+    for (const [field, observation] of Object.entries(
+      extraction?.payload.fields || {},
+    ))
+      if (observation.status === "REQUIRES_REVIEW")
+        result.blockers.push({
+          code: "EXTRACTION_PROPOSAL_REQUIRES_REVIEW",
+          field,
+        });
     if (!evaluation) result.blockers.push({ code: "MISSING_EVALUATION" });
     for (const finding of evaluation?.payload.findings || [])
       if (

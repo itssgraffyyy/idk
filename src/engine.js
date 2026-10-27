@@ -16,6 +16,7 @@ export const evidenceFields = [
   "depositor",
   "branch",
   "currency",
+  "type",
 ];
 export function comparable(field, value) {
   return typeof value === "string"
@@ -129,6 +130,13 @@ export function evaluate({
       duplicates.map((id) => ({ type: "case", id })),
     );
   for (const k of evidenceFields) {
+    if (k !== "ifsc" && extraction[k]?.status === "REQUIRES_REVIEW")
+      add(
+        "ocr_extraction_review_" + k,
+        "unresolved",
+        (extraction[k].reasons || ["Extracted source needs review"]).join("; "),
+        [{ type: "document", id: documentId, field: k }],
+      );
     const v = extraction[k]?.value;
     if (instrument[k] === undefined)
       add(

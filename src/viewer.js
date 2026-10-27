@@ -53,13 +53,36 @@ export function viewerRoute({
   const expose = (e) => {
     if (!e) return null;
     const p = JSON.parse(e.payload);
+    let geometry = p.raw || p.geometry,
+      previous = p.correctedFrom,
+      count = 0;
+    while (!geometry && previous && count++ < 50) {
+      const ancestor = db
+        .prepare(
+          "SELECT payload FROM evidence WHERE id=? AND case_id=? AND kind='extraction' AND json_extract(payload,'$.documentId')=?",
+        )
+        .get(previous, c.id, row.id);
+      if (!ancestor) break;
+      const saved = JSON.parse(ancestor.payload);
+      geometry = saved.raw || saved.geometry;
+      previous = saved.correctedFrom;
+    }
+    const geometryUnavailable =
+      !geometry &&
+      p.method === "human-correction" &&
+      Object.values(p.fields || {}).some((f) => f.bbox);
     return {
       id: e.id,
       created: e.created,
       method: p.method,
       status: p.status,
       fields: p.fields,
-      rotation: p.raw?.rotation || 0,
+      rotation:
+        geometry?.coordinateSpace === "source-raster-pixels"
+          ? 0
+          : geometry?.rotation || 0,
+      recognitionRotation: geometry?.rotation || 0,
+      geometryUnavailable,
       pages:
         p.raw?.pages?.map((v) => ({
           page: v.page,

@@ -1,0 +1,39 @@
+(node:376) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:1128) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1128) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1128) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+{"browserFixture":{"startupMs":7719.517899999999}}
+{"browserFixtureFailure":{"nodeTime":"2026-10-27T07:58:58.364Z","preferences":[],"operations":[{"stage":"draft","updated":"2026-10-27T07:58:40.574Z","input_revision":5}],"deliveries":0}}
+  x  1 tests\browser\ocr-review.spec.js:3:1 › real rotated OCR presents conflicting name readings and records explicit corrections with source history intact (40.2s)
+
+
+  1) tests\browser\ocr-review.spec.js:3:1 › real rotated OCR presents conflicting name readings and records explicit corrections with source history intact
+
+    TimeoutError: locator.fill: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for locator('#extracted-correction').getByLabel('Depositor / holder', { exact: true })
+
+
+      78 |   await correction
+      79 |     .getByLabel("Depositor / holder", { exact: true })
+    > 80 |     .fill("Fictional Education Trust 27");
+         |      ^
+      81 |   await correction
+      82 |     .getByLabel("Reason", { exact: true })
+      83 |     .fill(
+        at G:\idk_lol\tests\browser\ocr-review.spec.js:80:6
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\ocr-review-real-rotated-OC-84240--with-source-history-intact\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\ocr-review-real-rotated-OC-84240--with-source-history-intact\error-context.md
+
+  1 failed
+    tests\browser\ocr-review.spec.js:3:1 › real rotated OCR presents conflicting name readings and records explicit corrections with source history intact

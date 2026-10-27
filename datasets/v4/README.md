@@ -9,3 +9,5 @@ The generation script refuses to overwrite the manifest. Windows font files are 
 Coordinate boxes describe the original unrotated canvas. Stored images with a declared right-angle rotation need the corresponding coordinate transform. A missing or uncertain field must remain missing or require review. No ground truth or expected identifier may enter recognition, candidate selection or normalization.
 
 Report per-field exact match, coverage, incorrect unflagged candidates, explicit review/withheld values, intentional absences, per-layout results, processing failures and measured worker startup/warm runtime/CPU/memory. Small synthetic results do not establish real-bank-document accuracy or a production SLA.
+
+Layout generalization limit: R retains two-column geometry similar to development with a different font; S changes font and field order. The split tests new inputs/font/order under frozen code, not wholly novel geometry or representative real-bank documents.

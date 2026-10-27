@@ -42,7 +42,9 @@ window.openEvidenceViewer = async function ({
     const svg = $("#viewer-overlay");
     svg.replaceChildren();
     const f = fields()[selectedField],
-      rect = globalThis.projectEvidenceBox(f, viewport || {});
+      rect = metadata?.[$("#viewer-mode").value]?.geometryUnavailable
+        ? null
+        : globalThis.projectEvidenceBox(f, viewport || {});
     if (rect) {
       const box = document.createElementNS(
         "http://www.w3.org/2000/svg",
@@ -76,6 +78,24 @@ window.openEvidenceViewer = async function ({
         " · " +
         (v.status || "uncalibrated extraction");
       facts.append(dt, dd);
+      if (v.secondaryOCR) {
+        const readings = document.createElement("details"),
+          summary = document.createElement("summary"),
+          primary = document.createElement("p"),
+          secondary = document.createElement("p");
+        summary.textContent = "Compare OCR readings before correction";
+        primary.textContent = "Primary OCR: " + (v.rawValue || "not available");
+        secondary.textContent =
+          "Secondary OCR: " +
+          String(
+            v.secondaryOCR.rawText || v.secondaryOCR.value || "not available",
+          ).trim() +
+          (v.status === "HUMAN_CORRECTED"
+            ? ". Historical OCR reading; explicit human correction is recorded."
+            : ". Requires explicit human review.");
+        readings.append(summary, primary, secondary);
+        dd.append(readings);
+      }
     }
   };
   const chooseFields = () => {

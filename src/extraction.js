@@ -1,4 +1,9 @@
 import { analyzeIFSC } from "./ifsc-extraction.js";
+import {
+  segmentRecognizedLabels,
+  recognizedSegmentWords,
+  unionOCRBoxes,
+} from "./ocr-layout.js";
 export function pdfItemBox(item) {
   const t = item.transform;
   if (
@@ -41,6 +46,7 @@ const aliases = {
   depositor: String.raw`depositor(?:\s*name)?|holder(?:\s*name)?`,
   branch: String.raw`branch(?:\s*name)?`,
   currency: String.raw`currency`,
+  type: String.raw`instrument\s*type|deposit\s*type`,
 };
 export function extract(
   text,
@@ -93,111 +99,195 @@ export function extract(
     }
     return combined;
   }
-  const result = {};
+  const result = {},
+    segmentedText = segmentRecognizedLabels(text, aliases);
   for (const [key, label] of Object.entries(aliases)) {
-    const match = text.match(
-      new RegExp("^\\s*(" + label + ")\\s*[:=]\\s*(.+)$", "mi"),
-    );
-    if (!match) continue;
-    const raw = match[2].trim();
-    let value = raw,
-      normalizations = [];
-    if (key === "currency") {
-      value = raw.toUpperCase();
-      if (!["INR", "USD", "EUR", "GBP"].includes(value)) continue;
-    }
-    if (key === "amountPaise") {
-      if (match[1].toLowerCase() === "amountpaise") {
-        if (!/^\d+$/.test(raw)) continue;
-        value = Number(raw);
-      } else {
-        const displayed = raw.replace(/^(?:INR|Rs\.?|₹)\s*/i, "");
-        if (
-          !/^(?:\d+|\d{1,3}(?:,\d{3})+|\d{1,2}(?:,\d{2})*,\d{3})(?:\.\d{1,2})?$/.test(
-            displayed,
+    const matches = [
+      ...segmentedText.matchAll(
+        new RegExp("^\\s*(" + label + ")\\s*[:=]\\s*(.+)$", "gmi"),
+      ),
+    ];
+    for (const match of matches) {
+      const raw = match[2].trim();
+      let value = raw,
+        normalizations = [];
+      if (key === "type") {
+        const type = raw.toUpperCase().replace(/[ _-]+/g, " ");
+        value = ["FDR", "FIXED DEPOSIT RECEIPT", "FIXED DEPOSIT"].includes(type)
+          ? "FDR"
+          : type === "TERM DEPOSIT"
+            ? "TERM_DEPOSIT"
+            : undefined;
+        if (value !== raw)
+          normalizations.push(
+            "Explicit instrument-type label normalized; no type inferred from filename or missing evidence",
+          );
+      }
+      if (key === "currency") {
+        value = raw.toUpperCase();
+        if (!["INR", "USD", "EUR", "GBP"].includes(value)) continue;
+      }
+      if (key === "amountPaise") {
+        if (match[1].toLowerCase() === "amountpaise") {
+          if (!/^\d+$/.test(raw)) continue;
+          value = Number(raw);
+        } else {
+          const displayed = raw.replace(/^(?:INR|Rs\.?|₹)\s*/i, "");
+          if (
+            !/^(?:\d+|\d{1,3}(?:,\d{3})+|\d{1,2}(?:,\d{2})*,\d{3})(?:\.\d{1,2})?$/.test(
+              displayed,
+            )
           )
+            continue;
+          const clean = displayed.replace(/,/g, ""),
+            [whole, fraction = ""] = clean.split("."),
+            minor = BigInt(whole) * 100n + BigInt(fraction.padEnd(2, "0"));
+          if (minor > BigInt(Number.MAX_SAFE_INTEGER)) continue;
+          value = Number(minor);
+          normalizations.push("INR decimal to integer paise");
+        }
+        if (!Number.isSafeInteger(value) || value <= 0) continue;
+      }
+      if (key === "ifsc") {
+        value = raw.replace(/\s+/g, "").toUpperCase();
+        if (value !== raw)
+          normalizations.push(
+            "Whitespace/case normalization; no character substitution",
+          );
+      }
+      if (["issued", "matures"].includes(key)) {
+        const m = raw.match(/^(\d{1,2})[ -]([A-Za-z]{3,9})[ -](\d{4})$/);
+        if (m) {
+          const month =
+            [
+              "jan",
+              "feb",
+              "mar",
+              "apr",
+              "may",
+              "jun",
+              "jul",
+              "aug",
+              "sep",
+              "oct",
+              "nov",
+              "dec",
+            ].indexOf(m[2].slice(0, 3).toLowerCase()) + 1;
+          if (month) {
+            value =
+              m[3] +
+              "-" +
+              String(month).padStart(2, "0") +
+              "-" +
+              m[1].padStart(2, "0");
+            normalizations.push("Named-month date to ISO");
+          }
+        }
+        if (
+          !/^\d{4}-\d{2}-\d{2}$/.test(value) ||
+          !Number.isFinite(Date.parse(value)) ||
+          new Date(value).toISOString().slice(0, 10) !== value
         )
           continue;
-        const clean = displayed.replace(/,/g, ""),
-          [whole, fraction = ""] = clean.split("."),
-          minor = BigInt(whole) * 100n + BigInt(fraction.padEnd(2, "0"));
-        if (minor > BigInt(Number.MAX_SAFE_INTEGER)) continue;
-        value = Number(minor);
-        normalizations.push("INR decimal to integer paise");
       }
-      if (!Number.isSafeInteger(value) || value <= 0) continue;
-    }
-    if (key === "ifsc") {
-      value = raw.replace(/\s+/g, "").toUpperCase();
-      if (value !== raw)
-        normalizations.push(
-          "Whitespace/case normalization; no character substitution",
-        );
-    }
-    if (["issued", "matures"].includes(key)) {
-      const m = raw.match(/^(\d{1,2})[ -]([A-Za-z]{3,9})[ -](\d{4})$/);
-      if (m) {
-        const month =
-          [
-            "jan",
-            "feb",
-            "mar",
-            "apr",
-            "may",
-            "jun",
-            "jul",
-            "aug",
-            "sep",
-            "oct",
-            "nov",
-            "dec",
-          ].indexOf(m[2].slice(0, 3).toLowerCase()) + 1;
-        if (month) {
-          value =
-            m[3] +
-            "-" +
-            String(month).padStart(2, "0") +
-            "-" +
-            m[1].padStart(2, "0");
-          normalizations.push("Named-month date to ISO");
-        }
+      const lines = (blocks || []).flatMap((b) =>
+          (b.paragraphs || []).flatMap((p) => p.lines || []),
+        ),
+        line = lines.find((l) => l.text?.trim().includes(match[0].trim())),
+        segmentWords = recognizedSegmentWords(line, match[0].trim());
+      const candidate = {
+        value,
+        rawValue: raw,
+        confidence: null,
+        engineConfidence: (() => {
+          const words = (
+            segmentWords.length ? segmentWords : line?.words
+          )?.filter(
+            (w) => raw.includes(w.text) && ![":", "="].includes(w.text),
+          );
+          return words?.length
+            ? Math.min(...words.map((w) => w.confidence))
+            : null;
+        })(),
+        confidenceCalibration: "uncalibrated",
+        bbox: segmentWords.length
+          ? unionOCRBoxes(segmentWords)
+          : line?.text?.trim() === match[0].trim()
+            ? line.bbox
+            : null,
+        method: "label-parser-v3-segmented",
+        line: match[0],
+        sourceLine: line?.text || match[0],
+        normalizations,
+        ...(key === "type" && value === undefined
+          ? {
+              status: "REQUIRES_REVIEW",
+              reasons: ["Unsupported explicitly stated instrument type"],
+            }
+          : {}),
+      };
+      const previous = result[key];
+      if (!previous) result[key] = candidate;
+      else {
+        const observations = [
+          ...(previous.observations || [
+            {
+              value: previous.value,
+              rawValue: previous.rawValue,
+              bbox: previous.bbox,
+            },
+          ]),
+          {
+            value: candidate.value,
+            rawValue: candidate.rawValue,
+            bbox: candidate.bbox,
+          },
+        ];
+        result[key] = {
+          ...previous,
+          observations,
+          ...(previous.value !== candidate.value
+            ? {
+                value: undefined,
+                status: "REQUIRES_REVIEW",
+                reasons: [
+                  "Conflicting explicitly labelled values in the same source page",
+                ],
+              }
+            : {}),
+        };
       }
-      if (
-        !/^\d{4}-\d{2}-\d{2}$/.test(value) ||
-        !Number.isFinite(Date.parse(value)) ||
-        new Date(value).toISOString().slice(0, 10) !== value
-      )
-        continue;
     }
-    const lines = (blocks || []).flatMap((b) =>
-        (b.paragraphs || []).flatMap((p) => p.lines || []),
-      ),
-      line = lines.find((l) => l.text?.trim().includes(match[0].trim()));
-    result[key] = {
-      value,
-      rawValue: raw,
-      confidence: null,
-      engineConfidence: (() => {
-        const words = line?.words?.filter(
-          (w) => raw.includes(w.text) && ![":", "="].includes(w.text),
-        );
-        return words?.length
-          ? Math.min(...words.map((w) => w.confidence))
-          : null;
-      })(),
-      confidenceCalibration: "uncalibrated",
-      bbox: line?.bbox ?? null,
-      method: "label-parser-v2",
-      line: match[0],
-      normalizations,
-    };
   }
-  const ifsc = analyzeIFSC(text, {
+  const ifsc = analyzeIFSC(segmentedText, {
     bank: result.bank?.value,
     engineConfidence: result.ifsc?.engineConfidence ?? null,
   });
   if (ifsc.status !== "MISSING")
     result.ifsc = { ...result.ifsc, ...ifsc, value: ifsc.value };
+  if (result.ifsc?.candidates?.some((c) => c.joinedFragments)) {
+    const candidate =
+      result.ifsc.candidates.length === 1 ? result.ifsc.candidates[0] : null;
+    const lines = (blocks || []).flatMap((b) =>
+      (b.paragraphs || []).flatMap((p) => p.lines || []),
+    );
+    const sourceLines =
+      candidate?.fragments
+        .map((fragment) =>
+          lines.filter(
+            (line) => line.text?.trim() === fragment.sourceLine.trim(),
+          ),
+        )
+        .filter((matches) => matches.length === 1)
+        .map((matches) => matches[0]) || [];
+    result.ifsc.bbox =
+      candidate && sourceLines.length === candidate.fragments.length
+        ? unionOCRBoxes(sourceLines)
+        : null;
+    result.ifsc.sourceFragments =
+      candidate?.fragments ||
+      result.ifsc.candidates.flatMap((c) => c.fragments || []);
+  }
   const attempt = fieldAttempts?.ifsc;
   if (
     attempt?.reliable &&
@@ -226,6 +316,68 @@ export function extract(
         evidence: attempt,
       },
       primaryCandidates: ifsc.candidates,
+    };
+  }
+  for (const [key, attempt] of Object.entries(fieldAttempts?.roi || {})) {
+    const original = result[key];
+    if (!original || !attempt.value || attempt.value === original.value)
+      continue;
+    if (
+      key === "ifsc" &&
+      original.correctionProposal?.to &&
+      original.correctionProposal.to !== attempt.value
+    ) {
+      result[key] = {
+        ...original,
+        value: undefined,
+        status: "REQUIRES_REVIEW",
+        reasons: [
+          ...(original.reasons || []),
+          "Secondary visual recognizers disagree; no identifier selected",
+        ],
+        secondaryOCR: attempt,
+      };
+      continue;
+    }
+    const confidences = [
+      original.engineConfidence,
+      attempt.engineConfidence,
+    ].filter(Number.isFinite);
+    result[key] = {
+      ...original,
+      value: key === "ifsc" ? attempt.value : undefined,
+      primaryValue: original.value ?? null,
+      primaryBBox: original.bbox,
+      bbox: attempt.bbox,
+      status: "REQUIRES_REVIEW",
+      method: attempt.method,
+      engineConfidence: confidences.length ? Math.min(...confidences) : null,
+      secondaryOCR: attempt,
+      observations: [
+        ...(original.observations || [
+          {
+            value: original.value,
+            rawValue: original.rawValue,
+            method: original.method,
+            bbox: original.bbox,
+          },
+        ]),
+        {
+          value: attempt.value,
+          rawValue: attempt.rawText,
+          method: attempt.method,
+          bbox: attempt.bbox,
+        },
+      ],
+      reasons: [
+        ...(original.reasons || []),
+        "Secondary genuine OCR differs from primary recognition; explicit human review required",
+      ],
+      correctionProposal: {
+        from: original.rawValue,
+        to: attempt.value,
+        evidence: attempt,
+      },
     };
   }
   for (const [key, field] of Object.entries(result)) {

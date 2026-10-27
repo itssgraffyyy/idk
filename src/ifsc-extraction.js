@@ -52,16 +52,41 @@ export function analyzeIFSC(
       /\bI\s*F\s*S\s*C(?:\s+CODE)?\s*(?:[:=–-]\s*)?(.*)$/i,
     );
     if (!m) continue;
-    let raw = m[1].trim();
-    if (!raw && lines[i + 1] && !/:|=/.test(lines[i + 1]))
-      raw = lines[++i].trim();
+    const labelIndex = i,
+      fragments = [{ lineIndex: i, text: m[1].trim(), sourceLine: lines[i] }];
+    let raw = m[1].trim(),
+      joined = false;
+    const nextDataLine = () => {
+      let next = i + 1;
+      while (next < lines.length && next <= i + 3 && !lines[next].trim())
+        next++;
+      return next <= i + 3 ? next : -1;
+    };
+    if (!raw) {
+      const next = nextDataLine();
+      if (next >= 0 && lines[next] && !/:|=/.test(lines[next])) {
+        i = next;
+        raw = lines[i].trim();
+        joined = true;
+        fragments.push({ lineIndex: i, text: raw, sourceLine: lines[i] });
+      }
+    }
+    const continuation = nextDataLine();
     if (
-      normalizeIFSCCandidate(raw).length < 11 &&
-      lines[i + 1] &&
-      /^[A-Z0-9\s.()-]+$/i.test(lines[i + 1]) &&
-      normalizeIFSCCandidate(raw + lines[i + 1]).length === 11
-    )
-      raw += "\n" + lines[++i].trim();
+      /^[A-Z]{4}$/.test(normalizeIFSCCandidate(raw)) &&
+      continuation >= 0 &&
+      /^[A-Z0-9]{7}$/.test(normalizeIFSCCandidate(lines[continuation] || ""))
+    ) {
+      const previous = i;
+      i = continuation;
+      raw += "\n".repeat(i - previous) + lines[i].trim();
+      joined = true;
+      fragments.push({
+        lineIndex: i,
+        text: lines[i].trim(),
+        sourceLine: lines[i],
+      });
+    }
     // Bound work and never consume unrelated fields or search declarations.
     if (raw.length > 300) truncated = true;
     for (const part of raw.slice(0, 300).split(/[,;|/]/)) {
@@ -84,8 +109,10 @@ export function analyzeIFSC(
         formatValid: validIFSC(normalized),
         reference,
         suggestions,
-        line: lines[i],
-        lineIndex: i,
+        line: lines[labelIndex],
+        lineIndex: labelIndex,
+        joinedFragments: joined,
+        fragments,
         normalizations:
           normalized === part.trim()
             ? []
@@ -108,6 +135,10 @@ export function analyzeIFSC(
     ),
   ];
   const reasons = [];
+  if (candidates.some((c) => c.joinedFragments))
+    reasons.push(
+      "Identifier spans separate OCR lines; verify the preserved source fragments",
+    );
   if (truncated)
     reasons.push(
       "Candidate search truncated at resource limit; inspect original text",

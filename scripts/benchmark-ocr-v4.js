@@ -19,6 +19,8 @@ const args = Object.fromEntries(
 );
 const splits = (args.splits || "development,validation").split(","),
   run = args.run || "baseline";
+const corpus = args.corpus || "v4";
+if (!["v4", "regression"].includes(corpus)) throw Error("Unknown corpus");
 if (
   !/^[a-z0-9-]{1,60}$/.test(run) ||
   splits.some((s) => !["development", "validation", "held-out"].includes(s))
@@ -26,22 +28,12 @@ if (
   throw Error("Invalid benchmark run/partitions");
 if (splits.includes("held-out") && !run.startsWith("final-"))
   throw Error("Held-out recognition requires a final frozen-code run");
-const root = resolve("."),
-  workerRoot = resolve(args["worker-root"] || "."),
+const workerRoot = resolve(args["worker-root"] || "."),
   hash = (b) => createHash("sha256").update(b).digest("hex");
 const bytes = readFileSync("datasets/v4/manifest.json"),
   manifest = JSON.parse(bytes);
 if (hash(bytes) !== readFileSync("datasets/v4/manifest.sha256", "utf8").trim())
   throw Error("Manifest integrity failure");
-const recognitionFiles = [
-  "ocr-worker.js",
-  "extraction.js",
-  "ifsc-extraction.js",
-  "glyph-ocr.js",
-  "images.js",
-  "engine.js",
-  "ifsc.js",
-];
 const sourceHashes = Object.fromEntries(
   readdirSync(join(workerRoot, "src"))
     .filter((file) => file.endsWith(".js"))
@@ -64,10 +56,40 @@ const { extract } = await import(
   pathToFileURL(join(workerRoot, "src/extraction.js")).href
 );
 let selected = manifest.cases.filter((c) => splits.includes(c.split));
+if (corpus === "regression") {
+  const fingerprints = JSON.parse(
+    readFileSync("datasets/v4/original-corpus-hashes.json"),
+  );
+  selected = ["v1", "v2", "v3"].flatMap((version) =>
+    JSON.parse(readFileSync("datasets/" + version + "/cases.json")).cases.map(
+      (c) => {
+        const imagePath = "datasets/" + version + "/documents/" + c.id + ".png",
+          frozen = fingerprints.files.find((f) => f.path === imagePath);
+        if (!frozen) throw Error("Unfrozen original image");
+        return {
+          id: version + ":" + c.id,
+          split: "regression",
+          originalPartition: c.split,
+          layout: version + "-" + (c.layout || "unspecified"),
+          scenario: c.scenario,
+          imagePath,
+          sha256: frozen.sha256,
+          groundTruth: c.groundTruth,
+          expectedReview: [],
+        };
+      },
+    ),
+  );
+  if (selected.length !== 48)
+    throw Error("Original regression corpus must contain 48 images");
+}
 if (args.limit) {
   if (splits.includes("held-out"))
     throw Error("No selective held-out sampling");
-  selected = selected.slice(0, Number(args.limit));
+  const limit = Number(args.limit);
+  if (!Number.isSafeInteger(limit) || limit < 1 || limit > selected.length)
+    throw Error("Invalid sample limit");
+  selected = selected.slice(0, limit);
 }
 const outputDir = "docs/evaluation/phase-4a";
 mkdirSync(outputDir, { recursive: true });
@@ -79,6 +101,7 @@ if (existsSync(output) || existsSync(journal))
   );
 const metadata = {
   run,
+  corpus,
   classification: "SYNTHETIC_TEST_ONLY",
   manifestSHA256: hash(bytes),
   codeCommit,
@@ -95,16 +118,22 @@ const metadata = {
     architecture: process.arch,
   },
   packageLockSHA256: hash(readFileSync(join(workerRoot, "package-lock.json"))),
-  partitions: splits,
+  partitions: corpus === "regression" ? ["regression"] : splits,
   created: new Date().toISOString(),
-  memoryBudgetMiB: 384,
+  v8OldSpaceBudgetMiB: 384,
+  memoryBudgetNote:
+    "V8 old space only; native/WASM memory and total RSS are not capped by this flag",
   jobTimeoutMs: 60000,
   policy:
     "Baseline/development/validation may guide tuning. Final held-out runs require committed recognition code. No expected value enters recognition. Worker-process cold startup includes uncontrolled OS filesystem cache; RSS is a process-lifetime peak, not incremental per-job memory. Benchmark acceptance means a proposed value without explicit review/low-engine-confidence flags, never institution acceptance or bank confirmation.",
 };
 appendFileSync(journal, JSON.stringify({ metadata }) + "\n");
 for (const c of selected)
-  if (hash(readFileSync("datasets/v4/documents/" + c.id + ".png")) !== c.sha256)
+  if (
+    hash(
+      readFileSync(c.imagePath || "datasets/v4/documents/" + c.id + ".png"),
+    ) !== c.sha256
+  )
     throw Error("Image integrity failure: " + c.id);
 const env = {};
 for (const key of [
@@ -202,7 +231,7 @@ async function recognize(c) {
     active.child.once("exit", exit);
     active.child.once("error", error);
     active.child.send({
-      path: resolve("datasets/v4/documents/" + c.id + ".png"),
+      path: resolve(c.imagePath || "datasets/v4/documents/" + c.id + ".png"),
       benchmarkId: c.id,
     });
   });
@@ -229,6 +258,7 @@ try {
       row = {
         id: c.id,
         split: c.split,
+        originalPartition: c.originalPartition || null,
         layout: c.layout,
         scenario: c.scenario,
         sha256: c.sha256,
@@ -314,6 +344,14 @@ function metrics(rows) {
             ).length +
             absent.filter((r) => value(r) !== undefined && !review(r)).length,
           flaggedReviewCandidates: rows.filter((r) => review(r)).length,
+          withheldRecognitionConflicts: rows.filter(
+            (r) =>
+              review(r) &&
+              value(r) === undefined &&
+              new Set(
+                (r.fields?.[field]?.observations || []).map((o) => o.value),
+              ).size > 1,
+          ).length,
           correctlyWithheldUncertain: rows.filter(
             (r) =>
               r.expectedReview.includes(field) &&
@@ -348,7 +386,11 @@ const result = {
   },
   rows,
 };
-writeFileSync(output, JSON.stringify(result, null, 2) + "\n");
+writeFileSync(
+  output,
+  JSON.stringify({ ...result, rows: undefined, rowJournal: journal }, null, 2) +
+    "\n",
+);
 console.log(
   JSON.stringify({
     output,

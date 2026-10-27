@@ -1,0 +1,313 @@
+{
+  "classification": "SYNTHETIC_DEV_VALIDATION_EXPERIMENT",
+  "heldOutUsed": false,
+  "note": "Crops use genuine recognized word boxes; no expected value, bank directory or identifier substitution enters OCR",
+  "trials": [
+    {
+      "id": "ocr-v4-28",
+      "split": "validation",
+      "field": "ifsc",
+      "primaryRaw": "HDFCo0001234",
+      "box": {
+        "x0": 232,
+        "y0": 466,
+        "x1": 445,
+        "y1": 494
+      },
+      "scale": 1,
+      "psm": 7,
+      "rawText": "HDFC0001234\n",
+      "uncalibratedConfidence": 0,
+      "elapsedMs": 118.58409999999992
+    },
+    {
+      "id": "ocr-v4-28",
+      "split": "validation",
+      "field": "ifsc",
+      "primaryRaw": "HDFCo0001234",
+      "box": {
+        "x0": 232,
+        "y0": 466,
+        "x1": 445,
+        "y1": 494
+      },
+      "scale": 1,
+      "psm": 8,
+      "rawText": "HDFC0001234\n",
+      "uncalibratedConfidence": 0,
+      "elapsedMs": 25.820499999999925
+    },
+    {
+      "id": "ocr-v4-28",
+      "split": "validation",
+      "field": "ifsc",
+      "primaryRaw": "HDFCo0001234",
+      "box": {
+        "x0": 232,
+        "y0": 466,
+        "x1": 445,
+        "y1": 494
+      },
+      "scale": 1,
+      "psm": 13,
+      "rawText": "HDFC0001234\n",
+      "uncalibratedConfidence": 0,
+      "elapsedMs": 23.961199999999963
+    },
+    {
+      "id": "ocr-v4-28",
+      "split": "validation",
+      "field": "ifsc",
+      "primaryRaw": "HDFCo0001234",
+      "box": {
+        "x0": 232,
+        "y0": 466,
+        "x1": 445,
+        "y1": 494
+      },
+      "scale": 2,
+      "psm": 7,
+      "rawText": "HDFC0001234\n",
+      "uncalibratedConfidence": 0,
+      "elapsedMs": 84.63959999999997
+    },
+    {
+      "id": "ocr-v4-28",
+      "split": "validation",
+      "field": "ifsc",
+      "primaryRaw": "HDFCo0001234",
+      "box": {
+        "x0": 232,
+        "y0": 466,
+        "x1": 445,
+        "y1": 494
+      },
+      "scale": 2,
+      "psm": 8,
+      "rawText": "HDFC0001234\n",
+      "uncalibratedConfidence": 0,
+      "elapsedMs": 33.36760000000004
+    },
+    {
+      "id": "ocr-v4-28",
+      "split": "validation",
+      "field": "ifsc",
+      "primaryRaw": "HDFCo0001234",
+      "box": {
+        "x0": 232,
+        "y0": 466,
+        "x1": 445,
+        "y1": 494
+      },
+      "scale": 2,
+      "psm": 13,
+      "rawText": "HDFC0001234\n",
+      "uncalibratedConfidence": 0,
+      "elapsedMs": 37.72620000000006
+    },
+    {
+      "id": "ocr-v4-28",
+      "split": "validation",
+      "field": "ifsc",
+      "primaryRaw": "HDFCo0001234",
+      "box": {
+        "x0": 232,
+        "y0": 466,
+        "x1": 445,
+        "y1": 494
+      },
+      "scale": 3,
+      "psm": 7,
+      "rawText": "HDFC0001234\n",
+      "uncalibratedConfidence": 0,
+      "elapsedMs": 62.9076
+    },
+    {
+      "id": "ocr-v4-28",
+      "split": "validation",
+      "field": "ifsc",
+      "primaryRaw": "HDFCo0001234",
+      "box": {
+        "x0": 232,
+        "y0": 466,
+        "x1": 445,
+        "y1": 494
+      },
+      "scale": 3,
+      "psm": 8,
+      "rawText": "HDFC0001234\n",
+      "uncalibratedConfidence": 0,
+      "elapsedMs": 50.557799999999816
+    },
+    {
+      "id": "ocr-v4-28",
+      "split": "validation",
+      "field": "ifsc",
+      "primaryRaw": "HDFCo0001234",
+      "box": {
+        "x0": 232,
+        "y0": 466,
+        "x1": 445,
+        "y1": 494
+      },
+      "scale": 3,
+      "psm": 13,
+      "rawText": "HDFC0001234\n",
+      "uncalibratedConfidence": 0,
+      "elapsedMs": 48.140699999999924
+    },
+    {
+      "id": "ocr-v4-27",
+      "split": "validation",
+      "field": "institutionName",
+      "primaryRaw": "Fictional Academy 277",
+      "box": {
+        "x0": 326,
+        "y0": 782,
+        "x1": 628,
+        "y1": 813
+      },
+      "scale": 1,
+      "psm": 7,
+      "rawText": "Fictional Academy 27\n",
+      "uncalibratedConfidence": 86,
+      "elapsedMs": 40.90039999999999
+    },
+    {
+      "id": "ocr-v4-27",
+      "split": "validation",
+      "field": "institutionName",
+      "primaryRaw": "Fictional Academy 277",
+      "box": {
+        "x0": 326,
+        "y0": 782,
+        "x1": 628,
+        "y1": 813
+      },
+      "scale": 1,
+      "psm": 8,
+      "rawText": "Fictional Academy 27\n",
+      "uncalibratedConfidence": 79,
+      "elapsedMs": 28.95129999999972
+    },
+    {
+      "id": "ocr-v4-27",
+      "split": "validation",
+      "field": "institutionName",
+      "primaryRaw": "Fictional Academy 277",
+      "box": {
+        "x0": 326,
+        "y0": 782,
+        "x1": 628,
+        "y1": 813
+      },
+      "scale": 1,
+      "psm": 13,
+      "rawText": "Fictional Academy 27\n",
+      "uncalibratedConfidence": 79,
+      "elapsedMs": 28.24260000000004
+    },
+    {
+      "id": "ocr-v4-27",
+      "split": "validation",
+      "field": "institutionName",
+      "primaryRaw": "Fictional Academy 277",
+      "box": {
+        "x0": 326,
+        "y0": 782,
+        "x1": 628,
+        "y1": 813
+      },
+      "scale": 2,
+      "psm": 7,
+      "rawText": "Fictional Academy 27\n",
+      "uncalibratedConfidence": 95,
+      "elapsedMs": 53.12890000000016
+    },
+    {
+      "id": "ocr-v4-27",
+      "split": "validation",
+      "field": "institutionName",
+      "primaryRaw": "Fictional Academy 277",
+      "box": {
+        "x0": 326,
+        "y0": 782,
+        "x1": 628,
+        "y1": 813
+      },
+      "scale": 2,
+      "psm": 8,
+      "rawText": "Fictional Academy 27\n",
+      "uncalibratedConfidence": 77,
+      "elapsedMs": 42.52839999999969
+    },
+    {
+      "id": "ocr-v4-27",
+      "split": "validation",
+      "field": "institutionName",
+      "primaryRaw": "Fictional Academy 277",
+      "box": {
+        "x0": 326,
+        "y0": 782,
+        "x1": 628,
+        "y1": 813
+      },
+      "scale": 2,
+      "psm": 13,
+      "rawText": "Fictional Academy 27\n",
+      "uncalibratedConfidence": 77,
+      "elapsedMs": 42.3407000000002
+    },
+    {
+      "id": "ocr-v4-27",
+      "split": "validation",
+      "field": "institutionName",
+      "primaryRaw": "Fictional Academy 277",
+      "box": {
+        "x0": 326,
+        "y0": 782,
+        "x1": 628,
+        "y1": 813
+      },
+      "scale": 3,
+      "psm": 7,
+      "rawText": "Fictional Academy 27\n",
+      "uncalibratedConfidence": 95,
+      "elapsedMs": 73.19390000000021
+    },
+    {
+      "id": "ocr-v4-27",
+      "split": "validation",
+      "field": "institutionName",
+      "primaryRaw": "Fictional Academy 277",
+      "box": {
+        "x0": 326,
+        "y0": 782,
+        "x1": 628,
+        "y1": 813
+      },
+      "scale": 3,
+      "psm": 8,
+      "rawText": "Fictional Academy 27\n",
+      "uncalibratedConfidence": 78,
+      "elapsedMs": 63.92159999999967
+    },
+    {
+      "id": "ocr-v4-27",
+      "split": "validation",
+      "field": "institutionName",
+      "primaryRaw": "Fictional Academy 277",
+      "box": {
+        "x0": 326,
+        "y0": 782,
+        "x1": 628,
+        "y1": 813
+      },
+      "scale": 3,
+      "psm": 13,
+      "rawText": "Fictional Academy 27\n",
+      "uncalibratedConfidence": 78,
+      "elapsedMs": 63.86379999999963
+    }
+  ]
+}
