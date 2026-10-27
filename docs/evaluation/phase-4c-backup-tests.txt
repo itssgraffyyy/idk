@@ -1,0 +1,32 @@
+TAP version 13
+# (node:8288) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: signed offline backup restores exact case/evidence/document history, revokes sessions and survives real startup/restart with external keys
+ok 1 - signed offline backup restores exact case/evidence/document history, revokes sessions and survives real startup/restart with external keys
+  ---
+  duration_ms: 7481.2698
+  ...
+# Subtest: backup refuses active owners, nested destinations, hash-corrupt objects and restoration over existing directories
+ok 2 - backup refuses active owners, nested destinations, hash-corrupt objects and restoration over existing directories
+  ---
+  duration_ms: 3979.0784
+  ...
+# Subtest: manifest authentication, path traversal, external-key custody and junction escapes fail before restoration
+ok 3 - manifest authentication, path traversal, external-key custody and junction escapes fail before restoration
+  ---
+  duration_ms: 4231.2054
+  ...
+# Subtest: MFA-enabled snapshots require separately retained matching encryption key and preserve authenticator enrollment on restore
+ok 4 - MFA-enabled snapshots require separately retained matching encryption key and preserve authenticator enrollment on restore
+  ---
+  duration_ms: 5240.2271
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 21116.3204
