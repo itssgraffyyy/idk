@@ -10,4 +10,5 @@ resources/research/
 resources/ifsc/*.tar.gz
 
 build/
+.scratch/
 resources/regulatory/review/
