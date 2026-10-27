@@ -1,4 +1,4 @@
-import { evaluatePolicy } from "./policy-runtime.js";
+import { evaluateApplicablePolicy } from "./applicability.js";
 import {
   attachPolicyContext,
   loadPolicyConfiguration,
@@ -82,9 +82,10 @@ export function replayPolicySnapshot(
     version,
     asOf,
     financialAssessmentAsOf: original.financialAssessmentAsOf || original.asOf,
-    operationalPolicy: evaluatePolicy(
+    operationalPolicy: evaluateApplicablePolicy(
       { ...facts.instrument, ...facts.context, proofs: facts.proofs },
       { ...selected, asOf },
+      facts.applicabilityConflicts || [],
     ),
     findings: (original.findings || []).map((f) => ({
       ...f,

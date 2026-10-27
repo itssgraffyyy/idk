@@ -265,6 +265,12 @@ export function explainPolicy(report, configuration = null) {
       }),
     },
     uncertainty: [
+      ...(report.policyFacts?.applicabilityConflicts || []).map(
+        (c) =>
+          "Contradictory " +
+          c.field +
+          " in registered obligation and regulatory context; human reconciliation required",
+      ),
       ...(report.policyConfiguration
         ? []
         : [

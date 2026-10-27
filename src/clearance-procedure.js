@@ -4,6 +4,7 @@ const id = /^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$/;
 const validId = (v) => typeof v === "string" && id.test(v);
 const fields = new Set([
   "programme",
+  "level",
   "institutionType",
   "government",
   "propertyOwned",

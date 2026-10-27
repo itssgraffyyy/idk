@@ -1,0 +1,41 @@
+(node:11416) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:8128) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8128) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8128) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+{"browserFixture":{"startupMs":2700.5034}}
+{"browserFixtureFailure":{"nodeTime":"2026-10-27T12:42:51.278Z","preferences":[],"operations":[{"stage":"draft","updated":"2026-10-27T12:42:26.988Z","input_revision":5}],"deliveries":0}}
+  x  1 tests\browser\applicability.spec.js:19:1 › officer sees contradictory applicability and requests reconciliation without offering financial-field edits (30.2s)
+
+
+  1) tests\browser\applicability.spec.js:19:1 › officer sees contradictory applicability and requests reconciliation without offering financial-field edits 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.selectOption: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByRole('region', { name: 'Case review workflow', exact: true }).getByLabel('Disputed finding', { exact: true })
+
+
+      105 |     await panel
+      106 |       .getByLabel("Disputed finding", { exact: true })
+    > 107 |       .selectOption("applicability_conflict_programme");
+          |        ^
+      108 |     await expect(
+      109 |       panel.getByLabel("Editable request", { exact: true }),
+      110 |     ).toContainText("obligation administration");
+        at G:\idk_lol\tests\browser\applicability.spec.js:107:8
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\applicability-officer-sees-501d8-ering-financial-field-edits\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\applicability-officer-sees-501d8-ering-financial-field-edits\error-context.md
+
+  1 failed
+    tests\browser\applicability.spec.js:19:1 › officer sees contradictory applicability and requests reconciliation without offering financial-field edits 

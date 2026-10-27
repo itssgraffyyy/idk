@@ -2,7 +2,10 @@ import { randomUUID } from "node:crypto";
 import { canReadCase, isReviewer } from "./permissions.js";
 import { currentEvidence, currentProofs } from "./current-evidence.js";
 import { documentScan } from "./upload-scanning.js";
-import { evaluatePolicy } from "./policy-runtime.js";
+import {
+  resolveApplicability,
+  evaluateApplicablePolicy,
+} from "./applicability.js";
 import {
   clearanceReadiness,
   snapshotHash,
@@ -212,9 +215,9 @@ export function clearanceService({
         .instrument,
     );
     const regulatory = context ? JSON.parse(context.payload).context || {} : {};
+    const applicability = resolveApplicability(obligation, regulatory);
     const facts = {
-      ...regulatory,
-      programme: obligation.programme ?? regulatory.programme,
+      ...applicability.context,
       instrumentType: instrument.type,
       currency: instrument.currency,
     };
@@ -242,6 +245,7 @@ export function clearanceService({
       })),
       regulatoryContext: context?.id || null,
       facts,
+      applicabilityConflicts: applicability.conflicts,
       policyHash: snapshotHash(policyConfig),
       procedureTrust: binding(caseId)
         ? procedureTrust(binding(caseId).payload.procedure, confirmations, asOf)
@@ -346,7 +350,13 @@ export function clearanceService({
         .get(caseId)
     )
       result.blockers.push({ code: "OPEN_CLARIFICATION" });
-    const policy = evaluatePolicy(
+    if (currentSource.applicabilityConflicts.length)
+      result.blockers.push({
+        code: "APPLICABILITY_FACT_CONFLICT",
+        severity: "HIGH",
+        conflicts: currentSource.applicabilityConflicts,
+      });
+    const policy = evaluateApplicablePolicy(
       {
         ...JSON.parse(
           db.prepare("SELECT instrument FROM cases WHERE id=?").get(caseId)
@@ -356,6 +366,7 @@ export function clearanceService({
         proofs: currentProofs(db, caseId, currentSource.regulatoryContext),
       },
       { ...policyConfig, asOf: result.asOf },
+      currentSource.applicabilityConflicts,
     );
     if (policy.scope !== undefined && policy.scope !== p.scope)
       result.blockers.push({ code: "POLICY_PROCEDURE_SCOPE_MISMATCH" });

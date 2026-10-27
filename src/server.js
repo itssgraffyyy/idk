@@ -279,13 +279,24 @@ export function createApp({
       b = last("external");
     const context = last("regulatory_context"),
       proofs = currentProofs(db, c.id, context?.id);
+    const registeredObligation = db
+      .prepare(
+        "SELECT o.* FROM obligations o JOIN case_domains d ON d.obligation_id=o.id WHERE d.case_id=?",
+      )
+      .get(c.id);
     const r = evaluate({
       policies,
       policyScope,
       verifiedSourceHashes,
       ...(asOf ? { asOf } : {}),
       instrument: JSON.parse(c.instrument),
-      obligation: JSON.parse(c.obligation),
+      obligation: {
+        ...JSON.parse(c.obligation),
+        id: registeredObligation?.id,
+        revision: registeredObligation?.revision,
+        programme: registeredObligation?.programme,
+        level: registeredObligation?.level,
+      },
       extraction: x?.payload.documentId === d?.id ? x?.payload.fields : {},
       external: b?.payload,
       documentId: d?.id,
@@ -330,7 +341,7 @@ export function createApp({
             ? r.sourceReferences.declaration
             : s.type === "document"
               ? (s.id ?? d?.id)
-              : s.type === "policy"
+              : s.type === "policy" || s.type === "regulatory_context"
                 ? context?.id
                 : s.type === "ifsc-reference"
                   ? last("ifsc_reference")?.payload.code ===
@@ -362,7 +373,10 @@ export function createApp({
     }
     attachPolicyContext(r, policyCapsule, {
       instrument: JSON.parse(c.instrument),
-      context: context?.payload.context || {},
+      context: r.applicability.context,
+      declaredContext: context?.payload.context || {},
+      registeredObligation,
+      applicabilityConflicts: r.applicability.conflicts,
       proofs,
     });
     const eid = evidence(u, c.id, asOf ? "evaluation_replay" : "evaluation", r);

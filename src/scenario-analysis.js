@@ -2,6 +2,10 @@ import { analyzeContinuity } from "./continuity.js";
 import { validate } from "./engine.js";
 import { date } from "./administration.js";
 import { evaluatePolicy } from "./policy-runtime.js";
+import {
+  resolveApplicability,
+  evaluateApplicablePolicy,
+} from "./applicability.js";
 import { clearanceReadiness, snapshotHash } from "./clearance-procedure.js";
 import { currentEvidence, currentProofs } from "./current-evidence.js";
 const bad = (message) => {
@@ -51,17 +55,8 @@ export function scenarioSnapshot(db, c, capsule, clearances, user) {
   const evaluation = evidence.find((e) => e.kind === "evaluation");
   const context = evidence.find((e) => e.kind === "regulatory_context");
   const regulatory = context?.payload.context || {};
-  const factConflicts = [];
-  if (
-    obligation.programme &&
-    regulatory.programme &&
-    obligation.programme !== regulatory.programme
-  )
-    factConflicts.push({
-      field: "programme",
-      obligation: obligation.programme,
-      regulatory: regulatory.programme,
-    });
+  const applicability = resolveApplicability(obligation, regulatory),
+    factConflicts = applicability.conflicts;
   const binding = db
     .prepare(
       "SELECT * FROM clearance_events WHERE case_id=? AND kind='binding' ORDER BY revision DESC LIMIT 1",
@@ -72,6 +67,7 @@ export function scenarioSnapshot(db, c, capsule, clearances, user) {
   return JSON.parse(
     JSON.stringify({
       format: 1,
+      applicabilityVersion: 1,
       asOf: new Date().toISOString().slice(0, 10),
       classification: "HYPOTHETICAL_ANALYSIS_ONLY",
       caseId: c.id,
@@ -100,8 +96,7 @@ export function scenarioSnapshot(db, c, capsule, clearances, user) {
       factConflicts,
       policyFacts: {
         context: {
-          ...regulatory,
-          ...(obligation.programme ? { programme: obligation.programme } : {}),
+          ...applicability.context,
         },
         proofs: currentProofs(db, c.id, context?.id),
       },
@@ -219,8 +214,15 @@ function evaluateScenario(snapshot, changes) {
     instrumentType: primary?.data.type ?? null,
     proofs: snapshot.policyFacts.proofs || [],
   };
-  const policy = evaluatePolicy(facts, { ...config, asOf });
-  if (snapshot.factConflicts?.length) {
+  const policy =
+    snapshot.applicabilityVersion === 1
+      ? evaluateApplicablePolicy(
+          facts,
+          { ...config, asOf },
+          snapshot.factConflicts || [],
+        )
+      : evaluatePolicy(facts, { ...config, asOf });
+  if (snapshot.applicabilityVersion !== 1 && snapshot.factConflicts?.length) {
     policy.outcome = "NEEDS_HUMAN_REVIEW";
     policy.reason = "Conflicting recorded applicability facts";
   }

@@ -1,0 +1,14 @@
+(node:4324) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:18052) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18052) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18052) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+{"browserFixture":{"startupMs":2889.8356999999996}}
+  ok 1 tests\browser\applicability.spec.js:19:1 › officer sees contradictory applicability and requests reconciliation without offering financial-field edits (5.6s)
+
+  1 passed (18.8s)

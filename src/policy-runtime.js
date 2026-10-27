@@ -176,7 +176,7 @@ export function evaluatePolicy(
   };
 }
 export function findingSeverity(code, status) {
-  return /mismatch_|external_(amountPaise|reference|depositor|currency)|amount_shortfall|duplicate_reference|date_order/.test(
+  return /applicability_conflict_|mismatch_|external_(amountPaise|reference|depositor|currency)|amount_shortfall|duplicate_reference|date_order/.test(
     code,
   )
     ? "HIGH"

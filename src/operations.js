@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { isInstitution, isReviewer } from "./permissions.js";
 import { currentEvidence } from "./current-evidence.js";
-import { validate } from "./engine.js";
+import { validate, evidenceFields } from "./engine.js";
 const bad = (status, message) => {
   throw Object.assign(Error(message), { status });
 };
@@ -239,7 +239,11 @@ export function clarificationTemplate(finding) {
   return {
     findingCode: finding.code,
     fields: [
-      ...new Set((finding.sources || []).map((s) => s.field).filter(Boolean)),
+      ...new Set(
+        (finding.sources || [])
+          .map((s) => s.field)
+          .filter((f) => evidenceFields.includes(f)),
+      ),
     ],
     documents: [
       ...new Set(

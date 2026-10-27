@@ -1,0 +1,130 @@
+TAP version 13
+# (node:15104) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: programme and level contradictions are not silently resolved or treated as non-applicable conditions
+ok 1 - programme and level contradictions are not silently resolved or treated as non-applicable conditions
+  ---
+  duration_ms: 1.8522
+  ...
+# Subtest: authorized corrections append new evaluations while conflicted facts, severity, provenance and frozen historical replay remain intact
+ok 2 - authorized corrections append new evaluations while conflicted facts, severity, provenance and frozen historical replay remain intact
+  ---
+  duration_ms: 4998.994
+  ...
+# Subtest: conditional department requirements remain reviewable when programme or level sources conflict
+ok 3 - conditional department requirements remain reviewable when programme or level sources conflict
+  ---
+  duration_ms: 3716.8814
+  ...
+# Subtest: stored legacy conflicted scenarios retain their exact original wire result after applicability version upgrade
+ok 4 - stored legacy conflicted scenarios retain their exact original wire result after applicability version upgrade
+  ---
+  duration_ms: 8.8646
+  ...
+# (node:17728) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: operational workflow readiness, separate dimensions, role guards and concurrent transitions
+ok 5 - operational workflow readiness, separate dimensions, role guards and concurrent transitions
+  ---
+  duration_ms: 6132.9091
+  ...
+# Subtest: finding-linked clarification changes only requested facts and preserves resolved/outstanding provenance
+ok 6 - finding-linked clarification changes only requested facts and preserves resolved/outstanding provenance
+  ---
+  duration_ms: 5026.1089
+  ...
+# Subtest: persisted drafts use owner, tenant and optimistic revisions without overwriting confirmed form data
+ok 7 - persisted drafts use owner, tenant and optimistic revisions without overwriting confirmed form data
+  ---
+  duration_ms: 4454.9991
+  ...
+# Subtest: resolution dependency descriptors and full recomputation fallback never imply administrative approval
+ok 8 - resolution dependency descriptors and full recomputation fallback never imply administrative approval
+  ---
+  duration_ms: 0.5358
+  ...
+# (node:10264) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:12572) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: failed integrity capture releases owner lock and database so an explicitly restored synthetic fixture can restart
+ok 9 - failed integrity capture releases owner lock and database so an explicitly restored synthetic fixture can restart
+  ---
+  duration_ms: 4291.6061
+  ...
+# Subtest: historical source viewing uses the exact extraction recorded with that evaluation after later corrections
+ok 10 - historical source viewing uses the exact extraction recorded with that evaluation after later corrections
+  ---
+  duration_ms: 5901.041
+  ...
+# Subtest: reviewed exemption proof is linked to its exact document and review event without claiming official authority
+ok 11 - reviewed exemption proof is linked to its exact document and review event without claiming official authority
+  ---
+  duration_ms: 4826.9363
+  ...
+# Subtest: policy explanations bind immutable configuration, exact recorded sources and authorized paginated history
+ok 12 - policy explanations bind immutable configuration, exact recorded sources and authorized paginated history
+  ---
+  duration_ms: 6973.6798
+  ...
+# Subtest: recorded configuration survives a real restart while explicit reassessment uses the new trusted policy
+ok 13 - recorded configuration survives a real restart while explicit reassessment uses the new trusted policy
+  ---
+  duration_ms: 5325.0218
+  ...
+# Subtest: conditional facts, proof references and explicit exemption explanations remain frozen
+ok 14 - conditional facts, proof references and explicit exemption explanations remain frozen
+  ---
+  duration_ms: 4402.2242
+  ...
+# Subtest: legacy schema upgrade never invents a historical policy capsule
+ok 15 - legacy schema upgrade never invents a historical policy capsule
+  ---
+  duration_ms: 1925.4988
+  ...
+# Subtest: capsule content corruption fails closed instead of silently falling back to current policy
+ok 16 - capsule content corruption fails closed instead of silently falling back to current policy
+  ---
+  duration_ms: 4202.2063
+  ...
+# (node:11884) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: frozen replay restores nested regulatory context rather than current context or its envelope
+ok 17 - frozen replay restores nested regulatory context rather than current context or its envelope
+  ---
+  duration_ms: 4427.3388
+  ...
+# Subtest: trusted declarative versions select deterministically and map all outcomes without administrative approval
+ok 18 - trusted declarative versions select deterministically and map all outcomes without administrative approval
+  ---
+  duration_ms: 16.7336
+  ...
+# Subtest: historical replay is persisted independently and cannot activate policy from client data
+ok 19 - historical replay is persisted independently and cannot activate policy from client data
+  ---
+  duration_ms: 4171.3375
+  ...
+# Subtest: procedure confirmation binds exact source, interpretation and version; synthetic contract never becomes real issuer authority
+ok 20 - procedure confirmation binds exact source, interpretation and version; synthetic contract never becomes real issuer authority
+  ---
+  duration_ms: 5.8143
+  ...
+# Subtest: confirmation schema rejects client-like flags, non-synthetic contract scope, missing provenance and fake independent test sources
+ok 21 - confirmation schema rejects client-like flags, non-synthetic contract scope, missing provenance and fake independent test sources
+  ---
+  duration_ms: 0.8013
+  ...
+# Subtest: frozen pre-confirmation synthetic and unverified scenario wire results remain exactly reproducible
+ok 22 - frozen pre-confirmation synthetic and unverified scenario wire results remain exactly reproducible
+  ---
+  duration_ms: 5.9816
+  ...
+1..22
+# tests 22
+# suites 0
+# pass 22
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 71745.5031

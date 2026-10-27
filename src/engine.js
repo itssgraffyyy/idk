@@ -1,7 +1,11 @@
 import { assessAICTE, ruleRegister } from "./regulatory.js";
 import { lookupIFSC } from "./financial.js";
 import { assessPolicy } from "./policy.js";
-import { evaluatePolicy, findingSeverity } from "./policy-runtime.js";
+import { findingSeverity } from "./policy-runtime.js";
+import {
+  resolveApplicability,
+  evaluateApplicablePolicy,
+} from "./applicability.js";
 export const fields = [
   "reference",
   "amountPaise",
@@ -78,6 +82,7 @@ export function evaluate({
   verifiedSourceHashes = [],
 }) {
   const findings = [];
+  const applicability = resolveApplicability(obligation, regulatoryContext);
   const add = (code, status, message, sources) =>
     findings.push({ code, status, message, sources });
   const referenceLookup = ifscReference || lookupIFSC(instrument.ifsc);
@@ -226,7 +231,29 @@ export function evaluate({
     "No verified AICTE policy supplied. Regulatory compliance requires authorized policy review.",
     [{ type: "policy", version: "unverified-1" }],
   );
-  const regulatory = assessAICTE(instrument, regulatoryContext, proofs, asOf);
+  const regulatory = assessAICTE(
+    instrument,
+    applicability.context,
+    proofs,
+    asOf,
+  );
+  for (const conflict of applicability.conflicts)
+    add(
+      "applicability_conflict_" + conflict.field,
+      "unresolved",
+      "Registered obligation and regulatory context disagree on " +
+        conflict.field +
+        "; resolve the source records before applying conditional rules.",
+      [
+        {
+          type: "obligation",
+          field: conflict.field,
+          id: obligation.id || null,
+          revision: obligation.revision ?? null,
+        },
+        { type: "regulatory_context", field: conflict.field },
+      ],
+    );
   for (const id of new Set(regulatory.checks.map((c) => c.id))) {
     const checks = regulatory.checks.filter((c) => c.id === id);
     const check = checks.at(-1);
@@ -263,12 +290,16 @@ export function evaluate({
           : s.type === "document"
             ? (extraction[s.field]?.value ?? null)
             : s.type === "obligation"
-              ? obligation.amountPaise
-              : s.type === "ifsc-reference"
-                ? (referenceLookup.bank ?? null)
-                : s.field
-                  ? (external.values?.[s.field] ?? null)
-                  : null,
+              ? s.field
+                ? obligation[s.field]
+                : obligation.amountPaise
+              : s.type === "regulatory_context"
+                ? regulatoryContext[s.field]
+                : s.type === "ifsc-reference"
+                  ? (referenceLookup.bank ?? null)
+                  : s.field
+                    ? (external.values?.[s.field] ?? null)
+                    : null,
       classification:
         s.classification ??
         (s.type === "document"
@@ -282,6 +313,10 @@ export function evaluate({
       : finding.code === "bank_confirmation" || finding.code === "mock_only"
         ? ["authorized_independent_bank_confirmation"]
         : [];
+    if (finding.code.startsWith("applicability_conflict_"))
+      finding.missingEvidence.push(
+        "reconciled_" + finding.code.slice("applicability_conflict_".length),
+      );
     if (finding.code === "policy_unverified" || finding.policyRule) {
       finding.missingEvidence.push("issuer_verified_policy_source");
       const rule = ruleRegister.rules.find((r) => r.id === finding.policyRule);
@@ -309,12 +344,17 @@ export function evaluate({
         : finding.code === "bank_confirmation" || finding.code === "mock_only"
           ? "Obtain authorized independent bank evidence"
           : "Compare referenced evidence and record a reasoned correction or reviewer observation";
+    if (finding.code.startsWith("applicability_conflict_"))
+      finding.suggestedAction =
+        "Reconcile programme/level in institution obligation administration or the authorised regulatory context, then reevaluate.";
   }
   return {
-    operationalPolicy: evaluatePolicy(
-      { ...instrument, ...regulatoryContext, proofs },
+    operationalPolicy: evaluateApplicablePolicy(
+      { ...instrument, ...applicability.context, proofs },
       { policies, scope: policyScope, asOf, verifiedSourceHashes },
+      applicability.conflicts,
     ),
+    applicability,
     referenceLookup,
     regulatory,
     policyAssessment: assessPolicy(
