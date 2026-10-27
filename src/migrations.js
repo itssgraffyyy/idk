@@ -7,7 +7,9 @@ import { continuityMigration } from "./continuity-migration.js";
 import { notificationMigration } from "./notification-migration.js";
 import { clearanceMigration } from "./clearance-migration.js";
 import { policyHistoryMigration } from "./policy-history.js";
+import { analysisMigration } from "./analysis-migration.js";
 export const upgrades = [
+  analysisMigration,
   policyHistoryMigration,
   clearanceMigration,
   notificationMigration,

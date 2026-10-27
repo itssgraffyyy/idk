@@ -1,0 +1,41 @@
+(node:5564) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:13924) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:13924) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:13924) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+{"browserFixture":{"startupMs":2319.8709}}
+{"browserFixtureFailure":{"nodeTime":"2026-10-27T10:43:25.410Z","preferences":[],"operations":[{"stage":"draft","updated":"2026-10-27T10:42:59.545Z","input_revision":3}],"deliveries":0}}
+  x  1 tests\browser\analysis.spec.js:2:1 › institution explores relationships, freezes a read-only scenario and verifies saved replay (30.1s)
+
+
+  1) tests\browser\analysis.spec.js:2:1 › institution explores relationships, freezes a read-only scenario and verifies saved replay
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.fill: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByLabel('Coverage start', { exact: true })
+
+
+      45 |     .getByRole("button", { name: "Freeze analysis snapshot", exact: true })
+      46 |     .click();
+    > 47 |   await page.getByLabel("Coverage start", { exact: true }).fill("2026-01-01");
+         |                                                            ^
+      48 |   await page.getByLabel("Coverage end", { exact: true }).fill("2032-01-01");
+      49 |   await page
+      50 |     .getByLabel("Obligation amount (integer paise)", { exact: true })
+        at G:\idk_lol\tests\browser\analysis.spec.js:47:60
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\analysis-institution-explo-ac895-o-and-verifies-saved-replay\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\analysis-institution-explo-ac895-o-and-verifies-saved-replay\error-context.md
+
+  1 failed
+    tests\browser\analysis.spec.js:2:1 › institution explores relationships, freezes a read-only scenario and verifies saved replay

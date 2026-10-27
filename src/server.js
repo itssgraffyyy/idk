@@ -34,6 +34,7 @@ import { clearanceService } from "./clearance-service.js";
 import { clearanceRoutes } from "./clearance-api.js";
 import { validateProcedure } from "./clearance-procedure.js";
 import { policyDecisionRoute } from "./policy-decisions.js";
+import { analysisRoute } from "./analysis-api.js";
 import {
   capturePolicyConfiguration,
   bindPolicyContext,
@@ -409,6 +410,7 @@ export function createApp({
             "/operations.js",
             "/clearances.js",
             "/policy-decisions.js",
+            "/analysis.js",
             "/submission.js",
             "/evidence-viewer.js",
             "/viewer-geometry.js",
@@ -860,6 +862,25 @@ export function createApp({
           audit(u.id, "access_denied", id);
           fail(404, "Case not found");
         }
+        if (
+          analysisRoute({
+            db,
+            c,
+            u,
+            action,
+            method: req.method,
+            body,
+            url,
+            res,
+            json,
+            tx,
+            audit,
+            key: cursorKey,
+            capsule: policyCapsule,
+            clearances,
+          })
+        )
+          return;
         if (
           operationsCase({
             db,

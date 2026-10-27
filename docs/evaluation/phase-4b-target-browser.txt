@@ -1,0 +1,14 @@
+(node:14888) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:10252) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10252) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10252) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+{"browserFixture":{"startupMs":2290.4854}}
+  ok 1 tests\browser\analysis.spec.js:2:1 › institution explores relationships, freezes a read-only scenario and verifies saved replay (4.2s)
+
+  1 passed (16.4s)

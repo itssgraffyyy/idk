@@ -481,6 +481,7 @@ async function detail(id) {
   await window.mountOperationsCase({ c, user, api, run, detail, escape });
   window.mountClearanceCase({ c, user, api, run, detail });
   window.mountPolicyDecisions({ c, api, run, escape });
+  window.mountAnalysis({ c, user, api, run, detail, escape });
   window.mountDomainCase({
     c,
     user,
