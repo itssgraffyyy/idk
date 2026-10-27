@@ -7,10 +7,7 @@ import {
   requestLimiter,
 } from "./security.js";
 import { IFSCProvider } from "./ifsc.js";
-import {
-  DevelopmentDepositProvider,
-  mockScenarios,
-} from "./financial.js";
+import { DevelopmentDepositProvider, mockScenarios } from "./financial.js";
 import { registry as policyRegistry } from "./policy.js";
 import http from "node:http";
 import { LocalPrivateStorage } from "./storage.js";
@@ -37,6 +34,7 @@ import { analysisRoute } from "./analysis-api.js";
 import { createAuditIntegrity } from "./audit-integrity.js";
 import { createMFA } from "./mfa.js";
 import { accountSecurity } from "./account-security.js";
+import { workflowMetricsRoute } from "./workflow-metrics.js";
 import { validateProcedureConfirmations } from "./clearance-procedure.js";
 import { workerEnvironment } from "./worker-environment.js";
 import {
@@ -492,6 +490,7 @@ export function createApp({
             "/policy-decisions.js",
             "/analysis.js",
             "/account-security.js",
+            "/overview.js",
             "/submission.js",
             "/evidence-viewer.js",
             "/viewer-geometry.js",
@@ -728,6 +727,21 @@ export function createApp({
           (mfa.assurance(hash(token))?.stepup_expires || 0) < mfa.now()
         )
           fail(403, "Recent MFA step-up required; open Account security");
+        if (
+          workflowMetricsRoute({
+            db,
+            u,
+            path,
+            method: req.method,
+            url,
+            body,
+            tx,
+            audit,
+            json,
+            res,
+          })
+        )
+          return;
         if (path === "/api/security/audit-integrity" && req.method === "GET") {
           if (!["supervisor", "audit_reviewer"].includes(u.role))
             fail(403, "Audit verification role required");

@@ -253,7 +253,7 @@ window.openEvidenceViewer = async function ({
     throw e;
   }
 };
-window.mountFindingSourceLinks = function ({ c, api, run, escape }) {
+window.mountFindingSourceLinks = function ({ c, api, run }) {
   const report = (c.currentEvidence || c.history).find(
     (e) => e.kind === "evaluation",
   )?.payload;
@@ -275,7 +275,7 @@ window.mountFindingSourceLinks = function ({ c, api, run, escape }) {
           c,
           api,
           run,
-                  versionId: source.evidenceId,
+          versionId: source.evidenceId,
           field: source.field,
           page: data.latest?.fields?.[source.field]?.page || 1,
         });

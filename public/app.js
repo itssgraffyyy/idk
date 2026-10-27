@@ -57,12 +57,21 @@ async function run(fn) {
   try {
     await fn();
   } catch (e) {
+    window.measureWorkflowError?.();
     notice(e.message);
   } finally {
     busy = false;
     $("main").inert = false;
     $("aside").inert = false;
     $("main").setAttribute("aria-busy", "false");
+    if (window.workspaceFocus) {
+      const heading = document.querySelector(window.workspaceFocus);
+      if (heading) {
+        heading.tabIndex = -1;
+        heading.focus();
+      }
+      window.workspaceFocus = null;
+    }
     if ($("#notice").textContent === "Working…") notice();
   }
 }
@@ -126,6 +135,7 @@ function instrument(form) {
 function views(name) {
   for (const id of ["login", "workspace", "detail", "management"])
     $("#" + id).hidden = id !== name;
+  window.workspaceFocus = "#" + name + " h1, #" + name + " h2";
 }
 async function registry(cursor = null) {
   views("workspace");
@@ -511,6 +521,7 @@ async function enter() {
   }
   $("#cases-nav").hidden = false;
   await registry();
+  window.mountOverview({ user, api, run, views, detail });
   window.mountDomainNavigation({ user, api, run, views, registry, escape });
   window.mountOperationsNavigation({ user, api, run, views, detail, escape });
   window.mountClearanceNavigation({ user, api, run, views });
@@ -537,6 +548,7 @@ $("#logout").onclick = () =>
     await api("/logout", "POST", {});
     user = null;
     current = null;
+    window.discardWorkflowMeasurement?.();
     if (window.activeEvidenceBlob) {
       URL.revokeObjectURL(window.activeEvidenceBlob);
       window.activeEvidenceBlob = null;

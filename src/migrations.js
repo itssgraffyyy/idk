@@ -11,7 +11,9 @@ import { analysisMigration } from "./analysis-migration.js";
 import { auditIntegrityMigration } from "./audit-integrity.js";
 import { mfaMigration } from "./mfa.js";
 import { scanMigration } from "./upload-scanning.js";
+import { metricsMigration } from "./workflow-metrics.js";
 export const upgrades = [
+  metricsMigration,
   scanMigration,
   mfaMigration,
   auditIntegrityMigration,

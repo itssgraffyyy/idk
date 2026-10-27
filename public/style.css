@@ -1,6 +1,39 @@
 * {
   box-sizing: border-box;
 }
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 12px;
+  z-index: 100;
+  background: white;
+  padding: 12px;
+  color: #102c39;
+}
+.skip-link:focus {
+  top: 8px;
+}
+:focus-visible {
+  outline: 3px solid #a44a00;
+  outline-offset: 3px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.measurement-controls {
+  background: #fff;
+  border-bottom: 1px solid #8b9ea8;
+  padding: 10px 20px;
+}
+.measurement-controls:empty {
+  display: none;
+}
+
 body {
   margin: 0;
   background: #f5f7f8;
@@ -400,4 +433,59 @@ a {
 textarea[name="values"] {
   min-height: 160px;
   font-family: monospace;
+}
+
+@media (max-width: 800px) {
+  body aside {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  aside .nav {
+    display: block;
+    width: auto;
+    margin: 0;
+    min-height: 44px;
+  }
+  aside .brand {
+    width: 100%;
+  }
+  aside .rail-label,
+  aside .rail-note {
+    display: none;
+  }
+  body main {
+    margin-left: 0;
+  }
+}
+/* Keep all role navigation reachable on smaller screens and long workspaces. */
+aside {
+  overflow-y: auto;
+}
+.rail-note {
+  position: static;
+  margin-top: 24px;
+}
+header > div {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 800px) {
+  body aside .brand span {
+    display: block;
+  }
+}
+/* Small labels and source references remain readable on light surfaces. */
+.muted,
+.source,
+th,
+footer,
+.empty {
+  color: #48616e;
+}
+.badge {
+  color: #755018;
 }

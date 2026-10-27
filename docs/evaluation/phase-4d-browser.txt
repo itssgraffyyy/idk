@@ -1,0 +1,16 @@
+(node:10220) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:8244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8244) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+{"browserFixture":{"startupMs":2601.2425}}
+  ok 1 tests\browser\analytics.spec.js:35:1 › mobile overview supports keyboard navigation, scoped analytics and optional content-free task measurement (8.6s)
+{"browserFixture":{"startupMs":8822.2415}}
+  ok 2 tests\browser\analytics.spec.js:94:1 › paired scripted maturity navigation records actual timings without claiming human productivity gains (3.8s)
+
+  2 passed (35.5s)

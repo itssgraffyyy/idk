@@ -116,6 +116,7 @@ export function operationsGlobal({
   body,
   method,
   tx,
+  audit,
   json,
   res,
   cursorKey,

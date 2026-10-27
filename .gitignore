@@ -12,3 +12,10 @@ resources/ifsc/*.tar.gz
 build/
 .scratch/
 resources/regulatory/review/
+# Local environment variants and operator key material must never enter Git.
+.env.*
+!.env.example
+*.key
+*.p12
+*.pfx
+*.pem

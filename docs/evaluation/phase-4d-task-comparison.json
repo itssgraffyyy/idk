@@ -1,0 +1,41 @@
+{
+  "method": "Same three synthetic cases, same authorized account, same maturity identification and opening task, alternating conventional registry and new attention overview within current build. Automated selectors, warm browser; setup excluded. No human study, historical-version comparison or productivity claim.",
+  "trials": [
+    {
+      "mode": "registry",
+      "elapsedMs": 147.11019999999917,
+      "clicks": 1,
+      "apiRequests": 4
+    },
+    {
+      "mode": "overview",
+      "elapsedMs": 115.22839999999997,
+      "clicks": 1,
+      "apiRequests": 4
+    },
+    {
+      "mode": "overview",
+      "elapsedMs": 142.21900000000096,
+      "clicks": 1,
+      "apiRequests": 4
+    },
+    {
+      "mode": "registry",
+      "elapsedMs": 72.61000000000058,
+      "clicks": 1,
+      "apiRequests": 4
+    },
+    {
+      "mode": "registry",
+      "elapsedMs": 715.710500000001,
+      "clicks": 1,
+      "apiRequests": 4
+    },
+    {
+      "mode": "overview",
+      "elapsedMs": 134.3711000000003,
+      "clicks": 1,
+      "apiRequests": 4
+    }
+  ]
+}
