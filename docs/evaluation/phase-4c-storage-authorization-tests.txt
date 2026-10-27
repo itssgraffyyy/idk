@@ -1,0 +1,86 @@
+TAP version 13
+# (node:9940) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: department download rechecks session and exact request event after storage returns
+ok 1 - department download rechecks session and exact request event after storage returns
+  ---
+  duration_ms: 11988.2769
+  ...
+# Subtest: guarded internal closure preserves obligations and bank state; reopening starts a fresh evidence review
+ok 2 - guarded internal closure preserves obligations and bank state; reopening starts a fresh evidence review
+  ---
+  duration_ms: 6744.4913
+  ...
+# Subtest: stale proposal recovers through guarded re-evaluation and review without deleting earlier history
+ok 3 - stale proposal recovers through guarded re-evaluation and review without deleting earlier history
+  ---
+  duration_ms: 5731.5553
+  ...
+# Subtest: opt-in clearance follow-up is source-bound, deduplicated and stops after a department response
+ok 4 - opt-in clearance follow-up is source-bound, deduplicated and stops after a department response
+  ---
+  duration_ms: 5285.4622
+  ...
+# Subtest: schema 16 is additive and repeatable over frozen schema 15 without changing source versions or evaluations
+ok 5 - schema 16 is additive and repeatable over frozen schema 15 without changing source versions or evaluations
+  ---
+  duration_ms: 2003.9588
+  ...
+# Subtest: reassignment revokes the old department view and renewed grants cannot revive an older response
+ok 6 - reassignment revokes the old department view and renewed grants cannot revive an older response
+  ---
+  duration_ms: 6195.6032
+  ...
+# Subtest: department grants expose selected immutable sources without full case access; revocation and tenants fail closed
+ok 7 - department grants expose selected immutable sources without full case access; revocation and tenants fail closed
+  ---
+  duration_ms: 9077.4355
+  ...
+# Subtest: parallel clearances, immutable responses and distinct concurrent checker record an internal synthetic decision only
+ok 8 - parallel clearances, immutable responses and distinct concurrent checker record an internal synthetic decision only
+  ---
+  duration_ms: 6189.5579
+  ...
+# Subtest: withdrawal, source changes and procedure reactivation invalidate current clearances and stale proposals
+ok 9 - withdrawal, source changes and procedure reactivation invalidate current clearances and stale proposals
+  ---
+  duration_ms: 5604.3955
+  ...
+# Subtest: same-supervisor maker checker and unknown client procedure activation are rejected
+ok 10 - same-supervisor maker checker and unknown client procedure activation are rejected
+  ---
+  duration_ms: 5548.1639
+  ...
+# (node:7460) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: case document, viewer metadata and draft download recheck the HTTP session after storage reads
+ok 11 - case document, viewer metadata and draft download recheck the HTTP session after storage reads
+  ---
+  duration_ms: 5417.2516
+  ...
+# (node:13196) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: rotated embedded text highlights overlap actual rendered source ink
+ok 12 - rotated embedded text highlights overlap actual rendered source ink
+  ---
+  duration_ms: 7259.6794
+  ...
+# Subtest: highlights apply exact viewport transform, page bounds and orientation without inventing coordinates
+ok 13 - highlights apply exact viewport transform, page bounds and orientation without inventing coordinates
+  ---
+  duration_ms: 2.2849
+  ...
+# Subtest: protected version metadata separates original/corrected extraction and exposes actual PDF viewport for page highlights
+ok 14 - protected version metadata separates original/corrected extraction and exposes actual PDF viewport for page highlights
+  ---
+  duration_ms: 8730.9899
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 14
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 86585.0106

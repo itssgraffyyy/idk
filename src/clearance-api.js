@@ -17,6 +17,7 @@ export function clearanceRoutes({
   storage,
   audit,
   key,
+  revalidate,
 }) {
   if (!path.startsWith("/api/clearance")) return false;
   const send = (value, status = 200) => {
@@ -92,7 +93,10 @@ export function clearanceRoutes({
       if (!v) fail(409, "Document version unavailable");
       const bytes = storage.read(v.storage_key);
       if (hash(bytes) !== v.sha256) fail(409, "Document integrity failure");
-      service.departmentRequest(u, entity);
+      revalidate();
+      const after = service.departmentRequest(u, entity);
+      if (after.id !== r.id || !after.current)
+        fail(409, "Department request changed during document access");
       audit(u.id, "department_document_downloaded", r.case_id, {
         requestEventId: r.id,
         documentVersionId: v.id,

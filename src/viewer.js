@@ -13,6 +13,7 @@ export function viewerRoute({
   json,
   res,
   audit,
+  revalidate,
 }) {
   if (method !== "GET") return false;
   if (action === "viewer/versions") {
@@ -40,6 +41,7 @@ export function viewerRoute({
     throw Object.assign(Error("Document version unavailable"), { status: 404 });
   if (hash(storage.read(row.storage_key)) !== row.sha256)
     throw Object.assign(Error("Document integrity failure"), { status: 409 });
+  revalidate();
   const extractions = db
     .prepare(
       "SELECT id,payload,created FROM evidence WHERE case_id=? AND kind='extraction' AND json_extract(payload,'$.documentId')=? ORDER BY rowid DESC LIMIT 50",

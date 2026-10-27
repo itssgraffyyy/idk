@@ -5,6 +5,8 @@ import { migrate } from "../src/migrations.js";
 import { readdirSync } from "node:fs";
 import { migrationFixture } from "./support/migration-fixture.js";
 import { runReminderBatch } from "../src/reminders.js";
+import { LocalPrivateStorage } from "../src/storage.js";
+import { clearanceService } from "../src/clearance-service.js";
 import {
   syntheticProcedure as procedure,
   syntheticPolicy as policy,
@@ -14,6 +16,71 @@ const options = {
   policies: [policy],
   policyScope: "synthetic-test",
 };
+test("department download rechecks session and exact request event after storage returns", async () => {
+  for (const mutation of ["session", "request"]) {
+    const h = await harness(options),
+      original = LocalPrivateStorage.prototype.read;
+    try {
+      const c = await setup(h),
+        r = await request(h, c);
+      const service = clearanceService({
+        db: h.app.db,
+        procedures: [procedure],
+        policyConfig: {
+          policies: [policy],
+          scope: "synthetic-test",
+          verifiedSourceHashes: [],
+        },
+        audit: (actor, action, caseId, payload) =>
+          h.app.db
+            .prepare(
+              "INSERT INTO audit(actor,action,case_id,payload,created) VALUES(?,?,?,?,?)",
+            )
+            .run(
+              actor,
+              action,
+              caseId,
+              JSON.stringify(payload),
+              new Date().toISOString(),
+            ),
+      });
+      let invoked = false;
+      LocalPrivateStorage.prototype.read = function (key) {
+        const bytes = original.call(this, key);
+        if (key === c.versionId && !invoked) {
+          invoked = true;
+          if (mutation === "session")
+            h.app.db.prepare("DELETE FROM sessions WHERE user_id='p'").run();
+          else
+            service.respond(
+              { id: "p", role: "officer", tenant: "authority" },
+              r.entity,
+              {
+                revision: r.revision,
+                status: "accepted",
+                reason: "Concurrent synthetic department response",
+              },
+            );
+        }
+        return bytes;
+      };
+      const response = await fetch(
+        h.base +
+          "/api/clearance/requests/" +
+          encodeURIComponent(r.entity) +
+          "/documents/" +
+          c.versionId,
+        { headers: c.p },
+      );
+      assert.equal(response.status, mutation === "session" ? 403 : 409);
+      assert.ok(!(await response.text()).includes("Deposit Amount"));
+      assert.equal(invoked, true);
+    } finally {
+      LocalPrivateStorage.prototype.read = original;
+      await h.close();
+    }
+  }
+});
 test("guarded internal closure preserves obligations and bank state; reopening starts a fresh evidence review", async () => {
   const h = await harness(options);
   try {

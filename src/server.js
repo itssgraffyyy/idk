@@ -607,6 +607,21 @@ export function createApp({
             : null;
         if (!u || u.status !== "active" || !roles.includes(u.role))
           fail(401, "Authentication required");
+        const validateSession = () => {
+          const live = db
+            .prepare(
+              "SELECT u.role,u.tenant,u.status,s.csrf FROM sessions s JOIN users u ON u.id=s.user_id WHERE s.token=? AND s.expires>?",
+            )
+            .get(hash(token), Date.now());
+          if (
+            !live ||
+            live.status !== "active" ||
+            live.role !== u.role ||
+            live.tenant !== u.tenant ||
+            live.csrf !== u.csrf
+          )
+            fail(403, "Authorization changed during storage access");
+        };
         const reauthorize = () => {
           const live = db
             .prepare(
@@ -834,6 +849,7 @@ export function createApp({
             storage,
             audit,
             key: cursorKey,
+            revalidate: validateSession,
           })
         )
           return;
@@ -1080,6 +1096,7 @@ export function createApp({
             json,
             res,
             audit,
+            revalidate: reauthorize,
           })
         )
           return;
@@ -1217,6 +1234,7 @@ export function createApp({
           );
           if (!e) fail(404, "Document not found");
           const b = storage.read(e.id);
+          reauthorize();
           if (hash(b) !== e.payload.sha256) fail(409, "Integrity failure");
           if (
             e.payload.mime === "application/pdf" &&
@@ -1257,6 +1275,7 @@ export function createApp({
             reauthorize();
             if (hash(storage.read(e.id)) !== e.payload.sha256)
               fail(409, "Integrity failure");
+            reauthorize();
             res.setHeader("Content-Type", "image/png");
             res.setHeader("X-Document-Pages", String(result.pages));
             res.setHeader("X-Document-Font-Mode", result.rendering.fontMode);

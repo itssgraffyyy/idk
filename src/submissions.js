@@ -55,6 +55,7 @@ export async function submissions({
       .get(action.slice(10), id);
     if (!doc) bad(404, "Draft document unavailable");
     const bytes = storage.read(doc.id);
+    revalidate();
     if (hash(bytes) !== doc.sha256)
       bad(409, "Draft document integrity failure");
     res.setHeader("Content-Type", doc.mime);
