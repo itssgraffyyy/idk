@@ -1,4 +1,3 @@
-import { comparable } from "./engine.js";
 export function resolutionDelta(previous, current) {
   const old = previous?.sources || {},
     next = current.sources || {};

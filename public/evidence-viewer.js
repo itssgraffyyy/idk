@@ -2,7 +2,6 @@ window.openEvidenceViewer = async function ({
   c,
   api,
   run,
-  escape,
   versionId,
   extractionId = null,
   field,
@@ -276,8 +275,7 @@ window.mountFindingSourceLinks = function ({ c, api, run, escape }) {
           c,
           api,
           run,
-          escape,
-          versionId: source.evidenceId,
+                  versionId: source.evidenceId,
           field: source.field,
           page: data.latest?.fields?.[source.field]?.page || 1,
         });

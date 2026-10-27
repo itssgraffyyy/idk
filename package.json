@@ -18,6 +18,7 @@
     "benchmark:reconciliation:audit": "node scripts/benchmark-reconciliation-audit.js",
     "benchmark:ocr:final": "node scripts/benchmark-final-ocr.js",
     "typecheck": "tsc -p tsconfig.contracts.json",
+    "lint": "eslint src public scripts tests eslint.config.js",
     "validate:clean": "node scripts/validate-clean-start.js"
   },
   "engines": {
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.64.1",
+    "eslint": "10.13.0",
     "prettier": "^3.9.10",
     "typescript": "5.9.3"
   },

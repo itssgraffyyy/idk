@@ -1,5 +1,4 @@
-import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
-import { extract } from "../src/engine.js";
+import { mkdirSync, writeFileSync } from "node:fs";
 export function generate(count = 20) {
   const names = [
     "consistent",

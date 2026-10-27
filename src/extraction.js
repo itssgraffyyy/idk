@@ -380,7 +380,7 @@ export function extract(
       },
     };
   }
-  for (const [key, field] of Object.entries(result)) {
+  for (const field of Object.values(result)) {
     field.documentVersionId = documentVersionId ?? null;
     field.page = pageNumber;
     field.processedAt = processedAt ?? null;

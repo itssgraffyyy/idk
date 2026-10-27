@@ -2,7 +2,7 @@ FROM node:22.14.0-bookworm-slim
 RUN apt-get update && apt-get install -y --no-install-recommends fonts-dejavu-core fonts-liberation && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci --omit=dev && npm cache clean --force
+RUN npm ci --omit=dev --ignore-scripts --no-audit && npm cache clean --force
 COPY --chown=node:node src ./src
 COPY --chown=node:node public ./public
 COPY --chown=node:node resources ./resources

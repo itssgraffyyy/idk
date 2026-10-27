@@ -1,5 +1,5 @@
 import { SetuSandboxProvider } from "./setu.js";
-import { assessAICTE, ruleRegister, validateContext } from "./regulatory.js";
+import { ruleRegister, validateContext } from "./regulatory.js";
 import {
   verifyPassword,
   acquireLock,
@@ -9,7 +9,6 @@ import {
 import { IFSCProvider } from "./ifsc.js";
 import {
   DevelopmentDepositProvider,
-  lookupIFSC,
   mockScenarios,
 } from "./financial.js";
 import { registry as policyRegistry } from "./policy.js";
@@ -50,7 +49,7 @@ import {
   bindPolicyContext,
   attachPolicyContext,
 } from "./policy-history.js";
-import { readFileSync, writeFileSync, mkdirSync, unlinkSync } from "node:fs";
+import { readFileSync, mkdirSync } from "node:fs";
 import { resolve, join } from "node:path";
 import { randomBytes, randomUUID } from "node:crypto";
 import { execFile } from "node:child_process";
@@ -114,6 +113,7 @@ export function createApp({
     ? JSON.parse(readFileSync(process.env.PROCEDURE_FILE, "utf8"))
     : [],
   storage = null,
+  cookieSecure = process.env.COOKIE_SECURE === "true",
   auditKeyFile = process.env.AUDIT_KEY_FILE,
   auditCheckpointFile = process.env.AUDIT_CHECKPOINT_FILE,
   mfaKeyFile = process.env.MFA_KEY_FILE,
@@ -465,7 +465,7 @@ export function createApp({
       } catch {}
     });
     requestContext.run(ctx, async () => {
-      const secure = process.env.COOKIE_SECURE === "true";
+      const secure = cookieSecure;
       for (const [k, v] of Object.entries({
         "X-Content-Type-Options": "nosniff",
         "Referrer-Policy": "no-referrer",

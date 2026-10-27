@@ -1,6 +1,6 @@
 import { isInstitution } from "./permissions.js";
 import { intakeDocument } from "./document-intake.js";
-import { extract, validate, evidenceFields, comparable } from "./engine.js";
+import { extract, validate, comparable } from "./engine.js";
 import { createCaseRecord } from "./registration.js";
 import { prepareDocument, registerVersion } from "./domain.js";
 import { moveOperation, notifyCase } from "./operations.js";

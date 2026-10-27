@@ -1,5 +1,4 @@
 import { readFileSync } from "node:fs";
-import { createHash } from "node:crypto";
 const sourceManifest = JSON.parse(
   readFileSync(new URL("../resources/source-manifest.json", import.meta.url)),
 );

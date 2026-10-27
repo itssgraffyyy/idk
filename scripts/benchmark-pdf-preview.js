@@ -103,7 +103,8 @@ try {
   if (
     !target.startsWith(root) ||
     !basename(target).startsWith("sentinel-preview-fonts-")
-  )
-    throw Error("Unexpected benchmark cleanup path");
-  rmSync(target, { recursive: true, force: true });
+  ) {
+    console.error("Unexpected benchmark cleanup path; directory retained");
+    process.exitCode = 1;
+  } else rmSync(target, { recursive: true, force: true });
 }

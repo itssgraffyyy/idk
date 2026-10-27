@@ -4,7 +4,6 @@ window.mountOperationsCase = async function ({
   api,
   run,
   detail,
-  escape,
 }) {
   const [op, events, preferences] = await Promise.all([
       api("/cases/" + c.id + "/operations"),
@@ -103,8 +102,7 @@ window.mountOperationsCase = async function ({
               c,
               api,
               run,
-              escape,
-              versionId: button.dataset.source,
+                          versionId: button.dataset.source,
               field: "amountPaise",
             }),
           );
@@ -601,7 +599,6 @@ window.mountOperationsNavigation = function ({
   run,
   views,
   detail,
-  escape,
 }) {
   let button = document.querySelector("#operations-nav");
   if (!button) {

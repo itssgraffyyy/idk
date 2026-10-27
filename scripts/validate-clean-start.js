@@ -21,16 +21,49 @@ try {
     process.platform === "win32"
       ? [
           process.env.ComSpec || "cmd.exe",
-          ["/d", "/s", "/c", "npm ci --omit=dev --ignore-scripts"],
+          [
+            "/d",
+            "/s",
+            "/c",
+            "npm ci --omit=dev --ignore-scripts --no-audit --fund=false",
+          ],
         ]
-      : ["npm", ["ci", "--omit=dev", "--ignore-scripts"]];
+      : [
+          "npm",
+          [
+            "ci",
+            "--omit=dev",
+            "--ignore-scripts",
+            "--no-audit",
+            "--fund=false",
+          ],
+        ];
   await exec(install[0], install[1], {
     cwd: dir,
     timeout: 240000,
     maxBuffer: 1048576,
     windowsHide: true,
   });
-  const env = { ...process.env, DATA_DIR: join(dir, "data") };
+  const env = {
+    ...process.env,
+    DATA_DIR: join(dir, "data"),
+    AUDIT_KEY_FILE: join(dir, "data", "security", "audit.key"),
+    AUDIT_CHECKPOINT_FILE: join(
+      dir,
+      "data",
+      "security",
+      "audit-checkpoint.json",
+    ),
+    MFA_KEY_FILE: join(dir, "data", "security", "mfa.key"),
+    MFA_REQUIRED_ROLES: "",
+    POLICY_FILE: "",
+    PROCEDURE_FILE: "",
+    PROCEDURE_CONFIRMATIONS_FILE: "",
+    CLAMAV_HOST: "",
+    UPLOAD_SCAN_REQUIRED: "false",
+    COOKIE_SECURE: "false",
+    TESSERACT_PATH: "",
+  };
   const setup = await exec(process.execPath, ["scripts/setup.js"], {
     cwd: dir,
     env,

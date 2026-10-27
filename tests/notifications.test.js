@@ -1,7 +1,6 @@
 import { test } from "node:test";
 import { migrationFixture } from "./support/migration-fixture.js";
 import assert from "node:assert/strict";
-import { randomUUID } from "node:crypto";
 import { harness, instrument } from "./support/harness.js";
 import {
   runReminderBatch,

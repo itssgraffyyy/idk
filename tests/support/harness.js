@@ -2,6 +2,7 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { createApp, seed } from "../../src/server.js";
+import { isolatedAppOptions } from "./app-options.js";
 export const instrument = {
   reference: "PHASE12-TEST",
   amountPaise: 12500000,
@@ -12,7 +13,7 @@ export const instrument = {
 };
 export async function harness(options = {}) {
   const dir = mkdtempSync(join(tmpdir(), "sentinel-complete-")),
-    app = createApp({ dir, ...options });
+    app = createApp({ ...isolatedAppOptions(dir), ...options });
   const accounts = [
     ["a", "institution", "college-a"],
     ["admin", "institution_admin", "college-a"],

@@ -39,7 +39,6 @@
     element("summary", label, n);
     return n;
   };
-  const choices = (rows) => rows.map((r) => [r.entity, r.entity]);
   window.mountClearanceCase = ({ c, user, api, run, detail }) => {
     const host = document.querySelector("#detail .columns > div:last-child");
     const panel = disclosure(

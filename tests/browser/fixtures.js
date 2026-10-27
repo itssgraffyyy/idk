@@ -3,6 +3,7 @@ import { createApp, seed } from "../../src/server.js";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { isolatedAppOptions } from "../support/app-options.js";
 export const test = base.extend({
   appOptions: [{}, { option: true }],
   caseServer: [
@@ -10,7 +11,7 @@ export const test = base.extend({
       const started = performance.now();
       const dir = mkdtempSync(join(tmpdir(), "sentinel-browser-isolated-")),
         app = createApp({
-          dir,
+          ...isolatedAppOptions(dir),
           ...appOptions,
           logSink: (event) => {
             if (

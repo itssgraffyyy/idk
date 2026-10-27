@@ -7,10 +7,8 @@ import {
   writeFileSync,
   readdirSync,
   existsSync,
-  cpSync,
   symlinkSync,
   renameSync,
-  mkdirSync,
 } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";

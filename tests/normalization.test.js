@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { comparable, evaluate } from "../src/engine.js";
+import { comparable } from "../src/engine.js";
 test("safe normalization handles bank whitespace and IFSC case without guessing identifier characters", () => {
   assert.equal(
     comparable("bank", " Synthetic   Bank "),
