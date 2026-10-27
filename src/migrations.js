@@ -10,7 +10,9 @@ import { policyHistoryMigration } from "./policy-history.js";
 import { analysisMigration } from "./analysis-migration.js";
 import { auditIntegrityMigration } from "./audit-integrity.js";
 import { mfaMigration } from "./mfa.js";
+import { scanMigration } from "./upload-scanning.js";
 export const upgrades = [
+  scanMigration,
   mfaMigration,
   auditIntegrityMigration,
   analysisMigration,

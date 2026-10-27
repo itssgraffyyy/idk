@@ -38,6 +38,12 @@ import { analysisRoute } from "./analysis-api.js";
 import { createAuditIntegrity } from "./audit-integrity.js";
 import { createMFA } from "./mfa.js";
 import { accountSecurity } from "./account-security.js";
+import { workerEnvironment } from "./worker-environment.js";
+import {
+  configuredScanner,
+  scanUpload,
+  recordScan,
+} from "./upload-scanning.js";
 import {
   capturePolicyConfiguration,
   bindPolicyContext,
@@ -75,7 +81,9 @@ import {
   latestFDR,
   linkInstruments,
 } from "./domain.js";
-const exec = promisify(execFile),
+const rawExec = promisify(execFile),
+  exec = (file, args, options = {}) =>
+    rawExec(file, args, { ...options, env: workerEnvironment(options.env) }),
   root = fileURLToPath(new URL("../", import.meta.url));
 const fail = (status, message) => {
   throw Object.assign(Error(message), { status });
@@ -112,6 +120,8 @@ export function createApp({
   mfaRequiredRoles = (process.env.MFA_REQUIRED_ROLES || "")
     .split(",")
     .filter(Boolean),
+  uploadScanner = configuredScanner(),
+  uploadScanRequired = process.env.UPLOAD_SCAN_REQUIRED === "true",
   logSink = process.env.LOG_REQUESTS === "true"
     ? (event) => process.stdout.write(JSON.stringify(event) + "\n")
     : () => {},
@@ -410,6 +420,7 @@ export function createApp({
     db,
     audit,
     procedures,
+    uploadScanRequired,
     policyConfig: { policies, scope: policyScope, verifiedSourceHashes },
   });
   const server = http.createServer((req, res) => {
@@ -733,6 +744,7 @@ export function createApp({
             body,
             storage,
             tx,
+            scanning: { scanner: uploadScanner, required: uploadScanRequired },
             evidence,
             audit,
             refresh,
@@ -773,7 +785,12 @@ export function createApp({
                 const r = await ocrRunner(
                   ocr,
                   [storage.path(doc.id), "stdout", "--psm", "6"],
-                  { timeout: 60000, maxBuffer: 4194304, windowsHide: true },
+                  {
+                    timeout: 60000,
+                    maxBuffer: 4194304,
+                    windowsHide: true,
+                    env: workerEnvironment(),
+                  },
                 );
                 return {
                   text: r.stdout,
@@ -1591,11 +1608,23 @@ export function createApp({
               !b.toString("utf8").includes("\uFFFD");
           if (!mime && !text)
             fail(400, "Only PDF, PNG, JPEG or UTF-8 text accepted");
+          const targetInstrumentId =
+            body.instrumentId ||
+            db
+              .prepare("SELECT instrument_id FROM case_domains WHERE case_id=?")
+              .get(id).instrument_id;
+          const scan = await scanUpload(b, {
+            scanner: uploadScanner,
+            required: uploadScanRequired,
+          });
+          reauthorize();
+          c = db.prepare("SELECT * FROM cases WHERE id=?").get(id);
           const eid = randomUUID(),
             p = {
               sha256: hash(b),
               mime: mime || "text/plain",
               bytes: b.length,
+              scan,
             };
           storage.write(eid, b);
           try {
@@ -1628,7 +1657,7 @@ export function createApp({
                     timeout: 10000,
                     maxBuffer: 1000,
                     windowsHide: true,
-                    env: { ...process.env, DISABLE_SYSTEM_FONTS_LOAD: "1" },
+                    env: workerEnvironment({ DISABLE_SYSTEM_FONTS_LOAD: "1" }),
                   },
                 );
               } catch (error) {
@@ -1645,7 +1674,13 @@ export function createApp({
               c = db.prepare("SELECT * FROM cases WHERE id=?").get(id);
             }
             tx(() => {
-              Object.assign(p, prepareDocument(db, c, body));
+              Object.assign(
+                p,
+                prepareDocument(db, c, {
+                  ...body,
+                  instrumentId: targetInstrumentId,
+                }),
+              );
               db.prepare("INSERT INTO evidence VALUES(?,?,?,?,?,?)").run(
                 eid,
                 id,
@@ -1655,6 +1690,7 @@ export function createApp({
                 u.id,
               );
               registerVersion(db, eid, p, u);
+              recordScan(db, eid, p.sha256, scan);
               audit(u.id, "document_uploaded", id, { evidenceId: eid });
               refresh(u.id, c);
             });
@@ -1750,6 +1786,7 @@ export function createApp({
                           timeout: 60000,
                           maxBuffer: 4194304,
                           windowsHide: true,
+                          env: workerEnvironment(),
                         },
                       );
                 if (ocr) {

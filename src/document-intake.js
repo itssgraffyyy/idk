@@ -3,9 +3,11 @@ import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 import { hash } from "./store.js";
+import { scanUpload } from "./upload-scanning.js";
+import { workerEnvironment } from "./worker-environment.js";
 const exec = promisify(execFile);
 let active = 0;
-export async function intakeDocument(storage, body) {
+export async function intakeDocument(storage, body, scanning = {}) {
   const bad = (status, message) => {
     throw Object.assign(Error(message), { status });
   };
@@ -36,9 +38,12 @@ export async function intakeDocument(storage, body) {
   if (!mime) bad(400, "Unsupported document content");
   if (active >= 2) bad(429, "Document intake capacity reached");
   const id = randomUUID();
-  storage.write(id, bytes);
   active++;
+  let stored = false;
   try {
+    const scan = await scanUpload(bytes, scanning);
+    storage.write(id, bytes);
+    stored = true;
     if (mime !== "text/plain")
       await exec(
         process.execPath,
@@ -59,12 +64,12 @@ export async function intakeDocument(storage, body) {
           timeout: 10000,
           maxBuffer: 1000,
           windowsHide: true,
-          env: { ...process.env, DISABLE_SYSTEM_FONTS_LOAD: "1" },
+          env: workerEnvironment({ DISABLE_SYSTEM_FONTS_LOAD: "1" }),
         },
       );
-    return { id, sha256: hash(bytes), mime, bytes: bytes.length };
+    return { id, sha256: hash(bytes), mime, bytes: bytes.length, scan };
   } catch (e) {
-    storage.remove(id);
+    if (stored) storage.remove(id);
     if (e.status) throw e;
     if (e.killed || e.code === "ETIMEDOUT")
       bad(503, "Document validation timed out; saved draft is preserved");

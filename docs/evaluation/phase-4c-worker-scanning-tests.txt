@@ -1,0 +1,106 @@
+TAP version 13
+# (node:16624) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: IFSC and INR/date parsing retain raw evidence and refuse unsafe ambiguity
+ok 1 - IFSC and INR/date parsing retain raw evidence and refuse unsafe ambiguity
+  ---
+  duration_ms: 671.5521
+  ...
+# Subtest: single-instance lease, migration checksums and data survive reopen
+ok 2 - single-instance lease, migration checksums and data survive reopen
+  ---
+  duration_ms: 2834.5843
+  ...
+# Subtest: idempotency, concurrent edits, host/session boundaries and policy claims are backend enforced
+ok 3 - idempotency, concurrent edits, host/session boundaries and policy claims are backend enforced
+  ---
+  duration_ms: 4831.5024
+  ...
+# Subtest: in-flight OCR cannot supersede manual correction and session revocation cancels evidence writes
+ok 4 - in-flight OCR cannot supersede manual correction and session revocation cancels evidence writes
+  ---
+  duration_ms: 4637.2034
+  ...
+# Subtest: provider delay cannot evaluate a stale declaration; database failure returns safe API error
+ok 5 - provider delay cannot evaluate a stale declaration; database failure returns safe API error
+  ---
+  duration_ms: 3062.8452
+  ...
+# Subtest: repeated corrections retain exact finding provenance, reject unauthorized writes and preserve prior evaluations
+ok 6 - repeated corrections retain exact finding provenance, reject unauthorized writes and preserve prior evaluations
+  ---
+  duration_ms: 4279.4774
+  ...
+# Subtest: disabled accounts cannot login or use existing sessions
+ok 7 - disabled accounts cannot login or use existing sessions
+  ---
+  duration_ms: 3343.3682
+  ...
+# Subtest: private bounded PDF upload, embedded text, scanned OCR, history and unsafe PDFs
+ok 8 - private bounded PDF upload, embedded text, scanned OCR, history and unsafe PDFs
+  ---
+  duration_ms: 12384.7835
+  ...
+# (node:12984) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: new draft document invalidates earlier confirmation without erasing saved values or recognition attempts
+ok 9 - new draft document invalidates earlier confirmation without erasing saved values or recognition attempts
+  ---
+  duration_ms: 4810.8822
+  ...
+# Subtest: upload-first saved draft extracts real source, requires confirmation and submits exactly once with original hash/version
+ok 10 - upload-first saved draft extracts real source, requires confirmation and submits exactly once with original hash/version
+  ---
+  duration_ms: 5533.8742
+  ...
+# Subtest: interrupted draft source survives reopening and malformed input does not erase progress
+ok 11 - interrupted draft source survives reopening and malformed input does not erase progress
+  ---
+  duration_ms: 4971.0317
+  ...
+# (node:12956) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: scan policy blocks internal readiness for previously unscanned current sources and new clean version removes only that blocker
+ok 12 - scan policy blocks internal readiness for previously unscanned current sources and new clean version removes only that blocker
+  ---
+  duration_ms: 4249.5259
+  ...
+# Subtest: real INSTREAM client sends exact bounded bytes and distinguishes clean, infected, malformed, truncated and recovery responses
+ok 13 - real INSTREAM client sends exact bounded bytes and distinguishes clean, infected, malformed, truncated and recovery responses
+  ---
+  duration_ms: 23.9392
+  ...
+# Subtest: scanner has an absolute deadline even when a peer drips data, and absent configuration never claims a scan
+ok 14 - scanner has an absolute deadline even when a peer drips data, and absent configuration never claims a scan
+  ---
+  duration_ms: 310.0715
+  ...
+# Subtest: case and draft upload pipelines persist version-bound scan provenance and reject infected objects without publishing them
+ok 15 - case and draft upload pipelines persist version-bound scan provenance and reject infected objects without publishing them
+  ---
+  duration_ms: 4802.7912
+  ...
+# Subtest: required but unavailable scanning leaves case and draft data intact; legacy scan status stays unknown
+ok 16 - required but unavailable scanning leaves case and draft data intact; legacy scan status stays unknown
+  ---
+  duration_ms: 3100.0729
+  ...
+# Subtest: authorization is rechecked after asynchronous scanning before any private file is written
+ok 17 - authorization is rechecked after asynchronous scanning before any private file is written
+  ---
+  duration_ms: 3079.1433
+  ...
+# Subtest: real document child process receives required paths but no provider credentials, security-key paths or unrelated environment
+ok 18 - real document child process receives required paths but no provider credentials, security-key paths or unrelated environment
+  ---
+  duration_ms: 86.6985
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 18
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 67907.724

@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { canReadCase, isReviewer } from "./permissions.js";
 import { currentEvidence, currentProofs } from "./current-evidence.js";
+import { documentScan } from "./upload-scanning.js";
 import { evaluatePolicy } from "./policy-runtime.js";
 import {
   clearanceReadiness,
@@ -23,6 +24,7 @@ export function clearanceService({
   audit,
   procedures = [],
   policyConfig = {},
+  uploadScanRequired = false,
 }) {
   const configured = procedures.map(validateProcedure);
   if (
@@ -228,6 +230,12 @@ export function clearanceService({
       obligation: { id: obligation.id, revision: obligation.revision },
       instruments,
       documents,
+      scanPolicyRequired: uploadScanRequired,
+      scanObservations: documents.map((d) => ({
+        documentId: d.id,
+        sha256: d.sha256,
+        verdict: documentScan(db, d.id, d.sha256).verdict,
+      })),
       regulatoryContext: context?.id || null,
       facts,
       policyHash: snapshotHash(policyConfig),
@@ -279,6 +287,18 @@ export function clearanceService({
       asOf: new Date().toISOString().slice(0, 10),
       currentBinding: a?.id === b.payload.activationId,
     });
+    if (
+      uploadScanRequired &&
+      currentSource.scanObservations.some(
+        (s) => s.verdict !== "SCANNER_ASSERTED_CLEAN",
+      )
+    )
+      result.blockers.push({
+        code: "UPLOAD_MALWARE_SCAN_UNCONFIRMED",
+        documentIds: currentSource.scanObservations
+          .filter((s) => s.verdict !== "SCANNER_ASSERTED_CLEAN")
+          .map((s) => s.documentId),
+      });
     const current = currentEvidence(db, caseId),
       evaluation = current.find((e) => e.kind === "evaluation");
     const document = current.find((e) => e.kind === "document"),

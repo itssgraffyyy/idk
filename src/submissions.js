@@ -5,6 +5,7 @@ import { createCaseRecord } from "./registration.js";
 import { prepareDocument, registerVersion } from "./domain.js";
 import { moveOperation, notifyCase } from "./operations.js";
 import { hash } from "./store.js";
+import { recordScan, documentScan } from "./upload-scanning.js";
 import { randomUUID } from "node:crypto";
 const bad = (s, m) => {
   throw Object.assign(Error(m), { status: s });
@@ -16,6 +17,7 @@ export async function submissions({
   method,
   body,
   storage,
+  scanning,
   revalidate,
   recognize,
   tx,
@@ -69,7 +71,7 @@ export async function submissions({
   }
   if (action === "documents" && method === "POST") {
     if (draft.case_id) bad(409, "Submitted draft is frozen");
-    const doc = await intakeDocument(storage, body);
+    const doc = await intakeDocument(storage, body, scanning);
     try {
       revalidate();
       draft = get();
@@ -87,6 +89,7 @@ export async function submissions({
           doc.id,
           new Date().toISOString(),
         );
+        recordScan(db, doc.id, doc.sha256, doc.scan);
         db.prepare(
           "UPDATE submission_drafts SET payload=?,revision=revision+1,updated=? WHERE id=?",
         ).run(
@@ -102,6 +105,7 @@ export async function submissions({
           draftId: id,
           documentVersionId: doc.id,
           sha256: doc.sha256,
+          scanVerdict: doc.scan.verdict,
         });
       });
     } catch (e) {
@@ -348,6 +352,7 @@ export async function submissions({
           sha256: doc.sha256,
           mime: doc.mime,
           bytes: doc.bytes,
+          scan: documentScan(db, doc.id, doc.sha256),
           ...prepareDocument(db, c, {}),
         };
       db.prepare("INSERT INTO evidence VALUES(?,?,'document',?,?,?)").run(

@@ -1,0 +1,101 @@
+TAP version 13
+# (node:10160) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: guarded internal closure preserves obligations and bank state; reopening starts a fresh evidence review
+ok 1 - guarded internal closure preserves obligations and bank state; reopening starts a fresh evidence review
+  ---
+  duration_ms: 9321.7928
+  ...
+# Subtest: stale proposal recovers through guarded re-evaluation and review without deleting earlier history
+ok 2 - stale proposal recovers through guarded re-evaluation and review without deleting earlier history
+  ---
+  duration_ms: 7190.9035
+  ...
+# Subtest: opt-in clearance follow-up is source-bound, deduplicated and stops after a department response
+ok 3 - opt-in clearance follow-up is source-bound, deduplicated and stops after a department response
+  ---
+  duration_ms: 5248.4508
+  ...
+# Subtest: schema 16 is additive and repeatable over frozen schema 15 without changing source versions or evaluations
+ok 4 - schema 16 is additive and repeatable over frozen schema 15 without changing source versions or evaluations
+  ---
+  duration_ms: 1794.2107
+  ...
+# Subtest: reassignment revokes the old department view and renewed grants cannot revive an older response
+ok 5 - reassignment revokes the old department view and renewed grants cannot revive an older response
+  ---
+  duration_ms: 5302.682
+  ...
+# Subtest: department grants expose selected immutable sources without full case access; revocation and tenants fail closed
+ok 6 - department grants expose selected immutable sources without full case access; revocation and tenants fail closed
+  ---
+  duration_ms: 6339.8873
+  ...
+# Subtest: parallel clearances, immutable responses and distinct concurrent checker record an internal synthetic decision only
+ok 7 - parallel clearances, immutable responses and distinct concurrent checker record an internal synthetic decision only
+  ---
+  duration_ms: 5845.4471
+  ...
+# Subtest: withdrawal, source changes and procedure reactivation invalidate current clearances and stale proposals
+ok 8 - withdrawal, source changes and procedure reactivation invalidate current clearances and stale proposals
+  ---
+  duration_ms: 5720.8401
+  ...
+# Subtest: same-supervisor maker checker and unknown client procedure activation are rejected
+ok 9 - same-supervisor maker checker and unknown client procedure activation are rejected
+  ---
+  duration_ms: 5437.1032
+  ...
+# (node:18780) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: new draft document invalidates earlier confirmation without erasing saved values or recognition attempts
+ok 10 - new draft document invalidates earlier confirmation without erasing saved values or recognition attempts
+  ---
+  duration_ms: 5782.3287
+  ...
+# Subtest: upload-first saved draft extracts real source, requires confirmation and submits exactly once with original hash/version
+ok 11 - upload-first saved draft extracts real source, requires confirmation and submits exactly once with original hash/version
+  ---
+  duration_ms: 5012.9151
+  ...
+# Subtest: interrupted draft source survives reopening and malformed input does not erase progress
+ok 12 - interrupted draft source survives reopening and malformed input does not erase progress
+  ---
+  duration_ms: 3526.3493
+  ...
+# (node:7892) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: real INSTREAM client sends exact bounded bytes and distinguishes clean, infected, malformed, truncated and recovery responses
+ok 13 - real INSTREAM client sends exact bounded bytes and distinguishes clean, infected, malformed, truncated and recovery responses
+  ---
+  duration_ms: 42.8487
+  ...
+# Subtest: scanner has an absolute deadline even when a peer drips data, and absent configuration never claims a scan
+ok 14 - scanner has an absolute deadline even when a peer drips data, and absent configuration never claims a scan
+  ---
+  duration_ms: 317.5074
+  ...
+# Subtest: case and draft upload pipelines persist version-bound scan provenance and reject infected objects without publishing them
+ok 15 - case and draft upload pipelines persist version-bound scan provenance and reject infected objects without publishing them
+  ---
+  duration_ms: 8072.6317
+  ...
+# Subtest: required but unavailable scanning leaves case and draft data intact; legacy scan status stays unknown
+ok 16 - required but unavailable scanning leaves case and draft data intact; legacy scan status stays unknown
+  ---
+  duration_ms: 3686.7429
+  ...
+# Subtest: authorization is rechecked after asynchronous scanning before any private file is written
+ok 17 - authorization is rechecked after asynchronous scanning before any private file is written
+  ---
+  duration_ms: 4829.862
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 84064.2728

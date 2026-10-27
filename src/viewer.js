@@ -1,5 +1,6 @@
 import { paginate } from "./pagination.js";
 import { hash } from "./store.js";
+import { documentScan } from "./upload-scanning.js";
 export function viewerRoute({
   db,
   c,
@@ -107,6 +108,7 @@ export function viewerRoute({
   audit(u.id, "evidence_viewer_read", c.id, { documentVersionId: row.id });
   json(res, 200, {
     document: row,
+    malwareScan: documentScan(db, row.id, row.sha256),
     latest: expose(latest),
     original: expose(original),
     recorded: expose(recorded),

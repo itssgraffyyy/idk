@@ -26,6 +26,10 @@ window.openEvidenceViewer = async function ({
   const $ = (s) => root.querySelector(s),
     status = $("#viewer-status"),
     select = $("#viewer-version");
+  const scanStatus = document.createElement("p");
+  scanStatus.id = "viewer-scan-status";
+  scanStatus.setAttribute("role", "note");
+  root.insertBefore(scanStatus, root.querySelector(".viewer-stage"));
   const addVersions = (rows) => {
     for (const v of rows) {
       if ([...select.options].some((o) => o.value === v.id)) continue;
@@ -131,6 +135,12 @@ window.openEvidenceViewer = async function ({
             : ""),
       );
       const previousRecorded = $("#viewer-mode option[value='recorded']");
+      scanStatus.textContent =
+        "Upload malware scan: " +
+        (metadata.malwareScan?.verdict || "NOT_RECORDED") +
+        ". Provider: " +
+        (metadata.malwareScan?.provider || "UNKNOWN") +
+        ". This is not document authenticity or bank confirmation.";
       const previousMode = $("#viewer-mode").value;
       if (previousRecorded) previousRecorded.remove();
       if (metadata.recorded) {

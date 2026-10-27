@@ -1,0 +1,16 @@
+(node:8096) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:9384) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9384) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9384) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+{"browserFixture":{"startupMs":3677.6168}}
+  ok 1 tests\browser\pdf.spec.js:3:1 › private PDF is rendered as protected page image in institution workspace (8.0s)
+{"browserFixture":{"startupMs":3856.677100000001}}
+  ok 2 tests\browser\viewer.spec.js:3:1 › reviewer compares original/corrected fields across protected PDF versions with measured highlights and zoom (10.3s)
+
+  2 passed (30.0s)
