@@ -25,3 +25,7 @@ Clearance implementation is now connected to the existing portal: versioned serv
 Clearance acceptance: 128 tests/build/types and thirteen browser journeys passed. Internal workflow checkpoint is accepted; official-source confirmation and external execution are not established. Remaining Phase 3D/4 scope remains open.
 
 Policy decision explanation/history now implemented and connected to the case portal: recorded source/rule/fact references, authority separation, missing evidence, explicit recorded/current replay and exact historical extraction viewing. Accepted with 136 tests/build/types and fourteen journeys. Official authority remains unconfirmed; Phase 4 extensions remain pending.
+
+
+## Phase 4A accepted held-out checkpoint
+Recognition frozen at 526b07b before both final held-out runs. Twelve completions each, zero failures. Revised all eleven present fields exact, zero incorrect unflagged; two deliberately conflicting IFSCs withheld. Bank one and IFSC four review candidates remain. Baseline IFSC already10/10, most other fields6/12, type0/12. No subsequent OCR tuning. See phase-4a-ocr-report.md and raw final-*-heldout artifacts. Full144 tests/build/types/fifteen browser evidence remains applicable, source unchanged. Proceed to4B authorized relationships/read-only simulator, then4C-4E; overall scope remains incomplete.
