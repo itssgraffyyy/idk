@@ -1,4 +1,4 @@
-# FDR Sentinel
+# E-Nidhi
 
 An existing local evidence and review application, extended in place through Phase3 operational workflows and Phase4 intelligence/security/UX capabilities. Final local acceptance passes186 backend tests and21 browser journeys; see [completion report](docs/phase-3-4-completion-report.md). [implementation progress](docs/implementation-progress.md) records actual checkpoints. No framework rewrite, working-data reset or remote push was performed.
 
